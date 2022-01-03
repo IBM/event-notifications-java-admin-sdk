@@ -1,0 +1,71 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- Update this section to reflect the correct values for your SDK project -->
+    <parent>
+        <artifactId>event-notifications-parent</artifactId>
+        <groupId>com.ibm.cloud</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- >>> Replace this with the coverage-report module's artifactId (e.g. platform-services-coverage-reports) -->
+    <artifactId>event-notifications-coverage-reports</artifactId>
+
+    <!-- >>> Replace this with the coverage-report module's description -->
+    <name>Event Notifications Service Coverage Reports</name>
+
+    <properties>
+	<!-- There is no need to publish this module's artifacts on maven central -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+    </properties>
+
+    <dependencies>
+        <!-- 
+            There should be a dependency for EACH module in the project.
+            Add new "dependency" entries here as needed when you add modules to your parent pom.xml.
+            This will ensure that an aggregate code coverage report contains information for all of your modules.
+            Note: the "artifactId" values below should reflect the "artifactId" value specified in each module's
+            pom.xml file (i.e. not the module's directory name).
+        -->
+        <dependency>
+            <!-- >>> Replace this with the common module's artifactId -->
+            <artifactId>event-notifications-common</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Copy and update this section for each service added to the project. -->
+<!--        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>example-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+-->    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
