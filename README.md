@@ -76,7 +76,7 @@ For general SDK usage information, please see [this link](https://github.com/IBM
 Initialize the sdk to connect with your Event Notifications service instance.
 
 ```java
-import com.ibm.cloud.eventnotifications.event_notifications.v1;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
 
 EventNotifications eventNotificationsService = EventNotifications.newInstance();
 eventNotificationsService.setServiceUrl("https://" + region + ".event-notifications.cloud.ibm.com/event-notifications");

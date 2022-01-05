@@ -47,7 +47,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
       .build();
     assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
 
-    SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
+    SubscriptionUpdateAttributesEmailUpdateAttributes  subscriptionUpdateAttributesEmailUpdateAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
       .to(emailUpdateAttributesToModel)
       .addNotificationPayload(false)
       .replyToMail("testString")
