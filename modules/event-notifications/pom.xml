@@ -4,24 +4,24 @@
     <parent>
         <groupId>com.ibm.cloud</groupId>
         <artifactId>event-notifications-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>event-notifications</artifactId>
     <packaging>jar</packaging>
-    <name>event-notifications Generated</name>
+    <name>event-notifications SDK</name>
 
     <dependencies>
         <dependency>
             <groupId>com.ibm.cloud</groupId>
             <artifactId>event-notifications-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.ibm.cloud</groupId>
             <artifactId>event-notifications-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
             <type>test-jar</type>
             <classifier>tests</classifier>
             <scope>test</scope>

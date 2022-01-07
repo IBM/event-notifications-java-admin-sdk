@@ -10,7 +10,7 @@ echo "Importing signing key..."
 
 # Modify the command below to use the correct environment variables
 # that were added to your Travis build settings when you encrypted your signing.key file.
-openssl aes-256-cbc -K $encrypted_4c2ca4326cdc_key -iv $encrypted_4c2ca4326cdc_iv -in build/signing.key.enc -out build/signing.key -d
+openssl aes-256-cbc -K $encrypted_4b7d603e7466_key -iv $encrypted_4b7d603e7466_iv -in build/signing.key.enc -out build/signing.key -d
 
 gpg --version
 gpg --batch --import build/signing.key

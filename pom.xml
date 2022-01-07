@@ -15,7 +15,7 @@
     <url>https://github.com/IBM/event-notifications-java-admin-sdk</url>
 
     <groupId>com.ibm.cloud</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -466,7 +466,7 @@
         </developer>
     </developers>
 
-    <profiles>
+   <profiles>
 
         <!-- "central" is used to deploy artifacts on maven central -->
         <profile>
@@ -513,9 +513,9 @@
                         </executions>
                         <configuration>
                             <gpgArguments>
-                                <arg>--batch</arg>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
+                                <gpgArgument>--batch</gpgArgument>
+                                <gpgArgument>--yes</gpgArgument>
+                                <gpgArgument>--no-tty</gpgArgument>
                             </gpgArguments>
                         </configuration>
                     </plugin>
