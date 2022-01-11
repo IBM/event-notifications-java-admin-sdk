@@ -22,10 +22,10 @@ env:
 
 stages:
   - name: Build-Test
-  - name: Semantic-Release
-    if: branch = main AND type = push AND fork = false
-  - name: Publish-Release
-    if: tag IS present
+  # - name: Semantic-Release
+  #   if: branch = main AND type = push AND fork = false
+  # - name: Publish-Release
+  #   if: tag IS present
 
 before_install:
   - sudo apt-get update
@@ -41,40 +41,40 @@ jobs:
         - build/setMavenVersion.sh
         - mvn verify -fae -DskipITs $MVN_ARGS
 
-    - jdk: openjdk11
-      install: true
-      script:
-        - mvn verify -fae -DskipITs $MVN_ARGS
+    # - jdk: openjdk11
+    #   install: true
+    #   script:
+    #     - mvn verify -fae -DskipITs $MVN_ARGS
 
-    - stage: Semantic-Release
-      install:
-        - nvm install 14
-        - npm install -g npm@6.x
-        - npm install @semantic-release/changelog
-        - npm install @semantic-release/exec
-        - npm install @semantic-release/git
-        - npm install @semantic-release/github
-        - pip install --user bump2version
-      script:
-        - npx semantic-release
+    # - stage: Semantic-Release
+    #   install:
+    #     - nvm install 14
+    #     - npm install -g npm@6.x
+    #     - npm install @semantic-release/changelog
+    #     - npm install @semantic-release/exec
+    #     - npm install @semantic-release/git
+    #     - npm install @semantic-release/github
+    #     - pip install --user bump2version
+    #   script:
+    #     - npx semantic-release
 
-    - stage: Publish-Release
-      jdk: openjdk8
-      name: Publish-Javadoc
-      install: true
-      script:
-        - build/setMavenVersion.sh
-        - mvn clean javadoc:aggregate $MVN_ARGS
-        - build/publishJavadoc.sh
-      after_success:
-        - echo "Javadocs successfully published to gh-pages!"
+    # - stage: Publish-Release
+    #   jdk: openjdk8
+    #   name: Publish-Javadoc
+    #   install: true
+    #   script:
+    #     - build/setMavenVersion.sh
+    #     - mvn clean javadoc:aggregate $MVN_ARGS
+    #     - build/publishJavadoc.sh
+    #   after_success:
+    #     - echo "Javadocs successfully published to gh-pages!"
 
-    - jdk: openjdk8
-      name: Publish-To-Maven-Central
-      install: true
-      script:
-        - build/setupSigning.sh
-        - build/setMavenVersion.sh
-        - mvn deploy $MVN_ARGS -DskipTests -P central
-      after_success:
-        - echo "Maven artifacts successfully published to Maven Central!"
+    # - jdk: openjdk8
+    #   name: Publish-To-Maven-Central
+    #   install: true
+    #   script:
+    #     - build/setupSigning.sh
+    #     - build/setMavenVersion.sh
+    #     - mvn deploy $MVN_ARGS -DskipTests -P central
+    #   after_success:
+    #     - echo "Maven artifacts successfully published to Maven Central!"
