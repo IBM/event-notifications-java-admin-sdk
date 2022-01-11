@@ -29,7 +29,7 @@ The IBM Cloud Event Notifications Service Java SDK allows developers to programm
 
 Service Name | Artifact Coordinates
 --- | ---
-[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:eventnotifications:0.0.2
+[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.0.2
 
 ## Prerequisites
 
@@ -58,14 +58,14 @@ To use the Event Notifications Java SDK, define a dependency that contains the a
 ```xml
 <dependency>
     <groupId>com.ibm.cloud</groupId>
-    <artifactId>eventnotifications</artifactId>
+    <artifactId>event-notifications</artifactId>
     <version>0.0.2</version>
 </dependency>
 ```
 
 ### Gradle
 ```gradle
-compile 'com.ibm.cloud:eventnotifications:0.0.2'
+compile 'com.ibm.cloud:event-notifications:0.0.2'
 ```
 
 ## Using the SDK
