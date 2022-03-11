@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
       .build();
     assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
 
-    SubscriptionUpdateAttributesEmailUpdateAttributes  subscriptionUpdateAttributesEmailUpdateAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
+    SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
       .to(emailUpdateAttributesToModel)
       .addNotificationPayload(false)
       .replyToMail("testString")
@@ -56,7 +56,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
       .invited(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .unsubscribed(emailUpdateAttributesUnsubscribedModel)
       .build();
-    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.toEmail(), emailUpdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.to(), emailUpdateAttributesToModel);
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.addNotificationPayload(), Boolean.valueOf(false));
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.replyToMail(), "testString");
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.replyToName(), "testString");
@@ -68,7 +68,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
 
     SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributesModelNew = TestUtilities.deserialize(json, SubscriptionUpdateAttributesEmailUpdateAttributes.class);
     assertTrue(subscriptionUpdateAttributesEmailUpdateAttributesModelNew instanceof SubscriptionUpdateAttributesEmailUpdateAttributes);
-    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.toEmail().toString(), emailUpdateAttributesToModel.toString());
+    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.to().toString(), emailUpdateAttributesToModel.toString());
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.addNotificationPayload(), Boolean.valueOf(false));
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.replyToMail(), "testString");
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.replyToName(), "testString");

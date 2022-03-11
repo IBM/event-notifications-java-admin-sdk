@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,15 +44,15 @@ public class CreateSubscriptionOptionsTest {
       .name("testString")
       .destinationId("testString")
       .topicId("testString")
-      .attributes(subscriptionCreateAttributesModel)
       .description("testString")
+      .attributes(subscriptionCreateAttributesModel)
       .build();
     assertEquals(createSubscriptionOptionsModel.instanceId(), "testString");
     assertEquals(createSubscriptionOptionsModel.name(), "testString");
     assertEquals(createSubscriptionOptionsModel.destinationId(), "testString");
     assertEquals(createSubscriptionOptionsModel.topicId(), "testString");
-    assertEquals(createSubscriptionOptionsModel.attributes(), subscriptionCreateAttributesModel);
     assertEquals(createSubscriptionOptionsModel.description(), "testString");
+    assertEquals(createSubscriptionOptionsModel.attributes(), subscriptionCreateAttributesModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * Classes which extend this class:
  * - DestinationConfigParamsWebhookDestinationConfig
  * - DestinationConfigParamsFCMDestinationConfig
+ * - DestinationConfigParamsIOSDestinationConfig
  */
 public class DestinationConfigParams extends GenericModel {
 
@@ -43,8 +44,21 @@ public class DestinationConfigParams extends GenericModel {
   protected Map<String, String> customHeaders;
   @SerializedName("sensitive_headers")
   protected List<String> sensitiveHeaders;
-  protected String apiKey;
+  @SerializedName("server_key")
+  protected String serverKey;
+  @SerializedName("sender_id")
   protected String senderId;
+  @SerializedName("cert_type")
+  protected String certType;
+  @SerializedName("is_sandbox")
+  protected Boolean isSandbox;
+  protected String password;
+  @SerializedName("key_id")
+  protected String keyId;
+  @SerializedName("team_id")
+  protected String teamId;
+  @SerializedName("bundle_id")
+  protected String bundleId;
 
   protected DestinationConfigParams() {
   }
@@ -94,25 +108,91 @@ public class DestinationConfigParams extends GenericModel {
   }
 
   /**
-   * Gets the apiKey.
+   * Gets the serverKey.
    *
-   * FCM apiKey.
+   * FCM server_key.
    *
-   * @return the apiKey
+   * @return the serverKey
    */
-  public String apiKey() {
-    return apiKey;
+  public String serverKey() {
+    return serverKey;
   }
 
   /**
    * Gets the senderId.
    *
-   * FCM senderId.
+   * FCM sender_id.
    *
    * @return the senderId
    */
   public String senderId() {
     return senderId;
+  }
+
+  /**
+   * Gets the certType.
+   *
+   * Authentication type (p8 or p12).
+   *
+   * @return the certType
+   */
+  public String certType() {
+    return certType;
+  }
+
+  /**
+   * Gets the isSandbox.
+   *
+   * Sandbox mode for IOS destinations.
+   *
+   * @return the isSandbox
+   */
+  public Boolean isSandbox() {
+    return isSandbox;
+  }
+
+  /**
+   * Gets the password.
+   *
+   * Password for certificate (Required when cert_type is p12).
+   *
+   * @return the password
+   */
+  public String password() {
+    return password;
+  }
+
+  /**
+   * Gets the keyId.
+   *
+   * Key ID for token (Required when cert_type is p8).
+   *
+   * @return the keyId
+   */
+  public String keyId() {
+    return keyId;
+  }
+
+  /**
+   * Gets the teamId.
+   *
+   * Team ID for token (Required when cert_type is p8).
+   *
+   * @return the teamId
+   */
+  public String teamId() {
+    return teamId;
+  }
+
+  /**
+   * Gets the bundleId.
+   *
+   * Bundle ID for token (Required when cert_type is p8).
+   *
+   * @return the bundleId
+   */
+  public String bundleId() {
+    return bundleId;
   }
 }
 

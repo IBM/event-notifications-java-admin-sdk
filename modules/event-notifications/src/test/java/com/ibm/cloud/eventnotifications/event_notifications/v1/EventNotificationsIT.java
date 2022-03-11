@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,44 +13,86 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParams;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesReport;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesUnsubscribed;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationDevicesReportOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Lights;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationDevicesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBody;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageENData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyNotificationPayload;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationDevices;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBody;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageENData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyNotificationPayload;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Style;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEmailAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesFCMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSMSAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdateSourcesItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicsListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -59,25 +101,21 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
-
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
-import static org.testng.Assert.assertEquals;
 
 /**
  * Integration test class for the EventNotifications service.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EventNotificationsIT extends SdkIntegrationTestBase {
   public EventNotifications service = null;
   public static Map<String, String> config = null;
@@ -90,12 +128,16 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String sourceId = "";
   public static String topicId = "";
   public static String topicId2 = "";
+  public static String topicId3 = "";
   public static String destinationId = "";
   public static String destinationId2 = "";
-  public static String destinationIdSMS = "";
+  public static String destinationId3 = "";
   public static String subscriptionId = "";
   public static String subscriptionId2 = "";
-  public static String subscriptionIdSMS = "";
+  public static String subscriptionId3 = "";
+  public static String fcmServerKey = "";
+  public static String fcmSenderId = "";
+
   /**
    * This method provides our config filename to the base class.
    */
@@ -121,7 +163,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     assertFalse(config.isEmpty());
     assertEquals(service.getServiceUrl(), config.get("URL"));
     instanceId = config.get("GUID");
-
+    fcmSenderId = config.get("FCM_ID");
+    fcmServerKey = config.get("FCM_KEY");
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -133,7 +176,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Boolean moreResults = true;
       int limit = 1;
       int offset = 0;
-
       while (moreResults) {
         ListSourcesOptions listSourcesOptions = new ListSourcesOptions.Builder()
                 .instanceId(instanceId)
@@ -149,6 +191,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
         assertEquals(response.getStatusCode(), 200);
 
         SourceList sourceListResult = response.getResult();
+
         assertNotNull(sourceListResult);
 
         if (offset == 0) {
@@ -160,7 +203,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
         }
         offset += 1;
       }
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -171,8 +213,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -191,7 +233,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(response.getStatusCode(), 200);
 
       Source sourceResult = response.getResult();
-
       assertNotNull(sourceResult);
 
       //
@@ -205,8 +246,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -270,8 +311,35 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       topicId2 = topicResponseResult1.getId();
 
+      description = "Topic 3 for GCM notifications";
+      name = "topic3";
+
+      createTopicOptions = new CreateTopicOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
+              .build();
+
+      // Invoke operation
+      Response<TopicResponse> response2 = service.createTopic(createTopicOptions).execute();
+      // Validate response
+      assertNotNull(response2);
+      assertEquals(response2.getStatusCode(), 201);
+
+      TopicResponse topicResponseResult2 = response2.getResult();
+
+      assertNotNull(topicResponseResult2);
+      assertEquals(topicResponseResult2.getName(), name);
+      assertEquals(topicResponseResult2.getDescription(), description);
+
+      topicId3 = topicResponseResult2.getId();
+
+
+
       assertNotEquals(topicId, "");
       assertNotEquals(topicId2, "");
+      assertNotEquals(topicId3, "");
 
       //
       // The following status codes aren't covered by tests.
@@ -287,8 +355,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -298,8 +366,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Boolean moreResults = true;
       int limit = 1;
       int offset = 0;
-
-
       while (moreResults) {
         ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
                 .instanceId(instanceId)
@@ -323,7 +389,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
         offset += 1;
       }
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -334,8 +399,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -369,8 +434,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -410,7 +475,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(topicResult.getDescription(), description);
       assertEquals(topicResult.getName(), name);
       assertEquals(topicResult.getId(), topicId);
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -425,8 +489,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -444,9 +508,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .params(destinationConfigParamsModel)
               .build();
 
-      String name = "GCM_destination";
+      String name = "webhook_destination";
       String typeVal = "webhook";
-      String description = "GCM  Destination";
+      String description = "webhook Destination";
 
       CreateDestinationOptions createDestinationOptions = new CreateDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -454,6 +518,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .type(typeVal)
               .description(description)
               .config(destinationConfigModel)
+              .certificate(TestUtilities.createMockStream("This is a mock file."))
+              .certificateContentType("testString")
               .build();
 
       // Invoke operation
@@ -463,12 +529,49 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(response.getStatusCode(), 201);
 
       DestinationResponse destinationResponseResult = response.getResult();
+
       assertNotNull(destinationResponseResult);
       assertEquals(destinationResponseResult.getDescription(), description);
       assertEquals(destinationResponseResult.getName(), name);
       assertEquals(destinationResponseResult.getType(), typeVal);
 
       destinationId = destinationResponseResult.getId();
+
+      DestinationConfigParamsFCMDestinationConfig fcmConfig = new DestinationConfigParamsFCMDestinationConfig.Builder()
+              .senderId(fcmSenderId)
+              .serverKey(fcmServerKey)
+              .build();
+
+      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
+              .params(fcmConfig)
+              .build();
+
+      String fcmName = "FCM_destination";
+      String fcmTypeVal = "push_android";
+      String fcmDescription = "Fcm Destination";
+
+      CreateDestinationOptions createFCMDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(fcmName)
+              .type(fcmTypeVal)
+              .description(fcmDescription)
+              .config(destinationFcmConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> fcmResponse = service.createDestination(createFCMDestinationOptions).execute();
+      // Validate response
+      assertNotNull(fcmResponse);
+      assertEquals(fcmResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationFCMResponseResult = fcmResponse.getResult();
+
+      assertNotNull(destinationFCMResponseResult);
+      assertEquals(destinationFCMResponseResult.getDescription(), fcmDescription);
+      assertEquals(destinationFCMResponseResult.getName(), fcmName);
+      assertEquals(destinationFCMResponseResult.getType(), fcmTypeVal);
+
+      destinationId3 = destinationFCMResponseResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -483,8 +586,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -517,10 +620,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
         for (int i = 0; i < destinations.size(); i++) {
           DestinationListItem destination = destinations.get(i);
-          if (destination.getId() != destinationId && destination.getType().equals("smtp_ibm")) {
+          if (destination.getId() != destinationId && destination.getId() != destinationId3 && destination.getType().equals("smtp_ibm")) {
             destinationId2 = destination.getId();
-          } else if (destination.getId() != destinationId && destination.getType().equals("sms_ibm")) {
-            destinationIdSMS = destination.getId();
           }
         }
 
@@ -529,7 +630,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
         }
         offset += 1;
       }
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -538,15 +638,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // 500
       //
       //
-
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1GetDestination() throws Exception {
+  public void test1IGetDestination() throws Exception {
     try {
       GetDestinationOptions getDestinationOptions = new GetDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -574,13 +673,13 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1KUpdateDestination() throws Exception {
+  public void test1JUpdateDestination() throws Exception {
     try {
       DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
               .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
@@ -602,6 +701,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .name(name)
               .description(description)
               .config(destinationConfigModel)
+              .certificate(TestUtilities.createMockStream("This is a mock file."))
+              .certificateContentType("testString")
               .build();
 
       // Invoke operation
@@ -632,15 +733,89 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1LCreateSubscription() throws Exception {
+  public void test1KListDestinationDevices() throws Exception {
     try {
+      ListDestinationDevicesOptions listDestinationDevicesOptions = new ListDestinationDevicesOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId3)
+              .limit(Long.valueOf("1"))
+              .offset(Long.valueOf("0"))
+              .search("")
+              .build();
 
+      // Invoke operation
+      Response<DestinationDevicesList> response = service.listDestinationDevices(listDestinationDevicesOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      DestinationDevicesList destinationDevicesListResult = response.getResult();
+
+      assertNotNull(destinationDevicesListResult);
+
+      //
+      // The following status codes aren't covered by tests.
+      // Please provide integration tests for these too.
+      //
+      // 401
+      // 404
+      // 500
+      //
+      //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1LGetDestinationDevicesReport() throws Exception {
+    try {
+      GetDestinationDevicesReportOptions getDestinationDevicesReportOptions = new GetDestinationDevicesReportOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId3)
+              .days(Long.valueOf("1"))
+              .build();
+
+      // Invoke operation
+      Response<DestinationDevicesReport> response = service.getDestinationDevicesReport(getDestinationDevicesReportOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      DestinationDevicesReport destinationDevicesReportResult = response.getResult();
+
+      assertNotNull(destinationDevicesReportResult);
+
+      //
+      // The following status codes aren't covered by tests.
+      // Please provide integration tests for these too.
+      //
+      // 401
+      // 404
+      // 500
+      //
+      //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1MCreateSubscription() throws Exception {
+    try {
+      /*SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
+      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .build();*/
       SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
               .signingEnabled(true).build();
       String name = "subscription_web";
@@ -651,8 +826,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .name(name)
               .destinationId(destinationId)
               .topicId(topicId)
-              .attributes(subscriptionCreateWebAttributesModel)
               .description(description)
+              .attributes(subscriptionCreateWebAttributesModel)
               .build();
 
       // Invoke operation
@@ -660,7 +835,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // Validate response
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 201);
+
       Subscription subscriptionResult = response.getResult();
+
       assertNotNull(subscriptionResult);
       assertEquals(subscriptionResult.getDescription(), description);
       assertEquals(subscriptionResult.getName(), name);
@@ -701,24 +878,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId2 = subscriptionResult.getId();
 
-
-      ArrayList<String> toSMS = new ArrayList<String>();
-      toMail.add("+12048089972");
-      toMail.add("+12014222730");
-
-      SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
-      .to(toSMS)
-      .build();
-
       name = "subscription_sms";
       description = "Subscription for sms";
 
       createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .name(name)
-              .destinationId(destinationIdSMS)
-              .topicId(topicId)
-              .attributes(subscriptionCreateAttributesModel)
+              .destinationId(destinationId3)
+              .topicId(topicId3)
               .description(description)
               .build();
 
@@ -731,7 +898,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(subscriptionResult.getDescription(), description);
       assertEquals(subscriptionResult.getName(), name);
 
-      subscriptionIdSMS = subscriptionResult.getId();
+      subscriptionId3 = subscriptionResult.getId();
+
 
       //
       // The following status codes aren't covered by tests.
@@ -747,23 +915,22 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1MListSubscriptions() throws Exception {
+  public void test1NListSubscriptions() throws Exception {
     try {
-
       Boolean moreResults = true;
       int limit = 1;
       int offset = 0;
       while (moreResults) {
         ListSubscriptionsOptions listSubscriptionsOptions = new ListSubscriptionsOptions.Builder()
                 .instanceId(instanceId)
-                .offset(Long.valueOf(offset))
-                .limit(Long.valueOf(limit))
+                .offset(offset)
+                .limit(limit)
                 .search(search)
                 .build();
 
@@ -782,8 +949,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
         }
         offset += 1;
       }
-
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -794,18 +959,18 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1NGetSubscription() throws Exception {
+  public void test1OGetSubscription() throws Exception {
     try {
       GetSubscriptionOptions getSubscriptionOptions = new GetSubscriptionOptions.Builder()
-      .instanceId(instanceId)
-      .id(subscriptionId)
-      .build();
+              .instanceId(instanceId)
+              .id(subscriptionId)
+              .build();
 
       // Invoke operation
       Response<Subscription> response = service.getSubscription(getSubscriptionOptions).execute();
@@ -828,15 +993,17 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1OUpdateSubscription() throws Exception {
+  public void test1PUpdateSubscription() throws Exception {
     try {
-
+      /*SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
+      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .build();*/
       SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
               .signingEnabled(true)
               .build();
@@ -857,89 +1024,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // Validate response
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
+
       Subscription subscriptionResult = response.getResult();
+
       assertNotNull(subscriptionResult);
       assertEquals(subscriptionResult.getName(), name);
       assertEquals(subscriptionResult.getDescription(), description);
       assertEquals(subscriptionResult.getId(), subscriptionId);
 
-      List<String> adds = new ArrayList<>();
-      adds.add("testereq1@gmail.com");
-      adds.add("tester553@gmail.com");
-      List<String> removes = new ArrayList<>();
-      removes.add("tester1@gmail.com");
-      List<String> unsubscribed = new ArrayList<>();
-      unsubscribed.add("tester3@ibm.com");
-
-      EmailUpdateAttributesTo emailUpdateAttributesTo = new EmailUpdateAttributesTo.Builder()
-              .add(adds)
-              .remove(removes)
-              .build();
-
-      EmailUpdateAttributesUnsubscribed emailUpdateAttributesUnsubscribed = new EmailUpdateAttributesUnsubscribed.Builder()
-              .remove(unsubscribed)
-              .build();
-
-      SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateEmailAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
-              .to(emailUpdateAttributesTo)
-              .addNotificationPayload(true)
-              .replyToMail("reply_to_mail@us.com")
-              .replyToName("US News")
-              .fromName("IBM")
-              .unsubscribed(emailUpdateAttributesUnsubscribed)
-              .build();
-
-      name = "subscription_email_3";
-      description = "Update email subscription";
-
-      updateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .id(subscriptionId2)
-              .name(name)
-              .description(description)
-              .attributes(subscriptionUpdateEmailAttributesModel)
-              .build();
-
-      // Invoke operation
-      response = service.updateSubscription(updateSubscriptionOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-      subscriptionResult = response.getResult();
-      assertNotNull(subscriptionResult);
-      assertEquals(subscriptionResult.getName(), name);
-      assertEquals(subscriptionResult.getDescription(), description);
-      assertEquals(subscriptionResult.getId(), subscriptionId2);
-
-
-      List<String> addSMS = new ArrayList<>();
-      addSMS.add("+120480009972");
-      addSMS.add("+1201499990");
-      name = "subscription_sms+1";
-      description = "update Subscription for sms";
-
-      SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
-      .to(addSMS)
-      .build();
-
-       updateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
-      .instanceId(instanceId)
-      .id(subscriptionIdSMS)
-      .name(name)
-      .description(description)
-      .attributes(subscriptionUpdateAttributesModel)
-      .build();
-
-      response = service.updateSubscription(updateSubscriptionOptions).execute();
-
-      // Invoke operation
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-      subscriptionResult = response.getResult();
-      assertNotNull(subscriptionResult);
-      assertEquals(subscriptionResult.getName(), name);
-      assertEquals(subscriptionResult.getDescription(), description);
-      assertEquals(subscriptionResult.getId(), subscriptionIdSMS);
 
       //
       // The following status codes aren't covered by tests.
@@ -955,19 +1047,72 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1PDeleteSubscription() throws Exception {
+  public void test1QSendNotifications() throws Exception {
+    try {
+      // begin-send_notifications
+      List<String> userIds = new ArrayList<String>();
+      userIds.add("Dev_User");
+
+      NotificationDevices notificationDevices = new NotificationDevices.Builder()
+              .userIds(userIds)
+              .build();
+
+      String jsonString = "{ 'title' : 'Portugal vs. Denmark', 'badge': 'great match' }";
+      JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+
+      NotificationFCMBodyNotificationPayload fcmBodyNotificationPayload = new NotificationFCMBodyNotificationPayload.Builder()
+              .add("notification", jsonObject)
+              .build();
+
+      String apnsJsonString = "{'alert': 'Game Request', 'badge': 5 }";
+      JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
+
+      NotificationAPNSBodyNotificationPayload apnsBodyNotificationPayload = new NotificationAPNSBodyNotificationPayload.Builder()
+              .add("aps", apnsJsonObject)
+              .build();
+
+      Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "123"); } };
+
+      SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
+              .instanceId(instanceId)
+              .subject("FCM_SUBJECT")
+              .severity("MEDIUM")
+              .id("FCM ID")
+              .source(sourceId)
+              .enSourceId(sourceId)
+              .type("com.acme.offer:new")
+              .time(new java.util.Date())
+              .pushTo(notificationDevices)
+              .messageFcmBody(fcmBodyNotificationPayload)
+              .messageApnsBody(apnsBodyNotificationPayload)
+              .messageApnsHeaders(messageApnsHeader)
+              .build();
+
+      Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
+      NotificationResponse notificationResponse = response.getResult();
+
+      System.out.println(notificationResponse);
+      // end-send_notifications
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+  }
+
+  @Test
+  public void test1RDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
       subscriptions.add(subscriptionId);
       subscriptions.add(subscriptionId2);
-      subscriptions.add(subscriptionIdSMS);
+      subscriptions.add(subscriptionId3);
 
       for (String subscription :
               subscriptions) {
@@ -981,10 +1126,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
         // Validate response
         assertNotNull(response);
         assertEquals(response.getStatusCode(), 204);
-
-
       }
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1002,12 +1144,13 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1QDeleteTopic() throws Exception {
+  public void test1SDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
       topics.add(topicId);
       topics.add(topicId2);
+      topics.add(topicId3);
 
       for (String topic :
               topics) {
@@ -1021,10 +1164,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
         // Validate response
         assertNotNull(response);
         assertEquals(response.getStatusCode(), 204);
-
       }
-
-
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1036,19 +1176,18 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1RDeleteDestination() throws Exception {
+  public void test1TDeleteDestination() throws Exception {
     try {
-
       DeleteDestinationOptions deleteDestinationOptions = new DeleteDestinationOptions.Builder()
-      .instanceId(instanceId)
-      .id(destinationId)
-      .build();
+              .instanceId(instanceId)
+              .id(destinationId)
+              .build();
 
       // Invoke operation
       Response<Void> response = service.deleteDestination(deleteDestinationOptions).execute();
@@ -1056,6 +1195,19 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 204);
 
+      deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId3)
+              .build();
+
+      // Invoke operation
+      response = service.deleteDestination(deleteDestinationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 204);
+
+
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1067,8 +1219,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       //
 
     } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
@@ -1077,4 +1229,4 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     // Add any clean up logic here
     System.out.println("Clean up complete.");
   }
- }
+}

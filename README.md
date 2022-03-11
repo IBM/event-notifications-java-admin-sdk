@@ -109,7 +109,7 @@ SDK Methods to consume
   - [Get Subscription](#get-subscription)
   - [Update Subscription](#update-subscription)
   - [Delete Subscription](#delete-subscription)
-
+- [Send Notifications](#send-notifications)
 
 ## Source
 
@@ -399,6 +399,97 @@ DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOpti
 
 Response<Void> response = eventNotificationsService.deleteSubscription(deleteSubscriptionOptions).execute();
 ```
+### Send Notifications
+```java
+      List<String> userIds = new ArrayList<String>();
+      userIds.add(<user-ids>);
+
+      List<String> fcmDevices = new ArrayList<String>();
+      fcmDevices.add(<fcm-device-ids>);
+
+      List<String> apnsDevices = new ArrayList<String>();
+      apnsDevices.add(<apns-device-ids>);
+
+      List<String> tagNames = new ArrayList<String>();
+      tagNames.add(<tag-names>);
+
+      List<String> devicePlatforms = new ArrayList<String>();
+      devicePlatforms.add(<device-platforms>);
+      
+      NotificationDevices notificationDevices = new NotificationDevices.Builder()
+      .userIds(userIds)
+      .fcmDevices(fcmDevices)
+      .apnsDevices(apnsDevices)
+      .tags(tagNames)
+      .platforms(devicePlatforms)
+      .build();
+
+      String fcmJsonString = "{ 'title' : '<notification-title>', 'body': '<notification-message>' }";
+      JsonObject fcmJsonObject = JsonParser.parseString(fcmJsonString).getAsJsonObject();
+
+      NotificationFCMBodyNotificationPayload fcmBodyNotificationPayload = new NotificationFCMBodyNotificationPayload.Builder()
+              .add("notification", fcmJsonObject)
+              .build();
+
+      String apnsJsonString = "{'alert': '<notification-message>', 'badge': 5 }";
+      JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
+
+      NotificationAPNSBodyNotificationPayload apnsBodyNotificationPayload = new NotificationAPNSBodyNotificationPayload.Builder()
+              .add("aps", apnsJsonObject)
+              .build();
+
+      Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "<apns-apns-collapse-id-value>"); } };
+
+      SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
+              .instanceId(instanceId)
+              .subject("<notification-subject>")
+              .severity("<notification-severity>")
+              .id("<notification-id>")
+              .source(sourceId)
+              .enSourceId(sourceId)
+              .type("<notification-type>")
+              .time(new java.util.Date())
+              .pushTo(notificationDevices)
+              .messageFcmBody(fcmBodyNotificationPayload)
+              .messageApnsBody(apnsBodyNotificationPayload)
+              .messageApnsHeaders(messageApnsHeader)
+              .build();
+
+      Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
+      NotificationResponse notificationResponse = response.getResult();```
+```
+<details open>
+<summary>Send Notifications Variables</summary>
+<br>
+
+- **FCM Target NotificationFcmDevices** - Set up the push notifications tragets.
+  - *userIds* (Array of **String**) - Send notification to the specified userIds.
+  - *fcmDevices* (Array of **String**) - Send notification to the list of specified fcm devices.
+  - *apnsDevices* (Array of **String**) - Send notification to the list of specified iOS devices.
+  - *tags* (Array of **String**) - Send notification to the devices that have subscribed to any of
+    these tags.
+  - *platforms* (Array of **String**) - Send notification to the devices of the specified platforms. Pass 'G' for google (Android) devices. Pass 'A' for iOS  devices.
+- **FCM messageFcmBody** - Set payload specific to Android platform [Refer this FCM official [link](https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support)]. We support `notification` and `data` keys in FCM.
+- **iOS messageApnsBody** - Set payload specific to iOS platform [Refer this APNs official doc [link](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)].
+- **APNs messageApnsHeaders** - Set headers required for the APNs message [Refer this APNs official [link](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns)(Table 1 Header fields for a POST request)].
+- **Event Notifications SendNotificationsOptions** - Event Notifications Send Notifications method.
+  - *instanceId* (**String**) - Event Notifications instance AppGUID.
+  - *subject* (**String**) - Subject for the notifications.
+  - *severity* (**String**) - Severity for the notifications.
+  - *id* (**ID**) - ID for the notifications.
+  - *source* (**String**) - Source of the notifications.
+  - *enSourceId* (**String**) - Event Notifications instance Source ID.
+  - *type* (**String**) - Type for the notifications.
+  - *time* (**String**) - Time of the notifications.
+  - *data* (**JSON**) - Data for the notifications. Supported only for `Webhook` destination.
+  - *pushTo* (**NotificationDevices**) - Targets for the FCM notifications.
+  - *messageFcmBody* (**NotificationFCMBodyNotificationPayload**) - Message body for the FCM notifications.
+  - *messageApnsBody* (**NotificationAPNSBodyNotificationPayload**) - Message body for the APNs notifications.
+  - *messageApnsHeaders* (**JSON**) - Headers for the APNs notifications.
+  - *datacontenttype* (**String**) - Data content type of the notifications.
+  - *specversion* (**String**) - Spec version of the Event Notifications. Default value is `1.0`.
+
+</details>
 
 ## Set Environment
 

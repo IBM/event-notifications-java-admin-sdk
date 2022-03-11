@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,6 +11,11 @@
  * specific language governing permissions and limitations under the License.
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -24,6 +29,8 @@ public class UpdateDestinationOptions extends GenericModel {
   protected String name;
   protected String description;
   protected DestinationConfig config;
+  protected InputStream certificate;
+  protected String certificateContentType;
 
   /**
    * Builder.
@@ -34,6 +41,8 @@ public class UpdateDestinationOptions extends GenericModel {
     private String name;
     private String description;
     private DestinationConfig config;
+    private InputStream certificate;
+    private String certificateContentType;
 
     private Builder(UpdateDestinationOptions updateDestinationOptions) {
       this.instanceId = updateDestinationOptions.instanceId;
@@ -41,6 +50,8 @@ public class UpdateDestinationOptions extends GenericModel {
       this.name = updateDestinationOptions.name;
       this.description = updateDestinationOptions.description;
       this.config = updateDestinationOptions.config;
+      this.certificate = updateDestinationOptions.certificate;
+      this.certificateContentType = updateDestinationOptions.certificateContentType;
     }
 
     /**
@@ -123,6 +134,41 @@ public class UpdateDestinationOptions extends GenericModel {
       this.config = config;
       return this;
     }
+
+    /**
+     * Set the certificate.
+     *
+     * @param certificate the certificate
+     * @return the UpdateDestinationOptions builder
+     */
+    public Builder certificate(InputStream certificate) {
+      this.certificate = certificate;
+      return this;
+    }
+
+    /**
+     * Set the certificateContentType.
+     *
+     * @param certificateContentType the certificateContentType
+     * @return the UpdateDestinationOptions builder
+     */
+    public Builder certificateContentType(String certificateContentType) {
+      this.certificateContentType = certificateContentType;
+      return this;
+    }
+
+    /**
+     * Set the certificate.
+     *
+     * @param certificate the certificate
+     * @return the UpdateDestinationOptions builder
+     *
+     * @throws FileNotFoundException if the file could not be found
+     */
+    public Builder certificate(File certificate) throws FileNotFoundException {
+      this.certificate = new FileInputStream(certificate);
+      return this;
+    }
   }
 
   protected UpdateDestinationOptions(Builder builder) {
@@ -135,6 +181,8 @@ public class UpdateDestinationOptions extends GenericModel {
     name = builder.name;
     description = builder.description;
     config = builder.config;
+    certificate = builder.certificate;
+    certificateContentType = builder.certificateContentType;
   }
 
   /**
@@ -199,6 +247,28 @@ public class UpdateDestinationOptions extends GenericModel {
    */
   public DestinationConfig config() {
     return config;
+  }
+
+  /**
+   * Gets the certificate.
+   *
+   * Certificate for APNS.
+   *
+   * @return the certificate
+   */
+  public InputStream certificate() {
+    return certificate;
+  }
+
+  /**
+   * Gets the certificateContentType.
+   *
+   * The content type of certificate. Values for this parameter can be obtained from the HttpMediaType class.
+   *
+   * @return the certificateContentType
+   */
+  public String certificateContentType() {
+    return certificateContentType;
   }
 }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,8 +23,8 @@ public class CreateSubscriptionOptions extends GenericModel {
   protected String name;
   protected String destinationId;
   protected String topicId;
-  protected SubscriptionCreateAttributes attributes;
   protected String description;
+  protected SubscriptionCreateAttributes attributes;
 
   /**
    * Builder.
@@ -34,16 +34,16 @@ public class CreateSubscriptionOptions extends GenericModel {
     private String name;
     private String destinationId;
     private String topicId;
-    private SubscriptionCreateAttributes attributes;
     private String description;
+    private SubscriptionCreateAttributes attributes;
 
     private Builder(CreateSubscriptionOptions createSubscriptionOptions) {
       this.instanceId = createSubscriptionOptions.instanceId;
       this.name = createSubscriptionOptions.name;
       this.destinationId = createSubscriptionOptions.destinationId;
       this.topicId = createSubscriptionOptions.topicId;
-      this.attributes = createSubscriptionOptions.attributes;
       this.description = createSubscriptionOptions.description;
+      this.attributes = createSubscriptionOptions.attributes;
     }
 
     /**
@@ -59,14 +59,12 @@ public class CreateSubscriptionOptions extends GenericModel {
      * @param name the name
      * @param destinationId the destinationId
      * @param topicId the topicId
-     * @param attributes the attributes
      */
-    public Builder(String instanceId, String name, String destinationId, String topicId, SubscriptionCreateAttributes attributes) {
+    public Builder(String instanceId, String name, String destinationId, String topicId) {
       this.instanceId = instanceId;
       this.name = name;
       this.destinationId = destinationId;
       this.topicId = topicId;
-      this.attributes = attributes;
     }
 
     /**
@@ -123,17 +121,6 @@ public class CreateSubscriptionOptions extends GenericModel {
     }
 
     /**
-     * Set the attributes.
-     *
-     * @param attributes the attributes
-     * @return the CreateSubscriptionOptions builder
-     */
-    public Builder attributes(SubscriptionCreateAttributes attributes) {
-      this.attributes = attributes;
-      return this;
-    }
-
-    /**
      * Set the description.
      *
      * @param description the description
@@ -141,6 +128,17 @@ public class CreateSubscriptionOptions extends GenericModel {
      */
     public Builder description(String description) {
       this.description = description;
+      return this;
+    }
+
+    /**
+     * Set the attributes.
+     *
+     * @param attributes the attributes
+     * @return the CreateSubscriptionOptions builder
+     */
+    public Builder attributes(SubscriptionCreateAttributes attributes) {
+      this.attributes = attributes;
       return this;
     }
   }
@@ -154,14 +152,12 @@ public class CreateSubscriptionOptions extends GenericModel {
       "destinationId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.topicId,
       "topicId cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.attributes,
-      "attributes cannot be null");
     instanceId = builder.instanceId;
     name = builder.name;
     destinationId = builder.destinationId;
     topicId = builder.topicId;
-    attributes = builder.attributes;
     description = builder.description;
+    attributes = builder.attributes;
   }
 
   /**
@@ -218,15 +214,6 @@ public class CreateSubscriptionOptions extends GenericModel {
   }
 
   /**
-   * Gets the attributes.
-   *
-   * @return the attributes
-   */
-  public SubscriptionCreateAttributes attributes() {
-    return attributes;
-  }
-
-  /**
    * Gets the description.
    *
    * Subscription description.
@@ -235,6 +222,15 @@ public class CreateSubscriptionOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the attributes.
+   *
+   * @return the attributes
+   */
+  public SubscriptionCreateAttributes attributes() {
+    return attributes;
   }
 }
 
