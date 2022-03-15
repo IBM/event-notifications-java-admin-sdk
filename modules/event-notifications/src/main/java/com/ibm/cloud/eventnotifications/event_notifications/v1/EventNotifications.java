@@ -156,7 +156,7 @@ public class EventNotifications extends BaseService {
     }
     if (sendNotificationsOptions.messageApnsHeaders() != null) {
       //contentJson.addProperty("message_apns_headers", sendNotificationsOptions.messageApnsHeaders().toString());
-      contentJson.addProperty("message_apns_headers",com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJson(sendNotificationsOptions.messageApnsHeaders()));
+      contentJson.addProperty("message_apns_headers", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJson(sendNotificationsOptions.messageApnsHeaders()));
     }
     if (sendNotificationsOptions.messageApnsBody() != null) {
       contentJson.addProperty("message_apns_body", sendNotificationsOptions.messageApnsBody().toString());
