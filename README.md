@@ -462,7 +462,7 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
 <summary>Send Notifications Variables</summary>
 <br>
 
-- **FCM Target NotificationFcmDevices** - Set up the push notifications tragets.
+- **FCM Target NotificationFcmDevices** - Set up the push notifications targets.
   - *userIds* (Array of **String**) - Send notification to the specified userIds.
   - *fcmDevices* (Array of **String**) - Send notification to the list of specified fcm devices.
   - *apnsDevices* (Array of **String**) - Send notification to the list of specified iOS devices.
@@ -501,6 +501,8 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 
 Optional
 - `EVENT_NOTIFICATIONS_AUTH_URL` - Add the IAM url if you are using IBM test cloud.
+- `EVENT_NOTIFICATIONS_FCM_KEY` - Add firebase server key for Android FCM destination.
+- `EVENT_NOTIFICATIONS_FCM_ID` - Add firebase sender Id for Android FCM destination.
 
 
 
