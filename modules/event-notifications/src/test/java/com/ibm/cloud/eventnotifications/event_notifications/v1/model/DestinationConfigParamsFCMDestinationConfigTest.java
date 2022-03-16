@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,17 +32,17 @@ public class DestinationConfigParamsFCMDestinationConfigTest {
   @Test
   public void testDestinationConfigParamsFCMDestinationConfig() throws Throwable {
     DestinationConfigParamsFCMDestinationConfig destinationConfigParamsFcmDestinationConfigModel = new DestinationConfigParamsFCMDestinationConfig.Builder()
-      .apiKey("testString")
+      .serverKey("testString")
       .senderId("testString")
       .build();
-    assertEquals(destinationConfigParamsFcmDestinationConfigModel.apiKey(), "testString");
+    assertEquals(destinationConfigParamsFcmDestinationConfigModel.serverKey(), "testString");
     assertEquals(destinationConfigParamsFcmDestinationConfigModel.senderId(), "testString");
 
     String json = TestUtilities.serialize(destinationConfigParamsFcmDestinationConfigModel);
 
     DestinationConfigParamsFCMDestinationConfig destinationConfigParamsFcmDestinationConfigModelNew = TestUtilities.deserialize(json, DestinationConfigParamsFCMDestinationConfig.class);
     assertTrue(destinationConfigParamsFcmDestinationConfigModelNew instanceof DestinationConfigParamsFCMDestinationConfig);
-    assertEquals(destinationConfigParamsFcmDestinationConfigModelNew.apiKey(), "testString");
+    assertEquals(destinationConfigParamsFcmDestinationConfigModelNew.serverKey(), "testString");
     assertEquals(destinationConfigParamsFcmDestinationConfigModelNew.senderId(), "testString");
   }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -181,7 +181,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
       "replyToName cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fromName,
       "fromName cannot be null");
-      toEmail = builder.toEmail;
+    toEmail = builder.toEmail;
     addNotificationPayload = builder.addNotificationPayload;
     replyToMail = builder.replyToMail;
     replyToName = builder.replyToName;

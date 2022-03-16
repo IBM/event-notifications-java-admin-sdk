@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -57,12 +58,16 @@ public class CreateDestinationOptionsTest {
       .type("webhook")
       .description("testString")
       .config(destinationConfigModel)
+      .certificate(TestUtilities.createMockStream("This is a mock file."))
+      .certificateContentType("testString")
       .build();
     assertEquals(createDestinationOptionsModel.instanceId(), "testString");
     assertEquals(createDestinationOptionsModel.name(), "testString");
     assertEquals(createDestinationOptionsModel.type(), "webhook");
     assertEquals(createDestinationOptionsModel.description(), "testString");
     assertEquals(createDestinationOptionsModel.config(), destinationConfigModel);
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.certificate()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.certificateContentType(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
