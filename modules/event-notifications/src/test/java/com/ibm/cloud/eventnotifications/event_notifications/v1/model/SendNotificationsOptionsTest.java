@@ -41,19 +41,6 @@ public class SendNotificationsOptionsTest {
 
   @Test
   public void testSendNotificationsOptions() throws Throwable {
-    NotificationDevices notificationDevicesModel = new NotificationDevices.Builder()
-      .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
-    assertEquals(notificationDevicesModel.fcmDevices(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(notificationDevicesModel.apnsDevices(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(notificationDevicesModel.userIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(notificationDevicesModel.tags(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(notificationDevicesModel.platforms(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-
     Lights lightsModel = new Lights.Builder()
       .ledArgb("testString")
       .ledOnMs(Long.valueOf("0"))
@@ -170,36 +157,49 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationApnsBodyModel.getEnData(), notificationApnsBodyMessageDataModel);
     assertEquals(notificationApnsBodyModel.get("foo"), "testString");
 
+    NotificationDevices notificationDevicesModel = new NotificationDevices.Builder()
+      .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .build();
+    assertEquals(notificationDevicesModel.fcmDevices(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(notificationDevicesModel.apnsDevices(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(notificationDevicesModel.userIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(notificationDevicesModel.tags(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(notificationDevicesModel.platforms(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+
     SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()
       .instanceId("testString")
+      .ibmenseverity("testString")
+      .ibmensourceid("testString")
       .subject("testString")
-      .severity("testString")
       .id("testString")
       .source("testString")
-      .enSourceId("testString")
       .type("testString")
       .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
       .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .pushTo(notificationDevicesModel)
-      .messageFcmBody(notificationFcmBodyModel)
-      .messageApnsHeaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .messageApnsBody(notificationApnsBodyModel)
+      .ibmenfcmbody(notificationFcmBodyModel)
+      .ibmenapnsbody(notificationApnsBodyModel)
+      .ibmenpushto(notificationDevicesModel)
+      .ibmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .datacontenttype("application/json")
       .specversion("1.0")
       .build();
     assertEquals(sendNotificationsOptionsModel.instanceId(), "testString");
+    assertEquals(sendNotificationsOptionsModel.ibmenseverity(), "testString");
+    assertEquals(sendNotificationsOptionsModel.ibmensourceid(), "testString");
     assertEquals(sendNotificationsOptionsModel.subject(), "testString");
-    assertEquals(sendNotificationsOptionsModel.severity(), "testString");
     assertEquals(sendNotificationsOptionsModel.id(), "testString");
     assertEquals(sendNotificationsOptionsModel.source(), "testString");
-    assertEquals(sendNotificationsOptionsModel.enSourceId(), "testString");
     assertEquals(sendNotificationsOptionsModel.type(), "testString");
     assertEquals(sendNotificationsOptionsModel.time(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
     assertEquals(sendNotificationsOptionsModel.data(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsOptionsModel.pushTo(), notificationDevicesModel);
-    assertEquals(sendNotificationsOptionsModel.messageFcmBody(), notificationFcmBodyModel);
-    assertEquals(sendNotificationsOptionsModel.messageApnsHeaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsOptionsModel.messageApnsBody(), notificationApnsBodyModel);
+    assertEquals(sendNotificationsOptionsModel.ibmenfcmbody(), notificationFcmBodyModel);
+    assertEquals(sendNotificationsOptionsModel.ibmenapnsbody(), notificationApnsBodyModel);
+    assertEquals(sendNotificationsOptionsModel.ibmenpushto(), notificationDevicesModel);
+    assertEquals(sendNotificationsOptionsModel.ibmenapnsheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(sendNotificationsOptionsModel.datacontenttype(), "application/json");
     assertEquals(sendNotificationsOptionsModel.specversion(), "1.0");
   }

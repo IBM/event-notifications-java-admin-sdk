@@ -59,7 +59,6 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   public EmailUpdateAttributesTo toEmail() {
     return toEmail;
   }
-
   /**
    * Gets the addNotificationPayload.
    *

@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.46.1-a5569134-20220316-164819
  */
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
@@ -20,10 +20,12 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.event_notifications.common.SdkCommon;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
@@ -50,6 +52,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopi
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
@@ -57,6 +60,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
@@ -119,61 +123,33 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Send a notification.
+   * Create a new API Source.
    *
-   * Send a notification.
+   * Create a new API Source.
    *
-   * @param sendNotificationsOptions the {@link SendNotificationsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link NotificationResponse}
+   * @param createSourcesOptions the {@link CreateSourcesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SourceResponse}
    */
-  public ServiceCall<NotificationResponse> sendNotifications(SendNotificationsOptions sendNotificationsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(sendNotificationsOptions,
-      "sendNotificationsOptions cannot be null");
+  public ServiceCall<SourceResponse> createSources(CreateSourcesOptions createSourcesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createSourcesOptions,
+      "createSourcesOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", sendNotificationsOptions.instanceId());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/notifications", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "sendNotifications");
+    pathParamsMap.put("instance_id", createSourcesOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/sources", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "createSources");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("subject", sendNotificationsOptions.subject());
-    contentJson.addProperty("severity", sendNotificationsOptions.severity());
-    contentJson.addProperty("id", sendNotificationsOptions.id());
-    contentJson.addProperty("source", sendNotificationsOptions.source());
-    contentJson.addProperty("en_source_id", sendNotificationsOptions.enSourceId());
-    contentJson.addProperty("type", sendNotificationsOptions.type());
-    contentJson.add("time", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(sendNotificationsOptions.time()));
-    if (sendNotificationsOptions.data() != null) {
-      contentJson.add("data", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(sendNotificationsOptions.data()));
-    }
-    if (sendNotificationsOptions.pushTo() != null) {
-      contentJson.addProperty("push_to", sendNotificationsOptions.pushTo().toString());
-    }
-    if (sendNotificationsOptions.messageFcmBody() != null) {
-      contentJson.addProperty("message_fcm_body", sendNotificationsOptions.messageFcmBody().toString());
-    }
-    if (sendNotificationsOptions.messageApnsHeaders() != null) {
-      //contentJson.addProperty("message_apns_headers", sendNotificationsOptions.messageApnsHeaders().toString());
-      contentJson.addProperty("message_apns_headers", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJson(sendNotificationsOptions.messageApnsHeaders()));
-    }
-    if (sendNotificationsOptions.messageApnsBody() != null) {
-      contentJson.addProperty("message_apns_body", sendNotificationsOptions.messageApnsBody().toString());
-    }
-    if (sendNotificationsOptions.datacontenttype() != null) {
-      contentJson.addProperty("datacontenttype", sendNotificationsOptions.datacontenttype());
-    } else {
-      contentJson.addProperty("datacontenttype", "application/json");
-    }
-    if (sendNotificationsOptions.specversion() != null) {
-      contentJson.addProperty("specversion", sendNotificationsOptions.specversion());
-    } else {
-      contentJson.addProperty("specversion", "1.0");
+    contentJson.addProperty("name", createSourcesOptions.name());
+    contentJson.addProperty("description", createSourcesOptions.description());
+    if (createSourcesOptions.enabled() != null) {
+      contentJson.addProperty("enabled", createSourcesOptions.enabled());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<NotificationResponse> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<NotificationResponse>() { }.getType());
+    ResponseConverter<SourceResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SourceResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -230,6 +206,65 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    ResponseConverter<Source> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Source>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a Source.
+   *
+   * Delete a Source.
+   *
+   * @param deleteSourceOptions the {@link DeleteSourceOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteSource(DeleteSourceOptions deleteSourceOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSourceOptions,
+      "deleteSourceOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", deleteSourceOptions.instanceId());
+    pathParamsMap.put("id", deleteSourceOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/sources/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "deleteSource");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update details of a Source.
+   *
+   * Update details of a Source.
+   *
+   * @param updateSourceOptions the {@link UpdateSourceOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Source}
+   */
+  public ServiceCall<Source> updateSource(UpdateSourceOptions updateSourceOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateSourceOptions,
+      "updateSourceOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateSourceOptions.instanceId());
+    pathParamsMap.put("id", updateSourceOptions.id());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/sources/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateSource");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateSourceOptions.name() != null) {
+      contentJson.addProperty("name", updateSourceOptions.name());
+    }
+    if (updateSourceOptions.description() != null) {
+      contentJson.addProperty("description", updateSourceOptions.description());
+    }
+    if (updateSourceOptions.enabled() != null) {
+      contentJson.addProperty("enabled", updateSourceOptions.enabled());
+    }
+    builder.bodyJson(contentJson);
     ResponseConverter<Source> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Source>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);

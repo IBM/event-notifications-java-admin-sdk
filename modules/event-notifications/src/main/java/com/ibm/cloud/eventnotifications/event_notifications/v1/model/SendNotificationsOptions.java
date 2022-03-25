@@ -23,18 +23,18 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SendNotificationsOptions extends GenericModel {
 
   protected String instanceId;
+  protected String ibmenseverity;
+  protected String ibmensourceid;
   protected String subject;
-  protected String severity;
   protected String id;
   protected String source;
-  protected String enSourceId;
   protected String type;
   protected Date time;
   protected Map<String, Object> data;
-  protected NotificationDevices pushTo;
-  protected NotificationFCMBody messageFcmBody;
-  protected Map<String, Object> messageApnsHeaders;
-  protected NotificationAPNSBody messageApnsBody;
+  protected NotificationFCMBody ibmenfcmbody;
+  protected NotificationAPNSBody ibmenapnsbody;
+  protected NotificationDevices ibmenpushto;
+  protected Map<String, Object> ibmenapnsheaders;
   protected String datacontenttype;
   protected String specversion;
 
@@ -43,35 +43,35 @@ public class SendNotificationsOptions extends GenericModel {
    */
   public static class Builder {
     private String instanceId;
+    private String ibmenseverity;
+    private String ibmensourceid;
     private String subject;
-    private String severity;
     private String id;
     private String source;
-    private String enSourceId;
     private String type;
     private Date time;
     private Map<String, Object> data;
-    private NotificationDevices pushTo;
-    private NotificationFCMBody messageFcmBody;
-    private Map<String, Object> messageApnsHeaders;
-    private NotificationAPNSBody messageApnsBody;
+    private NotificationFCMBody ibmenfcmbody;
+    private NotificationAPNSBody ibmenapnsbody;
+    private NotificationDevices ibmenpushto;
+    private Map<String, Object> ibmenapnsheaders;
     private String datacontenttype;
     private String specversion;
 
     private Builder(SendNotificationsOptions sendNotificationsOptions) {
       this.instanceId = sendNotificationsOptions.instanceId;
+      this.ibmenseverity = sendNotificationsOptions.ibmenseverity;
+      this.ibmensourceid = sendNotificationsOptions.ibmensourceid;
       this.subject = sendNotificationsOptions.subject;
-      this.severity = sendNotificationsOptions.severity;
       this.id = sendNotificationsOptions.id;
       this.source = sendNotificationsOptions.source;
-      this.enSourceId = sendNotificationsOptions.enSourceId;
       this.type = sendNotificationsOptions.type;
       this.time = sendNotificationsOptions.time;
       this.data = sendNotificationsOptions.data;
-      this.pushTo = sendNotificationsOptions.pushTo;
-      this.messageFcmBody = sendNotificationsOptions.messageFcmBody;
-      this.messageApnsHeaders = sendNotificationsOptions.messageApnsHeaders;
-      this.messageApnsBody = sendNotificationsOptions.messageApnsBody;
+      this.ibmenfcmbody = sendNotificationsOptions.ibmenfcmbody;
+      this.ibmenapnsbody = sendNotificationsOptions.ibmenapnsbody;
+      this.ibmenpushto = sendNotificationsOptions.ibmenpushto;
+      this.ibmenapnsheaders = sendNotificationsOptions.ibmenapnsheaders;
       this.datacontenttype = sendNotificationsOptions.datacontenttype;
       this.specversion = sendNotificationsOptions.specversion;
     }
@@ -86,21 +86,21 @@ public class SendNotificationsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param instanceId the instanceId
+     * @param ibmenseverity the ibmenseverity
+     * @param ibmensourceid the ibmensourceid
      * @param subject the subject
-     * @param severity the severity
      * @param id the id
      * @param source the source
-     * @param enSourceId the enSourceId
      * @param type the type
      * @param time the time
      */
-    public Builder(String instanceId, String subject, String severity, String id, String source, String enSourceId, String type, Date time) {
+    public Builder(String instanceId, String ibmenseverity, String ibmensourceid, String subject, String id, String source, String type, Date time) {
       this.instanceId = instanceId;
+      this.ibmenseverity = ibmenseverity;
+      this.ibmensourceid = ibmensourceid;
       this.subject = subject;
-      this.severity = severity;
       this.id = id;
       this.source = source;
-      this.enSourceId = enSourceId;
       this.type = type;
       this.time = time;
     }
@@ -126,6 +126,28 @@ public class SendNotificationsOptions extends GenericModel {
     }
 
     /**
+     * Set the ibmenseverity.
+     *
+     * @param ibmenseverity the ibmenseverity
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ibmenseverity(String ibmenseverity) {
+      this.ibmenseverity = ibmenseverity;
+      return this;
+    }
+
+    /**
+     * Set the ibmensourceid.
+     *
+     * @param ibmensourceid the ibmensourceid
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ibmensourceid(String ibmensourceid) {
+      this.ibmensourceid = ibmensourceid;
+      return this;
+    }
+
+    /**
      * Set the subject.
      *
      * @param subject the subject
@@ -133,17 +155,6 @@ public class SendNotificationsOptions extends GenericModel {
      */
     public Builder subject(String subject) {
       this.subject = subject;
-      return this;
-    }
-
-    /**
-     * Set the severity.
-     *
-     * @param severity the severity
-     * @return the SendNotificationsOptions builder
-     */
-    public Builder severity(String severity) {
-      this.severity = severity;
       return this;
     }
 
@@ -166,17 +177,6 @@ public class SendNotificationsOptions extends GenericModel {
      */
     public Builder source(String source) {
       this.source = source;
-      return this;
-    }
-
-    /**
-     * Set the enSourceId.
-     *
-     * @param enSourceId the enSourceId
-     * @return the SendNotificationsOptions builder
-     */
-    public Builder enSourceId(String enSourceId) {
-      this.enSourceId = enSourceId;
       return this;
     }
 
@@ -214,46 +214,46 @@ public class SendNotificationsOptions extends GenericModel {
     }
 
     /**
-     * Set the pushTo.
+     * Set the ibmenfcmbody.
      *
-     * @param pushTo the pushTo
+     * @param ibmenfcmbody the ibmenfcmbody
      * @return the SendNotificationsOptions builder
      */
-    public Builder pushTo(NotificationDevices pushTo) {
-      this.pushTo = pushTo;
+    public Builder ibmenfcmbody(NotificationFCMBody ibmenfcmbody) {
+      this.ibmenfcmbody = ibmenfcmbody;
       return this;
     }
 
     /**
-     * Set the messageFcmBody.
+     * Set the ibmenapnsbody.
      *
-     * @param messageFcmBody the messageFcmBody
+     * @param ibmenapnsbody the ibmenapnsbody
      * @return the SendNotificationsOptions builder
      */
-    public Builder messageFcmBody(NotificationFCMBody messageFcmBody) {
-      this.messageFcmBody = messageFcmBody;
+    public Builder ibmenapnsbody(NotificationAPNSBody ibmenapnsbody) {
+      this.ibmenapnsbody = ibmenapnsbody;
       return this;
     }
 
     /**
-     * Set the messageApnsHeaders.
+     * Set the ibmenpushto.
      *
-     * @param messageApnsHeaders the messageApnsHeaders
+     * @param ibmenpushto the ibmenpushto
      * @return the SendNotificationsOptions builder
      */
-    public Builder messageApnsHeaders(Map<String, Object> messageApnsHeaders) {
-      this.messageApnsHeaders = messageApnsHeaders;
+    public Builder ibmenpushto(NotificationDevices ibmenpushto) {
+      this.ibmenpushto = ibmenpushto;
       return this;
     }
 
     /**
-     * Set the messageApnsBody.
+     * Set the ibmenapnsheaders.
      *
-     * @param messageApnsBody the messageApnsBody
+     * @param ibmenapnsheaders the ibmenapnsheaders
      * @return the SendNotificationsOptions builder
      */
-    public Builder messageApnsBody(NotificationAPNSBody messageApnsBody) {
-      this.messageApnsBody = messageApnsBody;
+    public Builder ibmenapnsheaders(Map<String, Object> ibmenapnsheaders) {
+      this.ibmenapnsheaders = ibmenapnsheaders;
       return this;
     }
 
@@ -283,33 +283,33 @@ public class SendNotificationsOptions extends GenericModel {
   protected SendNotificationsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmenseverity,
+      "ibmenseverity cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmensourceid,
+      "ibmensourceid cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.subject,
       "subject cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.severity,
-      "severity cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.id,
       "id cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.source,
       "source cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.enSourceId,
-      "enSourceId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
       "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.time,
       "time cannot be null");
     instanceId = builder.instanceId;
+    ibmenseverity = builder.ibmenseverity;
+    ibmensourceid = builder.ibmensourceid;
     subject = builder.subject;
-    severity = builder.severity;
     id = builder.id;
     source = builder.source;
-    enSourceId = builder.enSourceId;
     type = builder.type;
     time = builder.time;
     data = builder.data;
-    pushTo = builder.pushTo;
-    messageFcmBody = builder.messageFcmBody;
-    messageApnsHeaders = builder.messageApnsHeaders;
-    messageApnsBody = builder.messageApnsBody;
+    ibmenfcmbody = builder.ibmenfcmbody;
+    ibmenapnsbody = builder.ibmenapnsbody;
+    ibmenpushto = builder.ibmenpushto;
+    ibmenapnsheaders = builder.ibmenapnsheaders;
     datacontenttype = builder.datacontenttype;
     specversion = builder.specversion;
   }
@@ -335,6 +335,28 @@ public class SendNotificationsOptions extends GenericModel {
   }
 
   /**
+   * Gets the ibmenseverity.
+   *
+   * The Notifications id.
+   *
+   * @return the ibmenseverity
+   */
+  public String ibmenseverity() {
+    return ibmenseverity;
+  }
+
+  /**
+   * Gets the ibmensourceid.
+   *
+   * The Event Notifications source id.
+   *
+   * @return the ibmensourceid
+   */
+  public String ibmensourceid() {
+    return ibmensourceid;
+  }
+
+  /**
    * Gets the subject.
    *
    * The Notifications subject.
@@ -343,17 +365,6 @@ public class SendNotificationsOptions extends GenericModel {
    */
   public String subject() {
     return subject;
-  }
-
-  /**
-   * Gets the severity.
-   *
-   * The Notifications severity.
-   *
-   * @return the severity
-   */
-  public String severity() {
-    return severity;
   }
 
   /**
@@ -376,17 +387,6 @@ public class SendNotificationsOptions extends GenericModel {
    */
   public String source() {
     return source;
-  }
-
-  /**
-   * Gets the enSourceId.
-   *
-   * The Event Notifications source id.
-   *
-   * @return the enSourceId
-   */
-  public String enSourceId() {
-    return enSourceId;
   }
 
   /**
@@ -423,45 +423,45 @@ public class SendNotificationsOptions extends GenericModel {
   }
 
   /**
-   * Gets the pushTo.
+   * Gets the ibmenfcmbody.
    *
-   * Payload describing a FCM Notifications targets.
-   *
-   * @return the pushTo
+   * @return the ibmenfcmbody
    */
-  public NotificationDevices pushTo() {
-    return pushTo;
+  public NotificationFCMBody ibmenfcmbody() {
+    return ibmenfcmbody;
   }
 
   /**
-   * Gets the messageFcmBody.
-   *
-   * @return the messageFcmBody
-   */
-  public NotificationFCMBody messageFcmBody() {
-    return messageFcmBody;
-  }
-
-  /**
-   * Gets the messageApnsHeaders.
-   *
-   * The attributes for an FCM/APNs notification.
-   *
-   * @return the messageApnsHeaders
-   */
-  public Map<String, Object> messageApnsHeaders() {
-    return messageApnsHeaders;
-  }
-
-  /**
-   * Gets the messageApnsBody.
+   * Gets the ibmenapnsbody.
    *
    * Payload describing a APNs Notifications body.
    *
-   * @return the messageApnsBody
+   * @return the ibmenapnsbody
    */
-  public NotificationAPNSBody messageApnsBody() {
-    return messageApnsBody;
+  public NotificationAPNSBody ibmenapnsbody() {
+    return ibmenapnsbody;
+  }
+
+  /**
+   * Gets the ibmenpushto.
+   *
+   * Payload describing a FCM Notifications targets.
+   *
+   * @return the ibmenpushto
+   */
+  public NotificationDevices ibmenpushto() {
+    return ibmenpushto;
+  }
+
+  /**
+   * Gets the ibmenapnsheaders.
+   *
+   * The attributes for an FCM/APNs notification.
+   *
+   * @return the ibmenapnsheaders
+   */
+  public Map<String, Object> ibmenapnsheaders() {
+    return ibmenapnsheaders;
   }
 
   /**

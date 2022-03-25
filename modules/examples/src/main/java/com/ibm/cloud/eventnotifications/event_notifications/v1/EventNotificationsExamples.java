@@ -86,6 +86,29 @@ public class EventNotificationsExamples {
     fcmServerKey = config.get("FCM_KEY");
 
     try {
+      System.out.println("createSources() result:");
+      // begin-create_sources
+      CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
+              .instanceId(instanceId)
+              .name("Event Notification Create Source Acme")
+              .description("This source is used for Acme Bank")
+              .enabled(false)
+              .build();
+
+      Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
+      SourceResponse sourceResponse = response.getResult();
+
+      System.out.println(sourceResponse);
+      // end-create_sources
+
+      sourceId = sourceResponse.getId();
+
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       System.out.println("listSources() result:");
       // begin-list_sources
       ListSourcesOptions listSourcesOptions = new ListSourcesOptions.Builder()
@@ -97,7 +120,6 @@ public class EventNotificationsExamples {
 
       System.out.println(sourceList);
       // end-list_sources
-      sourceId = sourceList.getSources().get(0).getId();
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -116,6 +138,27 @@ public class EventNotificationsExamples {
 
       System.out.println(source);
       // end-get_source
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("updateSource() result:");
+      // begin-update_source
+      UpdateSourceOptions updateSourceOptions = new UpdateSourceOptions.Builder()
+              .instanceId(instanceId)
+              .id(sourceId)
+              .name("Event Notification update Source Acme")
+              .description("This source is used for updated Acme Bank")
+              .enabled(true)
+              .build();
+
+      Response<Source> response = eventNotificationsService.updateSource(updateSourceOptions).execute();
+      Source source = response.getResult();
+
+      System.out.println(source);
+      // end-update_source
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -483,19 +526,21 @@ public class EventNotificationsExamples {
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
               .subject("FCM_SUBJECT")
-              .severity("MEDIUM")
+              .ibmenseverity("MEDIUM")
               .id("FCM ID")
               .source(sourceId)
-              .enSourceId(sourceId)
+              .ibmensourceid(sourceId)
               .type("com.acme.offer:new")
               .time(new java.util.Date())
-              .pushTo(notificationDevices)
-              .messageFcmBody(fcmBodyNotificationPayload)
-              .messageApnsBody(apnsBodyNotificationPayload)
-              .messageApnsHeaders(messageApnsHeader)
+              .ibmenpushto(notificationDevices)
+              .ibmenfcmbody(fcmBodyNotificationPayload)
+              .ibmenapnsbody(apnsBodyNotificationPayload)
+              .ibmenapnsheaders(messageApnsHeader)
               .build();
 
-      Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
+      SendNotifications serviceSendNotifications = new SendNotifications(eventNotificationsService);
+
+      Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
 
       System.out.println(notificationResponse);
@@ -545,6 +590,21 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteDestination(deleteDestinationOptions).execute();
       // end-delete_destination
       System.out.printf("deleteDestination() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_source
+      DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
+              .instanceId(instanceId)
+              .id(sourceId)
+              .build();
+
+      Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptions).execute();
+      // end-delete_source
+      System.out.printf("deleteSource() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
