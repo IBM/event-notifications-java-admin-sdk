@@ -1,3 +1,10 @@
+## [0.0.4](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.0.3...0.0.4) (2022-03-25)
+
+
+### Bug Fixes
+
+* add source creation apis and new send notification payload ([9886acb](https://github.com/IBM/event-notifications-java-admin-sdk/commit/9886acb4c5f1fb6965b6585b181da4611cd70a09))
+
 ## [0.0.3](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.0.2...0.0.3) (2022-03-16)
 
 
