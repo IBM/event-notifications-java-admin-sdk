@@ -47,9 +47,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceResponse;
