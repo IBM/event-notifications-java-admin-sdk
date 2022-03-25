@@ -14,10 +14,12 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
@@ -66,6 +68,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotific
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Style;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
@@ -92,6 +95,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicRespon
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdateSourcesItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicsListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.http.Response;
@@ -139,6 +143,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     new EventNotifications(serviceName, null);
   }
 
+  /*
   // Test the sendNotifications operation with a valid options model parameter
   @Test
   public void testSendNotificationsWOptions() throws Throwable {
@@ -149,15 +154,6 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .setHeader("Content-type", "application/json")
       .setResponseCode(201)
       .setBody(mockResponseBody));
-
-    // Construct an instance of the NotificationDevices model
-    NotificationDevices notificationDevicesModel = new NotificationDevices.Builder()
-      .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
 
     // Construct an instance of the Lights model
     Lights lightsModel = new Lights.Builder()
@@ -232,21 +228,30 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .add("foo", "testString")
       .build();
 
+    // Construct an instance of the NotificationDevices model
+    NotificationDevices notificationDevicesModel = new NotificationDevices.Builder()
+      .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .build();
+
     // Construct an instance of the SendNotificationsOptions model
     SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()
       .instanceId("testString")
+      .ibmenseverity("testString")
+      .ibmensourceid("testString")
       .subject("testString")
-      .severity("testString")
       .id("testString")
       .source("testString")
-      .enSourceId("testString")
       .type("testString")
       .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
       .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .pushTo(notificationDevicesModel)
-      .messageFcmBody(notificationFcmBodyModel)
-      .messageApnsHeaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .messageApnsBody(notificationApnsBodyModel)
+      .ibmenfcmbody(notificationFcmBodyModel)
+      .ibmenapnsbody(notificationApnsBodyModel)
+      .ibmenpushto(notificationDevicesModel)
+      .ibmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .datacontenttype("application/json")
       .specversion("1.0")
       .build();
@@ -284,6 +289,62 @@ public class EventNotificationsTest extends PowerMockTestCase {
   public void testSendNotificationsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.sendNotifications(null).execute();
+  }
+
+   */
+
+  // Test the createSources operation with a valid options model parameter
+  @Test
+  public void testCreateSourcesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String createSourcesPath = "/v1/instances/testString/sources";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the CreateSourcesOptions model
+    CreateSourcesOptions createSourcesOptionsModel = new CreateSourcesOptions.Builder()
+      .instanceId("testString")
+      .name("testString")
+      .description("testString")
+      .enabled(true)
+      .build();
+
+    // Invoke createSources() with a valid options model and verify the result
+    Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptionsModel).execute();
+    assertNotNull(response);
+    SourceResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createSourcesPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the createSources operation with and without retries enabled
+  @Test
+  public void testCreateSourcesWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testCreateSourcesWOptions();
+
+    eventNotificationsService.disableRetries();
+    testCreateSourcesWOptions();
+  }
+
+  // Test the createSources operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateSourcesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.createSources(null).execute();
   }
 
   // Test the listSources operation with a valid options model parameter
@@ -393,6 +454,112 @@ public class EventNotificationsTest extends PowerMockTestCase {
   public void testGetSourceNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.getSource(null).execute();
+  }
+
+  // Test the deleteSource operation with a valid options model parameter
+  @Test
+  public void testDeleteSourceWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String deleteSourcePath = "/v1/instances/testString/sources/testString";
+    server.enqueue(new MockResponse()
+      .setResponseCode(204)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the DeleteSourceOptions model
+    DeleteSourceOptions deleteSourceOptionsModel = new DeleteSourceOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke deleteSource() with a valid options model and verify the result
+    Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteSourcePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the deleteSource operation with and without retries enabled
+  @Test
+  public void testDeleteSourceWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testDeleteSourceWOptions();
+
+    eventNotificationsService.disableRetries();
+    testDeleteSourceWOptions();
+  }
+
+  // Test the deleteSource operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteSourceNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.deleteSource(null).execute();
+  }
+
+  // Test the updateSource operation with a valid options model parameter
+  @Test
+  public void testUpdateSourceWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
+    String updateSourcePath = "/v1/instances/testString/sources/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateSourceOptions model
+    UpdateSourceOptions updateSourceOptionsModel = new UpdateSourceOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .name("testString")
+      .description("testString")
+      .enabled(true)
+      .build();
+
+    // Invoke updateSource() with a valid options model and verify the result
+    Response<Source> response = eventNotificationsService.updateSource(updateSourceOptionsModel).execute();
+    assertNotNull(response);
+    Source responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateSourcePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateSource operation with and without retries enabled
+  @Test
+  public void testUpdateSourceWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateSourceWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateSourceWOptions();
+  }
+
+  // Test the updateSource operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateSourceNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateSource(null).execute();
   }
 
   // Test the createTopic operation with a valid options model parameter

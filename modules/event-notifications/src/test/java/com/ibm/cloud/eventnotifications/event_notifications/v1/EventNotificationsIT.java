@@ -15,86 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParams;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesReport;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesTo;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesUnsubscribed;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationDevicesReportOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Lights;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationDevicesOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBody;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageENData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyNotificationPayload;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationDevices;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBody;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageENData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyNotificationPayload;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Style;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEmailAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesFCMAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSMSAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesWebhookAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdateSourcesItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicsListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.*;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.event_notifications.test.SdkIntegrationTestBase;
 import com.ibm.cloud.sdk.core.http.Response;
@@ -171,7 +92,48 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1AListSources() throws Exception {
+  public void test1ACreateSources() throws Exception {
+    try {
+      CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
+              .instanceId(instanceId)
+              .name("Event Notification Create Source Acme")
+              .description("This source is used for Acme Bank")
+              .enabled(false)
+              .build();
+
+      // Invoke operation
+      Response<SourceResponse> response = service.createSources(createSourcesOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      SourceResponse sourceResponseResult = response.getResult();
+
+      assertNotNull(sourceResponseResult);
+
+      sourceId = sourceResponseResult.getId();
+
+      //
+      // The following status codes aren't covered by tests.
+      // Please provide integration tests for these too.
+      //
+      // 400
+      // 401
+      // 404
+      // 409
+      // 415
+      // 500
+      //
+      //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1BListSources() throws Exception {
     try {
       Boolean moreResults = true;
       int limit = 1;
@@ -194,10 +156,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
         assertNotNull(sourceListResult);
 
-        if (offset == 0) {
-          sourceId = sourceListResult.getSources().get(0).getId();
-        }
-
         if (sourceListResult.getTotalCount() <= offset) {
           moreResults = false;
         }
@@ -219,7 +177,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1BGetSource() throws Exception {
+  public void test1CGetSource() throws Exception {
     try {
       GetSourceOptions getSourceOptions = new GetSourceOptions.Builder()
               .instanceId(instanceId)
@@ -252,7 +210,47 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1CCreateTopic() throws Exception {
+  public void test1DUpdateSource() throws Exception {
+    try {
+      UpdateSourceOptions updateSourceOptions = new UpdateSourceOptions.Builder()
+              .instanceId(instanceId)
+              .id(sourceId)
+              .name("Event Notification update Source Acme")
+              .description("This source is used for updated Acme Bank")
+              .enabled(true)
+              .build();
+
+      // Invoke operation
+      Response<Source> response = service.updateSource(updateSourceOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Source sourceResult = response.getResult();
+
+      assertNotNull(sourceResult);
+
+      //
+      // The following status codes aren't covered by tests.
+      // Please provide integration tests for these too.
+      //
+      // 400
+      // 401
+      // 404
+      // 409
+      // 415
+      // 500
+      //
+      //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1ECreateTopic() throws Exception {
     try {
       Rules rulesModel = new Rules.Builder()
               .enabled(true)
@@ -361,7 +359,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1DListTopics() throws Exception {
+  public void test1FListTopics() throws Exception {
     try {
       Boolean moreResults = true;
       int limit = 1;
@@ -405,7 +403,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1EGetTopic() throws Exception {
+  public void test1GGetTopic() throws Exception {
     try {
       GetTopicOptions getTopicOptions = new GetTopicOptions.Builder()
               .instanceId(instanceId)
@@ -440,7 +438,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1FReplaceTopic() throws Exception {
+  public void test1HReplaceTopic() throws Exception {
     try {
       Rules rulesModel = new Rules.Builder()
               .enabled(true)
@@ -495,7 +493,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1GCreateDestination() throws Exception {
+  public void test1ICreateDestination() throws Exception {
     try {
       DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
               .url("https://gcm.com")
@@ -592,7 +590,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1HListDestinations() throws Exception {
+  public void test1JListDestinations() throws Exception {
     try {
       Boolean moreResults = true;
       int limit = 1;
@@ -645,7 +643,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1IGetDestination() throws Exception {
+  public void test1KGetDestination() throws Exception {
     try {
       GetDestinationOptions getDestinationOptions = new GetDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -679,7 +677,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1JUpdateDestination() throws Exception {
+  public void test1LUpdateDestination() throws Exception {
     try {
       DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
               .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
@@ -739,7 +737,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1KListDestinationDevices() throws Exception {
+  public void test1MListDestinationDevices() throws Exception {
     try {
       ListDestinationDevicesOptions listDestinationDevicesOptions = new ListDestinationDevicesOptions.Builder()
               .instanceId(instanceId)
@@ -776,7 +774,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1LGetDestinationDevicesReport() throws Exception {
+  public void test1NGetDestinationDevicesReport() throws Exception {
     try {
       GetDestinationDevicesReportOptions getDestinationDevicesReportOptions = new GetDestinationDevicesReportOptions.Builder()
               .instanceId(instanceId)
@@ -811,7 +809,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1MCreateSubscription() throws Exception {
+  public void test1OCreateSubscription() throws Exception {
     try {
       /*SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
       .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -921,7 +919,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1NListSubscriptions() throws Exception {
+  public void test1PListSubscriptions() throws Exception {
     try {
       Boolean moreResults = true;
       int limit = 1;
@@ -965,7 +963,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1OGetSubscription() throws Exception {
+  public void test1QGetSubscription() throws Exception {
     try {
       GetSubscriptionOptions getSubscriptionOptions = new GetSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -999,7 +997,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1PUpdateSubscription() throws Exception {
+  public void test1RUpdateSubscription() throws Exception {
     try {
       /*SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
       .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -1053,7 +1051,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1QSendNotifications() throws Exception {
+  public void test1SSendNotifications() throws Exception {
     try {
       // begin-send_notifications
       List<String> userIds = new ArrayList<String>();
@@ -1082,19 +1080,20 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
               .subject("FCM_SUBJECT")
-              .severity("MEDIUM")
+              .ibmenseverity("MEDIUM")
               .id("FCM ID")
               .source(sourceId)
-              .enSourceId(sourceId)
+              .ibmensourceid(sourceId)
               .type("com.acme.offer:new")
               .time(new java.util.Date())
-              .pushTo(notificationDevices)
-              .messageFcmBody(fcmBodyNotificationPayload)
-              .messageApnsBody(apnsBodyNotificationPayload)
-              .messageApnsHeaders(messageApnsHeader)
+              .ibmenpushto(notificationDevices)
+              .ibmenfcmbody(fcmBodyNotificationPayload)
+              .ibmenapnsbody(apnsBodyNotificationPayload)
+              .ibmenapnsheaders(messageApnsHeader)
               .build();
 
-      Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
+      SendNotifications serviceSendNotifications = new SendNotifications(service);
+      Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
 
       System.out.println(notificationResponse);
@@ -1106,7 +1105,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1RDeleteSubscription() throws Exception {
+  public void test1TDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -1144,7 +1143,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1SDeleteTopic() throws Exception {
+  public void test1UDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -1182,7 +1181,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1TDeleteDestination() throws Exception {
+  public void test1VDeleteDestination() throws Exception {
     try {
       DeleteDestinationOptions deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -1207,6 +1206,36 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(response.getStatusCode(), 204);
 
 
+
+      //
+      // The following status codes aren't covered by tests.
+      // Please provide integration tests for these too.
+      //
+      // 401
+      // 404
+      // 500
+      //
+      //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1WDeleteSource() throws Exception {
+    try {
+      DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
+              .instanceId(instanceId)
+              .id(sourceId)
+              .build();
+
+      // Invoke operation
+      Response<Void> response = service.deleteSource(deleteSourceOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 204);
 
       //
       // The following status codes aren't covered by tests.

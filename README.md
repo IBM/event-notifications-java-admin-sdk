@@ -89,11 +89,14 @@ eventNotificationsService.setServiceUrl("https://" + region + ".event-notificati
 SDK Methods to consume
 
 - [Source](#source)
+  - [Create Source](#create-source)
   - [List Sources](#list-sources)
-  - [Get Source](#get-sources)
+  - [Get Source](#get-source)
+  - [Update Source](#update-source)
+  - [Delete Source](#delete-source)
 - [Topics](#topics)
   - [Create Topics](#create-topic)
-  - [List Topics](#list-topic)
+  - [List Topics](#list-topics)
   - [Get Topic](#get-topic)
   - [Update Topics](#update-topic)
   - [Delete Topics](#delete-topic)
@@ -113,6 +116,20 @@ SDK Methods to consume
 
 ## Source
 
+### Create Source
+
+```java
+CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
+              .instanceId(<instanceId>)
+              .name(<source-name>)
+              .description(<source-description>)
+              .enabled(true)
+              .build();
+
+Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
+SourceResponse sourceResponse = response.getResult();
+```
+
 ### List Sources
 
 ```java
@@ -125,7 +142,7 @@ SourceList sourceList = response.getResult();
 System.out.println(sourceList);
 ```
 
-### Get Sources
+### Get Source
 
 ```java
 
@@ -139,6 +156,32 @@ Source source = response.getResult();
 System.out.println(source);
 
 ```
+
+### Update Source
+
+```java
+UpdateSourceOptions updateSourceOptions = new UpdateSourceOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<sourceId>)
+        .name(<source-name>)
+        .description(<source-description>)
+        .enabled(true)
+        .build();
+
+Response<Source> response = eventNotificationsService.updateSource(updateSourceOptions).execute();
+Source source = response.getResult();
+```
+
+### Delete Source
+
+```java
+ DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<sourceId>)
+        .build();
+Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptions).execute();
+```
+
 ## Topics
 
 ### Create Topic
@@ -443,19 +486,20 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
               .subject("<notification-subject>")
-              .severity("<notification-severity>")
+              .ibmenseverity("<notification-severity>")
               .id("<notification-id>")
               .source(sourceId)
-              .enSourceId(sourceId)
+              .ibmensourceid(sourceId)
               .type("<notification-type>")
               .time(new java.util.Date())
-              .pushTo(notificationDevices)
-              .messageFcmBody(fcmBodyNotificationPayload)
-              .messageApnsBody(apnsBodyNotificationPayload)
-              .messageApnsHeaders(messageApnsHeader)
+              .ibmenpushto(notificationDevices)
+              .ibmenfcmbody(fcmBodyNotificationPayload)
+              .ibmenapnsbody(apnsBodyNotificationPayload)
+              .ibmenapnsheaders(messageApnsHeader)
               .build();
 
-      Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
+        SendNotifications serviceSendNotifications = new SendNotifications(eventNotificationsService);
+        Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();```
 ```
 <details open>
@@ -475,18 +519,18 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
 - **Event Notifications SendNotificationsOptions** - Event Notifications Send Notifications method.
   - *instanceId* (**String**) - Event Notifications instance AppGUID.
   - *subject* (**String**) - Subject for the notifications.
-  - *severity* (**String**) - Severity for the notifications.
+  - *ibmenseverity* (**String**) - Severity for the notifications.
   - *id* (**ID**) - ID for the notifications.
   - *source* (**String**) - Source of the notifications.
-  - *enSourceId* (**String**) - Event Notifications instance Source ID.
+  - *ibmensourceid* (**String**) - Event Notifications instance Source ID.
   - *type* (**String**) - Type for the notifications.
   - *time* (**String**) - Time of the notifications.
   - *data* (**JSON**) - Data for the notifications. Supported only for `Webhook` destination.
-  - *pushTo* (**NotificationDevices**) - Targets for the FCM notifications.
-  - *messageFcmBody* (**NotificationFCMBodyNotificationPayload**) - Message body for the FCM notifications.
-  - *messageApnsBody* (**NotificationAPNSBodyNotificationPayload**) - Message body for the APNs notifications.
+  - *ibmenpushto* (**NotificationDevices**) - Targets for the FCM notifications.
+  - *ibmenfcmbody* (**NotificationFCMBodyNotificationPayload**) - Message body for the FCM notifications.
+  - *ibmenapnsbody* (**NotificationAPNSBodyNotificationPayload**) - Message body for the APNs notifications.
   - *messageApnsHeaders* (**JSON**) - Headers for the APNs notifications.
-  - *datacontenttype* (**String**) - Data content type of the notifications.
+  - *ibmenapnsheaders* (**String**) - Data content type of the notifications.
   - *specversion* (**String**) - Spec version of the Event Notifications. Default value is `1.0`.
 
 </details>
