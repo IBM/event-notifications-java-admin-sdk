@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -34,22 +35,34 @@ public class NotificationAPNSBodyMessageData extends GenericModel {
 
   protected String alert;
   protected Long badge;
+  @SerializedName("interactive_category")
   protected String interactiveCategory;
+  @SerializedName("ios_action_key")
   protected String iosActionKey;
   protected Map<String, Object> payload;
   protected String sound;
+  @SerializedName("title_loc_key")
   protected String titleLocKey;
+  @SerializedName("loc_key")
   protected String locKey;
+  @SerializedName("launch_image")
   protected String launchImage;
+  @SerializedName("title_loc_args")
   protected List<String> titleLocArgs;
+  @SerializedName("loc_args")
   protected List<String> locArgs;
   protected String title;
   protected String subtitle;
+  @SerializedName("attachment_url")
   protected String attachmentUrl;
   protected String type;
+  @SerializedName("apns_collapse_id")
   protected String apnsCollapseId;
+  @SerializedName("apns_thread_id")
   protected String apnsThreadId;
+  @SerializedName("apns_group_summary_arg")
   protected String apnsGroupSummaryArg;
+  @SerializedName("apns_group_summary_arg_count")
   protected Long apnsGroupSummaryArgCount;
 
   /**

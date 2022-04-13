@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.1-a5569134-20220316-164819
+ * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
  */
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
@@ -47,7 +47,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceResponse;
@@ -118,6 +120,82 @@ public class EventNotifications extends BaseService {
   public EventNotifications(String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
+  }
+
+  /**
+   * Send a notification.
+   *
+   * @param sendNotificationsOptions the {@link SendNotificationsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link NotificationResponse}
+   */
+  public ServiceCall<NotificationResponse> sendNotifications(SendNotificationsOptions sendNotificationsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(sendNotificationsOptions,
+      "sendNotificationsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", sendNotificationsOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/notifications", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "sendNotifications");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (sendNotificationsOptions.ceIbmenseverity() != null) {
+      builder.header("ce-ibmenseverity", sendNotificationsOptions.ceIbmenseverity());
+    }
+    if (sendNotificationsOptions.ceIbmendefaultshort() != null) {
+      builder.header("ce-ibmendefaultshort", sendNotificationsOptions.ceIbmendefaultshort());
+    }
+    if (sendNotificationsOptions.ceIbmendefaultlong() != null) {
+      builder.header("ce-ibmendefaultlong", sendNotificationsOptions.ceIbmendefaultlong());
+    }
+    if (sendNotificationsOptions.ceIbmenfcmbody() != null) {
+      builder.header("ce-ibmenfcmbody", sendNotificationsOptions.ceIbmenfcmbody().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenapnsbody() != null) {
+      builder.header("ce-ibmenapnsbody", sendNotificationsOptions.ceIbmenapnsbody().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenpushto() != null) {
+      builder.header("ce-ibmenpushto", sendNotificationsOptions.ceIbmenpushto().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenapnsheaders() != null) {
+      builder.header("ce-ibmenapnsheaders", sendNotificationsOptions.ceIbmenapnsheaders().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenchromebody() != null) {
+      builder.header("ce-ibmenchromebody", sendNotificationsOptions.ceIbmenchromebody().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenfirefoxbody() != null) {
+      builder.header("ce-ibmenfirefoxbody", sendNotificationsOptions.ceIbmenfirefoxbody().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenchromeheaders() != null) {
+      builder.header("ce-ibmenchromeheaders", sendNotificationsOptions.ceIbmenchromeheaders().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmenfirefoxheaders() != null) {
+      builder.header("ce-ibmenfirefoxheaders", sendNotificationsOptions.ceIbmenfirefoxheaders().toString().replace("\n", ""));
+    }
+    if (sendNotificationsOptions.ceIbmensourceid() != null) {
+      builder.header("ce-ibmensourceid", sendNotificationsOptions.ceIbmensourceid());
+    }
+    if (sendNotificationsOptions.ceId() != null) {
+      builder.header("ce-id", sendNotificationsOptions.ceId());
+    }
+    if (sendNotificationsOptions.ceSource() != null) {
+      builder.header("ce-source", sendNotificationsOptions.ceSource());
+    }
+    if (sendNotificationsOptions.ceType() != null) {
+      builder.header("ce-type", sendNotificationsOptions.ceType());
+    }
+    if (sendNotificationsOptions.ceSpecversion() != null) {
+      builder.header("ce-specversion", sendNotificationsOptions.ceSpecversion());
+    }
+    if (sendNotificationsOptions.ceTime() != null) {
+      builder.header("ce-time", sendNotificationsOptions.ceTime());
+    }
+    if (sendNotificationsOptions.body() != null) {
+      builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(sendNotificationsOptions.body()), "application/json");
+    }
+    ResponseConverter<NotificationResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<NotificationResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**

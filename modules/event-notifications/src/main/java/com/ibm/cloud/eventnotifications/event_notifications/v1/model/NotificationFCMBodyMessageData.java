@@ -471,7 +471,7 @@ public class NotificationFCMBodyMessageData extends GenericModel {
    * Gets the timeToLive.
    *
    * This parameter specifies how long (in seconds) the message
-   *   should be kept in GCM storage if the device is offline.
+   *   should be kept in FCM storage if the device is offline.
    *
    * @return the timeToLive
    */

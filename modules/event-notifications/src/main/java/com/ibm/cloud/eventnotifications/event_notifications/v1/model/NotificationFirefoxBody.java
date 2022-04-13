@@ -13,25 +13,33 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
- * Payload describing a notifications response.
+ * NotificationFirefoxBody.
+ *
+ * Classes which extend this class:
+ * - NotificationFirefoxBodyMessageENData
+ * - NotificationFirefoxBodyNotificationPayload
  */
-public class NotificationResponse extends GenericModel {
+public class NotificationFirefoxBody extends DynamicModel<Object> {
 
-  @SerializedName("notification_id")
-  protected String notificationId;
+  @SerializedName("en_data")
+  protected NotificationFirefoxBodyMessageData enData;
+
+  protected NotificationFirefoxBody() {
+    super(new TypeToken<Object>() { });
+  }
 
   /**
-   * Gets the notificationId.
+   * Gets the enData.
    *
-   * Notification ID.
+   * Payload describing a firefox notifications body message Data.
    *
-   * @return the notificationId
+   * @return the enData
    */
-  public String getNotificationId() {
-    return notificationId;
+  public NotificationFirefoxBodyMessageData getEnData() {
+    return this.enData;
   }
 }
-

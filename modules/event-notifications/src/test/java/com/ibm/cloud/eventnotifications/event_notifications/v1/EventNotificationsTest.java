@@ -26,7 +26,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopic
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParams;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsChromeDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFirefoxDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
@@ -55,16 +57,27 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageData;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageENData;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyNotificationPayload;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationChromeBody;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationChromeBodyMessageData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationChromeBodyMessageENData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationChromeBodyNotificationPayload;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationDevices;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBody;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageData;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageENData;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyNotificationPayload;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFirefoxBody;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFirefoxBodyMessageData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFirefoxBodyMessageENData;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFirefoxBodyNotificationPayload;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsRequest;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsRequestNotificationBinaryMode;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsRequestNotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
@@ -143,7 +156,6 @@ public class EventNotificationsTest extends PowerMockTestCase {
     new EventNotifications(serviceName, null);
   }
 
-  /*
   // Test the sendNotifications operation with a valid options model parameter
   @Test
   public void testSendNotificationsWOptions() throws Throwable {
@@ -151,110 +163,169 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"notification_id\": \"notificationId\"}";
     String sendNotificationsPath = "/v1/instances/testString/notifications";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the Lights model
     Lights lightsModel = new Lights.Builder()
-      .ledArgb("testString")
-      .ledOnMs(Long.valueOf("0"))
-      .ledOffMs("testString")
-      .build();
+            .ledArgb("testString")
+            .ledOnMs(Long.valueOf("0"))
+            .ledOffMs("testString")
+            .build();
 
     // Construct an instance of the Style model
     Style styleModel = new Style.Builder()
-      .type("testString")
-      .title("testString")
-      .url("testString")
-      .text("testString")
-      .lines(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .add("foo", "testString")
-      .build();
+            .type("testString")
+            .title("testString")
+            .url("testString")
+            .text("testString")
+            .lines(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .add("foo", "testString")
+            .build();
 
     // Construct an instance of the NotificationFCMBodyMessageData model
     NotificationFCMBodyMessageData notificationFcmBodyMessageDataModel = new NotificationFCMBodyMessageData.Builder()
-      .alert("testString")
-      .collapseKey("testString")
-      .interactiveCategory("testString")
-      .icon("testString")
-      .delayWhileIdle(true)
-      .sync(true)
-      .visibility("testString")
-      .redact("testString")
-      .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .priority("testString")
-      .sound("testString")
-      .timeToLive(Long.valueOf("0"))
-      .lights(lightsModel)
-      .androidTitle("testString")
-      .groupId("testString")
-      .style(styleModel)
-      .type("DEFAULT")
-      .build();
+            .alert("testString")
+            .collapseKey("testString")
+            .interactiveCategory("testString")
+            .icon("testString")
+            .delayWhileIdle(true)
+            .sync(true)
+            .visibility("testString")
+            .redact("testString")
+            .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .priority("testString")
+            .sound("testString")
+            .timeToLive(Long.valueOf("0"))
+            .lights(lightsModel)
+            .androidTitle("testString")
+            .groupId("testString")
+            .style(styleModel)
+            .type("DEFAULT")
+            .build();
 
     // Construct an instance of the NotificationFCMBodyMessageENData model
     NotificationFCMBodyMessageENData notificationFcmBodyModel = new NotificationFCMBodyMessageENData.Builder()
-      .enData(notificationFcmBodyMessageDataModel)
-      .add("foo", "testString")
-      .build();
+            .enData(notificationFcmBodyMessageDataModel)
+            .add("foo", "testString")
+            .build();
 
     // Construct an instance of the NotificationAPNSBodyMessageData model
     NotificationAPNSBodyMessageData notificationApnsBodyMessageDataModel = new NotificationAPNSBodyMessageData.Builder()
-      .alert("testString")
-      .badge(Long.valueOf("26"))
-      .interactiveCategory("testString")
-      .iosActionKey("testString")
-      .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .sound("testString")
-      .titleLocKey("testString")
-      .locKey("testString")
-      .launchImage("testString")
-      .titleLocArgs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .locArgs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .title("testString")
-      .subtitle("testString")
-      .attachmentUrl("testString")
-      .type("DEFAULT")
-      .apnsCollapseId("testString")
-      .apnsThreadId("testString")
-      .apnsGroupSummaryArg("testString")
-      .apnsGroupSummaryArgCount(Long.valueOf("26"))
-      .build();
+            .alert("testString")
+            .badge(Long.valueOf("26"))
+            .interactiveCategory("testString")
+            .iosActionKey("testString")
+            .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .sound("testString")
+            .titleLocKey("testString")
+            .locKey("testString")
+            .launchImage("testString")
+            .titleLocArgs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .locArgs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .title("testString")
+            .subtitle("testString")
+            .attachmentUrl("testString")
+            .type("DEFAULT")
+            .apnsCollapseId("testString")
+            .apnsThreadId("testString")
+            .apnsGroupSummaryArg("testString")
+            .apnsGroupSummaryArgCount(Long.valueOf("26"))
+            .build();
 
     // Construct an instance of the NotificationAPNSBodyMessageENData model
     NotificationAPNSBodyMessageENData notificationApnsBodyModel = new NotificationAPNSBodyMessageENData.Builder()
-      .enData(notificationApnsBodyMessageDataModel)
-      .add("foo", "testString")
-      .build();
+            .enData(notificationApnsBodyMessageDataModel)
+            .add("foo", "testString")
+            .build();
 
     // Construct an instance of the NotificationDevices model
     NotificationDevices notificationDevicesModel = new NotificationDevices.Builder()
-      .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
+            .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Construct an instance of the NotificationChromeBodyMessageData model
+    NotificationChromeBodyMessageData notificationChromeBodyMessageDataModel = new NotificationChromeBodyMessageData.Builder()
+            .alert("testString")
+            .title("testString")
+            .iconUrl("testString")
+            .timeToLive(Long.valueOf("0"))
+            .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .build();
+
+    // Construct an instance of the NotificationChromeBodyMessageENData model
+    NotificationChromeBodyMessageENData notificationChromeBodyModel = new NotificationChromeBodyMessageENData.Builder()
+            .enData(notificationChromeBodyMessageDataModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the NotificationFirefoxBodyMessageData model
+    NotificationFirefoxBodyMessageData notificationFirefoxBodyMessageDataModel = new NotificationFirefoxBodyMessageData.Builder()
+            .alert("testString")
+            .title("testString")
+            .iconUrl("testString")
+            .timeToLive(Long.valueOf("0"))
+            .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .build();
+
+    // Construct an instance of the NotificationFirefoxBodyMessageENData model
+    NotificationFirefoxBodyMessageENData notificationFirefoxBodyModel = new NotificationFirefoxBodyMessageENData.Builder()
+            .enData(notificationFirefoxBodyMessageDataModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the SendNotificationsRequestNotificationCreate model
+    SendNotificationsRequestNotificationCreate sendNotificationsRequestModel = new SendNotificationsRequestNotificationCreate.Builder()
+            .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ibmenseverity("testString")
+            .ibmenfcmbody(notificationFcmBodyModel)
+            .ibmenapnsbody(notificationApnsBodyModel)
+            .ibmenpushto(notificationDevicesModel)
+            .ibmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ibmendefaultshort("testString")
+            .ibmendefaultlong("testString")
+            .ibmenchromebody(notificationChromeBodyModel)
+            .ibmenfirefoxbody(notificationFirefoxBodyModel)
+            .ibmenchromeheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ibmenfirefoxheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ibmensourceid("testString")
+            .datacontenttype("application/json")
+            .subject("testString")
+            .id("testString")
+            .source("testString")
+            .type("testString")
+            .specversion("1.0")
+            .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+            .add("foo", "testString")
+            .build();
 
     // Construct an instance of the SendNotificationsOptions model
     SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()
-      .instanceId("testString")
-      .ibmenseverity("testString")
-      .ibmensourceid("testString")
-      .subject("testString")
-      .id("testString")
-      .source("testString")
-      .type("testString")
-      .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
-      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .ibmenfcmbody(notificationFcmBodyModel)
-      .ibmenapnsbody(notificationApnsBodyModel)
-      .ibmenpushto(notificationDevicesModel)
-      .ibmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .datacontenttype("application/json")
-      .specversion("1.0")
-      .build();
+            .instanceId("testString")
+            .body(sendNotificationsRequestModel)
+            .ceIbmenseverity("testString")
+            .ceIbmendefaultshort("testString")
+            .ceIbmendefaultlong("testString")
+            .ceIbmenfcmbody(notificationFcmBodyModel)
+            .ceIbmenapnsbody(notificationApnsBodyModel)
+            .ceIbmenpushto(notificationDevicesModel)
+            .ceIbmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ceIbmenchromebody(notificationChromeBodyModel)
+            .ceIbmenfirefoxbody(notificationFirefoxBodyModel)
+            .ceIbmenchromeheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ceIbmenfirefoxheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+            .ceIbmensourceid("testString")
+            .ceId("testString")
+            .ceSource("testString")
+            .ceType("testString")
+            .ceSpecversion("1.0")
+            .ceTime(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+            .build();
 
     // Invoke sendNotifications() with a valid options model and verify the result
     Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptionsModel).execute();
@@ -291,8 +362,6 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.sendNotifications(null).execute();
   }
 
-   */
-
   // Test the createSources operation with a valid options model parameter
   @Test
   public void testCreateSourcesWOptions() throws Throwable {
@@ -300,17 +369,17 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createSourcesPath = "/v1/instances/testString/sources";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the CreateSourcesOptions model
     CreateSourcesOptions createSourcesOptionsModel = new CreateSourcesOptions.Builder()
-      .instanceId("testString")
-      .name("testString")
-      .description("testString")
-      .enabled(true)
-      .build();
+            .instanceId("testString")
+            .name("testString")
+            .description("testString")
+            .enabled(true)
+            .build();
 
     // Invoke createSources() with a valid options model and verify the result
     Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptionsModel).execute();
@@ -354,17 +423,17 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"enabled\": false, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 0}]}";
     String listSourcesPath = "/v1/instances/testString/sources";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListSourcesOptions model
     ListSourcesOptions listSourcesOptionsModel = new ListSourcesOptions.Builder()
-      .instanceId("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .search("testString")
-      .build();
+            .instanceId("testString")
+            .limit(Long.valueOf("1"))
+            .offset(Long.valueOf("0"))
+            .search("testString")
+            .build();
 
     // Invoke listSources() with a valid options model and verify the result
     Response<SourceList> response = eventNotificationsService.listSources(listSourcesOptionsModel).execute();
@@ -411,15 +480,15 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
     String getSourcePath = "/v1/instances/testString/sources/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the GetSourceOptions model
     GetSourceOptions getSourceOptionsModel = new GetSourceOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke getSource() with a valid options model and verify the result
     Response<Source> response = eventNotificationsService.getSource(getSourceOptionsModel).execute();
@@ -463,14 +532,14 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "";
     String deleteSourcePath = "/v1/instances/testString/sources/testString";
     server.enqueue(new MockResponse()
-      .setResponseCode(204)
-      .setBody(mockResponseBody));
+            .setResponseCode(204)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteSourceOptions model
     DeleteSourceOptions deleteSourceOptionsModel = new DeleteSourceOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke deleteSource() with a valid options model and verify the result
     Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptionsModel).execute();
@@ -514,18 +583,18 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
     String updateSourcePath = "/v1/instances/testString/sources/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the UpdateSourceOptions model
     UpdateSourceOptions updateSourceOptionsModel = new UpdateSourceOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .name("testString")
-      .description("testString")
-      .enabled(true)
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .name("testString")
+            .description("testString")
+            .enabled(true)
+            .build();
 
     // Invoke updateSource() with a valid options model and verify the result
     Response<Source> response = eventNotificationsService.updateSource(updateSourceOptionsModel).execute();
@@ -569,30 +638,30 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"created_at\": \"createdAt\"}";
     String createTopicPath = "/v1/instances/testString/topics";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the Rules model
     Rules rulesModel = new Rules.Builder()
-      .enabled(true)
-      .eventTypeFilter("$.notification_event_info.event_type == 'cert_manager'")
-      .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
-      .build();
+            .enabled(true)
+            .eventTypeFilter("$.notification_event_info.event_type == 'cert_manager'")
+            .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
+            .build();
 
     // Construct an instance of the TopicUpdateSourcesItem model
     TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
-      .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
-      .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
-      .build();
+            .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
+            .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
+            .build();
 
     // Construct an instance of the CreateTopicOptions model
     CreateTopicOptions createTopicOptionsModel = new CreateTopicOptions.Builder()
-      .instanceId("testString")
-      .name("testString")
-      .description("testString")
-      .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
-      .build();
+            .instanceId("testString")
+            .name("testString")
+            .description("testString")
+            .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
+            .build();
 
     // Invoke createTopic() with a valid options model and verify the result
     Response<TopicResponse> response = eventNotificationsService.createTopic(createTopicOptionsModel).execute();
@@ -636,17 +705,17 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"topics\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"source_count\": 0, \"sources_names\": [\"sourcesNames\"], \"subscription_count\": 0}]}";
     String listTopicsPath = "/v1/instances/testString/topics";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListTopicsOptions model
     ListTopicsOptions listTopicsOptionsModel = new ListTopicsOptions.Builder()
-      .instanceId("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .search("testString")
-      .build();
+            .instanceId("testString")
+            .limit(Long.valueOf("1"))
+            .offset(Long.valueOf("0"))
+            .search("testString")
+            .build();
 
     // Invoke listTopics() with a valid options model and verify the result
     Response<TopicList> response = eventNotificationsService.listTopics(listTopicsOptionsModel).execute();
@@ -693,16 +762,16 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"name\": \"name\", \"updated_at\": \"updatedAt\", \"source_count\": 11, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"rules\": [{\"enabled\": false, \"event_type_filter\": \"$.*\", \"notification_filter\": \"notificationFilter\", \"updated_at\": \"updatedAt\", \"id\": \"id\"}]}], \"subscription_count\": 17, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String getTopicPath = "/v1/instances/testString/topics/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the GetTopicOptions model
     GetTopicOptions getTopicOptionsModel = new GetTopicOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .include("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .include("testString")
+            .build();
 
     // Invoke getTopic() with a valid options model and verify the result
     Response<Topic> response = eventNotificationsService.getTopic(getTopicOptionsModel).execute();
@@ -747,31 +816,31 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"name\": \"name\", \"updated_at\": \"updatedAt\", \"source_count\": 11, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"rules\": [{\"enabled\": false, \"event_type_filter\": \"$.*\", \"notification_filter\": \"notificationFilter\", \"updated_at\": \"updatedAt\", \"id\": \"id\"}]}], \"subscription_count\": 17, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String replaceTopicPath = "/v1/instances/testString/topics/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the Rules model
     Rules rulesModel = new Rules.Builder()
-      .enabled(true)
-      .eventTypeFilter("$.notification_event_info.event_type == 'cert_manager'")
-      .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
-      .build();
+            .enabled(true)
+            .eventTypeFilter("$.notification_event_info.event_type == 'cert_manager'")
+            .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
+            .build();
 
     // Construct an instance of the TopicUpdateSourcesItem model
     TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
-      .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
-      .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
-      .build();
+            .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
+            .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
+            .build();
 
     // Construct an instance of the ReplaceTopicOptions model
     ReplaceTopicOptions replaceTopicOptionsModel = new ReplaceTopicOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .name("testString")
-      .description("testString")
-      .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .name("testString")
+            .description("testString")
+            .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
+            .build();
 
     // Invoke replaceTopic() with a valid options model and verify the result
     Response<Topic> response = eventNotificationsService.replaceTopic(replaceTopicOptionsModel).execute();
@@ -815,14 +884,14 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "";
     String deleteTopicPath = "/v1/instances/testString/topics/testString";
     server.enqueue(new MockResponse()
-      .setResponseCode(204)
-      .setBody(mockResponseBody));
+            .setResponseCode(204)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteTopicOptions model
     DeleteTopicOptions deleteTopicOptionsModel = new DeleteTopicOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke deleteTopic() with a valid options model and verify the result
     Response<Void> response = eventNotificationsService.deleteTopic(deleteTopicOptionsModel).execute();
@@ -866,33 +935,33 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"url\": \"url\", \"verb\": \"get\", \"custom_headers\": {\"mapKey\": \"inner\"}, \"sensitive_headers\": [\"sensitiveHeaders\"]}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createDestinationPath = "/v1/instances/testString/destinations";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DestinationConfigParamsWebhookDestinationConfig model
     DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
-      .url("testString")
-      .verb("get")
-      .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-      .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
+            .url("testString")
+            .verb("get")
+            .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+            .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
 
     // Construct an instance of the DestinationConfig model
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
-      .params(destinationConfigParamsModel)
-      .build();
+            .params(destinationConfigParamsModel)
+            .build();
 
     // Construct an instance of the CreateDestinationOptions model
     CreateDestinationOptions createDestinationOptionsModel = new CreateDestinationOptions.Builder()
-      .instanceId("testString")
-      .name("testString")
-      .type("webhook")
-      .description("testString")
-      .config(destinationConfigModel)
-      .certificate(TestUtilities.createMockStream("This is a mock file."))
-      .certificateContentType("testString")
-      .build();
+            .instanceId("testString")
+            .name("testString")
+            .type("webhook")
+            .description("testString")
+            .config(destinationConfigModel)
+            .certificate(TestUtilities.createMockStream("This is a mock file."))
+            .certificateContentType("testString")
+            .build();
 
     // Invoke createDestination() with a valid options model and verify the result
     Response<DestinationResponse> response = eventNotificationsService.createDestination(createDestinationOptionsModel).execute();
@@ -936,17 +1005,17 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"destinations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listDestinationsPath = "/v1/instances/testString/destinations";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListDestinationsOptions model
     ListDestinationsOptions listDestinationsOptionsModel = new ListDestinationsOptions.Builder()
-      .instanceId("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .search("testString")
-      .build();
+            .instanceId("testString")
+            .limit(Long.valueOf("1"))
+            .offset(Long.valueOf("0"))
+            .search("testString")
+            .build();
 
     // Invoke listDestinations() with a valid options model and verify the result
     Response<DestinationList> response = eventNotificationsService.listDestinations(listDestinationsOptionsModel).execute();
@@ -993,15 +1062,15 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"url\": \"url\", \"verb\": \"get\", \"custom_headers\": {\"mapKey\": \"inner\"}, \"sensitive_headers\": [\"sensitiveHeaders\"]}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
     String getDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the GetDestinationOptions model
     GetDestinationOptions getDestinationOptionsModel = new GetDestinationOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke getDestination() with a valid options model and verify the result
     Response<Destination> response = eventNotificationsService.getDestination(getDestinationOptionsModel).execute();
@@ -1045,33 +1114,33 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"url\": \"url\", \"verb\": \"get\", \"custom_headers\": {\"mapKey\": \"inner\"}, \"sensitive_headers\": [\"sensitiveHeaders\"]}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
     String updateDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DestinationConfigParamsWebhookDestinationConfig model
     DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
-      .url("testString")
-      .verb("get")
-      .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-      .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
+            .url("testString")
+            .verb("get")
+            .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+            .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
 
     // Construct an instance of the DestinationConfig model
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
-      .params(destinationConfigParamsModel)
-      .build();
+            .params(destinationConfigParamsModel)
+            .build();
 
     // Construct an instance of the UpdateDestinationOptions model
     UpdateDestinationOptions updateDestinationOptionsModel = new UpdateDestinationOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .name("testString")
-      .description("testString")
-      .config(destinationConfigModel)
-      .certificate(TestUtilities.createMockStream("This is a mock file."))
-      .certificateContentType("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .name("testString")
+            .description("testString")
+            .config(destinationConfigModel)
+            .certificate(TestUtilities.createMockStream("This is a mock file."))
+            .certificateContentType("testString")
+            .build();
 
     // Invoke updateDestination() with a valid options model and verify the result
     Response<Destination> response = eventNotificationsService.updateDestination(updateDestinationOptionsModel).execute();
@@ -1115,14 +1184,14 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "";
     String deleteDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
-      .setResponseCode(204)
-      .setBody(mockResponseBody));
+            .setResponseCode(204)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteDestinationOptions model
     DeleteDestinationOptions deleteDestinationOptionsModel = new DeleteDestinationOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke deleteDestination() with a valid options model and verify the result
     Response<Void> response = eventNotificationsService.deleteDestination(deleteDestinationOptionsModel).execute();
@@ -1166,18 +1235,18 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"devices\": [{\"id\": \"id\", \"user_id\": \"userId\", \"platform\": \"platform\", \"token\": \"token\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listDestinationDevicesPath = "/v1/instances/testString/destinations/testString/devices";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListDestinationDevicesOptions model
     ListDestinationDevicesOptions listDestinationDevicesOptionsModel = new ListDestinationDevicesOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .search("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .limit(Long.valueOf("1"))
+            .offset(Long.valueOf("0"))
+            .search("testString")
+            .build();
 
     // Invoke listDestinationDevices() with a valid options model and verify the result
     Response<DestinationDevicesList> response = eventNotificationsService.listDestinationDevices(listDestinationDevicesOptionsModel).execute();
@@ -1224,16 +1293,16 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"android\": 7, \"ios\": 3, \"chrome\": 6, \"firefox\": 7, \"safari\": 6, \"chromeAppExt\": 12, \"all\": 3}";
     String getDestinationDevicesReportPath = "/v1/instances/testString/destinations/testString/devices/report";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the GetDestinationDevicesReportOptions model
     GetDestinationDevicesReportOptions getDestinationDevicesReportOptionsModel = new GetDestinationDevicesReportOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .days(Long.valueOf("1"))
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .days(Long.valueOf("1"))
+            .build();
 
     // Invoke getDestinationDevicesReport() with a valid options model and verify the result
     Response<DestinationDevicesReport> response = eventNotificationsService.getDestinationDevicesReport(getDestinationDevicesReportOptionsModel).execute();
@@ -1278,19 +1347,19 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"tag_subscriptions\": [{\"id\": \"id\", \"device_id\": \"deviceId\", \"tag_name\": \"tagName\", \"user_id\": \"userId\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listTagsSubscriptionsDevicePath = "/v1/instances/testString/destinations/testString/tag_subscriptions/devices/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListTagsSubscriptionsDeviceOptions model
     ListTagsSubscriptionsDeviceOptions listTagsSubscriptionsDeviceOptionsModel = new ListTagsSubscriptionsDeviceOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .deviceId("testString")
-      .tagName("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .deviceId("testString")
+            .tagName("testString")
+            .limit(Long.valueOf("1"))
+            .offset(Long.valueOf("0"))
+            .build();
 
     // Invoke listTagsSubscriptionsDevice() with a valid options model and verify the result
     Response<TagsSubscriptionList> response = eventNotificationsService.listTagsSubscriptionsDevice(listTagsSubscriptionsDeviceOptionsModel).execute();
@@ -1337,21 +1406,21 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"tag_subscriptions\": [{\"id\": \"id\", \"device_id\": \"deviceId\", \"tag_name\": \"tagName\", \"user_id\": \"userId\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listTagsSubscriptionPath = "/v1/instances/testString/destinations/testString/tag_subscriptions";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListTagsSubscriptionOptions model
     ListTagsSubscriptionOptions listTagsSubscriptionOptionsModel = new ListTagsSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .deviceId("testString")
-      .userId("testString")
-      .tagName("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .search("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .deviceId("testString")
+            .userId("testString")
+            .tagName("testString")
+            .limit(Long.valueOf("1"))
+            .offset(Long.valueOf("0"))
+            .search("testString")
+            .build();
 
     // Invoke listTagsSubscription() with a valid options model and verify the result
     Response<TagsSubscriptionList> response = eventNotificationsService.listTagsSubscription(listTagsSubscriptionOptionsModel).execute();
@@ -1401,17 +1470,17 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"device_id\": \"deviceId\", \"tag_name\": \"tagName\", \"user_id\": \"userId\", \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createTagsSubscriptionPath = "/v1/instances/testString/destinations/testString/tag_subscriptions";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the CreateTagsSubscriptionOptions model
     CreateTagsSubscriptionOptions createTagsSubscriptionOptionsModel = new CreateTagsSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .deviceId("testString")
-      .tagName("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .deviceId("testString")
+            .tagName("testString")
+            .build();
 
     // Invoke createTagsSubscription() with a valid options model and verify the result
     Response<DestinationTagsSubscriptionResponse> response = eventNotificationsService.createTagsSubscription(createTagsSubscriptionOptionsModel).execute();
@@ -1455,16 +1524,16 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "";
     String deleteTagsSubscriptionPath = "/v1/instances/testString/destinations/testString/tag_subscriptions";
     server.enqueue(new MockResponse()
-      .setResponseCode(204)
-      .setBody(mockResponseBody));
+            .setResponseCode(204)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteTagsSubscriptionOptions model
     DeleteTagsSubscriptionOptions deleteTagsSubscriptionOptionsModel = new DeleteTagsSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .deviceId("testString")
-      .tagName("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .deviceId("testString")
+            .tagName("testString")
+            .build();
 
     // Invoke deleteTagsSubscription() with a valid options model and verify the result
     Response<Void> response = eventNotificationsService.deleteTagsSubscription(deleteTagsSubscriptionOptionsModel).execute();
@@ -1510,24 +1579,24 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {}}";
     String createSubscriptionPath = "/v1/instances/testString/subscriptions";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the SubscriptionCreateAttributesSMSAttributes model
     SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
-      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
+            .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
 
     // Construct an instance of the CreateSubscriptionOptions model
     CreateSubscriptionOptions createSubscriptionOptionsModel = new CreateSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .name("testString")
-      .destinationId("testString")
-      .topicId("testString")
-      .description("testString")
-      .attributes(subscriptionCreateAttributesModel)
-      .build();
+            .instanceId("testString")
+            .name("testString")
+            .destinationId("testString")
+            .topicId("testString")
+            .description("testString")
+            .attributes(subscriptionCreateAttributesModel)
+            .build();
 
     // Invoke createSubscription() with a valid options model and verify the result
     Response<Subscription> response = eventNotificationsService.createSubscription(createSubscriptionOptionsModel).execute();
@@ -1571,17 +1640,17 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listSubscriptionsPath = "/v1/instances/testString/subscriptions";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the ListSubscriptionsOptions model
     ListSubscriptionsOptions listSubscriptionsOptionsModel = new ListSubscriptionsOptions.Builder()
-      .instanceId("testString")
-      .offset(Long.valueOf("0"))
-      .limit(Long.valueOf("1"))
-      .search("testString")
-      .build();
+            .instanceId("testString")
+            .offset(Long.valueOf("0"))
+            .limit(Long.valueOf("1"))
+            .search("testString")
+            .build();
 
     // Invoke listSubscriptions() with a valid options model and verify the result
     Response<SubscriptionList> response = eventNotificationsService.listSubscriptions(listSubscriptionsOptionsModel).execute();
@@ -1628,15 +1697,15 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {}}";
     String getSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the GetSubscriptionOptions model
     GetSubscriptionOptions getSubscriptionOptionsModel = new GetSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke getSubscription() with a valid options model and verify the result
     Response<Subscription> response = eventNotificationsService.getSubscription(getSubscriptionOptionsModel).execute();
@@ -1680,14 +1749,14 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "";
     String deleteSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
-      .setResponseCode(204)
-      .setBody(mockResponseBody));
+            .setResponseCode(204)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteSubscriptionOptions model
     DeleteSubscriptionOptions deleteSubscriptionOptionsModel = new DeleteSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .build();
 
     // Invoke deleteSubscription() with a valid options model and verify the result
     Response<Void> response = eventNotificationsService.deleteSubscription(deleteSubscriptionOptionsModel).execute();
@@ -1731,23 +1800,23 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {}}";
     String updateSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
     // Construct an instance of the SubscriptionUpdateAttributesSMSAttributes model
     SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
-      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
+            .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
 
     // Construct an instance of the UpdateSubscriptionOptions model
     UpdateSubscriptionOptions updateSubscriptionOptionsModel = new UpdateSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .name("testString")
-      .description("testString")
-      .attributes(subscriptionUpdateAttributesModel)
-      .build();
+            .instanceId("testString")
+            .id("testString")
+            .name("testString")
+            .description("testString")
+            .attributes(subscriptionUpdateAttributesModel)
+            .build();
 
     // Invoke updateSubscription() with a valid options model and verify the result
     Response<Subscription> response = eventNotificationsService.updateSubscription(updateSubscriptionOptionsModel).execute();

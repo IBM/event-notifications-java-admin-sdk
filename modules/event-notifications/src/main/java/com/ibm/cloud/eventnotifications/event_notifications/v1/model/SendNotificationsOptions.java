@@ -23,57 +23,69 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SendNotificationsOptions extends GenericModel {
 
   protected String instanceId;
-  protected String ibmenseverity;
-  protected String ibmensourceid;
-  protected String subject;
-  protected String id;
-  protected String source;
-  protected String type;
-  protected Date time;
-  protected Map<String, Object> data;
-  protected NotificationFCMBody ibmenfcmbody;
-  protected NotificationAPNSBody ibmenapnsbody;
-  protected NotificationDevices ibmenpushto;
-  protected Map<String, Object> ibmenapnsheaders;
-  protected String datacontenttype;
-  protected String specversion;
+  protected SendNotificationsRequest body;
+  protected String ceIbmenseverity;
+  protected String ceIbmendefaultshort;
+  protected String ceIbmendefaultlong;
+  protected NotificationFCMBody ceIbmenfcmbody;
+  protected NotificationAPNSBody ceIbmenapnsbody;
+  protected NotificationDevices ceIbmenpushto;
+  protected Map<String, Object> ceIbmenapnsheaders;
+  protected NotificationChromeBody ceIbmenchromebody;
+  protected NotificationFirefoxBody ceIbmenfirefoxbody;
+  protected Map<String, Object> ceIbmenchromeheaders;
+  protected Map<String, Object> ceIbmenfirefoxheaders;
+  protected String ceIbmensourceid;
+  protected String ceId;
+  protected String ceSource;
+  protected String ceType;
+  protected String ceSpecversion;
+  protected Date ceTime;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String instanceId;
-    private String ibmenseverity;
-    private String ibmensourceid;
-    private String subject;
-    private String id;
-    private String source;
-    private String type;
-    private Date time;
-    private Map<String, Object> data;
-    private NotificationFCMBody ibmenfcmbody;
-    private NotificationAPNSBody ibmenapnsbody;
-    private NotificationDevices ibmenpushto;
-    private Map<String, Object> ibmenapnsheaders;
-    private String datacontenttype;
-    private String specversion;
+    private SendNotificationsRequest body;
+    private String ceIbmenseverity;
+    private String ceIbmendefaultshort;
+    private String ceIbmendefaultlong;
+    private NotificationFCMBody ceIbmenfcmbody;
+    private NotificationAPNSBody ceIbmenapnsbody;
+    private NotificationDevices ceIbmenpushto;
+    private Map<String, Object> ceIbmenapnsheaders;
+    private NotificationChromeBody ceIbmenchromebody;
+    private NotificationFirefoxBody ceIbmenfirefoxbody;
+    private Map<String, Object> ceIbmenchromeheaders;
+    private Map<String, Object> ceIbmenfirefoxheaders;
+    private String ceIbmensourceid;
+    private String ceId;
+    private String ceSource;
+    private String ceType;
+    private String ceSpecversion;
+    private Date ceTime;
 
     private Builder(SendNotificationsOptions sendNotificationsOptions) {
       this.instanceId = sendNotificationsOptions.instanceId;
-      this.ibmenseverity = sendNotificationsOptions.ibmenseverity;
-      this.ibmensourceid = sendNotificationsOptions.ibmensourceid;
-      this.subject = sendNotificationsOptions.subject;
-      this.id = sendNotificationsOptions.id;
-      this.source = sendNotificationsOptions.source;
-      this.type = sendNotificationsOptions.type;
-      this.time = sendNotificationsOptions.time;
-      this.data = sendNotificationsOptions.data;
-      this.ibmenfcmbody = sendNotificationsOptions.ibmenfcmbody;
-      this.ibmenapnsbody = sendNotificationsOptions.ibmenapnsbody;
-      this.ibmenpushto = sendNotificationsOptions.ibmenpushto;
-      this.ibmenapnsheaders = sendNotificationsOptions.ibmenapnsheaders;
-      this.datacontenttype = sendNotificationsOptions.datacontenttype;
-      this.specversion = sendNotificationsOptions.specversion;
+      this.body = sendNotificationsOptions.body;
+      this.ceIbmenseverity = sendNotificationsOptions.ceIbmenseverity;
+      this.ceIbmendefaultshort = sendNotificationsOptions.ceIbmendefaultshort;
+      this.ceIbmendefaultlong = sendNotificationsOptions.ceIbmendefaultlong;
+      this.ceIbmenfcmbody = sendNotificationsOptions.ceIbmenfcmbody;
+      this.ceIbmenapnsbody = sendNotificationsOptions.ceIbmenapnsbody;
+      this.ceIbmenpushto = sendNotificationsOptions.ceIbmenpushto;
+      this.ceIbmenapnsheaders = sendNotificationsOptions.ceIbmenapnsheaders;
+      this.ceIbmenchromebody = sendNotificationsOptions.ceIbmenchromebody;
+      this.ceIbmenfirefoxbody = sendNotificationsOptions.ceIbmenfirefoxbody;
+      this.ceIbmenchromeheaders = sendNotificationsOptions.ceIbmenchromeheaders;
+      this.ceIbmenfirefoxheaders = sendNotificationsOptions.ceIbmenfirefoxheaders;
+      this.ceIbmensourceid = sendNotificationsOptions.ceIbmensourceid;
+      this.ceId = sendNotificationsOptions.ceId;
+      this.ceSource = sendNotificationsOptions.ceSource;
+      this.ceType = sendNotificationsOptions.ceType;
+      this.ceSpecversion = sendNotificationsOptions.ceSpecversion;
+      this.ceTime = sendNotificationsOptions.ceTime;
     }
 
     /**
@@ -86,23 +98,9 @@ public class SendNotificationsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param instanceId the instanceId
-     * @param ibmenseverity the ibmenseverity
-     * @param ibmensourceid the ibmensourceid
-     * @param subject the subject
-     * @param id the id
-     * @param source the source
-     * @param type the type
-     * @param time the time
      */
-    public Builder(String instanceId, String ibmenseverity, String ibmensourceid, String subject, String id, String source, String type, Date time) {
+    public Builder(String instanceId) {
       this.instanceId = instanceId;
-      this.ibmenseverity = ibmenseverity;
-      this.ibmensourceid = ibmensourceid;
-      this.subject = subject;
-      this.id = id;
-      this.source = source;
-      this.type = type;
-      this.time = time;
     }
 
     /**
@@ -126,156 +124,200 @@ public class SendNotificationsOptions extends GenericModel {
     }
 
     /**
-     * Set the ibmenseverity.
+     * Set the body.
      *
-     * @param ibmenseverity the ibmenseverity
+     * @param body the body
      * @return the SendNotificationsOptions builder
      */
-    public Builder ibmenseverity(String ibmenseverity) {
-      this.ibmenseverity = ibmenseverity;
+    public Builder body(SendNotificationsRequest body) {
+      this.body = body;
       return this;
     }
 
     /**
-     * Set the ibmensourceid.
+     * Set the ceIbmenseverity.
      *
-     * @param ibmensourceid the ibmensourceid
+     * @param ceIbmenseverity the ceIbmenseverity
      * @return the SendNotificationsOptions builder
      */
-    public Builder ibmensourceid(String ibmensourceid) {
-      this.ibmensourceid = ibmensourceid;
+    public Builder ceIbmenseverity(String ceIbmenseverity) {
+      this.ceIbmenseverity = ceIbmenseverity;
       return this;
     }
 
     /**
-     * Set the subject.
+     * Set the ceIbmendefaultshort.
      *
-     * @param subject the subject
+     * @param ceIbmendefaultshort the ceIbmendefaultshort
      * @return the SendNotificationsOptions builder
      */
-    public Builder subject(String subject) {
-      this.subject = subject;
+    public Builder ceIbmendefaultshort(String ceIbmendefaultshort) {
+      this.ceIbmendefaultshort = ceIbmendefaultshort;
       return this;
     }
 
     /**
-     * Set the id.
+     * Set the ceIbmendefaultlong.
      *
-     * @param id the id
+     * @param ceIbmendefaultlong the ceIbmendefaultlong
      * @return the SendNotificationsOptions builder
      */
-    public Builder id(String id) {
-      this.id = id;
+    public Builder ceIbmendefaultlong(String ceIbmendefaultlong) {
+      this.ceIbmendefaultlong = ceIbmendefaultlong;
       return this;
     }
 
     /**
-     * Set the source.
+     * Set the ceIbmenfcmbody.
      *
-     * @param source the source
+     * @param ceIbmenfcmbody the ceIbmenfcmbody
      * @return the SendNotificationsOptions builder
      */
-    public Builder source(String source) {
-      this.source = source;
+    public Builder ceIbmenfcmbody(NotificationFCMBody ceIbmenfcmbody) {
+      this.ceIbmenfcmbody = ceIbmenfcmbody;
       return this;
     }
 
     /**
-     * Set the type.
+     * Set the ceIbmenapnsbody.
      *
-     * @param type the type
+     * @param ceIbmenapnsbody the ceIbmenapnsbody
      * @return the SendNotificationsOptions builder
      */
-    public Builder type(String type) {
-      this.type = type;
+    public Builder ceIbmenapnsbody(NotificationAPNSBody ceIbmenapnsbody) {
+      this.ceIbmenapnsbody = ceIbmenapnsbody;
       return this;
     }
 
     /**
-     * Set the time.
+     * Set the ceIbmenpushto.
      *
-     * @param time the time
+     * @param ceIbmenpushto the ceIbmenpushto
      * @return the SendNotificationsOptions builder
      */
-    public Builder time(Date time) {
-      this.time = time;
+    public Builder ceIbmenpushto(NotificationDevices ceIbmenpushto) {
+      this.ceIbmenpushto = ceIbmenpushto;
       return this;
     }
 
     /**
-     * Set the data.
+     * Set the ceIbmenapnsheaders.
      *
-     * @param data the data
+     * @param ceIbmenapnsheaders the ceIbmenapnsheaders
      * @return the SendNotificationsOptions builder
      */
-    public Builder data(Map<String, Object> data) {
-      this.data = data;
+    public Builder ceIbmenapnsheaders(Map<String, Object> ceIbmenapnsheaders) {
+      this.ceIbmenapnsheaders = ceIbmenapnsheaders;
       return this;
     }
 
     /**
-     * Set the ibmenfcmbody.
+     * Set the ceIbmenchromebody.
      *
-     * @param ibmenfcmbody the ibmenfcmbody
+     * @param ceIbmenchromebody the ceIbmenchromebody
      * @return the SendNotificationsOptions builder
      */
-    public Builder ibmenfcmbody(NotificationFCMBody ibmenfcmbody) {
-      this.ibmenfcmbody = ibmenfcmbody;
+    public Builder ceIbmenchromebody(NotificationChromeBody ceIbmenchromebody) {
+      this.ceIbmenchromebody = ceIbmenchromebody;
       return this;
     }
 
     /**
-     * Set the ibmenapnsbody.
+     * Set the ceIbmenfirefoxbody.
      *
-     * @param ibmenapnsbody the ibmenapnsbody
+     * @param ceIbmenfirefoxbody the ceIbmenfirefoxbody
      * @return the SendNotificationsOptions builder
      */
-    public Builder ibmenapnsbody(NotificationAPNSBody ibmenapnsbody) {
-      this.ibmenapnsbody = ibmenapnsbody;
+    public Builder ceIbmenfirefoxbody(NotificationFirefoxBody ceIbmenfirefoxbody) {
+      this.ceIbmenfirefoxbody = ceIbmenfirefoxbody;
       return this;
     }
 
     /**
-     * Set the ibmenpushto.
+     * Set the ceIbmenchromeheaders.
      *
-     * @param ibmenpushto the ibmenpushto
+     * @param ceIbmenchromeheaders the ceIbmenchromeheaders
      * @return the SendNotificationsOptions builder
      */
-    public Builder ibmenpushto(NotificationDevices ibmenpushto) {
-      this.ibmenpushto = ibmenpushto;
+    public Builder ceIbmenchromeheaders(Map<String, Object> ceIbmenchromeheaders) {
+      this.ceIbmenchromeheaders = ceIbmenchromeheaders;
       return this;
     }
 
     /**
-     * Set the ibmenapnsheaders.
+     * Set the ceIbmenfirefoxheaders.
      *
-     * @param ibmenapnsheaders the ibmenapnsheaders
+     * @param ceIbmenfirefoxheaders the ceIbmenfirefoxheaders
      * @return the SendNotificationsOptions builder
      */
-    public Builder ibmenapnsheaders(Map<String, Object> ibmenapnsheaders) {
-      this.ibmenapnsheaders = ibmenapnsheaders;
+    public Builder ceIbmenfirefoxheaders(Map<String, Object> ceIbmenfirefoxheaders) {
+      this.ceIbmenfirefoxheaders = ceIbmenfirefoxheaders;
       return this;
     }
 
     /**
-     * Set the datacontenttype.
+     * Set the ceIbmensourceid.
      *
-     * @param datacontenttype the datacontenttype
+     * @param ceIbmensourceid the ceIbmensourceid
      * @return the SendNotificationsOptions builder
      */
-    public Builder datacontenttype(String datacontenttype) {
-      this.datacontenttype = datacontenttype;
+    public Builder ceIbmensourceid(String ceIbmensourceid) {
+      this.ceIbmensourceid = ceIbmensourceid;
       return this;
     }
 
     /**
-     * Set the specversion.
+     * Set the ceId.
      *
-     * @param specversion the specversion
+     * @param ceId the ceId
      * @return the SendNotificationsOptions builder
      */
-    public Builder specversion(String specversion) {
-      this.specversion = specversion;
+    public Builder ceId(String ceId) {
+      this.ceId = ceId;
+      return this;
+    }
+
+    /**
+     * Set the ceSource.
+     *
+     * @param ceSource the ceSource
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ceSource(String ceSource) {
+      this.ceSource = ceSource;
+      return this;
+    }
+
+    /**
+     * Set the ceType.
+     *
+     * @param ceType the ceType
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ceType(String ceType) {
+      this.ceType = ceType;
+      return this;
+    }
+
+    /**
+     * Set the ceSpecversion.
+     *
+     * @param ceSpecversion the ceSpecversion
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ceSpecversion(String ceSpecversion) {
+      this.ceSpecversion = ceSpecversion;
+      return this;
+    }
+
+    /**
+     * Set the ceTime.
+     *
+     * @param ceTime the ceTime
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ceTime(Date ceTime) {
+      this.ceTime = ceTime;
       return this;
     }
   }
@@ -283,35 +325,25 @@ public class SendNotificationsOptions extends GenericModel {
   protected SendNotificationsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmenseverity,
-      "ibmenseverity cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmensourceid,
-      "ibmensourceid cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.subject,
-      "subject cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.id,
-      "id cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.source,
-      "source cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
-      "type cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.time,
-      "time cannot be null");
     instanceId = builder.instanceId;
-    ibmenseverity = builder.ibmenseverity;
-    ibmensourceid = builder.ibmensourceid;
-    subject = builder.subject;
-    id = builder.id;
-    source = builder.source;
-    type = builder.type;
-    time = builder.time;
-    data = builder.data;
-    ibmenfcmbody = builder.ibmenfcmbody;
-    ibmenapnsbody = builder.ibmenapnsbody;
-    ibmenpushto = builder.ibmenpushto;
-    ibmenapnsheaders = builder.ibmenapnsheaders;
-    datacontenttype = builder.datacontenttype;
-    specversion = builder.specversion;
+    body = builder.body;
+    ceIbmenseverity = builder.ceIbmenseverity;
+    ceIbmendefaultshort = builder.ceIbmendefaultshort;
+    ceIbmendefaultlong = builder.ceIbmendefaultlong;
+    ceIbmenfcmbody = builder.ceIbmenfcmbody;
+    ceIbmenapnsbody = builder.ceIbmenapnsbody;
+    ceIbmenpushto = builder.ceIbmenpushto;
+    ceIbmenapnsheaders = builder.ceIbmenapnsheaders;
+    ceIbmenchromebody = builder.ceIbmenchromebody;
+    ceIbmenfirefoxbody = builder.ceIbmenfirefoxbody;
+    ceIbmenchromeheaders = builder.ceIbmenchromeheaders;
+    ceIbmenfirefoxheaders = builder.ceIbmenfirefoxheaders;
+    ceIbmensourceid = builder.ceIbmensourceid;
+    ceId = builder.ceId;
+    ceSource = builder.ceSource;
+    ceType = builder.ceType;
+    ceSpecversion = builder.ceSpecversion;
+    ceTime = builder.ceTime;
   }
 
   /**
@@ -335,155 +367,199 @@ public class SendNotificationsOptions extends GenericModel {
   }
 
   /**
-   * Gets the ibmenseverity.
+   * Gets the body.
    *
-   * The Notifications id.
-   *
-   * @return the ibmenseverity
+   * @return the body
    */
-  public String ibmenseverity() {
-    return ibmenseverity;
+  public SendNotificationsRequest body() {
+    return body;
   }
 
   /**
-   * Gets the ibmensourceid.
+   * Gets the ceIbmenseverity.
    *
-   * The Event Notifications source id.
+   * The Notification severity.
    *
-   * @return the ibmensourceid
+   * @return the ceIbmenseverity
    */
-  public String ibmensourceid() {
-    return ibmensourceid;
+  public String ceIbmenseverity() {
+    return ceIbmenseverity;
   }
 
   /**
-   * Gets the subject.
+   * Gets the ceIbmendefaultshort.
    *
-   * The Notifications subject.
+   * The Notification default short text.
    *
-   * @return the subject
+   * @return the ceIbmendefaultshort
    */
-  public String subject() {
-    return subject;
+  public String ceIbmendefaultshort() {
+    return ceIbmendefaultshort;
   }
 
   /**
-   * Gets the id.
+   * Gets the ceIbmendefaultlong.
    *
-   * The Notifications id.
+   * The Notification default long text.
    *
-   * @return the id
+   * @return the ceIbmendefaultlong
    */
-  public String id() {
-    return id;
+  public String ceIbmendefaultlong() {
+    return ceIbmendefaultlong;
   }
 
   /**
-   * Gets the source.
+   * Gets the ceIbmenfcmbody.
    *
-   * The source of Notifications.
+   * The FCM Notification body.
    *
-   * @return the source
+   * @return the ceIbmenfcmbody
    */
-  public String source() {
-    return source;
+  public NotificationFCMBody ceIbmenfcmbody() {
+    return ceIbmenfcmbody;
   }
 
   /**
-   * Gets the type.
+   * Gets the ceIbmenapnsbody.
    *
-   * The Notifications type.
+   * The APNS Notification body.
    *
-   * @return the type
+   * @return the ceIbmenapnsbody
    */
-  public String type() {
-    return type;
+  public NotificationAPNSBody ceIbmenapnsbody() {
+    return ceIbmenapnsbody;
   }
 
   /**
-   * Gets the time.
+   * Gets the ceIbmenpushto.
    *
-   * The Notifications time.
+   * Push Notifications Targets.
    *
-   * @return the time
+   * @return the ceIbmenpushto
    */
-  public Date time() {
-    return time;
+  public NotificationDevices ceIbmenpushto() {
+    return ceIbmenpushto;
   }
 
   /**
-   * Gets the data.
+   * Gets the ceIbmenapnsheaders.
    *
-   * The Notifications data for webhook.
+   * Push Notifications APNS Headers.
    *
-   * @return the data
+   * @return the ceIbmenapnsheaders
    */
-  public Map<String, Object> data() {
-    return data;
+  public Map<String, Object> ceIbmenapnsheaders() {
+    return ceIbmenapnsheaders;
   }
 
   /**
-   * Gets the ibmenfcmbody.
+   * Gets the ceIbmenchromebody.
    *
-   * @return the ibmenfcmbody
+   * Push Notifications Chrome body.
+   *
+   * @return the ceIbmenchromebody
    */
-  public NotificationFCMBody ibmenfcmbody() {
-    return ibmenfcmbody;
+  public NotificationChromeBody ceIbmenchromebody() {
+    return ceIbmenchromebody;
   }
 
   /**
-   * Gets the ibmenapnsbody.
+   * Gets the ceIbmenfirefoxbody.
    *
-   * Payload describing a APNs Notifications body.
+   * Push Notifications Firefox body.
    *
-   * @return the ibmenapnsbody
+   * @return the ceIbmenfirefoxbody
    */
-  public NotificationAPNSBody ibmenapnsbody() {
-    return ibmenapnsbody;
+  public NotificationFirefoxBody ceIbmenfirefoxbody() {
+    return ceIbmenfirefoxbody;
   }
 
   /**
-   * Gets the ibmenpushto.
+   * Gets the ceIbmenchromeheaders.
    *
-   * Payload describing a FCM Notifications targets.
+   * Push Notifications Chrome Headers.
    *
-   * @return the ibmenpushto
+   * @return the ceIbmenchromeheaders
    */
-  public NotificationDevices ibmenpushto() {
-    return ibmenpushto;
+  public Map<String, Object> ceIbmenchromeheaders() {
+    return ceIbmenchromeheaders;
   }
 
   /**
-   * Gets the ibmenapnsheaders.
+   * Gets the ceIbmenfirefoxheaders.
    *
-   * The attributes for an FCM/APNs notification.
+   * Push Notifications Firefox Headers.
    *
-   * @return the ibmenapnsheaders
+   * @return the ceIbmenfirefoxheaders
    */
-  public Map<String, Object> ibmenapnsheaders() {
-    return ibmenapnsheaders;
+  public Map<String, Object> ceIbmenfirefoxheaders() {
+    return ceIbmenfirefoxheaders;
   }
 
   /**
-   * Gets the datacontenttype.
+   * Gets the ceIbmensourceid.
    *
-   * The Notifications content type.
+   * Event Notifications Target source ID.
    *
-   * @return the datacontenttype
+   * @return the ceIbmensourceid
    */
-  public String datacontenttype() {
-    return datacontenttype;
+  public String ceIbmensourceid() {
+    return ceIbmensourceid;
   }
 
   /**
-   * Gets the specversion.
+   * Gets the ceId.
    *
-   * The Notifications specversion.
+   * custom ID to track notifications from client side (Mandatory identifier for the binary mode).
    *
-   * @return the specversion
+   * @return the ceId
    */
-  public String specversion() {
-    return specversion;
+  public String ceId() {
+    return ceId;
+  }
+
+  /**
+   * Gets the ceSource.
+   *
+   * custom source odentifier from the client side.
+   *
+   * @return the ceSource
+   */
+  public String ceSource() {
+    return ceSource;
+  }
+
+  /**
+   * Gets the ceType.
+   *
+   * Type identifier for source filters.
+   *
+   * @return the ceType
+   */
+  public String ceType() {
+    return ceType;
+  }
+
+  /**
+   * Gets the ceSpecversion.
+   *
+   * Version of the Cloud Event specification (Mandatory header to make the request Binary Mode).
+   *
+   * @return the ceSpecversion
+   */
+  public String ceSpecversion() {
+    return ceSpecversion;
+  }
+
+  /**
+   * Gets the ceTime.
+   *
+   * The time of the notification.
+   *
+   * @return the ceTime
+   */
+  public Date ceTime() {
+    return ceTime;
   }
 }
 

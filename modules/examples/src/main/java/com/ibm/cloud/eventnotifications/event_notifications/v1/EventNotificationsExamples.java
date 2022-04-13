@@ -525,22 +525,20 @@ public class EventNotificationsExamples {
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .subject("FCM_SUBJECT")
-              .ibmenseverity("MEDIUM")
-              .id("FCM ID")
-              .source(sourceId)
-              .ibmensourceid(sourceId)
-              .type("com.acme.offer:new")
-              .time(new java.util.Date())
-              .ibmenpushto(notificationDevices)
-              .ibmenfcmbody(fcmBodyNotificationPayload)
-              .ibmenapnsbody(apnsBodyNotificationPayload)
-              .ibmenapnsheaders(messageApnsHeader)
+              .ceIbmenseverity("MEDIUM")
+              .ceId("FCM ID")
+              .ceSource(sourceId)
+              .ceIbmensourceid(sourceId)
+              .ceType("com.acme.offer:new")
+              .ceTime(new java.util.Date())
+              .ceIbmenpushto(notificationDevices)
+              .ceIbmenfcmbody(fcmBodyNotificationPayload)
+              .ceIbmenapnsbody(apnsBodyNotificationPayload)
+              .ceIbmenapnsheaders(messageApnsHeader)
+              .ceSpecversion("1.0")
               .build();
 
-      SendNotifications serviceSendNotifications = new SendNotifications(eventNotificationsService);
-
-      Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
+      Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
 
       System.out.println(notificationResponse);

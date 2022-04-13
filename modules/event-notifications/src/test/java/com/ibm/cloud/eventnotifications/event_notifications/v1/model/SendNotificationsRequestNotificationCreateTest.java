@@ -23,7 +23,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageENData;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFirefoxBodyMessageData;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFirefoxBodyMessageENData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsRequestNotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Style;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -38,14 +37,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the SendNotificationsOptions model.
+ * Unit test class for the SendNotificationsRequestNotificationCreate model.
  */
-public class SendNotificationsOptionsTest {
+public class SendNotificationsRequestNotificationCreateTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testSendNotificationsOptions() throws Throwable {
+  public void testSendNotificationsRequestNotificationCreate() throws Throwable {
     Lights lightsModel = new Lights.Builder()
       .ledArgb("testString")
       .ledOnMs(Long.valueOf("0"))
@@ -215,7 +214,7 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationFirefoxBodyModel.getEnData(), notificationFirefoxBodyMessageDataModel);
     assertEquals(notificationFirefoxBodyModel.get("foo"), "testString");
 
-    SendNotificationsRequestNotificationCreate sendNotificationsRequestModel = new SendNotificationsRequestNotificationCreate.Builder()
+    SendNotificationsRequestNotificationCreate sendNotificationsRequestNotificationCreateModel = new SendNotificationsRequestNotificationCreate.Builder()
       .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .ibmenseverity("testString")
       .ibmenfcmbody(notificationFcmBodyModel)
@@ -238,73 +237,54 @@ public class SendNotificationsOptionsTest {
       .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
       .add("foo", "testString")
       .build();
-    assertEquals(sendNotificationsRequestModel.getData(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsRequestModel.getIbmenseverity(), "testString");
-    assertEquals(sendNotificationsRequestModel.getIbmenfcmbody(), notificationFcmBodyModel);
-    assertEquals(sendNotificationsRequestModel.getIbmenapnsbody(), notificationApnsBodyModel);
-    assertEquals(sendNotificationsRequestModel.getIbmenpushto(), notificationDevicesModel);
-    assertEquals(sendNotificationsRequestModel.getIbmenapnsheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsRequestModel.getIbmendefaultshort(), "testString");
-    assertEquals(sendNotificationsRequestModel.getIbmendefaultlong(), "testString");
-    assertEquals(sendNotificationsRequestModel.getIbmenchromebody(), notificationChromeBodyModel);
-    assertEquals(sendNotificationsRequestModel.getIbmenfirefoxbody(), notificationFirefoxBodyModel);
-    assertEquals(sendNotificationsRequestModel.getIbmenchromeheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsRequestModel.getIbmenfirefoxheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsRequestModel.getIbmensourceid(), "testString");
-    assertEquals(sendNotificationsRequestModel.getDatacontenttype(), "application/json");
-    assertEquals(sendNotificationsRequestModel.getSubject(), "testString");
-    assertEquals(sendNotificationsRequestModel.getId(), "testString");
-    assertEquals(sendNotificationsRequestModel.getSource(), "testString");
-    assertEquals(sendNotificationsRequestModel.getType(), "testString");
-    assertEquals(sendNotificationsRequestModel.getSpecversion(), "1.0");
-    assertEquals(sendNotificationsRequestModel.getTime(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
-    assertEquals(sendNotificationsRequestModel.get("foo"), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getData(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenseverity(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenfcmbody(), notificationFcmBodyModel);
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenapnsbody(), notificationApnsBodyModel);
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenpushto(), notificationDevicesModel);
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenapnsheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmendefaultshort(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmendefaultlong(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenchromebody(), notificationChromeBodyModel);
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenfirefoxbody(), notificationFirefoxBodyModel);
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenchromeheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmenfirefoxheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getIbmensourceid(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getDatacontenttype(), "application/json");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getSubject(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getId(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getSource(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getType(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getSpecversion(), "1.0");
+    assertEquals(sendNotificationsRequestNotificationCreateModel.getTime(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    assertEquals(sendNotificationsRequestNotificationCreateModel.get("foo"), "testString");
 
-    SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()
-      .instanceId("testString")
-      .body(sendNotificationsRequestModel)
-      .ceIbmenseverity("testString")
-      .ceIbmendefaultshort("testString")
-      .ceIbmendefaultlong("testString")
-      .ceIbmenfcmbody(notificationFcmBodyModel)
-      .ceIbmenapnsbody(notificationApnsBodyModel)
-      .ceIbmenpushto(notificationDevicesModel)
-      .ceIbmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .ceIbmenchromebody(notificationChromeBodyModel)
-      .ceIbmenfirefoxbody(notificationFirefoxBodyModel)
-      .ceIbmenchromeheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .ceIbmenfirefoxheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .ceIbmensourceid("testString")
-      .ceId("testString")
-      .ceSource("testString")
-      .ceType("testString")
-      .ceSpecversion("1.0")
-      .ceTime(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
-      .build();
-    assertEquals(sendNotificationsOptionsModel.instanceId(), "testString");
-    assertEquals(sendNotificationsOptionsModel.body(), sendNotificationsRequestModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenseverity(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmendefaultshort(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmendefaultlong(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenfcmbody(), notificationFcmBodyModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenapnsbody(), notificationApnsBodyModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenpushto(), notificationDevicesModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenapnsheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsOptionsModel.ceIbmenchromebody(), notificationChromeBodyModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenfirefoxbody(), notificationFirefoxBodyModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenchromeheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsOptionsModel.ceIbmenfirefoxheaders(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(sendNotificationsOptionsModel.ceIbmensourceid(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceId(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceSource(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceType(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceSpecversion(), "1.0");
-    assertEquals(sendNotificationsOptionsModel.ceTime(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    String json = TestUtilities.serialize(sendNotificationsRequestNotificationCreateModel);
+
+    SendNotificationsRequestNotificationCreate sendNotificationsRequestNotificationCreateModelNew = TestUtilities.deserialize(json, SendNotificationsRequestNotificationCreate.class);
+    assertTrue(sendNotificationsRequestNotificationCreateModelNew instanceof SendNotificationsRequestNotificationCreate);
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmenseverity(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmenfcmbody().toString(), notificationFcmBodyModel.toString());
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmenapnsbody().toString(), notificationApnsBodyModel.toString());
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmenpushto().toString(), notificationDevicesModel.toString());
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmendefaultshort(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmendefaultlong(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmenchromebody().toString(), notificationChromeBodyModel.toString());
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmenfirefoxbody().toString(), notificationFirefoxBodyModel.toString());
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getIbmensourceid(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getDatacontenttype(), "application/json");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getSubject(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getId(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getSource(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getType(), "testString");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getSpecversion(), "1.0");
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.getTime(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    assertEquals(sendNotificationsRequestNotificationCreateModelNew.get("foo"), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testSendNotificationsOptionsError() throws Throwable {
-    new SendNotificationsOptions.Builder().build();
+  public void testSendNotificationsRequestNotificationCreateError() throws Throwable {
+    new SendNotificationsRequestNotificationCreate.Builder().build();
   }
 
 }
