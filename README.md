@@ -485,21 +485,20 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .subject("<notification-subject>")
-              .ibmenseverity("<notification-severity>")
-              .id("<notification-id>")
-              .source(sourceId)
+              .ceIbmenseverity("<notification-severity>")
+              .ceId("<notification-id>")
+              .ceSource(sourceId)
               .ibmensourceid(sourceId)
-              .type("<notification-type>")
-              .time(new java.util.Date())
-              .ibmenpushto(notificationDevices)
-              .ibmenfcmbody(fcmBodyNotificationPayload)
-              .ibmenapnsbody(apnsBodyNotificationPayload)
-              .ibmenapnsheaders(messageApnsHeader)
+              .ceType("<notification-type>")
+              .ceTime(new java.util.Date())
+              .ceIbmenpushto(notificationDevices)
+              .ceIbmenfcmbody(fcmBodyNotificationPayload)
+              .ceIbmenapnsbody(apnsBodyNotificationPayload)
+              .ceIbmenapnsheaders(messageApnsHeader)
+              .ceSpecversion("1.0")
               .build();
 
-        SendNotifications serviceSendNotifications = new SendNotifications(eventNotificationsService);
-        Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
+        Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();```
 ```
 <details open>
