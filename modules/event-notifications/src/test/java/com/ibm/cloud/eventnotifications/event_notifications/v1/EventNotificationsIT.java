@@ -498,7 +498,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
               .url("https://gcm.com")
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+              .customHeaders(new java.util.HashMap<String, String>() { { put("gcm_apikey", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("gcm_apikey")))
               .build();
 
@@ -682,7 +682,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
               .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
               .build();
 
