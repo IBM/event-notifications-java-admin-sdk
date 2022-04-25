@@ -13,8 +13,6 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.*;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
@@ -22,7 +20,6 @@ import com.ibm.cloud.sdk.core.util.CredentialUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
