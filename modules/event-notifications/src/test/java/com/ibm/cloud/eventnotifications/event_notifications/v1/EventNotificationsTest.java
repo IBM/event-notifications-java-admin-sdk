@@ -26,7 +26,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopic
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParams;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsChromeDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFirefoxDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
@@ -43,7 +45,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinat
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Lights;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationDevicesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
@@ -51,15 +52,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBody;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyMessageENData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationAPNSBodyNotificationPayload;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationDevices;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBody;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyMessageENData;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationFCMBodyNotificationPayload;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
@@ -70,7 +63,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Style;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
@@ -143,7 +135,6 @@ public class EventNotificationsTest extends PowerMockTestCase {
     new EventNotifications(serviceName, null);
   }
 
-  /*
   // Test the sendNotifications operation with a valid options model parameter
   @Test
   public void testSendNotificationsWOptions() throws Throwable {
@@ -155,105 +146,52 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .setResponseCode(201)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the Lights model
-    Lights lightsModel = new Lights.Builder()
-      .ledArgb("testString")
-      .ledOnMs(Long.valueOf("0"))
-      .ledOffMs("testString")
-      .build();
-
-    // Construct an instance of the Style model
-    Style styleModel = new Style.Builder()
+    // Construct an instance of the NotificationCreate model
+    NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
+      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .ibmenseverity("testString")
+      .ibmenfcmbody("testString")
+      .ibmenapnsbody("testString")
+      .ibmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
+      .ibmenapnsheaders("testString")
+      .ibmendefaultshort("testString")
+      .ibmendefaultlong("testString")
+      .ibmenchromebody("testString")
+      .ibmenfirefoxbody("testString")
+      .ibmenchromeheaders("testString")
+      .ibmenfirefoxheaders("testString")
+      .ibmensourceid("testString")
+      .datacontenttype("application/json")
+      .subject("testString")
+      .id("testString")
+      .source("testString")
       .type("testString")
-      .title("testString")
-      .url("testString")
-      .text("testString")
-      .lines(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .specversion("1.0")
+      .time("testString")
       .add("foo", "testString")
-      .build();
-
-    // Construct an instance of the NotificationFCMBodyMessageData model
-    NotificationFCMBodyMessageData notificationFcmBodyMessageDataModel = new NotificationFCMBodyMessageData.Builder()
-      .alert("testString")
-      .collapseKey("testString")
-      .interactiveCategory("testString")
-      .icon("testString")
-      .delayWhileIdle(true)
-      .sync(true)
-      .visibility("testString")
-      .redact("testString")
-      .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .priority("testString")
-      .sound("testString")
-      .timeToLive(Long.valueOf("0"))
-      .lights(lightsModel)
-      .androidTitle("testString")
-      .groupId("testString")
-      .style(styleModel)
-      .type("DEFAULT")
-      .build();
-
-    // Construct an instance of the NotificationFCMBodyMessageENData model
-    NotificationFCMBodyMessageENData notificationFcmBodyModel = new NotificationFCMBodyMessageENData.Builder()
-      .enData(notificationFcmBodyMessageDataModel)
-      .add("foo", "testString")
-      .build();
-
-    // Construct an instance of the NotificationAPNSBodyMessageData model
-    NotificationAPNSBodyMessageData notificationApnsBodyMessageDataModel = new NotificationAPNSBodyMessageData.Builder()
-      .alert("testString")
-      .badge(Long.valueOf("26"))
-      .interactiveCategory("testString")
-      .iosActionKey("testString")
-      .payload(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .sound("testString")
-      .titleLocKey("testString")
-      .locKey("testString")
-      .launchImage("testString")
-      .titleLocArgs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .locArgs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .title("testString")
-      .subtitle("testString")
-      .attachmentUrl("testString")
-      .type("DEFAULT")
-      .apnsCollapseId("testString")
-      .apnsThreadId("testString")
-      .apnsGroupSummaryArg("testString")
-      .apnsGroupSummaryArgCount(Long.valueOf("26"))
-      .build();
-
-    // Construct an instance of the NotificationAPNSBodyMessageENData model
-    NotificationAPNSBodyMessageENData notificationApnsBodyModel = new NotificationAPNSBodyMessageENData.Builder()
-      .enData(notificationApnsBodyMessageDataModel)
-      .add("foo", "testString")
-      .build();
-
-    // Construct an instance of the NotificationDevices model
-    NotificationDevices notificationDevicesModel = new NotificationDevices.Builder()
-      .fcmDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .apnsDevices(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .userIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .tags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .platforms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .build();
 
     // Construct an instance of the SendNotificationsOptions model
     SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()
       .instanceId("testString")
-      .ibmenseverity("testString")
-      .ibmensourceid("testString")
-      .subject("testString")
-      .id("testString")
-      .source("testString")
-      .type("testString")
-      .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
-      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .ibmenfcmbody(notificationFcmBodyModel)
-      .ibmenapnsbody(notificationApnsBodyModel)
-      .ibmenpushto(notificationDevicesModel)
-      .ibmenapnsheaders(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .datacontenttype("application/json")
-      .specversion("1.0")
+      .body(notificationCreateModel)
+      .ceIbmenseverity("testString")
+      .ceIbmendefaultshort("testString")
+      .ceIbmendefaultlong("testString")
+      .ceIbmenfcmbody("testString")
+      .ceIbmenapnsbody("testString")
+      .ceIbmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
+      .ceIbmenapnsheaders("testString")
+      .ceIbmenchromebody("testString")
+      .ceIbmenfirefoxbody("testString")
+      .ceIbmenchromeheaders("testString")
+      .ceIbmenfirefoxheaders("testString")
+      .ceIbmensourceid("testString")
+      .ceId("testString")
+      .ceSource("testString")
+      .ceType("testString")
+      .ceSpecversion("1.0")
+      .ceTime("testString")
       .build();
 
     // Invoke sendNotifications() with a valid options model and verify the result
@@ -290,8 +228,6 @@ public class EventNotificationsTest extends PowerMockTestCase {
     server.enqueue(new MockResponse());
     eventNotificationsService.sendNotifications(null).execute();
   }
-
-   */
 
   // Test the createSources operation with a valid options model parameter
   @Test

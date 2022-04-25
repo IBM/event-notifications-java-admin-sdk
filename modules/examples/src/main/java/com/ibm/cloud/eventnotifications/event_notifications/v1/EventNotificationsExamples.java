@@ -503,44 +503,27 @@ public class EventNotificationsExamples {
       List<String> userIds = new ArrayList<String>();
       userIds.add("Dev_User");
 
-      NotificationDevices notificationDevices = new NotificationDevices.Builder()
-              .userIds(userIds)
-              .build();
-
-      String jsonString = "{ 'title' : 'Portugal vs. Denmark', 'badge': 'great match' }";
-      JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-
-      NotificationFCMBodyNotificationPayload fcmBodyNotificationPayload = new NotificationFCMBodyNotificationPayload.Builder()
-              .add("notification", jsonObject)
-              .build();
-
+      String notificationDevices = "{ 'user_ids' : " + userIds + "}";
+      String fcmJsonString = "{ 'title' : 'Portugal vs. Denmark', 'badge': 'great match' }";
       String apnsJsonString = "{'alert': 'Game Request', 'badge': 5 }";
-      JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
-
-      NotificationAPNSBodyNotificationPayload apnsBodyNotificationPayload = new NotificationAPNSBodyNotificationPayload.Builder()
-              .add("aps", apnsJsonObject)
-              .build();
-
       Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "123"); } };
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .subject("FCM_SUBJECT")
-              .ibmenseverity("MEDIUM")
-              .id("FCM ID")
-              .source(sourceId)
-              .ibmensourceid(sourceId)
-              .type("com.acme.offer:new")
-              .time(new java.util.Date())
-              .ibmenpushto(notificationDevices)
-              .ibmenfcmbody(fcmBodyNotificationPayload)
-              .ibmenapnsbody(apnsBodyNotificationPayload)
-              .ibmenapnsheaders(messageApnsHeader)
+              .ceIbmenseverity("MEDIUM")
+              .ceId("FCM ID")
+              .ceSource(sourceId)
+              .ceIbmensourceid(sourceId)
+              .ceType("com.acme.offer:new")
+              .ceTime(new java.util.Date().toString())
+              .ceIbmenpushto(notificationDevices)
+              .ceIbmenfcmbody(fcmJsonString)
+              .ceIbmenapnsbody(apnsJsonString)
+              .ceIbmenapnsheaders(messageApnsHeader.toString())
+              .ceSpecversion("1.0")
               .build();
 
-      SendNotifications serviceSendNotifications = new SendNotifications(eventNotificationsService);
-
-      Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
+      Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
 
       System.out.println(notificationResponse);

@@ -458,48 +458,30 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
 
       List<String> devicePlatforms = new ArrayList<String>();
       devicePlatforms.add(<device-platforms>);
-      
-      NotificationDevices notificationDevices = new NotificationDevices.Builder()
-      .userIds(userIds)
-      .fcmDevices(fcmDevices)
-      .apnsDevices(apnsDevices)
-      .tags(tagNames)
-      .platforms(devicePlatforms)
-      .build();
 
-      String fcmJsonString = "{ 'title' : '<notification-title>', 'body': '<notification-message>' }";
-      JsonObject fcmJsonObject = JsonParser.parseString(fcmJsonString).getAsJsonObject();
-
-      NotificationFCMBodyNotificationPayload fcmBodyNotificationPayload = new NotificationFCMBodyNotificationPayload.Builder()
-              .add("notification", fcmJsonObject)
-              .build();
-
+      String notificationDevices = "{ 'user_ids' : " + userIds + "}";
+      String fcmJsonString = "{ 'title' : '<notification-title>', 'badge': '<notification-message>' }";
       String apnsJsonString = "{'alert': '<notification-message>', 'badge': 5 }";
       JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
-
-      NotificationAPNSBodyNotificationPayload apnsBodyNotificationPayload = new NotificationAPNSBodyNotificationPayload.Builder()
-              .add("aps", apnsJsonObject)
-              .build();
 
       Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "<apns-apns-collapse-id-value>"); } };
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .subject("<notification-subject>")
-              .ibmenseverity("<notification-severity>")
-              .id("<notification-id>")
-              .source(sourceId)
-              .ibmensourceid(sourceId)
-              .type("<notification-type>")
-              .time(new java.util.Date())
-              .ibmenpushto(notificationDevices)
-              .ibmenfcmbody(fcmBodyNotificationPayload)
-              .ibmenapnsbody(apnsBodyNotificationPayload)
-              .ibmenapnsheaders(messageApnsHeader)
+              .ceIbmenseverity("<notification-severity>")
+              .ceId("<notification-id>")
+              .ceSource(sourceId)
+              .ceIbmensourceid(sourceId)
+              .ceType("<notification-type>")
+              .ceTime(new java.util.Date())
+              .ceIbmenpushto(notificationDevices)
+              .ceIbmenfcmbody(fcmBodyNotificationPayload)
+              .ceIbmenapnsbody(apnsBodyNotificationPayload)
+              .ceIbmenapnsheaders(messageApnsHeader)
+              .ceSpecversion("1.0")
               .build();
-
-        SendNotifications serviceSendNotifications = new SendNotifications(eventNotificationsService);
-        Response<NotificationResponse> response = serviceSendNotifications.sendNotifications(sendNotificationsOptions).execute();
+      
+        Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();```
 ```
 <details open>

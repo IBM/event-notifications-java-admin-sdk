@@ -13,20 +13,15 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
  * Payload describing a notifications response.
  */
-public class NotificationResponse extends DynamicModel<Object> {
+public class NotificationResponse extends GenericModel {
 
   @SerializedName("notification_id")
   protected String notificationId;
-
-  public NotificationResponse() {
-    super(new TypeToken<Object>() { });
-  }
 
   /**
    * Gets the notificationId.
@@ -36,6 +31,7 @@ public class NotificationResponse extends DynamicModel<Object> {
    * @return the notificationId
    */
   public String getNotificationId() {
-    return this.notificationId;
+    return notificationId;
   }
 }
+

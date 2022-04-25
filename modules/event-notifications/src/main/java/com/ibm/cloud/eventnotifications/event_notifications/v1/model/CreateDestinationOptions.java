@@ -34,6 +34,10 @@ public class CreateDestinationOptions extends GenericModel {
     String PUSH_ANDROID = "push_android";
     /** push_ios. */
     String PUSH_IOS = "push_ios";
+    /** push_chrome. */
+    String PUSH_CHROME = "push_chrome";
+    /** push_firefox. */
+    String PUSH_FIREFOX = "push_firefox";
   }
 
   protected String instanceId;

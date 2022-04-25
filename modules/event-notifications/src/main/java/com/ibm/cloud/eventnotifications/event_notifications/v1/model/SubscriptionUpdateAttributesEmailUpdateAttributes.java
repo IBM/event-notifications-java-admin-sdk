@@ -25,7 +25,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
    * Builder.
    */
   public static class Builder {
-    private EmailUpdateAttributesTo toEmail;
+    private EmailUpdateAttributesTo to;
     private Boolean addNotificationPayload;
     private String replyToMail;
     private String replyToName;
@@ -34,7 +34,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     private EmailUpdateAttributesUnsubscribed unsubscribed;
 
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributes) {
-      this.toEmail = subscriptionUpdateAttributesEmailUpdateAttributes.toEmail;
+      this.to = subscriptionUpdateAttributesEmailUpdateAttributes.toEmail;
       this.addNotificationPayload = subscriptionUpdateAttributesEmailUpdateAttributes.addNotificationPayload;
       this.replyToMail = subscriptionUpdateAttributesEmailUpdateAttributes.replyToMail;
       this.replyToName = subscriptionUpdateAttributesEmailUpdateAttributes.replyToName;
@@ -59,7 +59,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
      * @param fromName the fromName
      */
     public Builder(EmailUpdateAttributesTo to, Boolean addNotificationPayload, String replyToMail, String replyToName, String fromName) {
-      this.toEmail = to;
+      this.to = to;
       this.addNotificationPayload = addNotificationPayload;
       this.replyToMail = replyToMail;
       this.replyToName = replyToName;
@@ -98,7 +98,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
      * @return the SubscriptionUpdateAttributesEmailUpdateAttributes builder
      */
     public Builder to(EmailUpdateAttributesTo to) {
-      this.toEmail = to;
+      this.to = to;
       return this;
     }
 
@@ -171,7 +171,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
   }
 
   protected SubscriptionUpdateAttributesEmailUpdateAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.toEmail,
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
       "to cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.addNotificationPayload,
       "addNotificationPayload cannot be null");
@@ -181,7 +181,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
       "replyToName cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fromName,
       "fromName cannot be null");
-    toEmail = builder.toEmail;
+    toEmail = builder.to;
     addNotificationPayload = builder.addNotificationPayload;
     replyToMail = builder.replyToMail;
     replyToName = builder.replyToName;
