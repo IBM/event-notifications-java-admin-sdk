@@ -25,6 +25,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigParamsWebhookDestinationConfig
  * - DestinationConfigParamsFCMDestinationConfig
  * - DestinationConfigParamsIOSDestinationConfig
+ * - DestinationConfigParamsChromeDestinationConfig
+ * - DestinationConfigParamsFirefoxDestinationConfig
  */
 public class DestinationConfigParams extends GenericModel {
 
@@ -59,6 +61,12 @@ public class DestinationConfigParams extends GenericModel {
   protected String teamId;
   @SerializedName("bundle_id")
   protected String bundleId;
+  @SerializedName("api_key")
+  protected String apiKey;
+  @SerializedName("website_url")
+  protected String websiteUrl;
+  @SerializedName("public_key")
+  protected String publicKey;
 
   protected DestinationConfigParams() {
   }
@@ -193,6 +201,39 @@ public class DestinationConfigParams extends GenericModel {
    */
   public String bundleId() {
     return bundleId;
+  }
+
+  /**
+   * Gets the apiKey.
+   *
+   * FCM api_key.
+   *
+   * @return the apiKey
+   */
+  public String apiKey() {
+    return apiKey;
+  }
+
+  /**
+   * Gets the websiteUrl.
+   *
+   * Website url.
+   *
+   * @return the websiteUrl
+   */
+  public String websiteUrl() {
+    return websiteUrl;
+  }
+
+  /**
+   * Gets the publicKey.
+   *
+   * Chrome VAPID public key.
+   *
+   * @return the publicKey
+   */
+  public String publicKey() {
+    return publicKey;
   }
 }
 

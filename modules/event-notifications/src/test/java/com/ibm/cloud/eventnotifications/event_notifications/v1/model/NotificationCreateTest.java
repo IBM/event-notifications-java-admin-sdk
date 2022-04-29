@@ -14,7 +14,6 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -24,14 +23,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the SendNotificationsOptions model.
+ * Unit test class for the NotificationCreate model.
  */
-public class SendNotificationsOptionsTest {
+public class NotificationCreateTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testSendNotificationsOptions() throws Throwable {
+  public void testNotificationCreate() throws Throwable {
     NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
       .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .ibmenseverity("testString")
@@ -77,51 +76,29 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getTime(), "testString");
     assertEquals(notificationCreateModel.get("foo"), "testString");
 
-    SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()
-      .instanceId("testString")
-      .body(notificationCreateModel)
-      .ceIbmenseverity("testString")
-      .ceIbmendefaultshort("testString")
-      .ceIbmendefaultlong("testString")
-      .ceIbmenfcmbody("testString")
-      .ceIbmenapnsbody("testString")
-      .ceIbmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
-      .ceIbmenapnsheaders("testString")
-      .ceIbmenchromebody("testString")
-      .ceIbmenfirefoxbody("testString")
-      .ceIbmenchromeheaders("testString")
-      .ceIbmenfirefoxheaders("testString")
-      .ceIbmensourceid("testString")
-      .ceId("testString")
-      .ceSource("testString")
-      .ceType("testString")
-      .ceSpecversion("1.0")
-      .ceTime("testString")
-      .build();
-    assertEquals(sendNotificationsOptionsModel.instanceId(), "testString");
-    assertEquals(sendNotificationsOptionsModel.body(), notificationCreateModel);
-    assertEquals(sendNotificationsOptionsModel.ceIbmenseverity(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmendefaultshort(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmendefaultlong(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenfcmbody(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenapnsbody(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenpushto(), "{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenapnsheaders(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenchromebody(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenfirefoxbody(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenchromeheaders(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmenfirefoxheaders(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceIbmensourceid(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceId(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceSource(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceType(), "testString");
-    assertEquals(sendNotificationsOptionsModel.ceSpecversion(), "1.0");
-    assertEquals(sendNotificationsOptionsModel.ceTime(), "testString");
-  }
+    String json = TestUtilities.serialize(notificationCreateModel);
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testSendNotificationsOptionsError() throws Throwable {
-    new SendNotificationsOptions.Builder().build();
+    NotificationCreate notificationCreateModelNew = TestUtilities.deserialize(json, NotificationCreate.class);
+    assertTrue(notificationCreateModelNew instanceof NotificationCreate);
+    assertEquals(notificationCreateModelNew.getIbmenseverity(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenfcmbody(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenapnsbody(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenpushto(), "{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}");
+    assertEquals(notificationCreateModelNew.getIbmenapnsheaders(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmendefaultshort(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmendefaultlong(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenchromebody(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenfirefoxbody(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenchromeheaders(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenfirefoxheaders(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmensourceid(), "testString");
+    assertEquals(notificationCreateModelNew.getDatacontenttype(), "application/json");
+    assertEquals(notificationCreateModelNew.getSubject(), "testString");
+    assertEquals(notificationCreateModelNew.getId(), "testString");
+    assertEquals(notificationCreateModelNew.getSource(), "testString");
+    assertEquals(notificationCreateModelNew.getType(), "testString");
+    assertEquals(notificationCreateModelNew.getSpecversion(), "1.0");
+    assertEquals(notificationCreateModelNew.getTime(), "testString");
+    assertEquals(notificationCreateModelNew.get("foo"), "testString");
   }
-
 }
