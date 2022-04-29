@@ -501,11 +501,11 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
     - Pass 'WEB_FIREFOX' for Firefox browser.
     - Pass 'WEB_CHROME' for Chrome browser.
 **Event Notifications SendNotificationsOptions** - Event Notifications Send Notifications method.
-  - *InstanceID* (**String**) - Event Notificaitons instance AppGUID.
+  - *InstanceID* (**String**) - Event Notifications instance AppGUID.
   - *ceIbmenseverity* (**String**) - Severity for the notifications.
   - *ceID* (**String**) - ID for the notifications.
   - *ceSource* (**String**) - Source of the notifications.
-  - *ceIbmensourceid* (**String**) - Event Notificaitons instance Source ID.
+  - *ceIbmensourceid* (**String**) - Event Notifications instance Source ID.
   - *ceType* (**String**) - Type for the notifications.
   - *ceTime* (**String**) - Time of the notifications.
   - *ceIbmenpushto* (**string**) - Targets for the FCM notifications.
@@ -516,7 +516,7 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
   - *ceIbmenfirefoxbody* (**string**) - Message body for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - *ceIbmenchromeheaders* (**string**) - Headers for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - *ceIbmenfirefoxheaders* (**string**) - Headers for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
-  - *ceSpecversion* (**String**) - Spec version of the Event Notificaitons. Default value is `1.0`.
+  - *ceSpecversion* (**String**) - Spec version of the Event Notifications. Default value is `1.0`.
 
 </details>
 
