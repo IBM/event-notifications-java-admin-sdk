@@ -55,7 +55,6 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   public List<String> to() {
     return to;
   }
-
   public EmailUpdateAttributesTo toEmail() {
     return toEmail;
   }

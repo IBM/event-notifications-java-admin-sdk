@@ -19,8 +19,6 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -497,13 +495,9 @@ public class EventNotificationsExamples {
     try {
       System.out.println("sendNotifications() result:");
       // begin-send_notifications
-      List<String> userIds = new ArrayList<String>();
-      userIds.add("Dev_User");
-
-      String notificationDevices = "{ 'user_ids' : " + userIds + "}";
-      String fcmJsonString = "{ 'title' : 'Portugal vs. Denmark', 'badge': 'great match' }";
-      String apnsJsonString = "{'alert': 'Game Request', 'badge': 5 }";
-      Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "123"); } };
+      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
+      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
+      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
@@ -516,7 +510,6 @@ public class EventNotificationsExamples {
               .ceIbmenpushto(notificationDevices)
               .ceIbmenfcmbody(fcmJsonString)
               .ceIbmenapnsbody(apnsJsonString)
-              .ceIbmenapnsheaders(messageApnsHeader.toString())
               .ceSpecversion("1.0")
               .build();
 
@@ -525,6 +518,41 @@ public class EventNotificationsExamples {
 
       System.out.println(notificationResponse);
       // end-send_notifications
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("sendBulkNotifications() result:");
+      // begin-send_bulk_notifications
+      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
+      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
+      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+
+      NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
+              .ibmenseverity("MEDIUM")
+              .ibmenfcmbody(fcmJsonString)
+              .ibmenapnsbody(apnsJsonString)
+              .ibmenpushto(notificationDevices)
+              .ibmensourceid(sourceId)
+              .id("FCM ID")
+              .source(sourceId)
+              .type("com.acme.offer:new")
+              .specversion("1.0")
+              .time(new java.util.Date().toString())
+              .build();
+
+      SendBulkNotificationsOptions sendBulkNotificationsOptions = new SendBulkNotificationsOptions.Builder()
+              .instanceId(instanceId)
+              .bulkMessages(new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel)))
+              .build();
+
+      Response<BulkNotificationResponse> response = eventNotificationsService.sendBulkNotifications(sendBulkNotificationsOptions).execute();
+      BulkNotificationResponse bulkNotificationResponse = response.getResult();
+
+      System.out.println(bulkNotificationResponse);
+      // end-send_bulk_notifications
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
