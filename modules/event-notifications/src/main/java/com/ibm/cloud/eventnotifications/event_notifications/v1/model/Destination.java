@@ -37,6 +37,8 @@ public class Destination extends GenericModel {
     String PUSH_ANDROID = "push_android";
     /** push_ios. */
     String PUSH_IOS = "push_ios";
+    /** slack. */
+    String SLACK = "slack";
   }
 
   protected String id;

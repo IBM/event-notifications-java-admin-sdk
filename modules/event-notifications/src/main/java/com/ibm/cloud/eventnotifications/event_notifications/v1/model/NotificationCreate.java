@@ -488,7 +488,9 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenpushto.
    *
-   * Payload describing a FCM Notifications targets.
+   * This field should not be empty. The allowed fields are fcm_devices, apns_devices, chrome_devices, firefox_devices,
+   * platforms, tags and user_ids. If platforms or tags or user_ids are being used then do not use fcm_devices /
+   * apns_devices / chrome_devices / firefox_devices with it.
    *
    * @return the ibmenpushto
    */

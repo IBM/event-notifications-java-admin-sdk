@@ -38,6 +38,8 @@ public class CreateDestinationOptions extends GenericModel {
     String PUSH_CHROME = "push_chrome";
     /** push_firefox. */
     String PUSH_FIREFOX = "push_firefox";
+    /** slack. */
+    String SLACK = "slack";
   }
 
   protected String instanceId;

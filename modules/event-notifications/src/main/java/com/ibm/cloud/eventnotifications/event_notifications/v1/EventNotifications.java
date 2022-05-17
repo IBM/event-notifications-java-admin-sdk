@@ -19,6 +19,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.event_notifications.common.SdkCommon;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BulkNotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
@@ -49,6 +50,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSub
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
@@ -195,6 +197,33 @@ public class EventNotifications extends BaseService {
     }
     ResponseConverter<NotificationResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<NotificationResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Send Bulk notification.
+   *
+   * @param sendBulkNotificationsOptions the {@link SendBulkNotificationsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BulkNotificationResponse}
+   */
+  public ServiceCall<BulkNotificationResponse> sendBulkNotifications(SendBulkNotificationsOptions sendBulkNotificationsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(sendBulkNotificationsOptions,
+      "sendBulkNotificationsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", sendBulkNotificationsOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/notifications/bulk", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "sendBulkNotifications");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (sendBulkNotificationsOptions.bulkMessages() != null) {
+      contentJson.add("bulk_messages", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(sendBulkNotificationsOptions.bulkMessages()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<BulkNotificationResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BulkNotificationResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

@@ -31,6 +31,8 @@ public class Subscription extends DynamicModel<Object> {
     String SMTP_IBM = "smtp_ibm";
     /** webhook. */
     String WEBHOOK = "webhook";
+    /** slack. */
+    String SLACK = "slack";
   }
 
   @SerializedName("id")
