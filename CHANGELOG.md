@@ -1,3 +1,10 @@
+# [0.1.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.0.4...0.1.0) (2022-04-29)
+
+
+### Features
+
+* Support for Web push destinations (Chrome and Firefox)  BREAKING CHANGE: SendNotifications accepts json string for the `ce_ibmenpushto`, `ce_ibmenfcmbody`, `ce_ibmenapnsbody`, `ce_ibmenapnsheaders` fields. ([6a73c68](https://github.com/IBM/event-notifications-java-admin-sdk/commit/6a73c689e527e024ef3f559c989020eca8438dca))
+
 ## [0.0.4](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.0.3...0.0.4) (2022-03-25)
 
 
