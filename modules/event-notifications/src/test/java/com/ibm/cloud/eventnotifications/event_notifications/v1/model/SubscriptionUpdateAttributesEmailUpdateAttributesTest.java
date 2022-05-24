@@ -56,7 +56,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
       .invited(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .unsubscribed(emailUpdateAttributesUnsubscribedModel)
       .build();
-    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.toEmail(), emailUpdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.to(), emailUpdateAttributesToModel);
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.addNotificationPayload(), Boolean.valueOf(false));
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.replyToMail(), "testString");
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.replyToName(), "testString");
@@ -68,7 +68,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
 
     SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributesModelNew = TestUtilities.deserialize(json, SubscriptionUpdateAttributesEmailUpdateAttributes.class);
     assertTrue(subscriptionUpdateAttributesEmailUpdateAttributesModelNew instanceof SubscriptionUpdateAttributesEmailUpdateAttributes);
-    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.toEmail().toString(), emailUpdateAttributesToModel.toString());
+    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.to().toString(), emailUpdateAttributesToModel.toString());
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.addNotificationPayload(), Boolean.valueOf(false));
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.replyToMail(), "testString");
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModelNew.replyToName(), "testString");

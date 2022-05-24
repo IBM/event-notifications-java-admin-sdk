@@ -83,6 +83,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSlackAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
