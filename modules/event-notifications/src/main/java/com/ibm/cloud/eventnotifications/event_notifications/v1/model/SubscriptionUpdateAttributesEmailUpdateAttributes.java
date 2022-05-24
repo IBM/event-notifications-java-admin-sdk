@@ -34,7 +34,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     private EmailUpdateAttributesUnsubscribed unsubscribed;
 
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributes) {
-      this.to = subscriptionUpdateAttributesEmailUpdateAttributes.to;
+      this.to = subscriptionUpdateAttributesEmailUpdateAttributes.toEmail;
       this.addNotificationPayload = subscriptionUpdateAttributesEmailUpdateAttributes.addNotificationPayload;
       this.replyToMail = subscriptionUpdateAttributesEmailUpdateAttributes.replyToMail;
       this.replyToName = subscriptionUpdateAttributesEmailUpdateAttributes.replyToName;
@@ -181,7 +181,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
       "replyToName cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fromName,
       "fromName cannot be null");
-    to = builder.to;
+    toEmail = builder.to;
     addNotificationPayload = builder.addNotificationPayload;
     replyToMail = builder.replyToMail;
     replyToName = builder.replyToName;
