@@ -18,7 +18,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.cloud.event_notifications.common.SdkCommon;
+import com.ibm.cloud.eventnotifications.common.SdkCommon;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BulkNotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
