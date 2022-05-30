@@ -1,3 +1,10 @@
+## [0.1.1](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.0...0.1.1) (2022-05-30)
+
+
+### Bug Fixes
+
+* add slack destination support ([bdd684a](https://github.com/IBM/event-notifications-java-admin-sdk/commit/bdd684a09f7fa1315c5d8f6ea1c91ed53f111846))
+
 # [0.1.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.0.4...0.1.0) (2022-04-29)
 
 
