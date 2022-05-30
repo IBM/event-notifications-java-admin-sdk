@@ -32,6 +32,8 @@ public class SubscriptionListItem extends GenericModel {
     String SMTP_IBM = "smtp_ibm";
     /** webhook. */
     String WEBHOOK = "webhook";
+    /** slack. */
+    String SLACK = "slack";
   }
 
   protected String id;

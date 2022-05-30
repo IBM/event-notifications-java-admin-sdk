@@ -12,34 +12,41 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * NotificationFCMBody.
- *
- * Classes which extend this class:
- * - NotificationFCMBodyMessageENData
- * - NotificationFCMBodyNotificationPayload
+ * Payload describing a notifications response.
  */
-public class NotificationFCMBody extends DynamicModel<Object> {
+public class BulkNotificationResponse extends GenericModel {
 
-  @SerializedName("en_data")
-  protected NotificationFCMBodyMessageData enData;
+  @SerializedName("bulk_notification_id")
+  protected String bulkNotificationId;
+  @SerializedName("bulk_messages")
+  protected List<Object> bulkMessages;
 
-  protected NotificationFCMBody() {
-    super(new TypeToken<Object>() { });
+  /**
+   * Gets the bulkNotificationId.
+   *
+   * Bulk Notification ID.
+   *
+   * @return the bulkNotificationId
+   */
+  public String getBulkNotificationId() {
+    return bulkNotificationId;
   }
 
   /**
-   * Gets the enData.
+   * Gets the bulkMessages.
    *
-   * Payload describing a fcm notifications body message Data.
+   * List of Notifications.
    *
-   * @return the enData
+   * @return the bulkMessages
    */
-  public NotificationFCMBodyMessageData getEnData() {
-    return this.enData;
+  public List<Object> getBulkMessages() {
+    return bulkMessages;
   }
 }
+

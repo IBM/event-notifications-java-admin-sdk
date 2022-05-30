@@ -27,6 +27,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigParamsIOSDestinationConfig
  * - DestinationConfigParamsChromeDestinationConfig
  * - DestinationConfigParamsFirefoxDestinationConfig
+ * - DestinationConfigParamsSlackDestinationConfig
  */
 public class DestinationConfigParams extends GenericModel {
 

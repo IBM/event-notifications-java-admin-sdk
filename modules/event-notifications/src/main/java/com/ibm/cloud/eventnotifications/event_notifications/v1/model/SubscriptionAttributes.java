@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SubscriptionAttributesSMSAttributesResponse
  * - SubscriptionAttributesEmailAttributesResponse
  * - SubscriptionAttributesWebhookAttributesResponse
+ * - SubscriptionAttributesSlackAttributesResponse
  */
 public class SubscriptionAttributes extends DynamicModel<Object> {
 
@@ -30,6 +31,8 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected Boolean signingEnabled;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
+  @SerializedName("attachment_color")
+  protected String attachmentColor;
 
   protected SubscriptionAttributes() {
     super(new TypeToken<Object>() { });
@@ -55,5 +58,16 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public Boolean isAddNotificationPayload() {
     return this.addNotificationPayload;
+  }
+
+  /**
+   * Gets the attachmentColor.
+   *
+   * Attachment Color for Slack Notification.
+   *
+   * @return the attachmentColor
+   */
+  public String getAttachmentColor() {
+    return this.attachmentColor;
   }
 }

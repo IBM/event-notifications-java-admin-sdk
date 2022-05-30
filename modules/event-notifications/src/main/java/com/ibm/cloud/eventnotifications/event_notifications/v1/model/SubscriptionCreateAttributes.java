@@ -25,6 +25,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionCreateAttributesEmailAttributes
  * - SubscriptionCreateAttributesWebhookAttributes
  * - SubscriptionCreateAttributesFCMAttributes
+ * - SubscriptionCreateAttributesSlackAttributes
  */
 public class SubscriptionCreateAttributes extends GenericModel {
 
@@ -39,6 +40,8 @@ public class SubscriptionCreateAttributes extends GenericModel {
   protected String fromName;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
+  @SerializedName("attachment_color")
+  protected String attachmentColor;
 
   protected SubscriptionCreateAttributes() {
   }
@@ -107,6 +110,17 @@ public class SubscriptionCreateAttributes extends GenericModel {
    */
   public Boolean signingEnabled() {
     return signingEnabled;
+  }
+
+  /**
+   * Gets the attachmentColor.
+   *
+   * Attachment Color for the slack message.
+   *
+   * @return the attachmentColor
+   */
+  public String attachmentColor() {
+    return attachmentColor;
   }
 }
 

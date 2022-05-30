@@ -13,6 +13,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BulkNotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
@@ -30,6 +31,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFirefoxDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsSlackDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesListItem;
@@ -57,6 +59,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
@@ -67,17 +70,20 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSlackAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEmailAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesFCMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSMSAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSlackAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSlackAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
@@ -143,7 +149,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     String sendNotificationsPath = "/v1/instances/testString/notifications";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
+      .setResponseCode(202)
       .setBody(mockResponseBody));
 
     // Construct an instance of the NotificationCreate model
@@ -227,6 +233,83 @@ public class EventNotificationsTest extends PowerMockTestCase {
   public void testSendNotificationsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.sendNotifications(null).execute();
+  }
+
+  // Test the sendBulkNotifications operation with a valid options model parameter
+  @Test
+  public void testSendBulkNotificationsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"bulk_notification_id\": \"bulkNotificationId\", \"bulk_messages\": [\"anyValue\"]}";
+    String sendBulkNotificationsPath = "/v1/instances/testString/notifications/bulk";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(202)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the NotificationCreate model
+    NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
+      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .ibmenseverity("testString")
+      .ibmenfcmbody("testString")
+      .ibmenapnsbody("testString")
+      .ibmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
+      .ibmenapnsheaders("testString")
+      .ibmendefaultshort("testString")
+      .ibmendefaultlong("testString")
+      .ibmenchromebody("testString")
+      .ibmenfirefoxbody("testString")
+      .ibmenchromeheaders("testString")
+      .ibmenfirefoxheaders("testString")
+      .ibmensourceid("testString")
+      .datacontenttype("application/json")
+      .subject("testString")
+      .id("testString")
+      .source("testString")
+      .type("testString")
+      .specversion("1.0")
+      .time("testString")
+      .add("foo", "testString")
+      .build();
+
+    // Construct an instance of the SendBulkNotificationsOptions model
+    SendBulkNotificationsOptions sendBulkNotificationsOptionsModel = new SendBulkNotificationsOptions.Builder()
+      .instanceId("testString")
+      .bulkMessages(new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel)))
+      .build();
+
+    // Invoke sendBulkNotifications() with a valid options model and verify the result
+    Response<BulkNotificationResponse> response = eventNotificationsService.sendBulkNotifications(sendBulkNotificationsOptionsModel).execute();
+    assertNotNull(response);
+    BulkNotificationResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, sendBulkNotificationsPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the sendBulkNotifications operation with and without retries enabled
+  @Test
+  public void testSendBulkNotificationsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testSendBulkNotificationsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testSendBulkNotificationsWOptions();
+  }
+
+  // Test the sendBulkNotifications operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testSendBulkNotificationsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.sendBulkNotifications(null).execute();
   }
 
   // Test the createSources operation with a valid options model parameter

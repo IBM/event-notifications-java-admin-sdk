@@ -53,6 +53,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId = "";
   public static String destinationId2 = "";
   public static String destinationId3 = "";
+  public static String destinationId4 = "";
   public static String subscriptionId = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
@@ -571,6 +572,41 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId3 = destinationFCMResponseResult.getId();
 
+      DestinationConfigParamsSlackDestinationConfig slackDestinationConfig= new DestinationConfigParamsSlackDestinationConfig.Builder()
+              .url("https://api.slack.com/myslack")
+              .build();
+
+      DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
+              .params(slackDestinationConfig)
+              .build();
+
+      String slackName = "Slack_destination";
+      String slackTypeVal = "slack";
+      String slackDescription = "Slack Destination";
+
+      CreateDestinationOptions createSlackDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackName)
+              .type(slackTypeVal)
+              .description(slackDescription)
+              .config(destinationSlackConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> slackResponse = service.createDestination(createSlackDestinationOptions).execute();
+      // Validate response
+      assertNotNull(slackResponse);
+      assertEquals(slackResponse.getStatusCode(), 201);
+
+      DestinationResponse slackDestinationResponseResult = slackResponse.getResult();
+
+      assertNotNull(slackDestinationResponseResult);
+      assertEquals(slackDestinationResponseResult.getDescription(), slackDescription);
+      assertEquals(slackDestinationResponseResult.getName(), slackName);
+      assertEquals(slackDestinationResponseResult.getType(), slackTypeVal);
+
+      destinationId4 = slackDestinationResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1054,13 +1090,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public void test1SSendNotifications() throws Exception {
     try {
       // begin-send_notifications
-      List<String> userIds = new ArrayList<String>();
-      userIds.add("Dev_User");
-
-      String notificationDevices = "{ 'user_ids' : " + userIds + "}";
-      String fcmJsonString = "{ 'title' : 'Portugal vs. Denmark', 'badge': 'great match' }";
-      String apnsJsonString = "{'alert': 'Game Request', 'badge': 5 }";
-      Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "123"); } };
+      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
+      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
+      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
@@ -1073,7 +1105,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ceIbmenpushto(notificationDevices)
               .ceIbmenfcmbody(fcmJsonString)
               .ceIbmenapnsbody(apnsJsonString)
-              .ceIbmenapnsheaders(messageApnsHeader.toString())
               .ceSpecversion("1.0")
               .build();
 
@@ -1089,7 +1120,72 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1TDeleteSubscription() throws Exception {
+  public void test1TSendBulkNotifications() throws Exception {
+    try {
+      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
+      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
+      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+
+      NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
+              .ibmenseverity("MEDIUM")
+              .ibmenfcmbody(fcmJsonString)
+              .ibmenapnsbody(apnsJsonString)
+              .ibmenpushto(notificationDevices)
+              .ibmensourceid(sourceId)
+              .id("FCM ID")
+              .source(sourceId)
+              .type("com.acme.offer:new")
+              .specversion("1.0")
+              .time(new java.util.Date().toString())
+              .build();
+
+      NotificationCreate notificationCreateModel1 = new NotificationCreate.Builder()
+              .ibmenseverity("LOW")
+              .ibmenfcmbody(fcmJsonString)
+              .ibmenapnsbody(apnsJsonString)
+              .ibmenpushto(notificationDevices)
+              .ibmensourceid(sourceId)
+              .id("FCM ID")
+              .source(sourceId)
+              .type("com.ibm.cloud.compliance.certificate_manager:certificate_expired")
+              .specversion("1.0")
+              .time(new java.util.Date().toString())
+              .build();
+
+      SendBulkNotificationsOptions sendBulkNotificationsOptions = new SendBulkNotificationsOptions.Builder()
+              .instanceId(instanceId)
+              .bulkMessages(new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel,notificationCreateModel1)))
+              .build();
+
+      // Invoke operation
+      Response<BulkNotificationResponse> response = service.sendBulkNotifications(sendBulkNotificationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+
+      BulkNotificationResponse bulkNotificationResponseResult = response.getResult();
+
+      assertNotNull(bulkNotificationResponseResult);
+
+      //
+      // The following status codes aren't covered by tests.
+      // Please provide integration tests for these too.
+      //
+      // 400
+      // 401
+      // 415
+      // 500
+      //
+      //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1UDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -1127,7 +1223,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1UDeleteTopic() throws Exception {
+  public void test1VDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -1165,7 +1261,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1VDeleteDestination() throws Exception {
+  public void test1WDeleteDestination() throws Exception {
     try {
       DeleteDestinationOptions deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -1189,7 +1285,16 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 204);
 
+      deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId4)
+              .build();
 
+      // Invoke operation
+      response = service.deleteDestination(deleteDestinationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 204);
 
       //
       // The following status codes aren't covered by tests.
@@ -1208,7 +1313,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1WDeleteSource() throws Exception {
+  public void test1XDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)

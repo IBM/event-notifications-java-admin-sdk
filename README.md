@@ -4,9 +4,6 @@
 # Java server SDK for IBM Cloud Event Notifications service Version 0.1.0
 Java client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
-Disclaimer: this SDK is being released initially as a **pre-release** version.
-Changes might occur which impact applications that use this SDK.
-
 ## Table of Contents
 
 - [Overview](#overview)
@@ -444,9 +441,6 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
 ```
 ### Send Notifications
 ```java
-      List<String> userIds = new ArrayList<String>();
-      userIds.add(<user-ids>);
-
       List<String> fcmDevices = new ArrayList<String>();
       fcmDevices.add(<fcm-device-ids>);
 
@@ -459,7 +453,7 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
       List<String> devicePlatforms = new ArrayList<String>();
       devicePlatforms.add(<device-platforms>);
 
-      String notificationDevices = "{ 'user_ids' : " + userIds + "}";
+      String notificationDevices =  "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ 'title' : '<notification-title>', 'badge': '<notification-message>' }";
       String apnsJsonString = "{'alert': '<notification-message>', 'badge': 5 }";
       JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
@@ -489,7 +483,6 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
 <br>
 
 - **CeIbmenpushto** - Set up the push notifications targets.
-  - *user_ids* (Array of **String**) - Send notification to the specified userIds.
   - *fcm_devices* (Array of **String**) - Send notification to the list of specified Android devices.
   - *fcm_devices* (Array of **String**) - Send notification to the list of specified iOS devices.
   - *_devices* (Array of **String**) - Send notification to the list of specified Chrome devices.
