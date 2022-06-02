@@ -26,6 +26,7 @@ public class SendNotificationsOptions extends GenericModel {
   protected String ceIbmendefaultlong;
   protected String ceIbmenfcmbody;
   protected String ceIbmenapnsbody;
+  protected String ceIbmensafaribody;
   protected String ceIbmenpushto;
   protected String ceIbmenapnsheaders;
   protected String ceIbmenchromebody;
@@ -50,6 +51,7 @@ public class SendNotificationsOptions extends GenericModel {
     private String ceIbmendefaultlong;
     private String ceIbmenfcmbody;
     private String ceIbmenapnsbody;
+    private String ceIbmensafaribody;
     private String ceIbmenpushto;
     private String ceIbmenapnsheaders;
     private String ceIbmenchromebody;
@@ -71,6 +73,7 @@ public class SendNotificationsOptions extends GenericModel {
       this.ceIbmendefaultlong = sendNotificationsOptions.ceIbmendefaultlong;
       this.ceIbmenfcmbody = sendNotificationsOptions.ceIbmenfcmbody;
       this.ceIbmenapnsbody = sendNotificationsOptions.ceIbmenapnsbody;
+      this.ceIbmensafaribody = sendNotificationsOptions.ceIbmensafaribody;
       this.ceIbmenpushto = sendNotificationsOptions.ceIbmenpushto;
       this.ceIbmenapnsheaders = sendNotificationsOptions.ceIbmenapnsheaders;
       this.ceIbmenchromebody = sendNotificationsOptions.ceIbmenchromebody;
@@ -183,6 +186,17 @@ public class SendNotificationsOptions extends GenericModel {
      */
     public Builder ceIbmenapnsbody(String ceIbmenapnsbody) {
       this.ceIbmenapnsbody = ceIbmenapnsbody;
+      return this;
+    }
+
+    /**
+     * Set the ceIbmensafaribody.
+     *
+     * @param ceIbmensafaribody the ceIbmensafaribody
+     * @return the SendNotificationsOptions builder
+     */
+    public Builder ceIbmensafaribody(String ceIbmensafaribody) {
+      this.ceIbmensafaribody = ceIbmensafaribody;
       return this;
     }
 
@@ -329,6 +343,7 @@ public class SendNotificationsOptions extends GenericModel {
     ceIbmendefaultlong = builder.ceIbmendefaultlong;
     ceIbmenfcmbody = builder.ceIbmenfcmbody;
     ceIbmenapnsbody = builder.ceIbmenapnsbody;
+    ceIbmensafaribody = builder.ceIbmensafaribody;
     ceIbmenpushto = builder.ceIbmenpushto;
     ceIbmenapnsheaders = builder.ceIbmenapnsheaders;
     ceIbmenchromebody = builder.ceIbmenchromebody;
@@ -427,6 +442,17 @@ public class SendNotificationsOptions extends GenericModel {
    */
   public String ceIbmenapnsbody() {
     return ceIbmenapnsbody;
+  }
+
+  /**
+   * Gets the ceIbmensafaribody.
+   *
+   * The safari Notification body.
+   *
+   * @return the ceIbmensafaribody
+   */
+  public String ceIbmensafaribody() {
+    return ceIbmensafaribody;
   }
 
   /**

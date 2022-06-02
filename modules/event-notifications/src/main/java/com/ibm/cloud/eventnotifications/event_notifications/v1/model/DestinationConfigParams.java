@@ -28,6 +28,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigParamsChromeDestinationConfig
  * - DestinationConfigParamsFirefoxDestinationConfig
  * - DestinationConfigParamsSlackDestinationConfig
+ * - DestinationConfigParamsSafariDestinationConfig
  */
 public class DestinationConfigParams extends GenericModel {
 
@@ -68,6 +69,12 @@ public class DestinationConfigParams extends GenericModel {
   protected String websiteUrl;
   @SerializedName("public_key")
   protected String publicKey;
+  @SerializedName("website_name")
+  protected String websiteName;
+  @SerializedName("url_format_string")
+  protected String urlFormatString;
+  @SerializedName("website_push_id")
+  protected String websitePushId;
 
   protected DestinationConfigParams() {
   }
@@ -235,6 +242,39 @@ public class DestinationConfigParams extends GenericModel {
    */
   public String publicKey() {
     return publicKey;
+  }
+
+  /**
+   * Gets the websiteName.
+   *
+   * Websire url.
+   *
+   * @return the websiteName
+   */
+  public String websiteName() {
+    return websiteName;
+  }
+
+  /**
+   * Gets the urlFormatString.
+   *
+   * Websire url.
+   *
+   * @return the urlFormatString
+   */
+  public String urlFormatString() {
+    return urlFormatString;
+  }
+
+  /**
+   * Gets the websitePushId.
+   *
+   * Websire url.
+   *
+   * @return the websitePushId
+   */
+  public String websitePushId() {
+    return websitePushId;
   }
 }
 

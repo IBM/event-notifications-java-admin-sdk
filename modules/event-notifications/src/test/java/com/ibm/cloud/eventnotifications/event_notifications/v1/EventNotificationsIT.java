@@ -23,6 +23,10 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
 import com.ibm.cloud.sdk.core.util.DateUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +57,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId = "";
   public static String destinationId2 = "";
   public static String destinationId3 = "";
-  public static String destinationId4 = "";
+  //public static String destinationId4 = "";
+  public static String safariCertificatePath = "";
+  public static String destinationId5 = "";
   public static String subscriptionId = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
@@ -87,6 +93,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     instanceId = config.get("GUID");
     fcmSenderId = config.get("FCM_ID");
     fcmServerKey = config.get("FCM_KEY");
+    safariCertificatePath = config.get("SAFARI_CERTIFICATE");
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -571,7 +578,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationFCMResponseResult.getType(), fcmTypeVal);
 
       destinationId3 = destinationFCMResponseResult.getId();
-
+/*
       DestinationConfigParamsSlackDestinationConfig slackDestinationConfig= new DestinationConfigParamsSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
               .build();
@@ -606,6 +613,51 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDestinationResponseResult.getType(), slackTypeVal);
 
       destinationId4 = slackDestinationResponseResult.getId();
+*/
+      DestinationConfigParamsSafariDestinationConfig safariDestinationConfig= new DestinationConfigParamsSafariDestinationConfig.Builder()
+              .certType("p12")
+              .password("safari")
+              .websiteUrl("https://ensafaripush.mybluemix.net")
+              .websiteName("NodeJS Starter Application")
+              .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
+              .websitePushId("web.net.mybluemix.ensafaripush")
+              .build();
+
+      DestinationConfig destinationSafariConfigModel = new DestinationConfig.Builder()
+              .params(safariDestinationConfig)
+              .build();
+
+      String safariName = "Safari_destination";
+      String safariTypeVal = "push_safari";
+      String safariDescription = "Safari Destination";
+
+      File file = new File(safariCertificatePath);
+      InputStream stream = new FileInputStream(file);
+
+      CreateDestinationOptions createSafariDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(safariName)
+              .type(safariTypeVal)
+              .description(safariDescription)
+              .config(destinationSafariConfigModel)
+              .certificate(stream)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> safariResponse = service.createDestination(createSafariDestinationOptions).execute();
+      // Validate response
+      assertNotNull(safariResponse);
+      assertEquals(safariResponse.getStatusCode(), 201);
+
+      DestinationResponse safariDestinationResponseResult = safariResponse.getResult();
+
+      assertNotNull(safariDestinationResponseResult);
+      assertEquals(safariDestinationResponseResult.getDescription(), safariDescription);
+      assertEquals(safariDestinationResponseResult.getName(), safariName);
+      assertEquals(safariDestinationResponseResult.getType(), safariTypeVal);
+
+      destinationId5 = safariDestinationResponseResult.getId();
+
 
       //
       // The following status codes aren't covered by tests.
@@ -753,6 +805,45 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), description);
       assertEquals(destinationResult.getName(), name);
 
+      DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+              .certType("p12")
+              .password("safari")
+              .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
+              .websitePushId("web.net.mybluemix.ensafaripush")
+              .websiteUrl("https://ensafaripush.mybluemix.net")
+              .websiteName("NodeJS Starter Application")
+              .build();
+
+      DestinationConfig destinationsafariConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfig)
+              .build();
+
+      name = "Safari_dest";
+      description = "This destination is for Safari";
+
+      UpdateDestinationOptions updateSafariDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId5)
+              .name(name)
+              .description(description)
+              .config(destinationsafariConfigModel)
+              .certificate(TestUtilities.createMockStream("This is a mock file."))
+              .certificateContentType("testString")
+              .build();
+
+      // Invoke operation
+      Response<Destination> safariResponse = service.updateDestination(updateSafariDestinationOptions).execute();
+      // Validate response
+      assertNotNull(safariResponse);
+      assertEquals(safariResponse.getStatusCode(), 200);
+
+      Destination safariDestinationResult = safariResponse.getResult();
+
+      assertNotNull(safariDestinationResult);
+
+      assertEquals(safariDestinationResult.getId(), destinationId5);
+      assertEquals(safariDestinationResult.getDescription(), description);
+      assertEquals(safariDestinationResult.getName(), name);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1093,6 +1184,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
@@ -1105,6 +1197,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ceIbmenpushto(notificationDevices)
               .ceIbmenfcmbody(fcmJsonString)
               .ceIbmenapnsbody(apnsJsonString)
+              .ceIbmensafaribody(safariJsonString)
               .ceSpecversion("1.0")
               .build();
 
@@ -1118,18 +1211,20 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
   }
-
+/*
   @Test
   public void test1TSendBulkNotifications() throws Exception {
     try {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
       NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
               .ibmenseverity("MEDIUM")
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
+              .ibmensafaribody(safariJsonString)
               .ibmenpushto(notificationDevices)
               .ibmensourceid(sourceId)
               .id("FCM ID")
@@ -1143,6 +1238,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ibmenseverity("LOW")
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
+              .ibmensafaribody(safariJsonString)
               .ibmenpushto(notificationDevices)
               .ibmensourceid(sourceId)
               .id("FCM ID")
@@ -1183,7 +1279,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
-
+*/
   @Test
   public void test1UDeleteSubscription() throws Exception {
     try {
@@ -1284,10 +1380,21 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // Validate response
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 204);
-
+/*
       deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId4)
+              .build();
+
+      // Invoke operation
+      response = service.deleteDestination(deleteDestinationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 204);
+*/
+      deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId5)
               .build();
 
       // Invoke operation

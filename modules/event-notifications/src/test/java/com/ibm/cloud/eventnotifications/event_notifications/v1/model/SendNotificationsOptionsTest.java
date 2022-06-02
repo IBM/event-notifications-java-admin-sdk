@@ -37,6 +37,7 @@ public class SendNotificationsOptionsTest {
       .ibmenseverity("testString")
       .ibmenfcmbody("testString")
       .ibmenapnsbody("testString")
+      .ibmensafaribody("testString")
       .ibmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
       .ibmenapnsheaders("testString")
       .ibmendefaultshort("testString")
@@ -59,6 +60,7 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmenseverity(), "testString");
     assertEquals(notificationCreateModel.getIbmenfcmbody(), "testString");
     assertEquals(notificationCreateModel.getIbmenapnsbody(), "testString");
+    assertEquals(notificationCreateModel.getIbmensafaribody(), "testString");
     assertEquals(notificationCreateModel.getIbmenpushto(), "{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}");
     assertEquals(notificationCreateModel.getIbmenapnsheaders(), "testString");
     assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
@@ -85,6 +87,7 @@ public class SendNotificationsOptionsTest {
       .ceIbmendefaultlong("testString")
       .ceIbmenfcmbody("testString")
       .ceIbmenapnsbody("testString")
+      .ceIbmensafaribody("testString")
       .ceIbmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
       .ceIbmenapnsheaders("testString")
       .ceIbmenchromebody("testString")
@@ -105,6 +108,7 @@ public class SendNotificationsOptionsTest {
     assertEquals(sendNotificationsOptionsModel.ceIbmendefaultlong(), "testString");
     assertEquals(sendNotificationsOptionsModel.ceIbmenfcmbody(), "testString");
     assertEquals(sendNotificationsOptionsModel.ceIbmenapnsbody(), "testString");
+    assertEquals(sendNotificationsOptionsModel.ceIbmensafaribody(), "testString");
     assertEquals(sendNotificationsOptionsModel.ceIbmenpushto(), "{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}");
     assertEquals(sendNotificationsOptionsModel.ceIbmenapnsheaders(), "testString");
     assertEquals(sendNotificationsOptionsModel.ceIbmenchromebody(), "testString");

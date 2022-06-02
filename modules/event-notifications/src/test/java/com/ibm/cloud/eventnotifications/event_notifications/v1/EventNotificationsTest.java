@@ -31,6 +31,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFirefoxDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsSafariDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsSlackDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
@@ -158,6 +159,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .ibmenseverity("testString")
       .ibmenfcmbody("testString")
       .ibmenapnsbody("testString")
+      .ibmensafaribody("testString")
       .ibmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
       .ibmenapnsheaders("testString")
       .ibmendefaultshort("testString")
@@ -186,6 +188,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .ceIbmendefaultlong("testString")
       .ceIbmenfcmbody("testString")
       .ceIbmenapnsbody("testString")
+      .ceIbmensafaribody("testString")
       .ceIbmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
       .ceIbmenapnsheaders("testString")
       .ceIbmenchromebody("testString")
@@ -252,6 +255,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .ibmenseverity("testString")
       .ibmenfcmbody("testString")
       .ibmenapnsbody("testString")
+      .ibmensafaribody("testString")
       .ibmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
       .ibmenapnsheaders("testString")
       .ibmendefaultshort("testString")
@@ -911,6 +915,18 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
+      .icon16x16(TestUtilities.createMockStream("This is a mock file."))
+      .icon16x16ContentType("testString")
+      .icon16x162x(TestUtilities.createMockStream("This is a mock file."))
+      .icon16x162xContentType("testString")
+      .icon32x32(TestUtilities.createMockStream("This is a mock file."))
+      .icon32x32ContentType("testString")
+      .icon32x322x(TestUtilities.createMockStream("This is a mock file."))
+      .icon32x322xContentType("testString")
+      .icon128x128(TestUtilities.createMockStream("This is a mock file."))
+      .icon128x128ContentType("testString")
+      .icon128x1282x(TestUtilities.createMockStream("This is a mock file."))
+      .icon128x1282xContentType("testString")
       .build();
 
     // Invoke createDestination() with a valid options model and verify the result
@@ -1090,6 +1106,18 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
+      .icon16x16(TestUtilities.createMockStream("This is a mock file."))
+      .icon16x16ContentType("testString")
+      .icon16x162x(TestUtilities.createMockStream("This is a mock file."))
+      .icon16x162xContentType("testString")
+      .icon32x32(TestUtilities.createMockStream("This is a mock file."))
+      .icon32x32ContentType("testString")
+      .icon32x322x(TestUtilities.createMockStream("This is a mock file."))
+      .icon32x322xContentType("testString")
+      .icon128x128(TestUtilities.createMockStream("This is a mock file."))
+      .icon128x128ContentType("testString")
+      .icon128x1282x(TestUtilities.createMockStream("This is a mock file."))
+      .icon128x1282xContentType("testString")
       .build();
 
     // Invoke updateDestination() with a valid options model and verify the result

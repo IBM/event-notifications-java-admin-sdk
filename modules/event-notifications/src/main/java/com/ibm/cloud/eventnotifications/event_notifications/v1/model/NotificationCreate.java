@@ -32,6 +32,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmenfcmbody;
   @SerializedName("ibmenapnsbody")
   protected String ibmenapnsbody;
+  @SerializedName("ibmensafaribody")
+  protected String ibmensafaribody;
   @SerializedName("ibmenpushto")
   protected String ibmenpushto;
   @SerializedName("ibmenapnsheaders")
@@ -77,6 +79,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmenseverity;
     private String ibmenfcmbody;
     private String ibmenapnsbody;
+    private String ibmensafaribody;
     private String ibmenpushto;
     private String ibmenapnsheaders;
     private String ibmendefaultshort;
@@ -100,6 +103,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmenseverity = notificationCreate.ibmenseverity;
       this.ibmenfcmbody = notificationCreate.ibmenfcmbody;
       this.ibmenapnsbody = notificationCreate.ibmenapnsbody;
+      this.ibmensafaribody = notificationCreate.ibmensafaribody;
       this.ibmenpushto = notificationCreate.ibmenpushto;
       this.ibmenapnsheaders = notificationCreate.ibmenapnsheaders;
       this.ibmendefaultshort = notificationCreate.ibmendefaultshort;
@@ -175,6 +179,17 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public Builder ibmenapnsbody(String ibmenapnsbody) {
       this.ibmenapnsbody = ibmenapnsbody;
+      return this;
+    }
+
+    /**
+     * Set the ibmensafaribody.
+     *
+     * @param ibmensafaribody the ibmensafaribody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmensafaribody(String ibmensafaribody) {
+      this.ibmensafaribody = ibmensafaribody;
       return this;
     }
 
@@ -377,6 +392,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmenseverity = builder.ibmenseverity;
     ibmenfcmbody = builder.ibmenfcmbody;
     ibmenapnsbody = builder.ibmenapnsbody;
+    ibmensafaribody = builder.ibmensafaribody;
     ibmenpushto = builder.ibmenpushto;
     ibmenapnsheaders = builder.ibmenapnsheaders;
     ibmendefaultshort = builder.ibmendefaultshort;
@@ -483,6 +499,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmenapnsbody(final String ibmenapnsbody) {
     this.ibmenapnsbody = ibmenapnsbody;
+  }
+
+  /**
+   * Gets the ibmensafaribody.
+   *
+   * The Notifications safari body.
+   *
+   * @return the ibmensafaribody
+   */
+  public String getIbmensafaribody() {
+    return this.ibmensafaribody;
+  }
+
+  /**
+   * Sets the ibmensafaribody.
+   *
+   * @param ibmensafaribody the new ibmensafaribody
+   */
+  public void setIbmensafaribody(final String ibmensafaribody) {
+    this.ibmensafaribody = ibmensafaribody;
   }
 
   /**
