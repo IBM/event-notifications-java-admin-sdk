@@ -57,7 +57,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId = "";
   public static String destinationId2 = "";
   public static String destinationId3 = "";
-  //public static String destinationId4 = "";
+  public static String destinationId4 = "";
   public static String safariCertificatePath = "";
   public static String destinationId5 = "";
   public static String subscriptionId = "";
@@ -578,7 +578,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationFCMResponseResult.getType(), fcmTypeVal);
 
       destinationId3 = destinationFCMResponseResult.getId();
-/*
       DestinationConfigParamsSlackDestinationConfig slackDestinationConfig= new DestinationConfigParamsSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
               .build();
@@ -613,7 +612,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDestinationResponseResult.getType(), slackTypeVal);
 
       destinationId4 = slackDestinationResponseResult.getId();
-*/
       DestinationConfigParamsSafariDestinationConfig safariDestinationConfig= new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
@@ -1211,7 +1209,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
   }
-/*
+
   @Test
   public void test1TSendBulkNotifications() throws Exception {
     try {
@@ -1279,7 +1277,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
-*/
+
   @Test
   public void test1UDeleteSubscription() throws Exception {
     try {
@@ -1380,7 +1378,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // Validate response
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 204);
-/*
+
       deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId4)
@@ -1391,7 +1389,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // Validate response
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 204);
-*/
+
       deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId5)
