@@ -303,7 +303,7 @@ public class EventNotificationsExamples {
       // end-create_destination
       destinationId = destinationResponse.getId();
 
-      DestinationConfigParamsSafariDestinationConfig safariDestinationConfig= new DestinationConfigParamsSafariDestinationConfig.Builder()
+      DestinationConfigParamsSafariDestinationConfig safariDestinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .websiteUrl("https://ensafaripush.mybluemix.net")
@@ -604,7 +604,7 @@ public class EventNotificationsExamples {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
 
-  /*  try {
+    try {
       System.out.println("sendBulkNotifications() result:");
       // begin-send_bulk_notifications
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
@@ -640,7 +640,7 @@ public class EventNotificationsExamples {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
-*/
+
     try {
       // begin-delete_subscription
       DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
