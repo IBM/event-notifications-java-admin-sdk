@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.1...0.1.2) (2022-06-03)
+
+
+### Bug Fixes
+
+* add safari destination support ([802fb3b](https://github.com/IBM/event-notifications-java-admin-sdk/commit/802fb3bd0ea03a0eb78ab78fc1b4673018ce4187))
+
 ## [0.1.1](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.0...0.1.1) (2022-05-30)
 
 
