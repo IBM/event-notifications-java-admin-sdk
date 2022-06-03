@@ -156,6 +156,9 @@ public class EventNotifications extends BaseService {
     if (sendNotificationsOptions.ceIbmenapnsbody() != null) {
       builder.header("ce-ibmenapnsbody", sendNotificationsOptions.ceIbmenapnsbody());
     }
+    if (sendNotificationsOptions.ceIbmensafaribody() != null) {
+      builder.header("ce-ibmensafaribody", sendNotificationsOptions.ceIbmensafaribody());
+    }
     if (sendNotificationsOptions.ceIbmenpushto() != null) {
       builder.header("ce-ibmenpushto", sendNotificationsOptions.ceIbmenpushto());
     }
@@ -561,6 +564,30 @@ public class EventNotifications extends BaseService {
       okhttp3.RequestBody certificateBody = RequestUtils.inputStreamBody(createDestinationOptions.certificate(), createDestinationOptions.certificateContentType());
       multipartBuilder.addFormDataPart("certificate", "filename", certificateBody);
     }
+    if (createDestinationOptions.icon16x16() != null) {
+      okhttp3.RequestBody icon16x16Body = RequestUtils.inputStreamBody(createDestinationOptions.icon16x16(), createDestinationOptions.icon16x16ContentType());
+      multipartBuilder.addFormDataPart("icon_16x16", "filename", icon16x16Body);
+    }
+    if (createDestinationOptions.icon16x162x() != null) {
+      okhttp3.RequestBody icon16x162xBody = RequestUtils.inputStreamBody(createDestinationOptions.icon16x162x(), createDestinationOptions.icon16x162xContentType());
+      multipartBuilder.addFormDataPart("icon_16x16@2x", "filename", icon16x162xBody);
+    }
+    if (createDestinationOptions.icon32x32() != null) {
+      okhttp3.RequestBody icon32x32Body = RequestUtils.inputStreamBody(createDestinationOptions.icon32x32(), createDestinationOptions.icon32x32ContentType());
+      multipartBuilder.addFormDataPart("icon_32x32", "filename", icon32x32Body);
+    }
+    if (createDestinationOptions.icon32x322x() != null) {
+      okhttp3.RequestBody icon32x322xBody = RequestUtils.inputStreamBody(createDestinationOptions.icon32x322x(), createDestinationOptions.icon32x322xContentType());
+      multipartBuilder.addFormDataPart("icon_32x32@2x", "filename", icon32x322xBody);
+    }
+    if (createDestinationOptions.icon128x128() != null) {
+      okhttp3.RequestBody icon128x128Body = RequestUtils.inputStreamBody(createDestinationOptions.icon128x128(), createDestinationOptions.icon128x128ContentType());
+      multipartBuilder.addFormDataPart("icon_128x128", "filename", icon128x128Body);
+    }
+    if (createDestinationOptions.icon128x1282x() != null) {
+      okhttp3.RequestBody icon128x1282xBody = RequestUtils.inputStreamBody(createDestinationOptions.icon128x1282x(), createDestinationOptions.icon128x1282xContentType());
+      multipartBuilder.addFormDataPart("icon_128x128@2x", "filename", icon128x1282xBody);
+    }
     builder.body(multipartBuilder.build());
     ResponseConverter<DestinationResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DestinationResponse>() { }.getType());
@@ -636,7 +663,7 @@ public class EventNotifications extends BaseService {
   public ServiceCall<Destination> updateDestination(UpdateDestinationOptions updateDestinationOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateDestinationOptions,
       "updateDestinationOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDestinationOptions.name() != null) || (updateDestinationOptions.description() != null) || (updateDestinationOptions.config() != null) || (updateDestinationOptions.certificate() != null), "At least one of name, description, config, or certificate must be supplied.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDestinationOptions.name() != null) || (updateDestinationOptions.description() != null) || (updateDestinationOptions.config() != null) || (updateDestinationOptions.certificate() != null) || (updateDestinationOptions.icon16x16() != null) || (updateDestinationOptions.icon16x162x() != null) || (updateDestinationOptions.icon32x32() != null) || (updateDestinationOptions.icon32x322x() != null) || (updateDestinationOptions.icon128x128() != null) || (updateDestinationOptions.icon128x1282x() != null), "At least one of name, description, config, certificate, icon16x16, icon16x162x, icon32x32, icon32x322x, icon128x128, or icon128x1282x must be supplied.");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("instance_id", updateDestinationOptions.instanceId());
     pathParamsMap.put("id", updateDestinationOptions.id());
@@ -660,6 +687,30 @@ public class EventNotifications extends BaseService {
     if (updateDestinationOptions.certificate() != null) {
       okhttp3.RequestBody certificateBody = RequestUtils.inputStreamBody(updateDestinationOptions.certificate(), updateDestinationOptions.certificateContentType());
       multipartBuilder.addFormDataPart("certificate", "filename", certificateBody);
+    }
+    if (updateDestinationOptions.icon16x16() != null) {
+      okhttp3.RequestBody icon16x16Body = RequestUtils.inputStreamBody(updateDestinationOptions.icon16x16(), updateDestinationOptions.icon16x16ContentType());
+      multipartBuilder.addFormDataPart("icon_16x16", "filename", icon16x16Body);
+    }
+    if (updateDestinationOptions.icon16x162x() != null) {
+      okhttp3.RequestBody icon16x162xBody = RequestUtils.inputStreamBody(updateDestinationOptions.icon16x162x(), updateDestinationOptions.icon16x162xContentType());
+      multipartBuilder.addFormDataPart("icon_16x16@2x", "filename", icon16x162xBody);
+    }
+    if (updateDestinationOptions.icon32x32() != null) {
+      okhttp3.RequestBody icon32x32Body = RequestUtils.inputStreamBody(updateDestinationOptions.icon32x32(), updateDestinationOptions.icon32x32ContentType());
+      multipartBuilder.addFormDataPart("icon_32x32", "filename", icon32x32Body);
+    }
+    if (updateDestinationOptions.icon32x322x() != null) {
+      okhttp3.RequestBody icon32x322xBody = RequestUtils.inputStreamBody(updateDestinationOptions.icon32x322x(), updateDestinationOptions.icon32x322xContentType());
+      multipartBuilder.addFormDataPart("icon_32x32@2x", "filename", icon32x322xBody);
+    }
+    if (updateDestinationOptions.icon128x128() != null) {
+      okhttp3.RequestBody icon128x128Body = RequestUtils.inputStreamBody(updateDestinationOptions.icon128x128(), updateDestinationOptions.icon128x128ContentType());
+      multipartBuilder.addFormDataPart("icon_128x128", "filename", icon128x128Body);
+    }
+    if (updateDestinationOptions.icon128x1282x() != null) {
+      okhttp3.RequestBody icon128x1282xBody = RequestUtils.inputStreamBody(updateDestinationOptions.icon128x1282x(), updateDestinationOptions.icon128x1282xContentType());
+      multipartBuilder.addFormDataPart("icon_128x128@2x", "filename", icon128x1282xBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Destination> responseConverter =

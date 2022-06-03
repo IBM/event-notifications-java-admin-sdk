@@ -31,8 +31,18 @@ public class Subscription extends DynamicModel<Object> {
     String SMTP_IBM = "smtp_ibm";
     /** webhook. */
     String WEBHOOK = "webhook";
+    /** push_android. */
+    String PUSH_ANDROID = "push_android";
+    /** push_ios. */
+    String PUSH_IOS = "push_ios";
+    /** push_chrome. */
+    String PUSH_CHROME = "push_chrome";
+    /** push_firefox. */
+    String PUSH_FIREFOX = "push_firefox";
     /** slack. */
     String SLACK = "slack";
+    /** push_safari. */
+    String PUSH_SAFARI = "push_safari";
   }
 
   @SerializedName("id")

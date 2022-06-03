@@ -456,6 +456,7 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
       String notificationDevices =  "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ 'title' : '<notification-title>', 'badge': '<notification-message>' }";
       String apnsJsonString = "{'alert': '<notification-message>', 'badge': 5 }";
+      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
       JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
 
       Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "<apns-apns-collapse-id-value>"); } };
@@ -469,8 +470,9 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
               .ceType("<notification-type>")
               .ceTime(new java.util.Date())
               .ceIbmenpushto(notificationDevices)
-              .ceIbmenfcmbody(fcmBodyNotificationPayload)
-              .ceIbmenapnsbody(apnsBodyNotificationPayload)
+              .ceIbmenfcmbody(fcmJsonString)
+              .ceIbmenapnsbody(apnsJsonString)
+              .ceIbmensafaribody(safariJsonString)
               .ceIbmenapnsheaders(messageApnsHeader)
               .ceSpecversion("1.0")
               .build();
@@ -507,6 +509,7 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
   - *ceIbmenapnsheaders* (**string**) - Set headers required for the APNs message [Refer this APNs official [link](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns)(Table 1 Header fields for a POST request)]
   - *ceIbmenchromebody* (**string**) - Message body for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - *ceIbmenfirefoxbody* (**string**) - Message body for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
+  - *ceIbmensafaribody* (**string**) - Set payload string specific to safari notifications [Refer this Safari official doc [link](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)].
   - *ceIbmenchromeheaders* (**string**) - Headers for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - *ceIbmenfirefoxheaders* (**string**) - Headers for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - *ceSpecversion* (**String**) - Spec version of the Event Notifications. Default value is `1.0`.

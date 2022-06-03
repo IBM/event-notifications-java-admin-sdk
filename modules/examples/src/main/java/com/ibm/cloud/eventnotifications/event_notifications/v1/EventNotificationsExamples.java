@@ -19,6 +19,8 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +48,8 @@ public class EventNotificationsExamples {
   public static String sourceId = "";
   public static String topicId = "";
   public static String destinationId = "";
+  public static String destinationId5 = "";
+  public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
@@ -79,6 +83,7 @@ public class EventNotificationsExamples {
     instanceId = config.get("GUID");
     fcmSenderId = config.get("FCM_ID");
     fcmServerKey = config.get("FCM_KEY");
+    safariCertificatePath = config.get("SAFARI_CERTIFICATE");
 
     try {
       System.out.println("createSources() result:");
@@ -297,6 +302,45 @@ public class EventNotificationsExamples {
       System.out.println(destinationResponse);
       // end-create_destination
       destinationId = destinationResponse.getId();
+
+      DestinationConfigParamsSafariDestinationConfig safariDestinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+              .certType("p12")
+              .password("safari")
+              .websiteUrl("https://ensafaripush.mybluemix.net")
+              .websiteName("NodeJS Starter Application")
+              .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
+              .websitePushId("web.net.mybluemix.ensafaripush")
+              .build();
+
+      DestinationConfig destinationSafariConfigModel = new DestinationConfig.Builder()
+              .params(safariDestinationConfig)
+              .build();
+
+      String safariName = "Safari_destination";
+      String safariTypeVal = "push_safari";
+      String safariDescription = "Safari Destination";
+
+      File file = new File(safariCertificatePath);
+      InputStream stream = new FileInputStream(file);
+
+      CreateDestinationOptions createSafariDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(safariName)
+              .type(safariTypeVal)
+              .description(safariDescription)
+              .config(destinationSafariConfigModel)
+              .certificate(stream)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> safariResponse = eventNotificationsService.createDestination(createSafariDestinationOptions).execute();
+
+      destinationResponse = safariResponse.getResult();
+
+      System.out.println(destinationResponse);
+      // end-create_destination
+      destinationId5 = destinationResponse.getId();
+
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -363,6 +407,41 @@ public class EventNotificationsExamples {
 
       Response<Destination> response = eventNotificationsService.updateDestination(updateDestinationOptions).execute();
       Destination destination = response.getResult();
+
+      System.out.println(destination);
+
+      DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+              .certType("p12")
+              .password("safari")
+              .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
+              .websitePushId("web.net.mybluemix.ensafaripush")
+              .websiteUrl("https://ensafaripush.mybluemix.net")
+              .websiteName("NodeJS Starter Application")
+              .build();
+
+      DestinationConfig destinationsafariConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfig)
+              .build();
+
+      String name = "Safari_dest";
+      String description = "This destination is for Safari";
+
+      File file = new File(safariCertificatePath);
+      InputStream stream = new FileInputStream(file);
+
+      UpdateDestinationOptions updateSafariDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId5)
+              .name(name)
+              .description(description)
+              .config(destinationsafariConfigModel)
+              .certificate(stream)
+              .certificateContentType("testString")
+              .build();
+
+      // Invoke operation
+      Response<Destination> safariResponse = eventNotificationsService.updateDestination(updateSafariDestinationOptions).execute();
+      destination = safariResponse.getResult();
 
       System.out.println(destination);
       // end-update_destination
@@ -498,6 +577,7 @@ public class EventNotificationsExamples {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
@@ -510,6 +590,7 @@ public class EventNotificationsExamples {
               .ceIbmenpushto(notificationDevices)
               .ceIbmenfcmbody(fcmJsonString)
               .ceIbmenapnsbody(apnsJsonString)
+              .ceIbmensafaribody(safariJsonString)
               .ceSpecversion("1.0")
               .build();
 
@@ -529,11 +610,13 @@ public class EventNotificationsExamples {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
       NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
               .ibmenseverity("MEDIUM")
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
+              .ibmensafaribody(safariJsonString)
               .ibmenpushto(notificationDevices)
               .ibmensourceid(sourceId)
               .id("FCM ID")
@@ -598,6 +681,15 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteDestination(deleteDestinationOptions).execute();
       // end-delete_destination
       System.out.printf("deleteDestination() response status code: %d%n", response.getStatusCode());
+
+      DeleteDestinationOptions deleteSafariOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId5)
+              .build();
+
+      Response<Void> safariResponse = eventNotificationsService.deleteDestination(deleteSafariOptions).execute();
+      // end-delete_destination
+      System.out.printf("deleteDestination() response status code: %d%n", safariResponse.getStatusCode());
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

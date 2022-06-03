@@ -24,7 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class DestinationListItem extends GenericModel {
 
   /**
-   * Destination type Email/SMS/Webhook.
+   * Destination type.
    */
   public interface Type {
     /** webhook. */
@@ -39,6 +39,8 @@ public class DestinationListItem extends GenericModel {
     String PUSH_IOS = "push_ios";
     /** slack. */
     String SLACK = "slack";
+    /** push_safari. */
+    String PUSH_SAFARI = "push_safari";
   }
 
   protected String id;
@@ -88,7 +90,7 @@ public class DestinationListItem extends GenericModel {
   /**
    * Gets the type.
    *
-   * Destination type Email/SMS/Webhook.
+   * Destination type.
    *
    * @return the type
    */

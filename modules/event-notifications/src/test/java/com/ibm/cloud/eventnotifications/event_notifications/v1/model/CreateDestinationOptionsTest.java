@@ -60,6 +60,18 @@ public class CreateDestinationOptionsTest {
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
+      .icon16x16(TestUtilities.createMockStream("This is a mock file."))
+      .icon16x16ContentType("testString")
+      .icon16x162x(TestUtilities.createMockStream("This is a mock file."))
+      .icon16x162xContentType("testString")
+      .icon32x32(TestUtilities.createMockStream("This is a mock file."))
+      .icon32x32ContentType("testString")
+      .icon32x322x(TestUtilities.createMockStream("This is a mock file."))
+      .icon32x322xContentType("testString")
+      .icon128x128(TestUtilities.createMockStream("This is a mock file."))
+      .icon128x128ContentType("testString")
+      .icon128x1282x(TestUtilities.createMockStream("This is a mock file."))
+      .icon128x1282xContentType("testString")
       .build();
     assertEquals(createDestinationOptionsModel.instanceId(), "testString");
     assertEquals(createDestinationOptionsModel.name(), "testString");
@@ -68,6 +80,18 @@ public class CreateDestinationOptionsTest {
     assertEquals(createDestinationOptionsModel.config(), destinationConfigModel);
     assertEquals(IOUtils.toString(createDestinationOptionsModel.certificate()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(createDestinationOptionsModel.certificateContentType(), "testString");
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.icon16x16()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.icon16x16ContentType(), "testString");
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.icon16x162x()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.icon16x162xContentType(), "testString");
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.icon32x32()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.icon32x32ContentType(), "testString");
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.icon32x322x()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.icon32x322xContentType(), "testString");
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.icon128x128()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.icon128x128ContentType(), "testString");
+    assertEquals(IOUtils.toString(createDestinationOptionsModel.icon128x1282x()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createDestinationOptionsModel.icon128x1282xContentType(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
