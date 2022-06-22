@@ -60,6 +60,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId4 = "";
   public static String safariCertificatePath = "";
   public static String destinationId5 = "";
+  public static String destinationId6 = "";
   public static String subscriptionId = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
@@ -656,7 +657,40 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId5 = safariDestinationResponseResult.getId();
 
+      DestinationConfigParamsMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigParamsMSTeamsDestinationConfig.Builder()
+              .url("https://teams.microsoft.com")
+              .build();
 
+      DestinationConfig destinationMsTeamsConfigModel = new DestinationConfig.Builder()
+              .params(msTeamsDestinationConfig)
+              .build();
+
+      String msTeamsName = "MSTeams_destination";
+      String msTeamsTypeVal = "msteams";
+      String msTeamsDescription = "MSTeams Destination";
+
+      CreateDestinationOptions createMsTeamsDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(msTeamsName)
+              .type(msTeamsTypeVal)
+              .description(msTeamsDescription)
+              .config(destinationMsTeamsConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> teamsResponse = service.createDestination(createMsTeamsDestinationOptions).execute();
+      // Validate response
+      assertNotNull(teamsResponse);
+      assertEquals(teamsResponse.getStatusCode(), 201);
+
+      DestinationResponse msTeamsDestinationResponseResult = teamsResponse.getResult();
+
+      assertNotNull(msTeamsDestinationResponseResult);
+      assertEquals(msTeamsDestinationResponseResult.getDescription(), msTeamsDescription);
+      assertEquals(msTeamsDestinationResponseResult.getName(), msTeamsName);
+      assertEquals(msTeamsDestinationResponseResult.getType(), msTeamsTypeVal);
+
+      destinationId6 = msTeamsDestinationResponseResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -803,7 +837,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), description);
       assertEquals(destinationResult.getName(), name);
 
-      DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+      /*DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
@@ -841,7 +875,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       assertEquals(safariDestinationResult.getId(), destinationId5);
       assertEquals(safariDestinationResult.getDescription(), description);
-      assertEquals(safariDestinationResult.getName(), name);
+      assertEquals(safariDestinationResult.getName(), name);*/
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1393,6 +1427,17 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId5)
+              .build();
+
+      // Invoke operation
+      response = service.deleteDestination(deleteDestinationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 204);
+
+      deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId6)
               .build();
 
       // Invoke operation

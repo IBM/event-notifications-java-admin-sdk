@@ -605,43 +605,6 @@ public class EventNotificationsExamples {
     }
 
     try {
-      System.out.println("sendBulkNotifications() result:");
-      // begin-send_bulk_notifications
-      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
-      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
-      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
-      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
-
-      NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
-              .ibmenseverity("MEDIUM")
-              .ibmenfcmbody(fcmJsonString)
-              .ibmenapnsbody(apnsJsonString)
-              .ibmensafaribody(safariJsonString)
-              .ibmenpushto(notificationDevices)
-              .ibmensourceid(sourceId)
-              .id("FCM ID")
-              .source(sourceId)
-              .type("com.acme.offer:new")
-              .specversion("1.0")
-              .time(new java.util.Date().toString())
-              .build();
-
-      SendBulkNotificationsOptions sendBulkNotificationsOptions = new SendBulkNotificationsOptions.Builder()
-              .instanceId(instanceId)
-              .bulkMessages(new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel)))
-              .build();
-
-      Response<BulkNotificationResponse> response = eventNotificationsService.sendBulkNotifications(sendBulkNotificationsOptions).execute();
-      BulkNotificationResponse bulkNotificationResponse = response.getResult();
-
-      System.out.println(bulkNotificationResponse);
-      // end-send_bulk_notifications
-    } catch (ServiceResponseException e) {
-      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
       // begin-delete_subscription
       DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
               .instanceId(instanceId)
