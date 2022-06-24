@@ -837,7 +837,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), description);
       assertEquals(destinationResult.getName(), name);
 
-      /*DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+      DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
@@ -875,7 +875,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       assertEquals(safariDestinationResult.getId(), destinationId5);
       assertEquals(safariDestinationResult.getDescription(), description);
-      assertEquals(safariDestinationResult.getName(), name);*/
+      assertEquals(safariDestinationResult.getName(), name);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
