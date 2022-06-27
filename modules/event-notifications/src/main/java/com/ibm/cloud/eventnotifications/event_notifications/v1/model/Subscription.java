@@ -43,6 +43,8 @@ public class Subscription extends DynamicModel<Object> {
     String SLACK = "slack";
     /** push_safari. */
     String PUSH_SAFARI = "push_safari";
+    /** msteams. */
+    String MSTEAMS = "msteams";
   }
 
   @SerializedName("id")

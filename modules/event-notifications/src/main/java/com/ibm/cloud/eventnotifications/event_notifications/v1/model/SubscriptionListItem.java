@@ -44,6 +44,8 @@ public class SubscriptionListItem extends GenericModel {
     String SLACK = "slack";
     /** push_safari. */
     String PUSH_SAFARI = "push_safari";
+    /** msteams. */
+    String MSTEAMS = "msteams";
   }
 
   protected String id;
