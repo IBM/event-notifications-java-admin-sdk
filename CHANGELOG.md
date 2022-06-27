@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.2...0.1.3) (2022-06-27)
+
+
+### Bug Fixes
+
+* add msteams destination support ([6edd71e](https://github.com/IBM/event-notifications-java-admin-sdk/commit/6edd71e10ba155553849eb9bc37f45ebb69779b2))
+
 ## [0.1.2](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.1...0.1.2) (2022-06-03)
 
 
