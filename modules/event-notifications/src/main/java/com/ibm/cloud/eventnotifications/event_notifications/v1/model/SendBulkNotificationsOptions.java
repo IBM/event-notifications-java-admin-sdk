@@ -101,6 +101,8 @@ public class SendBulkNotificationsOptions extends GenericModel {
     }
   }
 
+  protected SendBulkNotificationsOptions() { }
+
   protected SendBulkNotificationsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

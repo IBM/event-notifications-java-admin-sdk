@@ -34,9 +34,11 @@ public class DestinationConfigParamsFCMDestinationConfigTest {
     DestinationConfigParamsFCMDestinationConfig destinationConfigParamsFcmDestinationConfigModel = new DestinationConfigParamsFCMDestinationConfig.Builder()
       .serverKey("testString")
       .senderId("testString")
+      .preProd(false)
       .build();
     assertEquals(destinationConfigParamsFcmDestinationConfigModel.serverKey(), "testString");
     assertEquals(destinationConfigParamsFcmDestinationConfigModel.senderId(), "testString");
+    assertEquals(destinationConfigParamsFcmDestinationConfigModel.preProd(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(destinationConfigParamsFcmDestinationConfigModel);
 
@@ -44,6 +46,7 @@ public class DestinationConfigParamsFCMDestinationConfigTest {
     assertTrue(destinationConfigParamsFcmDestinationConfigModelNew instanceof DestinationConfigParamsFCMDestinationConfig);
     assertEquals(destinationConfigParamsFcmDestinationConfigModelNew.serverKey(), "testString");
     assertEquals(destinationConfigParamsFcmDestinationConfigModelNew.senderId(), "testString");
+    assertEquals(destinationConfigParamsFcmDestinationConfigModelNew.preProd(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

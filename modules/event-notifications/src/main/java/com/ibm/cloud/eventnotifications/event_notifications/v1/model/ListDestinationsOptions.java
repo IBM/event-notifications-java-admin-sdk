@@ -109,6 +109,8 @@ public class ListDestinationsOptions extends GenericModel {
     }
   }
 
+  protected ListDestinationsOptions() { }
+
   protected ListDestinationsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

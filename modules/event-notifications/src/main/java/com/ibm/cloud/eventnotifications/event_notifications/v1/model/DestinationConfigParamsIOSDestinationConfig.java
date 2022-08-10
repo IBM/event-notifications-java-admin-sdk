@@ -28,6 +28,7 @@ public class DestinationConfigParamsIOSDestinationConfig extends DestinationConf
     private String keyId;
     private String teamId;
     private String bundleId;
+    private Boolean preProd;
 
     public Builder(DestinationConfigParams destinationConfigParamsIosDestinationConfig) {
       this.certType = destinationConfigParamsIosDestinationConfig.certType;
@@ -36,6 +37,7 @@ public class DestinationConfigParamsIOSDestinationConfig extends DestinationConf
       this.keyId = destinationConfigParamsIosDestinationConfig.keyId;
       this.teamId = destinationConfigParamsIosDestinationConfig.teamId;
       this.bundleId = destinationConfigParamsIosDestinationConfig.bundleId;
+      this.preProd = destinationConfigParamsIosDestinationConfig.preProd;
     }
 
     /**
@@ -129,7 +131,20 @@ public class DestinationConfigParamsIOSDestinationConfig extends DestinationConf
       this.bundleId = bundleId;
       return this;
     }
+
+    /**
+     * Set the preProd.
+     *
+     * @param preProd the preProd
+     * @return the DestinationConfigParamsIOSDestinationConfig builder
+     */
+    public Builder preProd(Boolean preProd) {
+      this.preProd = preProd;
+      return this;
+    }
   }
+
+  protected DestinationConfigParamsIOSDestinationConfig() { }
 
   protected DestinationConfigParamsIOSDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.certType,
@@ -142,6 +157,7 @@ public class DestinationConfigParamsIOSDestinationConfig extends DestinationConf
     keyId = builder.keyId;
     teamId = builder.teamId;
     bundleId = builder.bundleId;
+    preProd = builder.preProd;
   }
 
   /**

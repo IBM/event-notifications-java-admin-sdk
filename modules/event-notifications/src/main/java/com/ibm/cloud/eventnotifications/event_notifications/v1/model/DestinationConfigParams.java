@@ -53,6 +53,8 @@ public class DestinationConfigParams extends GenericModel {
   protected String serverKey;
   @SerializedName("sender_id")
   protected String senderId;
+  @SerializedName("pre_prod")
+  protected Boolean preProd;
   @SerializedName("cert_type")
   protected String certType;
   @SerializedName("is_sandbox")
@@ -144,6 +146,17 @@ public class DestinationConfigParams extends GenericModel {
    */
   public String senderId() {
     return senderId;
+  }
+
+  /**
+   * Gets the preProd.
+   *
+   * If pre prod enabled.
+   *
+   * @return the preProd
+   */
+  public Boolean preProd() {
+    return preProd;
   }
 
   /**

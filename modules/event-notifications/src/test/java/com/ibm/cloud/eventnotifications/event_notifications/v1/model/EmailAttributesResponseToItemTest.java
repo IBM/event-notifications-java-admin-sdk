@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesReport;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseToItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,21 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DestinationDevicesReport model.
+ * Unit test class for the EmailAttributesResponseToItem model.
  */
-public class DestinationDevicesReportTest {
+public class EmailAttributesResponseToItemTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDestinationDevicesReport() throws Throwable {
-    DestinationDevicesReport destinationDevicesReportModel = new DestinationDevicesReport();
-    assertNull(destinationDevicesReportModel.getAndroid());
-    assertNull(destinationDevicesReportModel.getIos());
-    assertNull(destinationDevicesReportModel.getChrome());
-    assertNull(destinationDevicesReportModel.getFirefox());
-    assertNull(destinationDevicesReportModel.getSafari());
-    assertNull(destinationDevicesReportModel.getChromeAppExt());
-    assertNull(destinationDevicesReportModel.getAll());
+  public void testEmailAttributesResponseToItem() throws Throwable {
+    EmailAttributesResponseToItem emailAttributesResponseToItemModel = new EmailAttributesResponseToItem();
+    assertNull(emailAttributesResponseToItemModel.getEmail());
+    assertNull(emailAttributesResponseToItemModel.getTime());
   }
 }

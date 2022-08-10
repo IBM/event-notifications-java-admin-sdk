@@ -111,6 +111,8 @@ public class DeleteTagsSubscriptionOptions extends GenericModel {
     }
   }
 
+  protected DeleteTagsSubscriptionOptions() { }
+
   protected DeleteTagsSubscriptionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

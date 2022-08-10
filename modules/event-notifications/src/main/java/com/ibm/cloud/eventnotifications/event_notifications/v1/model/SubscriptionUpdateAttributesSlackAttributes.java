@@ -64,6 +64,8 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
     }
   }
 
+  protected SubscriptionUpdateAttributesSlackAttributes() { }
+
   protected SubscriptionUpdateAttributesSlackAttributes(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.attachmentColor,
       "attachmentColor cannot be null");

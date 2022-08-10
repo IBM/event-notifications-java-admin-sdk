@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.54.0-af6d2126-20220803-151219
  */
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
@@ -31,22 +31,20 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubsc
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesReport;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationDevicesReportOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeviceCount;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDeviceCountOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationDevicesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
@@ -127,6 +125,8 @@ public class EventNotifications extends BaseService {
   /**
    * Send a notification.
    *
+   * Send Notifications body from the instance.
+   *
    * @param sendNotificationsOptions the {@link SendNotificationsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link NotificationResponse}
    */
@@ -141,60 +141,6 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (sendNotificationsOptions.ceIbmenseverity() != null) {
-      builder.header("ce-ibmenseverity", sendNotificationsOptions.ceIbmenseverity());
-    }
-    if (sendNotificationsOptions.ceIbmendefaultshort() != null) {
-      builder.header("ce-ibmendefaultshort", sendNotificationsOptions.ceIbmendefaultshort());
-    }
-    if (sendNotificationsOptions.ceIbmendefaultlong() != null) {
-      builder.header("ce-ibmendefaultlong", sendNotificationsOptions.ceIbmendefaultlong());
-    }
-    if (sendNotificationsOptions.ceIbmenfcmbody() != null) {
-      builder.header("ce-ibmenfcmbody", sendNotificationsOptions.ceIbmenfcmbody());
-    }
-    if (sendNotificationsOptions.ceIbmenapnsbody() != null) {
-      builder.header("ce-ibmenapnsbody", sendNotificationsOptions.ceIbmenapnsbody());
-    }
-    if (sendNotificationsOptions.ceIbmensafaribody() != null) {
-      builder.header("ce-ibmensafaribody", sendNotificationsOptions.ceIbmensafaribody());
-    }
-    if (sendNotificationsOptions.ceIbmenpushto() != null) {
-      builder.header("ce-ibmenpushto", sendNotificationsOptions.ceIbmenpushto());
-    }
-    if (sendNotificationsOptions.ceIbmenapnsheaders() != null) {
-      builder.header("ce-ibmenapnsheaders", sendNotificationsOptions.ceIbmenapnsheaders());
-    }
-    if (sendNotificationsOptions.ceIbmenchromebody() != null) {
-      builder.header("ce-ibmenchromebody", sendNotificationsOptions.ceIbmenchromebody());
-    }
-    if (sendNotificationsOptions.ceIbmenfirefoxbody() != null) {
-      builder.header("ce-ibmenfirefoxbody", sendNotificationsOptions.ceIbmenfirefoxbody());
-    }
-    if (sendNotificationsOptions.ceIbmenchromeheaders() != null) {
-      builder.header("ce-ibmenchromeheaders", sendNotificationsOptions.ceIbmenchromeheaders());
-    }
-    if (sendNotificationsOptions.ceIbmenfirefoxheaders() != null) {
-      builder.header("ce-ibmenfirefoxheaders", sendNotificationsOptions.ceIbmenfirefoxheaders());
-    }
-    if (sendNotificationsOptions.ceIbmensourceid() != null) {
-      builder.header("ce-ibmensourceid", sendNotificationsOptions.ceIbmensourceid());
-    }
-    if (sendNotificationsOptions.ceId() != null) {
-      builder.header("ce-id", sendNotificationsOptions.ceId());
-    }
-    if (sendNotificationsOptions.ceSource() != null) {
-      builder.header("ce-source", sendNotificationsOptions.ceSource());
-    }
-    if (sendNotificationsOptions.ceType() != null) {
-      builder.header("ce-type", sendNotificationsOptions.ceType());
-    }
-    if (sendNotificationsOptions.ceSpecversion() != null) {
-      builder.header("ce-specversion", sendNotificationsOptions.ceSpecversion());
-    }
-    if (sendNotificationsOptions.ceTime() != null) {
-      builder.header("ce-time", sendNotificationsOptions.ceTime());
-    }
     if (sendNotificationsOptions.body() != null) {
       builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(sendNotificationsOptions.body()), "application/json");
     }
@@ -570,7 +516,7 @@ public class EventNotifications extends BaseService {
     }
     if (createDestinationOptions.icon16x162x() != null) {
       okhttp3.RequestBody icon16x162xBody = RequestUtils.inputStreamBody(createDestinationOptions.icon16x162x(), createDestinationOptions.icon16x162xContentType());
-      multipartBuilder.addFormDataPart("icon_16x16@2x", "filename", icon16x162xBody);
+      multipartBuilder.addFormDataPart("icon_16x16_2x", "filename", icon16x162xBody);
     }
     if (createDestinationOptions.icon32x32() != null) {
       okhttp3.RequestBody icon32x32Body = RequestUtils.inputStreamBody(createDestinationOptions.icon32x32(), createDestinationOptions.icon32x32ContentType());
@@ -578,7 +524,7 @@ public class EventNotifications extends BaseService {
     }
     if (createDestinationOptions.icon32x322x() != null) {
       okhttp3.RequestBody icon32x322xBody = RequestUtils.inputStreamBody(createDestinationOptions.icon32x322x(), createDestinationOptions.icon32x322xContentType());
-      multipartBuilder.addFormDataPart("icon_32x32@2x", "filename", icon32x322xBody);
+      multipartBuilder.addFormDataPart("icon_32x32_2x", "filename", icon32x322xBody);
     }
     if (createDestinationOptions.icon128x128() != null) {
       okhttp3.RequestBody icon128x128Body = RequestUtils.inputStreamBody(createDestinationOptions.icon128x128(), createDestinationOptions.icon128x128ContentType());
@@ -586,7 +532,7 @@ public class EventNotifications extends BaseService {
     }
     if (createDestinationOptions.icon128x1282x() != null) {
       okhttp3.RequestBody icon128x1282xBody = RequestUtils.inputStreamBody(createDestinationOptions.icon128x1282x(), createDestinationOptions.icon128x1282xContentType());
-      multipartBuilder.addFormDataPart("icon_128x128@2x", "filename", icon128x1282xBody);
+      multipartBuilder.addFormDataPart("icon_128x128_2x", "filename", icon128x1282xBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<DestinationResponse> responseConverter =
@@ -694,7 +640,7 @@ public class EventNotifications extends BaseService {
     }
     if (updateDestinationOptions.icon16x162x() != null) {
       okhttp3.RequestBody icon16x162xBody = RequestUtils.inputStreamBody(updateDestinationOptions.icon16x162x(), updateDestinationOptions.icon16x162xContentType());
-      multipartBuilder.addFormDataPart("icon_16x16@2x", "filename", icon16x162xBody);
+      multipartBuilder.addFormDataPart("icon_16x16_2x", "filename", icon16x162xBody);
     }
     if (updateDestinationOptions.icon32x32() != null) {
       okhttp3.RequestBody icon32x32Body = RequestUtils.inputStreamBody(updateDestinationOptions.icon32x32(), updateDestinationOptions.icon32x32ContentType());
@@ -702,7 +648,7 @@ public class EventNotifications extends BaseService {
     }
     if (updateDestinationOptions.icon32x322x() != null) {
       okhttp3.RequestBody icon32x322xBody = RequestUtils.inputStreamBody(updateDestinationOptions.icon32x322x(), updateDestinationOptions.icon32x322xContentType());
-      multipartBuilder.addFormDataPart("icon_32x32@2x", "filename", icon32x322xBody);
+      multipartBuilder.addFormDataPart("icon_32x32_2x", "filename", icon32x322xBody);
     }
     if (updateDestinationOptions.icon128x128() != null) {
       okhttp3.RequestBody icon128x128Body = RequestUtils.inputStreamBody(updateDestinationOptions.icon128x128(), updateDestinationOptions.icon128x128ContentType());
@@ -710,7 +656,7 @@ public class EventNotifications extends BaseService {
     }
     if (updateDestinationOptions.icon128x1282x() != null) {
       okhttp3.RequestBody icon128x1282xBody = RequestUtils.inputStreamBody(updateDestinationOptions.icon128x1282x(), updateDestinationOptions.icon128x1282xContentType());
-      multipartBuilder.addFormDataPart("icon_128x128@2x", "filename", icon128x1282xBody);
+      multipartBuilder.addFormDataPart("icon_128x128_2x", "filename", icon128x1282xBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Destination> responseConverter =
@@ -742,99 +688,91 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Get list of Destination devices.
-   *
-   * Get list of Destination devices.
-   *
-   * @param listDestinationDevicesOptions the {@link ListDestinationDevicesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DestinationDevicesList}
-   */
-  public ServiceCall<DestinationDevicesList> listDestinationDevices(ListDestinationDevicesOptions listDestinationDevicesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listDestinationDevicesOptions,
-      "listDestinationDevicesOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", listDestinationDevicesOptions.instanceId());
-    pathParamsMap.put("id", listDestinationDevicesOptions.id());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/devices", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listDestinationDevices");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (listDestinationDevicesOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listDestinationDevicesOptions.limit()));
-    }
-    if (listDestinationDevicesOptions.offset() != null) {
-      builder.query("offset", String.valueOf(listDestinationDevicesOptions.offset()));
-    }
-    if (listDestinationDevicesOptions.search() != null) {
-      builder.query("search", String.valueOf(listDestinationDevicesOptions.search()));
-    }
-    ResponseConverter<DestinationDevicesList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DestinationDevicesList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieves report of destination devices registered.
-   *
-   * Retrieves report of destination devices registered.
-   *
-   * @param getDestinationDevicesReportOptions the {@link GetDestinationDevicesReportOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DestinationDevicesReport}
-   */
-  public ServiceCall<DestinationDevicesReport> getDestinationDevicesReport(GetDestinationDevicesReportOptions getDestinationDevicesReportOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getDestinationDevicesReportOptions,
-      "getDestinationDevicesReportOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", getDestinationDevicesReportOptions.instanceId());
-    pathParamsMap.put("id", getDestinationDevicesReportOptions.id());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/devices/report", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getDestinationDevicesReport");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getDestinationDevicesReportOptions.days() != null) {
-      builder.query("days", String.valueOf(getDestinationDevicesReportOptions.days()));
-    }
-    ResponseConverter<DestinationDevicesReport> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DestinationDevicesReport>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * List all Tag Subscriptions for a device.
    *
    * List all Tag Subscriptions for a device.
    *
-   * @param listTagsSubscriptionsDeviceOptions the {@link ListTagsSubscriptionsDeviceOptions} containing the options for the call
+   * @param getTagsSubscriptionsDeviceOptions the {@link GetTagsSubscriptionsDeviceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link TagsSubscriptionList}
    */
-  public ServiceCall<TagsSubscriptionList> listTagsSubscriptionsDevice(ListTagsSubscriptionsDeviceOptions listTagsSubscriptionsDeviceOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listTagsSubscriptionsDeviceOptions,
-      "listTagsSubscriptionsDeviceOptions cannot be null");
+  public ServiceCall<TagsSubscriptionList> getTagsSubscriptionsDevice(GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getTagsSubscriptionsDeviceOptions,
+      "getTagsSubscriptionsDeviceOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", listTagsSubscriptionsDeviceOptions.instanceId());
-    pathParamsMap.put("id", listTagsSubscriptionsDeviceOptions.id());
-    pathParamsMap.put("device_id", listTagsSubscriptionsDeviceOptions.deviceId());
+    pathParamsMap.put("instance_id", getTagsSubscriptionsDeviceOptions.instanceId());
+    pathParamsMap.put("id", getTagsSubscriptionsDeviceOptions.id());
+    pathParamsMap.put("device_id", getTagsSubscriptionsDeviceOptions.deviceId());
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/tag_subscriptions/devices/{device_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listTagsSubscriptionsDevice");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getTagsSubscriptionsDevice");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listTagsSubscriptionsDeviceOptions.tagName() != null) {
-      builder.query("tag_name", String.valueOf(listTagsSubscriptionsDeviceOptions.tagName()));
+    if (getTagsSubscriptionsDeviceOptions.tagName() != null) {
+      builder.query("tag_name", String.valueOf(getTagsSubscriptionsDeviceOptions.tagName()));
     }
-    if (listTagsSubscriptionsDeviceOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listTagsSubscriptionsDeviceOptions.limit()));
+    if (getTagsSubscriptionsDeviceOptions.limit() != null) {
+      builder.query("limit", String.valueOf(getTagsSubscriptionsDeviceOptions.limit()));
     }
-    if (listTagsSubscriptionsDeviceOptions.offset() != null) {
-      builder.query("offset", String.valueOf(listTagsSubscriptionsDeviceOptions.offset()));
+    if (getTagsSubscriptionsDeviceOptions.offset() != null) {
+      builder.query("offset", String.valueOf(getTagsSubscriptionsDeviceOptions.offset()));
     }
     ResponseConverter<TagsSubscriptionList> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TagsSubscriptionList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get Device count.
+   *
+   * Get Device count.
+   *
+   * @param getDeviceCountOptions the {@link GetDeviceCountOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DeviceCount}
+   */
+  public ServiceCall<DeviceCount> getDeviceCount(GetDeviceCountOptions getDeviceCountOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getDeviceCountOptions,
+      "getDeviceCountOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getDeviceCountOptions.instanceId());
+    pathParamsMap.put("id", getDeviceCountOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/devices/count", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getDeviceCount");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<DeviceCount> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DeviceCount>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a new Tag subscription.
+   *
+   * Create a new Tag subscription.
+   *
+   * @param createTagsSubscriptionOptions the {@link CreateTagsSubscriptionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DestinationTagsSubscriptionResponse}
+   */
+  public ServiceCall<DestinationTagsSubscriptionResponse> createTagsSubscription(CreateTagsSubscriptionOptions createTagsSubscriptionOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createTagsSubscriptionOptions,
+      "createTagsSubscriptionOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", createTagsSubscriptionOptions.instanceId());
+    pathParamsMap.put("id", createTagsSubscriptionOptions.id());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/tag_subscriptions", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "createTagsSubscription");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("device_id", createTagsSubscriptionOptions.deviceId());
+    contentJson.addProperty("tag_name", createTagsSubscriptionOptions.tagName());
+    builder.bodyJson(contentJson);
+    ResponseConverter<DestinationTagsSubscriptionResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DestinationTagsSubscriptionResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -878,35 +816,6 @@ public class EventNotifications extends BaseService {
     }
     ResponseConverter<TagsSubscriptionList> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TagsSubscriptionList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Create a new Tag subscription.
-   *
-   * Create a new Tag subscription.
-   *
-   * @param createTagsSubscriptionOptions the {@link CreateTagsSubscriptionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DestinationTagsSubscriptionResponse}
-   */
-  public ServiceCall<DestinationTagsSubscriptionResponse> createTagsSubscription(CreateTagsSubscriptionOptions createTagsSubscriptionOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(createTagsSubscriptionOptions,
-      "createTagsSubscriptionOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", createTagsSubscriptionOptions.instanceId());
-    pathParamsMap.put("id", createTagsSubscriptionOptions.id());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/tag_subscriptions", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "createTagsSubscription");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("device_id", createTagsSubscriptionOptions.deviceId());
-    contentJson.addProperty("tag_name", createTagsSubscriptionOptions.tagName());
-    builder.bodyJson(contentJson);
-    ResponseConverter<DestinationTagsSubscriptionResponse> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DestinationTagsSubscriptionResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

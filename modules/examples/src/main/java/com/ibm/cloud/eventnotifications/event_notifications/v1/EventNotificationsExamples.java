@@ -449,7 +449,7 @@ public class EventNotificationsExamples {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
-
+/*
     try {
       System.out.println("listDestinationDevices() result:");
       // begin-list_destination_devices
@@ -485,7 +485,7 @@ public class EventNotificationsExamples {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
-
+*/
     try {
       System.out.println("createSubscription() result:");
       // begin-create_subscription
@@ -579,19 +579,26 @@ public class EventNotificationsExamples {
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
+      NotificationCreate body = new NotificationCreate.Builder()
+              .id(instanceId)
+              .ibmenseverity("MEDIUM")
+              .id("FCM ID")
+              .source(sourceId)
+              .ibmensourceid(sourceId)
+              .type("com.acme.offer:new")
+              .time(new java.util.Date())
+              .ibmenpushto(notificationDevices)
+              .ibmenfcmbody(fcmJsonString)
+              .ibmenapnsbody(apnsJsonString)
+              .ibmensafaribody(safariJsonString)
+              .ibmendefaultshort("Match Info")
+              .ibmendefaultlong("Portugal lead the group with a 2-0 win")
+              .specversion("1.0")
+              .build();
+
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .ceIbmenseverity("MEDIUM")
-              .ceId("FCM ID")
-              .ceSource(sourceId)
-              .ceIbmensourceid(sourceId)
-              .ceType("com.acme.offer:new")
-              .ceTime(new java.util.Date().toString())
-              .ceIbmenpushto(notificationDevices)
-              .ceIbmenfcmbody(fcmJsonString)
-              .ceIbmenapnsbody(apnsJsonString)
-              .ceIbmensafaribody(safariJsonString)
-              .ceSpecversion("1.0")
+              .body(body)
               .build();
 
       Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();

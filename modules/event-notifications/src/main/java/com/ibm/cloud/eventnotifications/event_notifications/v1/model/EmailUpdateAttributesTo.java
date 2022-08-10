@@ -109,6 +109,8 @@ public class EmailUpdateAttributesTo extends GenericModel {
     }
   }
 
+  protected EmailUpdateAttributesTo() { }
+
   protected EmailUpdateAttributesTo(Builder builder) {
     add = builder.add;
     remove = builder.remove;

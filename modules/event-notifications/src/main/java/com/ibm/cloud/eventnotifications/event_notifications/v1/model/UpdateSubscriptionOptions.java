@@ -125,6 +125,8 @@ public class UpdateSubscriptionOptions extends GenericModel {
     }
   }
 
+  protected UpdateSubscriptionOptions() { }
+
   protected UpdateSubscriptionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

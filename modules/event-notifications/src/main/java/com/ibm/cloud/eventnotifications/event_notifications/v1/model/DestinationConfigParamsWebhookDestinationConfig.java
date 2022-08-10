@@ -136,6 +136,8 @@ public class DestinationConfigParamsWebhookDestinationConfig extends Destination
     }
   }
 
+  protected DestinationConfigParamsWebhookDestinationConfig() { }
+
   protected DestinationConfigParamsWebhookDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
       "url cannot be null");

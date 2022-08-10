@@ -78,6 +78,8 @@ public class EmailUpdateAttributesUnsubscribed extends GenericModel {
     }
   }
 
+  protected EmailUpdateAttributesUnsubscribed() { }
+
   protected EmailUpdateAttributesUnsubscribed(Builder builder) {
     remove = builder.remove;
   }

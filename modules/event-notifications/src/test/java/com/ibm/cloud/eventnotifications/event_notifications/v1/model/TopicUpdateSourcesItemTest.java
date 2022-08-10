@@ -18,8 +18,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdate
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -45,10 +43,10 @@ public class TopicUpdateSourcesItemTest {
 
     TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
       .id("testString")
-      .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
+      .rules(java.util.Arrays.asList(rulesModel))
       .build();
     assertEquals(topicUpdateSourcesItemModel.id(), "testString");
-    assertEquals(topicUpdateSourcesItemModel.rules(), new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)));
+    assertEquals(topicUpdateSourcesItemModel.rules(), java.util.Arrays.asList(rulesModel));
 
     String json = TestUtilities.serialize(topicUpdateSourcesItemModel);
 

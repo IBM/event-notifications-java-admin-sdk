@@ -64,6 +64,8 @@ public class DestinationConfigParamsSlackDestinationConfig extends DestinationCo
     }
   }
 
+  protected DestinationConfigParamsSlackDestinationConfig() { }
+
   protected DestinationConfigParamsSlackDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
       "url cannot be null");

@@ -109,6 +109,8 @@ public class ListSourcesOptions extends GenericModel {
     }
   }
 
+  protected ListSourcesOptions() { }
+
   protected ListSourcesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

@@ -67,6 +67,8 @@ public class DestinationConfig extends GenericModel {
     }
   }
 
+  protected DestinationConfig() { }
+
   protected DestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.params,
       "params cannot be null");

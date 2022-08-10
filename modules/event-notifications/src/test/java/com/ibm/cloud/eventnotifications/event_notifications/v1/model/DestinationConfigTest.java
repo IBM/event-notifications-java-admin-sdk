@@ -18,8 +18,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -38,12 +36,12 @@ public class DestinationConfigTest {
       .url("https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook")
       .verb("post")
       .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-      .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
+      .sensitiveHeaders(java.util.Arrays.asList("authorization"))
       .build();
     assertEquals(destinationConfigParamsModel.url(), "https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook");
     assertEquals(destinationConfigParamsModel.verb(), "post");
     assertEquals(destinationConfigParamsModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
-    assertEquals(destinationConfigParamsModel.sensitiveHeaders(), new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")));
+    assertEquals(destinationConfigParamsModel.sensitiveHeaders(), java.util.Arrays.asList("authorization"));
 
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
       .params(destinationConfigParamsModel)

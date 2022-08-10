@@ -28,6 +28,7 @@ public class DestinationConfigParamsSafariDestinationConfig extends DestinationC
     private String websiteName;
     private String urlFormatString;
     private String websitePushId;
+    private Boolean preProd;
 
     public Builder(DestinationConfigParams destinationConfigParamsSafariDestinationConfig) {
       this.certType = destinationConfigParamsSafariDestinationConfig.certType;
@@ -36,6 +37,7 @@ public class DestinationConfigParamsSafariDestinationConfig extends DestinationC
       this.websiteName = destinationConfigParamsSafariDestinationConfig.websiteName;
       this.urlFormatString = destinationConfigParamsSafariDestinationConfig.urlFormatString;
       this.websitePushId = destinationConfigParamsSafariDestinationConfig.websitePushId;
+      this.preProd = destinationConfigParamsSafariDestinationConfig.preProd;
     }
 
     /**
@@ -47,13 +49,15 @@ public class DestinationConfigParamsSafariDestinationConfig extends DestinationC
     /**
      * Instantiates a new builder with required properties.
      *
+     * @param certType the certType
      * @param password the password
      * @param websiteUrl the websiteUrl
      * @param websiteName the websiteName
      * @param urlFormatString the urlFormatString
      * @param websitePushId the websitePushId
      */
-    public Builder(String password, String websiteUrl, String websiteName, String urlFormatString, String websitePushId) {
+    public Builder(String certType, String password, String websiteUrl, String websiteName, String urlFormatString, String websitePushId) {
+      this.certType = certType;
       this.password = password;
       this.websiteUrl = websiteUrl;
       this.websiteName = websiteName;
@@ -135,9 +139,24 @@ public class DestinationConfigParamsSafariDestinationConfig extends DestinationC
       this.websitePushId = websitePushId;
       return this;
     }
+
+    /**
+     * Set the preProd.
+     *
+     * @param preProd the preProd
+     * @return the DestinationConfigParamsSafariDestinationConfig builder
+     */
+    public Builder preProd(Boolean preProd) {
+      this.preProd = preProd;
+      return this;
+    }
   }
 
+  protected DestinationConfigParamsSafariDestinationConfig() { }
+
   protected DestinationConfigParamsSafariDestinationConfig(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.certType,
+      "certType cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.password,
       "password cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.websiteUrl,
@@ -154,6 +173,7 @@ public class DestinationConfigParamsSafariDestinationConfig extends DestinationC
     websiteName = builder.websiteName;
     urlFormatString = builder.urlFormatString;
     websitePushId = builder.websitePushId;
+    preProd = builder.preProd;
   }
 
   /**

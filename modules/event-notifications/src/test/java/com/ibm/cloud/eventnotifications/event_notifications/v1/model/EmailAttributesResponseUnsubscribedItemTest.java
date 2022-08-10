@@ -13,11 +13,9 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesList;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseUnsubscribedItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -25,18 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DestinationDevicesList model.
+ * Unit test class for the EmailAttributesResponseUnsubscribedItem model.
  */
-public class DestinationDevicesListTest {
+public class EmailAttributesResponseUnsubscribedItemTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDestinationDevicesList() throws Throwable {
-    DestinationDevicesList destinationDevicesListModel = new DestinationDevicesList();
-    assertNull(destinationDevicesListModel.getTotalCount());
-    assertNull(destinationDevicesListModel.getOffset());
-    assertNull(destinationDevicesListModel.getLimit());
-    assertNull(destinationDevicesListModel.getDevices());
+  public void testEmailAttributesResponseUnsubscribedItem() throws Throwable {
+    EmailAttributesResponseUnsubscribedItem emailAttributesResponseUnsubscribedItemModel = new EmailAttributesResponseUnsubscribedItem();
+    assertNull(emailAttributesResponseUnsubscribedItemModel.getEmail());
+    assertNull(emailAttributesResponseUnsubscribedItemModel.getTime());
   }
 }

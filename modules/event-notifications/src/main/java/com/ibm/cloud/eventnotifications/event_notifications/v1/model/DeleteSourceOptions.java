@@ -83,6 +83,8 @@ public class DeleteSourceOptions extends GenericModel {
     }
   }
 
+  protected DeleteSourceOptions() { }
+
   protected DeleteSourceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

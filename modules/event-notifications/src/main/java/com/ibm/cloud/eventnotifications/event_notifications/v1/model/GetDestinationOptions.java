@@ -83,6 +83,8 @@ public class GetDestinationOptions extends GenericModel {
     }
   }
 
+  protected GetDestinationOptions() { }
+
   protected GetDestinationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

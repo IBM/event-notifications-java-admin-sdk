@@ -12,64 +12,26 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Payload describing a destination devices list request.
+ * Payload describing Device Count.
  */
-public class DestinationDevicesList extends GenericModel {
+public class DeviceCount extends GenericModel {
 
   @SerializedName("total_count")
   protected Long totalCount;
-  protected Long offset;
-  protected Long limit;
-  protected List<DestinationDevicesListItem> devices;
 
   /**
    * Gets the totalCount.
    *
-   * Total number of destination devices.
+   * Total number of devices.
    *
    * @return the totalCount
    */
   public Long getTotalCount() {
     return totalCount;
-  }
-
-  /**
-   * Gets the offset.
-   *
-   * Current offset.
-   *
-   * @return the offset
-   */
-  public Long getOffset() {
-    return offset;
-  }
-
-  /**
-   * Gets the limit.
-   *
-   * limit to show destination devices.
-   *
-   * @return the limit
-   */
-  public Long getLimit() {
-    return limit;
-  }
-
-  /**
-   * Gets the devices.
-   *
-   * List of devices.
-   *
-   * @return the devices
-   */
-  public List<DestinationDevicesListItem> getDevices() {
-    return devices;
   }
 }
 

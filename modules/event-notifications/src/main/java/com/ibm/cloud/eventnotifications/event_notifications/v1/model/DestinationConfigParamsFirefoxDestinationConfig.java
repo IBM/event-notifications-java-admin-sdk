@@ -24,10 +24,12 @@ public class DestinationConfigParamsFirefoxDestinationConfig extends Destination
   public static class Builder {
     private String websiteUrl;
     private String publicKey;
+    private Boolean preProd;
 
     public Builder(DestinationConfigParams destinationConfigParamsFirefoxDestinationConfig) {
       this.websiteUrl = destinationConfigParamsFirefoxDestinationConfig.websiteUrl;
       this.publicKey = destinationConfigParamsFirefoxDestinationConfig.publicKey;
+      this.preProd = destinationConfigParamsFirefoxDestinationConfig.preProd;
     }
 
     /**
@@ -75,13 +77,27 @@ public class DestinationConfigParamsFirefoxDestinationConfig extends Destination
       this.publicKey = publicKey;
       return this;
     }
+
+    /**
+     * Set the preProd.
+     *
+     * @param preProd the preProd
+     * @return the DestinationConfigParamsFirefoxDestinationConfig builder
+     */
+    public Builder preProd(Boolean preProd) {
+      this.preProd = preProd;
+      return this;
+    }
   }
+
+  protected DestinationConfigParamsFirefoxDestinationConfig() { }
 
   protected DestinationConfigParamsFirefoxDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.websiteUrl,
       "websiteUrl cannot be null");
     websiteUrl = builder.websiteUrl;
     publicKey = builder.publicKey;
+    preProd = builder.preProd;
   }
 
   /**
