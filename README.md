@@ -375,11 +375,11 @@ Response<Void> response = eventNotificationsService.deleteDestination(deleteDest
 ### Create Destination tag subscription
 ```java
 CreateTagsSubscriptionOptions createTagsSubscriptionOptionsModel = new CreateTagsSubscriptionOptions.Builder()
-  .instanceId(<instanceId>) // Event notifications service instance GUID
-  .id(<destination-id>)     // Event notifications service instance Destination ID
-  .deviceId(<device-id>)    // Event notifications service device ID
-  .tagName(<tag-name>)      // Event notifications service tag name
-  .build();
+        .instanceId(<instanceId>) // Event notifications service instance GUID
+        .id(<destination-id>)     // Event notifications service instance Destination ID
+        .deviceId(<device-id>)    // Event notifications service device ID
+        .tagName(<tag-name>)      // Event notifications service tag name
+        .build();
 
 // Invoke createTagsSubscription() with a valid options model and verify the result
 Response<DestinationTagsSubscriptionResponse> response = eventNotificationsService.createTagsSubscription(createTagsSubscriptionOptionsModel).execute();
@@ -389,9 +389,9 @@ System.out.println(destinationTagsSubscription);
 ### List Destination tag subscription
 ```java
 ListTagsSubscriptionOptions listTagsSubscriptionOptionsModel = new ListTagsSubscriptionOptions.Builder()
-  .instanceId(<instanceId>)  // Event notifications service instance GUID
-  .id(<destination-id>)      // Event notifications service instance Destination ID// Event notifications service user ID
-  .build();
+        .instanceId(<instanceId>)  // Event notifications service instance GUID
+        .id(<destination-id>)      // Event notifications service instance Destination ID// Event notifications service user ID
+        .build();
 
 // Invoke listTagsSubscription() with a valid options model and verify the result
 Response<TagsSubscriptionList> response = eventNotificationsService.listTagsSubscription(listTagsSubscriptionOptionsModel).execute();
@@ -401,10 +401,10 @@ System.out.println(tagsSubscriptionList);
 ### List Destination device tag subscriptions
 ```java
 GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptionsModel = new GetTagsSubscriptionsDeviceOptions.Builder()
-  .instanceId(<instanceId>)  // Event notifications service instance GUID
-  .id(<destination-id>)      // Event notifications service instance Destination ID
-  .deviceId(<device-id>)     // Event notifications service device ID
-  .build();
+        .instanceId(<instanceId>)  // Event notifications service instance GUID
+        .id(<destination-id>)      // Event notifications service instance Destination ID
+        .deviceId(<device-id>)     // Event notifications service device ID
+        .build();
 
 // Invoke getTagsSubscriptionsDevice() with a valid options model and verify the result
 Response<TagsSubscriptionList> response = eventNotificationsService.getTagsSubscriptionsDevice(getTagsSubscriptionsDeviceOptionsModel).execute();
@@ -414,9 +414,9 @@ System.out.println(tagsSubscriptionList);
 ### Get Device Count
 ```java
 GetDeviceCountOptions getDeviceCountOptionsModel = new GetDeviceCountOptions.Builder()
-  .instanceId(<instanceId>)  // Event notifications service instance GUID
-  .id(<destinationId>)       // Event notifications service instance Destination ID
-  .build();
+        .instanceId(<instanceId>)  // Event notifications service instance GUID
+        .id(<destinationId>)       // Event notifications service instance Destination ID
+        .build();
 
 Response<DeviceCount> response = eventNotificationsService.getDeviceCount(getDeviceCountOptionsModel).execute();
 DeviceCount deviceCount = response.getResult();
@@ -425,11 +425,11 @@ System.out.println(deviceCount.getTotalCount());
 ### Delete Destination device tag subscription
 ```java
 DeleteTagsSubscriptionOptions deleteTagsSubscriptionOptionsModel = new DeleteTagsSubscriptionOptions.Builder()
-  .instanceId(<instanceId>)  // Event notifications service instance GUID
-  .id(<destination-id>)      // Event notifications service instance Destination ID
-  .deviceId(<device-id>)     // Event notifications service device ID
-  .tagName(<tag-name>)       // Event notifications service tag name
-  .build();
+        .instanceId(<instanceId>)  // Event notifications service instance GUID
+        .id(<destination-id>)      // Event notifications service instance Destination ID
+        .deviceId(<device-id>)     // Event notifications service device ID
+        .tagName(<tag-name>)       // Event notifications service tag name
+        .build();
 
 // Invoke deleteTagsSubscription() with a valid options model and verify the result
 Response<Void> response = eventNotificationsService.deleteTagsSubscription(deleteTagsSubscriptionOptionsModel).execute();
