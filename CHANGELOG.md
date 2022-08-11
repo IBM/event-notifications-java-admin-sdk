@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.3...0.1.4) (2022-08-11)
+
+
+### Bug Fixes
+
+* add device count API, apispeclint errors fix and preprod ([d270079](https://github.com/IBM/event-notifications-java-admin-sdk/commit/d27007956b9fbf4d7f7f69ac6b37d33e24746aa8))
+
 ## [0.1.3](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.2...0.1.3) (2022-06-27)
 
 
