@@ -449,43 +449,7 @@ public class EventNotificationsExamples {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
-/*
-    try {
-      System.out.println("listDestinationDevices() result:");
-      // begin-list_destination_devices
-      ListDestinationDevicesOptions listDestinationDevicesOptions = new ListDestinationDevicesOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId)
-              .build();
 
-      Response<DestinationDevicesList> response = eventNotificationsService.listDestinationDevices(listDestinationDevicesOptions).execute();
-      DestinationDevicesList destinationDevicesList = response.getResult();
-
-      System.out.println(destinationDevicesList);
-      // end-list_destination_devices
-    } catch (ServiceResponseException e) {
-      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("getDestinationDevicesReport() result:");
-      // begin-get_destination_devices_report
-      GetDestinationDevicesReportOptions getDestinationDevicesReportOptions = new GetDestinationDevicesReportOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId)
-              .build();
-
-      Response<DestinationDevicesReport> response = eventNotificationsService.getDestinationDevicesReport(getDestinationDevicesReportOptions).execute();
-      DestinationDevicesReport destinationDevicesReport = response.getResult();
-
-      System.out.println(destinationDevicesReport);
-      // end-get_destination_devices_report
-    } catch (ServiceResponseException e) {
-      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-*/
     try {
       System.out.println("createSubscription() result:");
       // begin-create_subscription

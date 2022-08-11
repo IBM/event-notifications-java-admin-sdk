@@ -606,7 +606,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDestinationResponseResult.getType(), slackTypeVal);
 
       destinationId4 = slackDestinationResponseResult.getId();
-      /*DestinationConfigParamsSafariDestinationConfig safariDestinationConfig= new DestinationConfigParamsSafariDestinationConfig.Builder()
+      DestinationConfigParamsSafariDestinationConfig safariDestinationConfig= new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .websiteUrl("https://ensafaripush.mybluemix.net")
@@ -683,7 +683,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(msTeamsDestinationResponseResult.getName(), msTeamsName);
       assertEquals(msTeamsDestinationResponseResult.getType(), msTeamsTypeVal);
 
-      destinationId6 = msTeamsDestinationResponseResult.getId();*/
+      destinationId6 = msTeamsDestinationResponseResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -899,7 +899,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDestinationResponseResult.getName(), slackName);
       assertEquals(slackDestinationResponseResult.getType(), slackTypeVal);
 
-     /* DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+     DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
@@ -937,7 +937,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       assertEquals(safariDestinationResult.getId(), destinationId5);
       assertEquals(safariDestinationResult.getDescription(), description);
-      assertEquals(safariDestinationResult.getName(), name);*/
+      assertEquals(safariDestinationResult.getName(), name);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1260,7 +1260,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
   }
-/*
+
   @Test
   public void test1SSendBulkNotifications() throws Exception {
     try {
@@ -1328,7 +1328,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
-*/
+
   @Test
   public void test1TDeleteSubscription() throws Exception {
     try {
@@ -1441,7 +1441,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 204);
 
-      /*deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+      deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId5)
               .build();
@@ -1461,7 +1461,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       response = service.deleteDestination(deleteDestinationOptions).execute();
       // Validate response
       assertNotNull(response);
-      assertEquals(response.getStatusCode(), 204);*/
+      assertEquals(response.getStatusCode(), 204);
 
       //
       // The following status codes aren't covered by tests.
