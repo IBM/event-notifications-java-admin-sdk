@@ -19,8 +19,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdate
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -46,23 +44,23 @@ public class ReplaceTopicOptionsTest {
 
     TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
       .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
-      .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
+      .rules(java.util.Arrays.asList(rulesModel))
       .build();
     assertEquals(topicUpdateSourcesItemModel.id(), "e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api");
-    assertEquals(topicUpdateSourcesItemModel.rules(), new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)));
+    assertEquals(topicUpdateSourcesItemModel.rules(), java.util.Arrays.asList(rulesModel));
 
     ReplaceTopicOptions replaceTopicOptionsModel = new ReplaceTopicOptions.Builder()
       .instanceId("testString")
       .id("testString")
       .name("testString")
       .description("testString")
-      .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
+      .sources(java.util.Arrays.asList(topicUpdateSourcesItemModel))
       .build();
     assertEquals(replaceTopicOptionsModel.instanceId(), "testString");
     assertEquals(replaceTopicOptionsModel.id(), "testString");
     assertEquals(replaceTopicOptionsModel.name(), "testString");
     assertEquals(replaceTopicOptionsModel.description(), "testString");
-    assertEquals(replaceTopicOptionsModel.sources(), new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)));
+    assertEquals(replaceTopicOptionsModel.sources(), java.util.Arrays.asList(topicUpdateSourcesItemModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

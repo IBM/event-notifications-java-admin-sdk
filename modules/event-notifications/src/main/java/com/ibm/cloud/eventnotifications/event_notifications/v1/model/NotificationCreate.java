@@ -12,6 +12,7 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,48 +25,48 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  */
 public class NotificationCreate extends DynamicModel<Object> {
 
-  @SerializedName("data")
-  protected Map<String, Object> data;
-  @SerializedName("ibmenseverity")
-  protected String ibmenseverity;
-  @SerializedName("ibmenfcmbody")
-  protected String ibmenfcmbody;
-  @SerializedName("ibmenapnsbody")
-  protected String ibmenapnsbody;
-  @SerializedName("ibmensafaribody")
-  protected String ibmensafaribody;
-  @SerializedName("ibmenpushto")
-  protected String ibmenpushto;
-  @SerializedName("ibmenapnsheaders")
-  protected String ibmenapnsheaders;
-  @SerializedName("ibmendefaultshort")
-  protected String ibmendefaultshort;
-  @SerializedName("ibmendefaultlong")
-  protected String ibmendefaultlong;
-  @SerializedName("ibmenchromebody")
-  protected String ibmenchromebody;
-  @SerializedName("ibmenfirefoxbody")
-  protected String ibmenfirefoxbody;
-  @SerializedName("ibmenchromeheaders")
-  protected String ibmenchromeheaders;
-  @SerializedName("ibmenfirefoxheaders")
-  protected String ibmenfirefoxheaders;
-  @SerializedName("ibmensourceid")
-  protected String ibmensourceid;
-  @SerializedName("datacontenttype")
-  protected String datacontenttype;
-  @SerializedName("subject")
-  protected String subject;
+  @SerializedName("specversion")
+  protected String specversion;
+  @SerializedName("time")
+  protected Date time;
   @SerializedName("id")
   protected String id;
   @SerializedName("source")
   protected String source;
   @SerializedName("type")
   protected String type;
-  @SerializedName("specversion")
-  protected String specversion;
-  @SerializedName("time")
-  protected String time;
+  @SerializedName("ibmenseverity")
+  protected String ibmenseverity;
+  @SerializedName("ibmensourceid")
+  protected String ibmensourceid;
+  @SerializedName("ibmendefaultshort")
+  protected String ibmendefaultshort;
+  @SerializedName("ibmendefaultlong")
+  protected String ibmendefaultlong;
+  @SerializedName("subject")
+  protected String subject;
+  @SerializedName("data")
+  protected Map<String, Object> data;
+  @SerializedName("datacontenttype")
+  protected String datacontenttype;
+  @SerializedName("ibmenpushto")
+  protected String ibmenpushto;
+  @SerializedName("ibmenfcmbody")
+  protected String ibmenfcmbody;
+  @SerializedName("ibmenapnsbody")
+  protected String ibmenapnsbody;
+  @SerializedName("ibmenapnsheaders")
+  protected String ibmenapnsheaders;
+  @SerializedName("ibmenchromebody")
+  protected String ibmenchromebody;
+  @SerializedName("ibmenchromeheaders")
+  protected String ibmenchromeheaders;
+  @SerializedName("ibmenfirefoxbody")
+  protected String ibmenfirefoxbody;
+  @SerializedName("ibmenfirefoxheaders")
+  protected String ibmenfirefoxheaders;
+  @SerializedName("ibmensafaribody")
+  protected String ibmensafaribody;
 
   public NotificationCreate() {
     super(new TypeToken<Object>() { });
@@ -75,51 +76,51 @@ public class NotificationCreate extends DynamicModel<Object> {
    * Builder.
    */
   public static class Builder {
-    private Map<String, Object> data;
-    private String ibmenseverity;
-    private String ibmenfcmbody;
-    private String ibmenapnsbody;
-    private String ibmensafaribody;
-    private String ibmenpushto;
-    private String ibmenapnsheaders;
-    private String ibmendefaultshort;
-    private String ibmendefaultlong;
-    private String ibmenchromebody;
-    private String ibmenfirefoxbody;
-    private String ibmenchromeheaders;
-    private String ibmenfirefoxheaders;
-    private String ibmensourceid;
-    private String datacontenttype;
-    private String subject;
+    private String specversion;
+    private Date time;
     private String id;
     private String source;
     private String type;
-    private String specversion;
-    private String time;
+    private String ibmenseverity;
+    private String ibmensourceid;
+    private String ibmendefaultshort;
+    private String ibmendefaultlong;
+    private String subject;
+    private Map<String, Object> data;
+    private String datacontenttype;
+    private String ibmenpushto;
+    private String ibmenfcmbody;
+    private String ibmenapnsbody;
+    private String ibmenapnsheaders;
+    private String ibmenchromebody;
+    private String ibmenchromeheaders;
+    private String ibmenfirefoxbody;
+    private String ibmenfirefoxheaders;
+    private String ibmensafaribody;
     private Map<String, Object> dynamicProperties;
 
     private Builder(NotificationCreate notificationCreate) {
-      this.data = notificationCreate.data;
-      this.ibmenseverity = notificationCreate.ibmenseverity;
-      this.ibmenfcmbody = notificationCreate.ibmenfcmbody;
-      this.ibmenapnsbody = notificationCreate.ibmenapnsbody;
-      this.ibmensafaribody = notificationCreate.ibmensafaribody;
-      this.ibmenpushto = notificationCreate.ibmenpushto;
-      this.ibmenapnsheaders = notificationCreate.ibmenapnsheaders;
-      this.ibmendefaultshort = notificationCreate.ibmendefaultshort;
-      this.ibmendefaultlong = notificationCreate.ibmendefaultlong;
-      this.ibmenchromebody = notificationCreate.ibmenchromebody;
-      this.ibmenfirefoxbody = notificationCreate.ibmenfirefoxbody;
-      this.ibmenchromeheaders = notificationCreate.ibmenchromeheaders;
-      this.ibmenfirefoxheaders = notificationCreate.ibmenfirefoxheaders;
-      this.ibmensourceid = notificationCreate.ibmensourceid;
-      this.datacontenttype = notificationCreate.datacontenttype;
-      this.subject = notificationCreate.subject;
+      this.specversion = notificationCreate.specversion;
+      this.time = notificationCreate.time;
       this.id = notificationCreate.id;
       this.source = notificationCreate.source;
       this.type = notificationCreate.type;
-      this.specversion = notificationCreate.specversion;
-      this.time = notificationCreate.time;
+      this.ibmenseverity = notificationCreate.ibmenseverity;
+      this.ibmensourceid = notificationCreate.ibmensourceid;
+      this.ibmendefaultshort = notificationCreate.ibmendefaultshort;
+      this.ibmendefaultlong = notificationCreate.ibmendefaultlong;
+      this.subject = notificationCreate.subject;
+      this.data = notificationCreate.data;
+      this.datacontenttype = notificationCreate.datacontenttype;
+      this.ibmenpushto = notificationCreate.ibmenpushto;
+      this.ibmenfcmbody = notificationCreate.ibmenfcmbody;
+      this.ibmenapnsbody = notificationCreate.ibmenapnsbody;
+      this.ibmenapnsheaders = notificationCreate.ibmenapnsheaders;
+      this.ibmenchromebody = notificationCreate.ibmenchromebody;
+      this.ibmenchromeheaders = notificationCreate.ibmenchromeheaders;
+      this.ibmenfirefoxbody = notificationCreate.ibmenfirefoxbody;
+      this.ibmenfirefoxheaders = notificationCreate.ibmenfirefoxheaders;
+      this.ibmensafaribody = notificationCreate.ibmensafaribody;
       this.dynamicProperties = notificationCreate.getProperties();
     }
 
@@ -127,6 +128,21 @@ public class NotificationCreate extends DynamicModel<Object> {
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param specversion the specversion
+     * @param ibmensourceid the ibmensourceid
+     * @param ibmendefaultshort the ibmendefaultshort
+     * @param ibmendefaultlong the ibmendefaultlong
+     */
+    public Builder(String specversion, String ibmensourceid, String ibmendefaultshort, String ibmendefaultlong) {
+      this.specversion = specversion;
+      this.ibmensourceid = ibmensourceid;
+      this.ibmendefaultshort = ibmendefaultshort;
+      this.ibmendefaultlong = ibmendefaultlong;
     }
 
     /**
@@ -139,178 +155,24 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
-     * Set the data.
+     * Set the specversion.
      *
-     * @param data the data
+     * @param specversion the specversion
      * @return the NotificationCreate builder
      */
-    public Builder data(Map<String, Object> data) {
-      this.data = data;
+    public Builder specversion(String specversion) {
+      this.specversion = specversion;
       return this;
     }
 
     /**
-     * Set the ibmenseverity.
+     * Set the time.
      *
-     * @param ibmenseverity the ibmenseverity
+     * @param time the time
      * @return the NotificationCreate builder
      */
-    public Builder ibmenseverity(String ibmenseverity) {
-      this.ibmenseverity = ibmenseverity;
-      return this;
-    }
-
-    /**
-     * Set the ibmenfcmbody.
-     *
-     * @param ibmenfcmbody the ibmenfcmbody
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenfcmbody(String ibmenfcmbody) {
-      this.ibmenfcmbody = ibmenfcmbody;
-      return this;
-    }
-
-    /**
-     * Set the ibmenapnsbody.
-     *
-     * @param ibmenapnsbody the ibmenapnsbody
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenapnsbody(String ibmenapnsbody) {
-      this.ibmenapnsbody = ibmenapnsbody;
-      return this;
-    }
-
-    /**
-     * Set the ibmensafaribody.
-     *
-     * @param ibmensafaribody the ibmensafaribody
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmensafaribody(String ibmensafaribody) {
-      this.ibmensafaribody = ibmensafaribody;
-      return this;
-    }
-
-    /**
-     * Set the ibmenpushto.
-     *
-     * @param ibmenpushto the ibmenpushto
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenpushto(String ibmenpushto) {
-      this.ibmenpushto = ibmenpushto;
-      return this;
-    }
-
-    /**
-     * Set the ibmenapnsheaders.
-     *
-     * @param ibmenapnsheaders the ibmenapnsheaders
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenapnsheaders(String ibmenapnsheaders) {
-      this.ibmenapnsheaders = ibmenapnsheaders;
-      return this;
-    }
-
-    /**
-     * Set the ibmendefaultshort.
-     *
-     * @param ibmendefaultshort the ibmendefaultshort
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmendefaultshort(String ibmendefaultshort) {
-      this.ibmendefaultshort = ibmendefaultshort;
-      return this;
-    }
-
-    /**
-     * Set the ibmendefaultlong.
-     *
-     * @param ibmendefaultlong the ibmendefaultlong
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmendefaultlong(String ibmendefaultlong) {
-      this.ibmendefaultlong = ibmendefaultlong;
-      return this;
-    }
-
-    /**
-     * Set the ibmenchromebody.
-     *
-     * @param ibmenchromebody the ibmenchromebody
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenchromebody(String ibmenchromebody) {
-      this.ibmenchromebody = ibmenchromebody;
-      return this;
-    }
-
-    /**
-     * Set the ibmenfirefoxbody.
-     *
-     * @param ibmenfirefoxbody the ibmenfirefoxbody
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenfirefoxbody(String ibmenfirefoxbody) {
-      this.ibmenfirefoxbody = ibmenfirefoxbody;
-      return this;
-    }
-
-    /**
-     * Set the ibmenchromeheaders.
-     *
-     * @param ibmenchromeheaders the ibmenchromeheaders
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenchromeheaders(String ibmenchromeheaders) {
-      this.ibmenchromeheaders = ibmenchromeheaders;
-      return this;
-    }
-
-    /**
-     * Set the ibmenfirefoxheaders.
-     *
-     * @param ibmenfirefoxheaders the ibmenfirefoxheaders
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmenfirefoxheaders(String ibmenfirefoxheaders) {
-      this.ibmenfirefoxheaders = ibmenfirefoxheaders;
-      return this;
-    }
-
-    /**
-     * Set the ibmensourceid.
-     *
-     * @param ibmensourceid the ibmensourceid
-     * @return the NotificationCreate builder
-     */
-    public Builder ibmensourceid(String ibmensourceid) {
-      this.ibmensourceid = ibmensourceid;
-      return this;
-    }
-
-    /**
-     * Set the datacontenttype.
-     *
-     * @param datacontenttype the datacontenttype
-     * @return the NotificationCreate builder
-     */
-    public Builder datacontenttype(String datacontenttype) {
-      this.datacontenttype = datacontenttype;
-      return this;
-    }
-
-    /**
-     * Set the subject.
-     *
-     * @param subject the subject
-     * @return the NotificationCreate builder
-     */
-    public Builder subject(String subject) {
-      this.subject = subject;
+    public Builder time(Date time) {
+      this.time = time;
       return this;
     }
 
@@ -348,24 +210,178 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
-     * Set the specversion.
+     * Set the ibmenseverity.
      *
-     * @param specversion the specversion
+     * @param ibmenseverity the ibmenseverity
      * @return the NotificationCreate builder
      */
-    public Builder specversion(String specversion) {
-      this.specversion = specversion;
+    public Builder ibmenseverity(String ibmenseverity) {
+      this.ibmenseverity = ibmenseverity;
       return this;
     }
 
     /**
-     * Set the time.
+     * Set the ibmensourceid.
      *
-     * @param time the time
+     * @param ibmensourceid the ibmensourceid
      * @return the NotificationCreate builder
      */
-    public Builder time(String time) {
-      this.time = time;
+    public Builder ibmensourceid(String ibmensourceid) {
+      this.ibmensourceid = ibmensourceid;
+      return this;
+    }
+
+    /**
+     * Set the ibmendefaultshort.
+     *
+     * @param ibmendefaultshort the ibmendefaultshort
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmendefaultshort(String ibmendefaultshort) {
+      this.ibmendefaultshort = ibmendefaultshort;
+      return this;
+    }
+
+    /**
+     * Set the ibmendefaultlong.
+     *
+     * @param ibmendefaultlong the ibmendefaultlong
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmendefaultlong(String ibmendefaultlong) {
+      this.ibmendefaultlong = ibmendefaultlong;
+      return this;
+    }
+
+    /**
+     * Set the subject.
+     *
+     * @param subject the subject
+     * @return the NotificationCreate builder
+     */
+    public Builder subject(String subject) {
+      this.subject = subject;
+      return this;
+    }
+
+    /**
+     * Set the data.
+     *
+     * @param data the data
+     * @return the NotificationCreate builder
+     */
+    public Builder data(Map<String, Object> data) {
+      this.data = data;
+      return this;
+    }
+
+    /**
+     * Set the datacontenttype.
+     *
+     * @param datacontenttype the datacontenttype
+     * @return the NotificationCreate builder
+     */
+    public Builder datacontenttype(String datacontenttype) {
+      this.datacontenttype = datacontenttype;
+      return this;
+    }
+
+    /**
+     * Set the ibmenpushto.
+     *
+     * @param ibmenpushto the ibmenpushto
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenpushto(String ibmenpushto) {
+      this.ibmenpushto = ibmenpushto;
+      return this;
+    }
+
+    /**
+     * Set the ibmenfcmbody.
+     *
+     * @param ibmenfcmbody the ibmenfcmbody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenfcmbody(String ibmenfcmbody) {
+      this.ibmenfcmbody = ibmenfcmbody;
+      return this;
+    }
+
+    /**
+     * Set the ibmenapnsbody.
+     *
+     * @param ibmenapnsbody the ibmenapnsbody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenapnsbody(String ibmenapnsbody) {
+      this.ibmenapnsbody = ibmenapnsbody;
+      return this;
+    }
+
+    /**
+     * Set the ibmenapnsheaders.
+     *
+     * @param ibmenapnsheaders the ibmenapnsheaders
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenapnsheaders(String ibmenapnsheaders) {
+      this.ibmenapnsheaders = ibmenapnsheaders;
+      return this;
+    }
+
+    /**
+     * Set the ibmenchromebody.
+     *
+     * @param ibmenchromebody the ibmenchromebody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenchromebody(String ibmenchromebody) {
+      this.ibmenchromebody = ibmenchromebody;
+      return this;
+    }
+
+    /**
+     * Set the ibmenchromeheaders.
+     *
+     * @param ibmenchromeheaders the ibmenchromeheaders
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenchromeheaders(String ibmenchromeheaders) {
+      this.ibmenchromeheaders = ibmenchromeheaders;
+      return this;
+    }
+
+    /**
+     * Set the ibmenfirefoxbody.
+     *
+     * @param ibmenfirefoxbody the ibmenfirefoxbody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenfirefoxbody(String ibmenfirefoxbody) {
+      this.ibmenfirefoxbody = ibmenfirefoxbody;
+      return this;
+    }
+
+    /**
+     * Set the ibmenfirefoxheaders.
+     *
+     * @param ibmenfirefoxheaders the ibmenfirefoxheaders
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenfirefoxheaders(String ibmenfirefoxheaders) {
+      this.ibmenfirefoxheaders = ibmenfirefoxheaders;
+      return this;
+    }
+
+    /**
+     * Set the ibmensafaribody.
+     *
+     * @param ibmensafaribody the ibmensafaribody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmensafaribody(String ibmensafaribody) {
+      this.ibmensafaribody = ibmensafaribody;
       return this;
     }
 
@@ -388,27 +404,35 @@ public class NotificationCreate extends DynamicModel<Object> {
 
   protected NotificationCreate(Builder builder) {
     super(new TypeToken<Object>() { });
-    data = builder.data;
-    ibmenseverity = builder.ibmenseverity;
-    ibmenfcmbody = builder.ibmenfcmbody;
-    ibmenapnsbody = builder.ibmenapnsbody;
-    ibmensafaribody = builder.ibmensafaribody;
-    ibmenpushto = builder.ibmenpushto;
-    ibmenapnsheaders = builder.ibmenapnsheaders;
-    ibmendefaultshort = builder.ibmendefaultshort;
-    ibmendefaultlong = builder.ibmendefaultlong;
-    ibmenchromebody = builder.ibmenchromebody;
-    ibmenfirefoxbody = builder.ibmenfirefoxbody;
-    ibmenchromeheaders = builder.ibmenchromeheaders;
-    ibmenfirefoxheaders = builder.ibmenfirefoxheaders;
-    ibmensourceid = builder.ibmensourceid;
-    datacontenttype = builder.datacontenttype;
-    subject = builder.subject;
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.specversion,
+      "specversion cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmensourceid,
+      "ibmensourceid cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmendefaultshort,
+      "ibmendefaultshort cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmendefaultlong,
+      "ibmendefaultlong cannot be null");
+    specversion = builder.specversion;
+    time = builder.time;
     id = builder.id;
     source = builder.source;
     type = builder.type;
-    specversion = builder.specversion;
-    time = builder.time;
+    ibmenseverity = builder.ibmenseverity;
+    ibmensourceid = builder.ibmensourceid;
+    ibmendefaultshort = builder.ibmendefaultshort;
+    ibmendefaultlong = builder.ibmendefaultlong;
+    subject = builder.subject;
+    data = builder.data;
+    datacontenttype = builder.datacontenttype;
+    ibmenpushto = builder.ibmenpushto;
+    ibmenfcmbody = builder.ibmenfcmbody;
+    ibmenapnsbody = builder.ibmenapnsbody;
+    ibmenapnsheaders = builder.ibmenapnsheaders;
+    ibmenchromebody = builder.ibmenchromebody;
+    ibmenchromeheaders = builder.ibmenchromeheaders;
+    ibmenfirefoxbody = builder.ibmenfirefoxbody;
+    ibmenfirefoxheaders = builder.ibmenfirefoxheaders;
+    ibmensafaribody = builder.ibmensafaribody;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -422,29 +446,109 @@ public class NotificationCreate extends DynamicModel<Object> {
   }
 
   /**
-   * Gets the data.
+   * Gets the specversion.
    *
-   * The Notifications data for webhook.
+   * The version of the notification specification.
    *
-   * @return the data
+   * @return the specversion
    */
-  public Map<String, Object> getData() {
-    return this.data;
+  public String getSpecversion() {
+    return this.specversion;
   }
 
   /**
-   * Sets the data.
+   * Sets the specversion.
    *
-   * @param data the new data
+   * @param specversion the new specversion
    */
-  public void setData(final Map<String, Object> data) {
-    this.data = data;
+  public void setSpecversion(final String specversion) {
+    this.specversion = specversion;
+  }
+
+  /**
+   * Gets the time.
+   *
+   * The time notification was created.
+   *
+   * @return the time
+   */
+  public Date getTime() {
+    return this.time;
+  }
+
+  /**
+   * Sets the time.
+   *
+   * @param time the new time
+   */
+  public void setTime(final Date time) {
+    this.time = time;
+  }
+
+  /**
+   * Gets the id.
+   *
+   * The unique identifier of the notification.
+   *
+   * @return the id
+   */
+  public String getId() {
+    return this.id;
+  }
+
+  /**
+   * Sets the id.
+   *
+   * @param id the new id
+   */
+  public void setId(final String id) {
+    this.id = id;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * The source of notifications.
+   *
+   * @return the source
+   */
+  public String getSource() {
+    return this.source;
+  }
+
+  /**
+   * Sets the source.
+   *
+   * @param source the new source
+   */
+  public void setSource(final String source) {
+    this.source = source;
+  }
+
+  /**
+   * Gets the type.
+   *
+   * The notifications type.
+   *
+   * @return the type
+   */
+  public String getType() {
+    return this.type;
+  }
+
+  /**
+   * Sets the type.
+   *
+   * @param type the new type
+   */
+  public void setType(final String type) {
+    this.type = type;
   }
 
   /**
    * Gets the ibmenseverity.
    *
-   * The Notifications id.
+   * The severity of the notification.
    *
    * @return the ibmenseverity
    */
@@ -462,105 +566,23 @@ public class NotificationCreate extends DynamicModel<Object> {
   }
 
   /**
-   * Gets the ibmenfcmbody.
+   * Gets the ibmensourceid.
    *
-   * The Notifications FCM body.
+   * The source id of the notification.
    *
-   * @return the ibmenfcmbody
+   * @return the ibmensourceid
    */
-  public String getIbmenfcmbody() {
-    return this.ibmenfcmbody;
+  public String getIbmensourceid() {
+    return this.ibmensourceid;
   }
 
   /**
-   * Sets the ibmenfcmbody.
+   * Sets the ibmensourceid.
    *
-   * @param ibmenfcmbody the new ibmenfcmbody
+   * @param ibmensourceid the new ibmensourceid
    */
-  public void setIbmenfcmbody(final String ibmenfcmbody) {
-    this.ibmenfcmbody = ibmenfcmbody;
-  }
-
-  /**
-   * Gets the ibmenapnsbody.
-   *
-   * The Notifications APNS body.
-   *
-   * @return the ibmenapnsbody
-   */
-  public String getIbmenapnsbody() {
-    return this.ibmenapnsbody;
-  }
-
-  /**
-   * Sets the ibmenapnsbody.
-   *
-   * @param ibmenapnsbody the new ibmenapnsbody
-   */
-  public void setIbmenapnsbody(final String ibmenapnsbody) {
-    this.ibmenapnsbody = ibmenapnsbody;
-  }
-
-  /**
-   * Gets the ibmensafaribody.
-   *
-   * The Notifications safari body.
-   *
-   * @return the ibmensafaribody
-   */
-  public String getIbmensafaribody() {
-    return this.ibmensafaribody;
-  }
-
-  /**
-   * Sets the ibmensafaribody.
-   *
-   * @param ibmensafaribody the new ibmensafaribody
-   */
-  public void setIbmensafaribody(final String ibmensafaribody) {
-    this.ibmensafaribody = ibmensafaribody;
-  }
-
-  /**
-   * Gets the ibmenpushto.
-   *
-   * This field should not be empty. The allowed fields are fcm_devices, apns_devices, chrome_devices, firefox_devices,
-   * platforms, tags and user_ids. If platforms or tags or user_ids are being used then do not use fcm_devices /
-   * apns_devices / chrome_devices / firefox_devices with it.
-   *
-   * @return the ibmenpushto
-   */
-  public String getIbmenpushto() {
-    return this.ibmenpushto;
-  }
-
-  /**
-   * Sets the ibmenpushto.
-   *
-   * @param ibmenpushto the new ibmenpushto
-   */
-  public void setIbmenpushto(final String ibmenpushto) {
-    this.ibmenpushto = ibmenpushto;
-  }
-
-  /**
-   * Gets the ibmenapnsheaders.
-   *
-   * Headers for an APNs notification.
-   *
-   * @return the ibmenapnsheaders
-   */
-  public String getIbmenapnsheaders() {
-    return this.ibmenapnsheaders;
-  }
-
-  /**
-   * Sets the ibmenapnsheaders.
-   *
-   * @param ibmenapnsheaders the new ibmenapnsheaders
-   */
-  public void setIbmenapnsheaders(final String ibmenapnsheaders) {
-    this.ibmenapnsheaders = ibmenapnsheaders;
+  public void setIbmensourceid(final String ibmensourceid) {
+    this.ibmensourceid = ibmensourceid;
   }
 
   /**
@@ -604,129 +626,9 @@ public class NotificationCreate extends DynamicModel<Object> {
   }
 
   /**
-   * Gets the ibmenchromebody.
-   *
-   * The Notifications Chrome body.
-   *
-   * @return the ibmenchromebody
-   */
-  public String getIbmenchromebody() {
-    return this.ibmenchromebody;
-  }
-
-  /**
-   * Sets the ibmenchromebody.
-   *
-   * @param ibmenchromebody the new ibmenchromebody
-   */
-  public void setIbmenchromebody(final String ibmenchromebody) {
-    this.ibmenchromebody = ibmenchromebody;
-  }
-
-  /**
-   * Gets the ibmenfirefoxbody.
-   *
-   * The Notifications Firefox body.
-   *
-   * @return the ibmenfirefoxbody
-   */
-  public String getIbmenfirefoxbody() {
-    return this.ibmenfirefoxbody;
-  }
-
-  /**
-   * Sets the ibmenfirefoxbody.
-   *
-   * @param ibmenfirefoxbody the new ibmenfirefoxbody
-   */
-  public void setIbmenfirefoxbody(final String ibmenfirefoxbody) {
-    this.ibmenfirefoxbody = ibmenfirefoxbody;
-  }
-
-  /**
-   * Gets the ibmenchromeheaders.
-   *
-   * Headers for a Chrome notification.
-   *
-   * @return the ibmenchromeheaders
-   */
-  public String getIbmenchromeheaders() {
-    return this.ibmenchromeheaders;
-  }
-
-  /**
-   * Sets the ibmenchromeheaders.
-   *
-   * @param ibmenchromeheaders the new ibmenchromeheaders
-   */
-  public void setIbmenchromeheaders(final String ibmenchromeheaders) {
-    this.ibmenchromeheaders = ibmenchromeheaders;
-  }
-
-  /**
-   * Gets the ibmenfirefoxheaders.
-   *
-   * Headers for an FireFox notification.
-   *
-   * @return the ibmenfirefoxheaders
-   */
-  public String getIbmenfirefoxheaders() {
-    return this.ibmenfirefoxheaders;
-  }
-
-  /**
-   * Sets the ibmenfirefoxheaders.
-   *
-   * @param ibmenfirefoxheaders the new ibmenfirefoxheaders
-   */
-  public void setIbmenfirefoxheaders(final String ibmenfirefoxheaders) {
-    this.ibmenfirefoxheaders = ibmenfirefoxheaders;
-  }
-
-  /**
-   * Gets the ibmensourceid.
-   *
-   * The Event Notifications source id.
-   *
-   * @return the ibmensourceid
-   */
-  public String getIbmensourceid() {
-    return this.ibmensourceid;
-  }
-
-  /**
-   * Sets the ibmensourceid.
-   *
-   * @param ibmensourceid the new ibmensourceid
-   */
-  public void setIbmensourceid(final String ibmensourceid) {
-    this.ibmensourceid = ibmensourceid;
-  }
-
-  /**
-   * Gets the datacontenttype.
-   *
-   * The Notifications content type.
-   *
-   * @return the datacontenttype
-   */
-  public String getDatacontenttype() {
-    return this.datacontenttype;
-  }
-
-  /**
-   * Sets the datacontenttype.
-   *
-   * @param datacontenttype the new datacontenttype
-   */
-  public void setDatacontenttype(final String datacontenttype) {
-    this.datacontenttype = datacontenttype;
-  }
-
-  /**
    * Gets the subject.
    *
-   * The Notifications subject.
+   * The subject of the notification.
    *
    * @return the subject
    */
@@ -744,102 +646,223 @@ public class NotificationCreate extends DynamicModel<Object> {
   }
 
   /**
-   * Gets the id.
+   * Gets the data.
    *
-   * The Notifications id.
+   * The payload for webhook notification.
    *
-   * @return the id
+   * @return the data
    */
-  public String getId() {
-    return this.id;
+  public Map<String, Object> getData() {
+    return this.data;
   }
 
   /**
-   * Sets the id.
+   * Sets the data.
    *
-   * @param id the new id
+   * @param data the new data
    */
-  public void setId(final String id) {
-    this.id = id;
+  public void setData(final Map<String, Object> data) {
+    this.data = data;
   }
 
   /**
-   * Gets the source.
+   * Gets the datacontenttype.
    *
-   * The source of Notifications.
+   * The notification content type.
    *
-   * @return the source
+   * @return the datacontenttype
    */
-  public String getSource() {
-    return this.source;
+  public String getDatacontenttype() {
+    return this.datacontenttype;
   }
 
   /**
-   * Sets the source.
+   * Sets the datacontenttype.
    *
-   * @param source the new source
+   * @param datacontenttype the new datacontenttype
    */
-  public void setSource(final String source) {
-    this.source = source;
+  public void setDatacontenttype(final String datacontenttype) {
+    this.datacontenttype = datacontenttype;
   }
 
   /**
-   * Gets the type.
+   * Gets the ibmenpushto.
    *
-   * The Notifications type.
+   * If platforms or tags or user_ids is used then do not use fcm_devices / apns_devices / chrome_devices /
+   * firefox_devices / safari_devices with it. Value should be stringified json.
    *
-   * @return the type
+   * @return the ibmenpushto
    */
-  public String getType() {
-    return this.type;
+  public String getIbmenpushto() {
+    return this.ibmenpushto;
   }
 
   /**
-   * Sets the type.
+   * Sets the ibmenpushto.
    *
-   * @param type the new type
+   * @param ibmenpushto the new ibmenpushto
    */
-  public void setType(final String type) {
-    this.type = type;
+  public void setIbmenpushto(final String ibmenpushto) {
+    this.ibmenpushto = ibmenpushto;
   }
 
   /**
-   * Gets the specversion.
+   * Gets the ibmenfcmbody.
    *
-   * The Notifications specversion.
+   * Payload describing a notification FCM body. Value should be stringified json.
    *
-   * @return the specversion
+   * @return the ibmenfcmbody
    */
-  public String getSpecversion() {
-    return this.specversion;
+  public String getIbmenfcmbody() {
+    return this.ibmenfcmbody;
   }
 
   /**
-   * Sets the specversion.
+   * Sets the ibmenfcmbody.
    *
-   * @param specversion the new specversion
+   * @param ibmenfcmbody the new ibmenfcmbody
    */
-  public void setSpecversion(final String specversion) {
-    this.specversion = specversion;
+  public void setIbmenfcmbody(final String ibmenfcmbody) {
+    this.ibmenfcmbody = ibmenfcmbody;
   }
 
   /**
-   * Gets the time.
+   * Gets the ibmenapnsbody.
    *
-   * The Notifications time.
+   * Payload describing a notification APNs body. Value should be stringified json.
    *
-   * @return the time
+   * @return the ibmenapnsbody
    */
-  public String getTime() {
-    return this.time;
+  public String getIbmenapnsbody() {
+    return this.ibmenapnsbody;
   }
 
   /**
-   * Sets the time.
+   * Sets the ibmenapnsbody.
    *
-   * @param time the new time
+   * @param ibmenapnsbody the new ibmenapnsbody
    */
-  public void setTime(final String time) {
-    this.time = time;
+  public void setIbmenapnsbody(final String ibmenapnsbody) {
+    this.ibmenapnsbody = ibmenapnsbody;
+  }
+
+  /**
+   * Gets the ibmenapnsheaders.
+   *
+   * Headers for iOS notification. Value should be stringified json.
+   *
+   * @return the ibmenapnsheaders
+   */
+  public String getIbmenapnsheaders() {
+    return this.ibmenapnsheaders;
+  }
+
+  /**
+   * Sets the ibmenapnsheaders.
+   *
+   * @param ibmenapnsheaders the new ibmenapnsheaders
+   */
+  public void setIbmenapnsheaders(final String ibmenapnsheaders) {
+    this.ibmenapnsheaders = ibmenapnsheaders;
+  }
+
+  /**
+   * Gets the ibmenchromebody.
+   *
+   * Notification payload for Chrome. Value should be stringified json.
+   *
+   * @return the ibmenchromebody
+   */
+  public String getIbmenchromebody() {
+    return this.ibmenchromebody;
+  }
+
+  /**
+   * Sets the ibmenchromebody.
+   *
+   * @param ibmenchromebody the new ibmenchromebody
+   */
+  public void setIbmenchromebody(final String ibmenchromebody) {
+    this.ibmenchromebody = ibmenchromebody;
+  }
+
+  /**
+   * Gets the ibmenchromeheaders.
+   *
+   * Headers for a Chrome notification. Value should be stringified json.
+   *
+   * @return the ibmenchromeheaders
+   */
+  public String getIbmenchromeheaders() {
+    return this.ibmenchromeheaders;
+  }
+
+  /**
+   * Sets the ibmenchromeheaders.
+   *
+   * @param ibmenchromeheaders the new ibmenchromeheaders
+   */
+  public void setIbmenchromeheaders(final String ibmenchromeheaders) {
+    this.ibmenchromeheaders = ibmenchromeheaders;
+  }
+
+  /**
+   * Gets the ibmenfirefoxbody.
+   *
+   * Notification payload for Firefox. Value should be stringified json.
+   *
+   * @return the ibmenfirefoxbody
+   */
+  public String getIbmenfirefoxbody() {
+    return this.ibmenfirefoxbody;
+  }
+
+  /**
+   * Sets the ibmenfirefoxbody.
+   *
+   * @param ibmenfirefoxbody the new ibmenfirefoxbody
+   */
+  public void setIbmenfirefoxbody(final String ibmenfirefoxbody) {
+    this.ibmenfirefoxbody = ibmenfirefoxbody;
+  }
+
+  /**
+   * Gets the ibmenfirefoxheaders.
+   *
+   * Headers for a Firefox notification. Value should be stringified json.
+   *
+   * @return the ibmenfirefoxheaders
+   */
+  public String getIbmenfirefoxheaders() {
+    return this.ibmenfirefoxheaders;
+  }
+
+  /**
+   * Sets the ibmenfirefoxheaders.
+   *
+   * @param ibmenfirefoxheaders the new ibmenfirefoxheaders
+   */
+  public void setIbmenfirefoxheaders(final String ibmenfirefoxheaders) {
+    this.ibmenfirefoxheaders = ibmenfirefoxheaders;
+  }
+
+  /**
+   * Gets the ibmensafaribody.
+   *
+   * Payload describing a notification Safari body. Value should be stringified json.
+   *
+   * @return the ibmensafaribody
+   */
+  public String getIbmensafaribody() {
+    return this.ibmensafaribody;
+  }
+
+  /**
+   * Sets the ibmensafaribody.
+   *
+   * @param ibmensafaribody the new ibmensafaribody
+   */
+  public void setIbmensafaribody(final String ibmensafaribody) {
+    this.ibmensafaribody = ibmensafaribody;
   }
 }

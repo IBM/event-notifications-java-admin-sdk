@@ -145,6 +145,8 @@ public class ReplaceTopicOptions extends GenericModel {
     }
   }
 
+  protected ReplaceTopicOptions() { }
+
   protected ReplaceTopicOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

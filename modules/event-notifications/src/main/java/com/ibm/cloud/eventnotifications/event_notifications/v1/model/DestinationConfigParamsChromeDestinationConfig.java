@@ -25,11 +25,13 @@ public class DestinationConfigParamsChromeDestinationConfig extends DestinationC
     private String apiKey;
     private String websiteUrl;
     private String publicKey;
+    private Boolean preProd;
 
     public Builder(DestinationConfigParams destinationConfigParamsChromeDestinationConfig) {
       this.apiKey = destinationConfigParamsChromeDestinationConfig.apiKey;
       this.websiteUrl = destinationConfigParamsChromeDestinationConfig.websiteUrl;
       this.publicKey = destinationConfigParamsChromeDestinationConfig.publicKey;
+      this.preProd = destinationConfigParamsChromeDestinationConfig.preProd;
     }
 
     /**
@@ -90,7 +92,20 @@ public class DestinationConfigParamsChromeDestinationConfig extends DestinationC
       this.publicKey = publicKey;
       return this;
     }
+
+    /**
+     * Set the preProd.
+     *
+     * @param preProd the preProd
+     * @return the DestinationConfigParamsChromeDestinationConfig builder
+     */
+    public Builder preProd(Boolean preProd) {
+      this.preProd = preProd;
+      return this;
+    }
   }
+
+  protected DestinationConfigParamsChromeDestinationConfig() { }
 
   protected DestinationConfigParamsChromeDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.apiKey,
@@ -100,6 +115,7 @@ public class DestinationConfigParamsChromeDestinationConfig extends DestinationC
     apiKey = builder.apiKey;
     websiteUrl = builder.websiteUrl;
     publicKey = builder.publicKey;
+    preProd = builder.preProd;
   }
 
   /**

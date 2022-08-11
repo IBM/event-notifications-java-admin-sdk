@@ -56,6 +56,12 @@
             <groupId>com.ibm.cloud</groupId>
             <artifactId>sdk-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.28</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <developers>

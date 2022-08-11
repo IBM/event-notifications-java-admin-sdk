@@ -18,8 +18,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubsc
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -35,9 +33,9 @@ public class UpdateSubscriptionOptionsTest {
   @Test
   public void testUpdateSubscriptionOptions() throws Throwable {
     SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
-      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .to(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(subscriptionUpdateAttributesModel.to(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(subscriptionUpdateAttributesModel.to(), java.util.Arrays.asList("testString"));
 
     UpdateSubscriptionOptions updateSubscriptionOptionsModel = new UpdateSubscriptionOptions.Builder()
       .instanceId("testString")

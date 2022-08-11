@@ -170,6 +170,8 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     }
   }
 
+  protected SubscriptionUpdateAttributesEmailUpdateAttributes() { }
+
   protected SubscriptionUpdateAttributesEmailUpdateAttributes(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
       "to cannot be null");

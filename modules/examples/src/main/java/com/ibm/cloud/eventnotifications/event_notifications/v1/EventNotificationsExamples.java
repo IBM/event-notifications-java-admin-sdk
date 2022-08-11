@@ -451,42 +451,6 @@ public class EventNotificationsExamples {
     }
 
     try {
-      System.out.println("listDestinationDevices() result:");
-      // begin-list_destination_devices
-      ListDestinationDevicesOptions listDestinationDevicesOptions = new ListDestinationDevicesOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId)
-              .build();
-
-      Response<DestinationDevicesList> response = eventNotificationsService.listDestinationDevices(listDestinationDevicesOptions).execute();
-      DestinationDevicesList destinationDevicesList = response.getResult();
-
-      System.out.println(destinationDevicesList);
-      // end-list_destination_devices
-    } catch (ServiceResponseException e) {
-      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      System.out.println("getDestinationDevicesReport() result:");
-      // begin-get_destination_devices_report
-      GetDestinationDevicesReportOptions getDestinationDevicesReportOptions = new GetDestinationDevicesReportOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId)
-              .build();
-
-      Response<DestinationDevicesReport> response = eventNotificationsService.getDestinationDevicesReport(getDestinationDevicesReportOptions).execute();
-      DestinationDevicesReport destinationDevicesReport = response.getResult();
-
-      System.out.println(destinationDevicesReport);
-      // end-get_destination_devices_report
-    } catch (ServiceResponseException e) {
-      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
       System.out.println("createSubscription() result:");
       // begin-create_subscription
 
@@ -579,19 +543,26 @@ public class EventNotificationsExamples {
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
+      NotificationCreate body = new NotificationCreate.Builder()
+              .id(instanceId)
+              .ibmenseverity("MEDIUM")
+              .id("FCM ID")
+              .source(sourceId)
+              .ibmensourceid(sourceId)
+              .type("com.acme.offer:new")
+              .time(new java.util.Date())
+              .ibmenpushto(notificationDevices)
+              .ibmenfcmbody(fcmJsonString)
+              .ibmenapnsbody(apnsJsonString)
+              .ibmensafaribody(safariJsonString)
+              .ibmendefaultshort("Match Info")
+              .ibmendefaultlong("Portugal lead the group with a 2-0 win")
+              .specversion("1.0")
+              .build();
+
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .ceIbmenseverity("MEDIUM")
-              .ceId("FCM ID")
-              .ceSource(sourceId)
-              .ceIbmensourceid(sourceId)
-              .ceType("com.acme.offer:new")
-              .ceTime(new java.util.Date().toString())
-              .ceIbmenpushto(notificationDevices)
-              .ceIbmenfcmbody(fcmJsonString)
-              .ceIbmenapnsbody(apnsJsonString)
-              .ceIbmensafaribody(safariJsonString)
-              .ceSpecversion("1.0")
+              .body(body)
               .build();
 
       Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();

@@ -17,9 +17,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -35,58 +34,58 @@ public class SendBulkNotificationsOptionsTest {
   @Test
   public void testSendBulkNotificationsOptions() throws Throwable {
     NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
-      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-      .ibmenseverity("testString")
-      .ibmenfcmbody("testString")
-      .ibmenapnsbody("testString")
-      .ibmensafaribody("testString")
-      .ibmenpushto("{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}")
-      .ibmenapnsheaders("testString")
-      .ibmendefaultshort("testString")
-      .ibmendefaultlong("testString")
-      .ibmenchromebody("testString")
-      .ibmenfirefoxbody("testString")
-      .ibmenchromeheaders("testString")
-      .ibmenfirefoxheaders("testString")
-      .ibmensourceid("testString")
-      .datacontenttype("application/json")
-      .subject("testString")
+      .specversion("1.0")
+      .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
       .id("testString")
       .source("testString")
       .type("testString")
-      .specversion("1.0")
-      .time("testString")
+      .ibmenseverity("testString")
+      .ibmensourceid("testString")
+      .ibmendefaultshort("testString")
+      .ibmendefaultlong("testString")
+      .subject("testString")
+      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .datacontenttype("application/json")
+      .ibmenpushto("{\"platforms\":[\"push_android\"]}")
+      .ibmenfcmbody("testString")
+      .ibmenapnsbody("testString")
+      .ibmenapnsheaders("testString")
+      .ibmenchromebody("testString")
+      .ibmenchromeheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
+      .ibmenfirefoxbody("testString")
+      .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
+      .ibmensafaribody("testString")
       .add("foo", "testString")
       .build();
-    assertEquals(notificationCreateModel.getData(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
-    assertEquals(notificationCreateModel.getIbmenseverity(), "testString");
-    assertEquals(notificationCreateModel.getIbmenfcmbody(), "testString");
-    assertEquals(notificationCreateModel.getIbmenapnsbody(), "testString");
-    assertEquals(notificationCreateModel.getIbmensafaribody(), "testString");
-    assertEquals(notificationCreateModel.getIbmenpushto(), "{\"fcm_devices\":[\"9c75975a-37d0-3898-905d-3b5ee0d7c172\",\"C9CACDF5-6EBF-49E1-AD60-E25BA23E954C\"],\"apns_devices\":[\"3423-37d0-3898-905d-42342\",\"432423-6EBF-49E1-AD60-4234\"],\"user_ids\":[\"user-1\",\"user-2\"],\"tags\":[\"tag-1\",\"tag-2\"],\"platforms\":[\"push_android\",\"push_ios\",\"push_chrome\",\"push_firefox\"]}");
-    assertEquals(notificationCreateModel.getIbmenapnsheaders(), "testString");
-    assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
-    assertEquals(notificationCreateModel.getIbmendefaultlong(), "testString");
-    assertEquals(notificationCreateModel.getIbmenchromebody(), "testString");
-    assertEquals(notificationCreateModel.getIbmenfirefoxbody(), "testString");
-    assertEquals(notificationCreateModel.getIbmenchromeheaders(), "testString");
-    assertEquals(notificationCreateModel.getIbmenfirefoxheaders(), "testString");
-    assertEquals(notificationCreateModel.getIbmensourceid(), "testString");
-    assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
-    assertEquals(notificationCreateModel.getSubject(), "testString");
+    assertEquals(notificationCreateModel.getSpecversion(), "1.0");
+    assertEquals(notificationCreateModel.getTime(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
     assertEquals(notificationCreateModel.getId(), "testString");
     assertEquals(notificationCreateModel.getSource(), "testString");
     assertEquals(notificationCreateModel.getType(), "testString");
-    assertEquals(notificationCreateModel.getSpecversion(), "1.0");
-    assertEquals(notificationCreateModel.getTime(), "testString");
+    assertEquals(notificationCreateModel.getIbmenseverity(), "testString");
+    assertEquals(notificationCreateModel.getIbmensourceid(), "testString");
+    assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
+    assertEquals(notificationCreateModel.getIbmendefaultlong(), "testString");
+    assertEquals(notificationCreateModel.getSubject(), "testString");
+    assertEquals(notificationCreateModel.getData(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
+    assertEquals(notificationCreateModel.getIbmenpushto(), "{\"platforms\":[\"push_android\"]}");
+    assertEquals(notificationCreateModel.getIbmenfcmbody(), "testString");
+    assertEquals(notificationCreateModel.getIbmenapnsbody(), "testString");
+    assertEquals(notificationCreateModel.getIbmenapnsheaders(), "testString");
+    assertEquals(notificationCreateModel.getIbmenchromebody(), "testString");
+    assertEquals(notificationCreateModel.getIbmenchromeheaders(), "{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}");
+    assertEquals(notificationCreateModel.getIbmenfirefoxbody(), "testString");
+    assertEquals(notificationCreateModel.getIbmenfirefoxheaders(), "{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}");
+    assertEquals(notificationCreateModel.getIbmensafaribody(), "testString");
     assertEquals(notificationCreateModel.get("foo"), "testString");
 
     SendBulkNotificationsOptions sendBulkNotificationsOptionsModel = new SendBulkNotificationsOptions.Builder()
       .instanceId("testString")
-      .bulkMessages(new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel)))
+      .bulkMessages(java.util.Arrays.asList(notificationCreateModel))
       .build();
     assertEquals(sendBulkNotificationsOptionsModel.instanceId(), "testString");
-    assertEquals(sendBulkNotificationsOptionsModel.bulkMessages(), new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel)));
+    assertEquals(sendBulkNotificationsOptionsModel.bulkMessages(), java.util.Arrays.asList(notificationCreateModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

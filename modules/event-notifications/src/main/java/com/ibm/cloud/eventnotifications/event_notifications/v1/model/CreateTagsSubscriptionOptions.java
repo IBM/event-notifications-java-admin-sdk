@@ -115,6 +115,8 @@ public class CreateTagsSubscriptionOptions extends GenericModel {
     }
   }
 
+  protected CreateTagsSubscriptionOptions() { }
+
   protected CreateTagsSubscriptionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

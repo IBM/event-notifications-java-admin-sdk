@@ -13,10 +13,14 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseToItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseUnsubscribedItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;

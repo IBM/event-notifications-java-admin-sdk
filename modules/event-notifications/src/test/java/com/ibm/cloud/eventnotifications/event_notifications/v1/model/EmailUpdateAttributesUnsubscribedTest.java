@@ -17,8 +17,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdate
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,9 +32,9 @@ public class EmailUpdateAttributesUnsubscribedTest {
   @Test
   public void testEmailUpdateAttributesUnsubscribed() throws Throwable {
     EmailUpdateAttributesUnsubscribed emailUpdateAttributesUnsubscribedModel = new EmailUpdateAttributesUnsubscribed.Builder()
-      .remove(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .remove(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(emailUpdateAttributesUnsubscribedModel);
 

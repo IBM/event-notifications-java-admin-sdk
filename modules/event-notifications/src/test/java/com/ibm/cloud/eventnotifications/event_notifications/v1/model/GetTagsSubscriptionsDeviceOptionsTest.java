@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionsDeviceOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,15 +23,15 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ListTagsSubscriptionsDeviceOptions model.
+ * Unit test class for the GetTagsSubscriptionsDeviceOptions model.
  */
-public class ListTagsSubscriptionsDeviceOptionsTest {
+public class GetTagsSubscriptionsDeviceOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListTagsSubscriptionsDeviceOptions() throws Throwable {
-    ListTagsSubscriptionsDeviceOptions listTagsSubscriptionsDeviceOptionsModel = new ListTagsSubscriptionsDeviceOptions.Builder()
+  public void testGetTagsSubscriptionsDeviceOptions() throws Throwable {
+    GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptionsModel = new GetTagsSubscriptionsDeviceOptions.Builder()
       .instanceId("testString")
       .id("testString")
       .deviceId("testString")
@@ -39,17 +39,17 @@ public class ListTagsSubscriptionsDeviceOptionsTest {
       .limit(Long.valueOf("1"))
       .offset(Long.valueOf("0"))
       .build();
-    assertEquals(listTagsSubscriptionsDeviceOptionsModel.instanceId(), "testString");
-    assertEquals(listTagsSubscriptionsDeviceOptionsModel.id(), "testString");
-    assertEquals(listTagsSubscriptionsDeviceOptionsModel.deviceId(), "testString");
-    assertEquals(listTagsSubscriptionsDeviceOptionsModel.tagName(), "testString");
-    assertEquals(listTagsSubscriptionsDeviceOptionsModel.limit(), Long.valueOf("1"));
-    assertEquals(listTagsSubscriptionsDeviceOptionsModel.offset(), Long.valueOf("0"));
+    assertEquals(getTagsSubscriptionsDeviceOptionsModel.instanceId(), "testString");
+    assertEquals(getTagsSubscriptionsDeviceOptionsModel.id(), "testString");
+    assertEquals(getTagsSubscriptionsDeviceOptionsModel.deviceId(), "testString");
+    assertEquals(getTagsSubscriptionsDeviceOptionsModel.tagName(), "testString");
+    assertEquals(getTagsSubscriptionsDeviceOptionsModel.limit(), Long.valueOf("1"));
+    assertEquals(getTagsSubscriptionsDeviceOptionsModel.offset(), Long.valueOf("0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListTagsSubscriptionsDeviceOptionsError() throws Throwable {
-    new ListTagsSubscriptionsDeviceOptions.Builder().build();
+  public void testGetTagsSubscriptionsDeviceOptionsError() throws Throwable {
+    new GetTagsSubscriptionsDeviceOptions.Builder().build();
   }
 
 }

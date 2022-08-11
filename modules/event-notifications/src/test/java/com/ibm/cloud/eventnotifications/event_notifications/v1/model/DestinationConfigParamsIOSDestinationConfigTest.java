@@ -38,6 +38,7 @@ public class DestinationConfigParamsIOSDestinationConfigTest {
       .keyId("testString")
       .teamId("testString")
       .bundleId("testString")
+      .preProd(false)
       .build();
     assertEquals(destinationConfigParamsIosDestinationConfigModel.certType(), "p8");
     assertEquals(destinationConfigParamsIosDestinationConfigModel.isSandbox(), Boolean.valueOf(false));
@@ -45,6 +46,7 @@ public class DestinationConfigParamsIOSDestinationConfigTest {
     assertEquals(destinationConfigParamsIosDestinationConfigModel.keyId(), "testString");
     assertEquals(destinationConfigParamsIosDestinationConfigModel.teamId(), "testString");
     assertEquals(destinationConfigParamsIosDestinationConfigModel.bundleId(), "testString");
+    assertEquals(destinationConfigParamsIosDestinationConfigModel.preProd(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(destinationConfigParamsIosDestinationConfigModel);
 
@@ -56,6 +58,7 @@ public class DestinationConfigParamsIOSDestinationConfigTest {
     assertEquals(destinationConfigParamsIosDestinationConfigModelNew.keyId(), "testString");
     assertEquals(destinationConfigParamsIosDestinationConfigModelNew.teamId(), "testString");
     assertEquals(destinationConfigParamsIosDestinationConfigModelNew.bundleId(), "testString");
+    assertEquals(destinationConfigParamsIosDestinationConfigModelNew.preProd(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

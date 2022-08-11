@@ -17,8 +17,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -37,12 +35,12 @@ public class DestinationConfigParamsWebhookDestinationConfigTest {
       .url("testString")
       .verb("get")
       .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-      .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .sensitiveHeaders(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(destinationConfigParamsWebhookDestinationConfigModel.url(), "testString");
     assertEquals(destinationConfigParamsWebhookDestinationConfigModel.verb(), "get");
     assertEquals(destinationConfigParamsWebhookDestinationConfigModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
-    assertEquals(destinationConfigParamsWebhookDestinationConfigModel.sensitiveHeaders(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(destinationConfigParamsWebhookDestinationConfigModel.sensitiveHeaders(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(destinationConfigParamsWebhookDestinationConfigModel);
 

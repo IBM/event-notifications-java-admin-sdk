@@ -64,6 +64,8 @@ public class SubscriptionCreateAttributesWebhookAttributes extends SubscriptionC
     }
   }
 
+  protected SubscriptionCreateAttributesWebhookAttributes() { }
+
   protected SubscriptionCreateAttributesWebhookAttributes(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.signingEnabled,
       "signingEnabled cannot be null");

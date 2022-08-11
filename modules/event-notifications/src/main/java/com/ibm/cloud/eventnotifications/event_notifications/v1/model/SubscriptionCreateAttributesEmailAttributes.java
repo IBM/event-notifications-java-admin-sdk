@@ -144,6 +144,8 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
     }
   }
 
+  protected SubscriptionCreateAttributesEmailAttributes() { }
+
   protected SubscriptionCreateAttributesEmailAttributes(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
       "to cannot be null");

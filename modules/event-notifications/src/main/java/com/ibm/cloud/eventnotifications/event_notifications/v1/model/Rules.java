@@ -98,6 +98,8 @@ public class Rules extends GenericModel {
     }
   }
 
+  protected Rules() { }
+
   protected Rules(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.eventTypeFilter,
       "eventTypeFilter cannot be null");

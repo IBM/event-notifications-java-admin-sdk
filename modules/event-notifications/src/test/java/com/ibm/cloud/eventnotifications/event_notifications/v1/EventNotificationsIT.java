@@ -13,8 +13,6 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.*;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.event_notifications.test.SdkIntegrationTestBase;
@@ -22,17 +20,12 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
-import com.ibm.cloud.sdk.core.util.DateUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -837,7 +830,76 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), description);
       assertEquals(destinationResult.getName(), name);
 
-      DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+      DestinationConfigParamsFCMDestinationConfig fcmConfig = new DestinationConfigParamsFCMDestinationConfig.Builder()
+              .senderId(fcmSenderId)
+              .serverKey(fcmServerKey)
+              .build();
+
+
+      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
+              .params(fcmConfig)
+              .build();
+
+      String fcmName = "FCM_Admin Compliance";
+      String fcmDescription = "This is a Destination for FCM compliance";
+
+      updateDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId3)
+              .name(fcmName)
+              .description(fcmDescription)
+              .config(destinationFcmConfigModel)
+              .build();
+
+      response = service.updateDestination(updateDestinationOptions).execute();;
+
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+
+      destinationResult = response.getResult();
+
+      assertNotNull(destinationResult);
+
+      assertEquals(destinationResult.getId(), destinationId3);
+      assertEquals(destinationResult.getDescription(), fcmDescription);
+      assertEquals(destinationResult.getName(), fcmName);
+
+
+      DestinationConfigParamsSlackDestinationConfig slackDestinationConfig= new DestinationConfigParamsSlackDestinationConfig.Builder()
+              .url("https://api.slack.com/myslack")
+              .build();
+
+      DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
+              .params(slackDestinationConfig)
+              .build();
+
+      String slackName = "Slack_destination";
+      String slackTypeVal = "slack";
+      String slackDescription = "Slack Destination";
+
+      UpdateDestinationOptions updateSlackDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId4)
+              .name(slackName)
+              .description(slackDescription)
+              .config(destinationSlackConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> slackResponse = service.updateDestination(updateSlackDestinationOptions).execute();
+      // Validate response
+      assertNotNull(slackResponse);
+      assertEquals(slackResponse.getStatusCode(), 200);
+
+      Destination slackDestinationResponseResult = slackResponse.getResult();
+
+      assertNotNull(slackDestinationResponseResult);
+      assertEquals(slackDestinationResponseResult.getDescription(), slackDescription);
+      assertEquals(slackDestinationResponseResult.getName(), slackName);
+      assertEquals(slackDestinationResponseResult.getType(), slackTypeVal);
+
+     DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
@@ -896,79 +958,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1MListDestinationDevices() throws Exception {
+  public void test1MGetDeviceCount() throws Exception{
     try {
-      ListDestinationDevicesOptions listDestinationDevicesOptions = new ListDestinationDevicesOptions.Builder()
+      GetDeviceCountOptions getDeviceCountOptionsModel = new GetDeviceCountOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId3)
-              .limit(Long.valueOf("1"))
-              .offset(Long.valueOf("0"))
-              .search("")
               .build();
 
-      // Invoke operation
-      Response<DestinationDevicesList> response = service.listDestinationDevices(listDestinationDevicesOptions).execute();
-      // Validate response
+      // Invoke getDeviceCount() with a valid options model and verify the result
+      Response<DeviceCount> response = service.getDeviceCount(getDeviceCountOptionsModel).execute();
       assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      DestinationDevicesList destinationDevicesListResult = response.getResult();
-
-      assertNotNull(destinationDevicesListResult);
-
-      //
-      // The following status codes aren't covered by tests.
-      // Please provide integration tests for these too.
-      //
-      // 401
-      // 404
-      // 500
-      //
-      //
-
-    } catch (ServiceResponseException e) {
+      DeviceCount responseObj = response.getResult();
+      assertNotNull(responseObj.getTotalCount());
+    }
+    catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
 
   @Test
-  public void test1NGetDestinationDevicesReport() throws Exception {
-    try {
-      GetDestinationDevicesReportOptions getDestinationDevicesReportOptions = new GetDestinationDevicesReportOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId3)
-              .days(Long.valueOf("1"))
-              .build();
-
-      // Invoke operation
-      Response<DestinationDevicesReport> response = service.getDestinationDevicesReport(getDestinationDevicesReportOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      DestinationDevicesReport destinationDevicesReportResult = response.getResult();
-
-      assertNotNull(destinationDevicesReportResult);
-
-      //
-      // The following status codes aren't covered by tests.
-      // Please provide integration tests for these too.
-      //
-      // 401
-      // 404
-      // 500
-      //
-      //
-
-    } catch (ServiceResponseException e) {
-      fail(String.format("Service returned status code %d: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test
-  public void test1OCreateSubscription() throws Exception {
+  public void test1NCreateSubscription() throws Exception {
     try {
       /*SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
       .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -1078,7 +1088,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1PListSubscriptions() throws Exception {
+  public void test1OListSubscriptions() throws Exception {
     try {
       Boolean moreResults = true;
       int limit = 1;
@@ -1122,7 +1132,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1QGetSubscription() throws Exception {
+  public void test1PGetSubscription() throws Exception {
     try {
       GetSubscriptionOptions getSubscriptionOptions = new GetSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -1156,7 +1166,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1RUpdateSubscription() throws Exception {
+  public void test1QUpdateSubscription() throws Exception {
     try {
       /*SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
       .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -1210,7 +1220,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1SSendNotifications() throws Exception {
+  public void test1RSendNotifications() throws Exception {
     try {
       // begin-send_notifications
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
@@ -1218,19 +1228,26 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
+      NotificationCreate body = new NotificationCreate.Builder()
+              .id(instanceId)
+              .ibmenseverity("MEDIUM")
+              .id("FCM ID")
+              .source(sourceId)
+              .ibmensourceid(sourceId)
+              .type("com.acme.offer:new")
+              .time(new java.util.Date())
+              .ibmenpushto(notificationDevices)
+              .ibmenfcmbody(fcmJsonString)
+              .ibmenapnsbody(apnsJsonString)
+              .ibmensafaribody(safariJsonString)
+              .ibmendefaultshort("Match Info")
+              .ibmendefaultlong("Portugal lead the group with a 2-0 win")
+              .specversion("1.0")
+              .build();
+
       SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
               .instanceId(instanceId)
-              .ceIbmenseverity("MEDIUM")
-              .ceId("FCM ID")
-              .ceSource(sourceId)
-              .ceIbmensourceid(sourceId)
-              .ceType("com.acme.offer:new")
-              .ceTime(new java.util.Date().toString())
-              .ceIbmenpushto(notificationDevices)
-              .ceIbmenfcmbody(fcmJsonString)
-              .ceIbmenapnsbody(apnsJsonString)
-              .ceIbmensafaribody(safariJsonString)
-              .ceSpecversion("1.0")
+              .body(body)
               .build();
 
       Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
@@ -1245,7 +1262,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1TSendBulkNotifications() throws Exception {
+  public void test1SSendBulkNotifications() throws Exception {
     try {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
@@ -1263,7 +1280,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .source(sourceId)
               .type("com.acme.offer:new")
               .specversion("1.0")
-              .time(new java.util.Date().toString())
+              .time(new Date())
               .build();
 
       NotificationCreate notificationCreateModel1 = new NotificationCreate.Builder()
@@ -1277,7 +1294,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .source(sourceId)
               .type("com.ibm.cloud.compliance.certificate_manager:certificate_expired")
               .specversion("1.0")
-              .time(new java.util.Date().toString())
+              .time(new Date())
               .build();
 
       SendBulkNotificationsOptions sendBulkNotificationsOptions = new SendBulkNotificationsOptions.Builder()
@@ -1313,7 +1330,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1UDeleteSubscription() throws Exception {
+  public void test1TDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -1351,7 +1368,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1VDeleteTopic() throws Exception {
+  public void test1UDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -1389,7 +1406,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1WDeleteDestination() throws Exception {
+  public void test1VDeleteDestination() throws Exception {
     try {
       DeleteDestinationOptions deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -1463,7 +1480,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1XDeleteSource() throws Exception {
+  public void test1WDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)

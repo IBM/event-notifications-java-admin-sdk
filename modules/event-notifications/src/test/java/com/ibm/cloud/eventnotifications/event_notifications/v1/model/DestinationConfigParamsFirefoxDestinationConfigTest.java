@@ -34,9 +34,11 @@ public class DestinationConfigParamsFirefoxDestinationConfigTest {
     DestinationConfigParamsFirefoxDestinationConfig destinationConfigParamsFirefoxDestinationConfigModel = new DestinationConfigParamsFirefoxDestinationConfig.Builder()
       .websiteUrl("testString")
       .publicKey("testString")
+      .preProd(false)
       .build();
     assertEquals(destinationConfigParamsFirefoxDestinationConfigModel.websiteUrl(), "testString");
     assertEquals(destinationConfigParamsFirefoxDestinationConfigModel.publicKey(), "testString");
+    assertEquals(destinationConfigParamsFirefoxDestinationConfigModel.preProd(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(destinationConfigParamsFirefoxDestinationConfigModel);
 
@@ -44,6 +46,7 @@ public class DestinationConfigParamsFirefoxDestinationConfigTest {
     assertTrue(destinationConfigParamsFirefoxDestinationConfigModelNew instanceof DestinationConfigParamsFirefoxDestinationConfig);
     assertEquals(destinationConfigParamsFirefoxDestinationConfigModelNew.websiteUrl(), "testString");
     assertEquals(destinationConfigParamsFirefoxDestinationConfigModelNew.publicKey(), "testString");
+    assertEquals(destinationConfigParamsFirefoxDestinationConfigModelNew.preProd(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

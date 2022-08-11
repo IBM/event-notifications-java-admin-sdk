@@ -15,15 +15,12 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The listDestinationDevices options.
+ * The getDeviceCount options.
  */
-public class ListDestinationDevicesOptions extends GenericModel {
+public class GetDeviceCountOptions extends GenericModel {
 
   protected String instanceId;
   protected String id;
-  protected Long limit;
-  protected Long offset;
-  protected String search;
 
   /**
    * Builder.
@@ -31,16 +28,10 @@ public class ListDestinationDevicesOptions extends GenericModel {
   public static class Builder {
     private String instanceId;
     private String id;
-    private Long limit;
-    private Long offset;
-    private String search;
 
-    private Builder(ListDestinationDevicesOptions listDestinationDevicesOptions) {
-      this.instanceId = listDestinationDevicesOptions.instanceId;
-      this.id = listDestinationDevicesOptions.id;
-      this.limit = listDestinationDevicesOptions.limit;
-      this.offset = listDestinationDevicesOptions.offset;
-      this.search = listDestinationDevicesOptions.search;
+    private Builder(GetDeviceCountOptions getDeviceCountOptions) {
+      this.instanceId = getDeviceCountOptions.instanceId;
+      this.id = getDeviceCountOptions.id;
     }
 
     /**
@@ -61,19 +52,19 @@ public class ListDestinationDevicesOptions extends GenericModel {
     }
 
     /**
-     * Builds a ListDestinationDevicesOptions.
+     * Builds a GetDeviceCountOptions.
      *
-     * @return the new ListDestinationDevicesOptions instance
+     * @return the new GetDeviceCountOptions instance
      */
-    public ListDestinationDevicesOptions build() {
-      return new ListDestinationDevicesOptions(this);
+    public GetDeviceCountOptions build() {
+      return new GetDeviceCountOptions(this);
     }
 
     /**
      * Set the instanceId.
      *
      * @param instanceId the instanceId
-     * @return the ListDestinationDevicesOptions builder
+     * @return the GetDeviceCountOptions builder
      */
     public Builder instanceId(String instanceId) {
       this.instanceId = instanceId;
@@ -84,63 +75,29 @@ public class ListDestinationDevicesOptions extends GenericModel {
      * Set the id.
      *
      * @param id the id
-     * @return the ListDestinationDevicesOptions builder
+     * @return the GetDeviceCountOptions builder
      */
     public Builder id(String id) {
       this.id = id;
       return this;
     }
-
-    /**
-     * Set the limit.
-     *
-     * @param limit the limit
-     * @return the ListDestinationDevicesOptions builder
-     */
-    public Builder limit(long limit) {
-      this.limit = limit;
-      return this;
-    }
-
-    /**
-     * Set the offset.
-     *
-     * @param offset the offset
-     * @return the ListDestinationDevicesOptions builder
-     */
-    public Builder offset(long offset) {
-      this.offset = offset;
-      return this;
-    }
-
-    /**
-     * Set the search.
-     *
-     * @param search the search
-     * @return the ListDestinationDevicesOptions builder
-     */
-    public Builder search(String search) {
-      this.search = search;
-      return this;
-    }
   }
 
-  protected ListDestinationDevicesOptions(Builder builder) {
+  protected GetDeviceCountOptions() { }
+
+  protected GetDeviceCountOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.id,
       "id cannot be empty");
     instanceId = builder.instanceId;
     id = builder.id;
-    limit = builder.limit;
-    offset = builder.offset;
-    search = builder.search;
   }
 
   /**
    * New builder.
    *
-   * @return a ListDestinationDevicesOptions builder
+   * @return a GetDeviceCountOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -166,39 +123,6 @@ public class ListDestinationDevicesOptions extends GenericModel {
    */
   public String id() {
     return id;
-  }
-
-  /**
-   * Gets the limit.
-   *
-   * Page limit for paginated results.
-   *
-   * @return the limit
-   */
-  public Long limit() {
-    return limit;
-  }
-
-  /**
-   * Gets the offset.
-   *
-   * offset for paginated results.
-   *
-   * @return the offset
-   */
-  public Long offset() {
-    return offset;
-  }
-
-  /**
-   * Gets the search.
-   *
-   * Search string for filtering results.
-   *
-   * @return the search
-   */
-  public String search() {
-    return search;
   }
 }
 

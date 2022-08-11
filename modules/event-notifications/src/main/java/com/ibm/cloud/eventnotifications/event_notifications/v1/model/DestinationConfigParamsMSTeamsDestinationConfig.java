@@ -64,6 +64,8 @@ public class DestinationConfigParamsMSTeamsDestinationConfig extends Destination
     }
   }
 
+  protected DestinationConfigParamsMSTeamsDestinationConfig() { }
+
   protected DestinationConfigParamsMSTeamsDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
       "url cannot be null");

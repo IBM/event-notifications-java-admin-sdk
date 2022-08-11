@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationDevicesListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeviceCount;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,19 +23,15 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DestinationDevicesListItem model.
+ * Unit test class for the DeviceCount model.
  */
-public class DestinationDevicesListItemTest {
+public class DeviceCountTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDestinationDevicesListItem() throws Throwable {
-    DestinationDevicesListItem destinationDevicesListItemModel = new DestinationDevicesListItem();
-    assertNull(destinationDevicesListItemModel.getId());
-    assertNull(destinationDevicesListItemModel.getUserId());
-    assertNull(destinationDevicesListItemModel.getPlatform());
-    assertNull(destinationDevicesListItemModel.getToken());
-    assertNull(destinationDevicesListItemModel.getUpdatedAt());
+  public void testDeviceCount() throws Throwable {
+    DeviceCount deviceCountModel = new DeviceCount();
+    assertNull(deviceCountModel.getTotalCount());
   }
 }

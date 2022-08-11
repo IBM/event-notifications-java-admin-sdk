@@ -24,10 +24,12 @@ public class DestinationConfigParamsFCMDestinationConfig extends DestinationConf
   public static class Builder {
     private String serverKey;
     private String senderId;
+    private Boolean preProd;
 
     public Builder(DestinationConfigParams destinationConfigParamsFcmDestinationConfig) {
       this.serverKey = destinationConfigParamsFcmDestinationConfig.serverKey;
       this.senderId = destinationConfigParamsFcmDestinationConfig.senderId;
+      this.preProd = destinationConfigParamsFcmDestinationConfig.preProd;
     }
 
     /**
@@ -77,7 +79,20 @@ public class DestinationConfigParamsFCMDestinationConfig extends DestinationConf
       this.senderId = senderId;
       return this;
     }
+
+    /**
+     * Set the preProd.
+     *
+     * @param preProd the preProd
+     * @return the DestinationConfigParamsFCMDestinationConfig builder
+     */
+    public Builder preProd(Boolean preProd) {
+      this.preProd = preProd;
+      return this;
+    }
   }
+
+  protected DestinationConfigParamsFCMDestinationConfig() { }
 
   protected DestinationConfigParamsFCMDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.serverKey,
@@ -86,6 +101,7 @@ public class DestinationConfigParamsFCMDestinationConfig extends DestinationConf
       "senderId cannot be null");
     serverKey = builder.serverKey;
     senderId = builder.senderId;
+    preProd = builder.preProd;
   }
 
   /**

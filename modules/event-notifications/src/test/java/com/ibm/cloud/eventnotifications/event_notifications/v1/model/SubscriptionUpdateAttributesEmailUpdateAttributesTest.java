@@ -19,8 +19,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -36,16 +34,16 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
   @Test
   public void testSubscriptionUpdateAttributesEmailUpdateAttributes() throws Throwable {
     EmailUpdateAttributesTo emailUpdateAttributesToModel = new EmailUpdateAttributesTo.Builder()
-      .add(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .remove(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .add(java.util.Arrays.asList("testString"))
+      .remove(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(emailUpdateAttributesToModel.add(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(emailUpdateAttributesToModel.remove(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(emailUpdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
+    assertEquals(emailUpdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
 
     EmailUpdateAttributesUnsubscribed emailUpdateAttributesUnsubscribedModel = new EmailUpdateAttributesUnsubscribed.Builder()
-      .remove(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .remove(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
 
     SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
       .to(emailUpdateAttributesToModel)
@@ -53,7 +51,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
       .replyToMail("testString")
       .replyToName("testString")
       .fromName("testString")
-      .invited(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .invited(java.util.Arrays.asList("testString"))
       .unsubscribed(emailUpdateAttributesUnsubscribedModel)
       .build();
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.toEmail(), emailUpdateAttributesToModel);
@@ -61,7 +59,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributesTest {
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.replyToMail(), "testString");
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.replyToName(), "testString");
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.fromName(), "testString");
-    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.invited(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.invited(), java.util.Arrays.asList("testString"));
     assertEquals(subscriptionUpdateAttributesEmailUpdateAttributesModel.unsubscribed(), emailUpdateAttributesUnsubscribedModel);
 
     String json = TestUtilities.serialize(subscriptionUpdateAttributesEmailUpdateAttributesModel);

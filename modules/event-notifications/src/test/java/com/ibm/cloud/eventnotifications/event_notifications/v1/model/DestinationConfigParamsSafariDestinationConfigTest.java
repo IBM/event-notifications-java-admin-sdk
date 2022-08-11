@@ -38,6 +38,7 @@ public class DestinationConfigParamsSafariDestinationConfigTest {
       .websiteName("testString")
       .urlFormatString("testString")
       .websitePushId("testString")
+      .preProd(false)
       .build();
     assertEquals(destinationConfigParamsSafariDestinationConfigModel.certType(), "p12");
     assertEquals(destinationConfigParamsSafariDestinationConfigModel.password(), "testString");
@@ -45,6 +46,7 @@ public class DestinationConfigParamsSafariDestinationConfigTest {
     assertEquals(destinationConfigParamsSafariDestinationConfigModel.websiteName(), "testString");
     assertEquals(destinationConfigParamsSafariDestinationConfigModel.urlFormatString(), "testString");
     assertEquals(destinationConfigParamsSafariDestinationConfigModel.websitePushId(), "testString");
+    assertEquals(destinationConfigParamsSafariDestinationConfigModel.preProd(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(destinationConfigParamsSafariDestinationConfigModel);
 
@@ -56,6 +58,7 @@ public class DestinationConfigParamsSafariDestinationConfigTest {
     assertEquals(destinationConfigParamsSafariDestinationConfigModelNew.websiteName(), "testString");
     assertEquals(destinationConfigParamsSafariDestinationConfigModelNew.urlFormatString(), "testString");
     assertEquals(destinationConfigParamsSafariDestinationConfigModelNew.websitePushId(), "testString");
+    assertEquals(destinationConfigParamsSafariDestinationConfigModelNew.preProd(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

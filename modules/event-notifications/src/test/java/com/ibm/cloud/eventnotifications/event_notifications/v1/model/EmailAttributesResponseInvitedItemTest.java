@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationDevicesReportOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,27 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the GetDestinationDevicesReportOptions model.
+ * Unit test class for the EmailAttributesResponseInvitedItem model.
  */
-public class GetDestinationDevicesReportOptionsTest {
+public class EmailAttributesResponseInvitedItemTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testGetDestinationDevicesReportOptions() throws Throwable {
-    GetDestinationDevicesReportOptions getDestinationDevicesReportOptionsModel = new GetDestinationDevicesReportOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .days(Long.valueOf("1"))
-      .build();
-    assertEquals(getDestinationDevicesReportOptionsModel.instanceId(), "testString");
-    assertEquals(getDestinationDevicesReportOptionsModel.id(), "testString");
-    assertEquals(getDestinationDevicesReportOptionsModel.days(), Long.valueOf("1"));
+  public void testEmailAttributesResponseInvitedItem() throws Throwable {
+    EmailAttributesResponseInvitedItem emailAttributesResponseInvitedItemModel = new EmailAttributesResponseInvitedItem();
+    assertNull(emailAttributesResponseInvitedItemModel.getEmail());
+    assertNull(emailAttributesResponseInvitedItemModel.getTime());
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetDestinationDevicesReportOptionsError() throws Throwable {
-    new GetDestinationDevicesReportOptions.Builder().build();
-  }
-
 }

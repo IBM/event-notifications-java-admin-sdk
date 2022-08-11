@@ -109,6 +109,8 @@ public class ListTopicsOptions extends GenericModel {
     }
   }
 
+  protected ListTopicsOptions() { }
+
   protected ListTopicsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

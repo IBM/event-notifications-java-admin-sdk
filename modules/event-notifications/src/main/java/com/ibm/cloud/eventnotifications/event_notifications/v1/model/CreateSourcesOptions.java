@@ -113,6 +113,8 @@ public class CreateSourcesOptions extends GenericModel {
     }
   }
 
+  protected CreateSourcesOptions() { }
+
   protected CreateSourcesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

@@ -17,8 +17,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,13 +32,13 @@ public class SubscriptionCreateAttributesEmailAttributesTest {
   @Test
   public void testSubscriptionCreateAttributesEmailAttributes() throws Throwable {
     SubscriptionCreateAttributesEmailAttributes subscriptionCreateAttributesEmailAttributesModel = new SubscriptionCreateAttributesEmailAttributes.Builder()
-      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .to(java.util.Arrays.asList("testString"))
       .addNotificationPayload(false)
       .replyToMail("testString")
       .replyToName("testString")
       .fromName("testString")
       .build();
-    assertEquals(subscriptionCreateAttributesEmailAttributesModel.to(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(subscriptionCreateAttributesEmailAttributesModel.to(), java.util.Arrays.asList("testString"));
     assertEquals(subscriptionCreateAttributesEmailAttributesModel.addNotificationPayload(), Boolean.valueOf(false));
     assertEquals(subscriptionCreateAttributesEmailAttributesModel.replyToMail(), "testString");
     assertEquals(subscriptionCreateAttributesEmailAttributesModel.replyToName(), "testString");

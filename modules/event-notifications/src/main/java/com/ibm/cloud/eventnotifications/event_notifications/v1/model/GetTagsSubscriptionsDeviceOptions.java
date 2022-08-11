@@ -15,9 +15,9 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The listTagsSubscriptionsDevice options.
+ * The getTagsSubscriptionsDevice options.
  */
-public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
+public class GetTagsSubscriptionsDeviceOptions extends GenericModel {
 
   protected String instanceId;
   protected String id;
@@ -37,13 +37,13 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
     private Long limit;
     private Long offset;
 
-    private Builder(ListTagsSubscriptionsDeviceOptions listTagsSubscriptionsDeviceOptions) {
-      this.instanceId = listTagsSubscriptionsDeviceOptions.instanceId;
-      this.id = listTagsSubscriptionsDeviceOptions.id;
-      this.deviceId = listTagsSubscriptionsDeviceOptions.deviceId;
-      this.tagName = listTagsSubscriptionsDeviceOptions.tagName;
-      this.limit = listTagsSubscriptionsDeviceOptions.limit;
-      this.offset = listTagsSubscriptionsDeviceOptions.offset;
+    private Builder(GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptions) {
+      this.instanceId = getTagsSubscriptionsDeviceOptions.instanceId;
+      this.id = getTagsSubscriptionsDeviceOptions.id;
+      this.deviceId = getTagsSubscriptionsDeviceOptions.deviceId;
+      this.tagName = getTagsSubscriptionsDeviceOptions.tagName;
+      this.limit = getTagsSubscriptionsDeviceOptions.limit;
+      this.offset = getTagsSubscriptionsDeviceOptions.offset;
     }
 
     /**
@@ -66,19 +66,19 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
     }
 
     /**
-     * Builds a ListTagsSubscriptionsDeviceOptions.
+     * Builds a GetTagsSubscriptionsDeviceOptions.
      *
-     * @return the new ListTagsSubscriptionsDeviceOptions instance
+     * @return the new GetTagsSubscriptionsDeviceOptions instance
      */
-    public ListTagsSubscriptionsDeviceOptions build() {
-      return new ListTagsSubscriptionsDeviceOptions(this);
+    public GetTagsSubscriptionsDeviceOptions build() {
+      return new GetTagsSubscriptionsDeviceOptions(this);
     }
 
     /**
      * Set the instanceId.
      *
      * @param instanceId the instanceId
-     * @return the ListTagsSubscriptionsDeviceOptions builder
+     * @return the GetTagsSubscriptionsDeviceOptions builder
      */
     public Builder instanceId(String instanceId) {
       this.instanceId = instanceId;
@@ -89,7 +89,7 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
      * Set the id.
      *
      * @param id the id
-     * @return the ListTagsSubscriptionsDeviceOptions builder
+     * @return the GetTagsSubscriptionsDeviceOptions builder
      */
     public Builder id(String id) {
       this.id = id;
@@ -100,7 +100,7 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
      * Set the deviceId.
      *
      * @param deviceId the deviceId
-     * @return the ListTagsSubscriptionsDeviceOptions builder
+     * @return the GetTagsSubscriptionsDeviceOptions builder
      */
     public Builder deviceId(String deviceId) {
       this.deviceId = deviceId;
@@ -111,7 +111,7 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
      * Set the tagName.
      *
      * @param tagName the tagName
-     * @return the ListTagsSubscriptionsDeviceOptions builder
+     * @return the GetTagsSubscriptionsDeviceOptions builder
      */
     public Builder tagName(String tagName) {
       this.tagName = tagName;
@@ -122,7 +122,7 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
      * Set the limit.
      *
      * @param limit the limit
-     * @return the ListTagsSubscriptionsDeviceOptions builder
+     * @return the GetTagsSubscriptionsDeviceOptions builder
      */
     public Builder limit(long limit) {
       this.limit = limit;
@@ -133,7 +133,7 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
      * Set the offset.
      *
      * @param offset the offset
-     * @return the ListTagsSubscriptionsDeviceOptions builder
+     * @return the GetTagsSubscriptionsDeviceOptions builder
      */
     public Builder offset(long offset) {
       this.offset = offset;
@@ -141,7 +141,9 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
     }
   }
 
-  protected ListTagsSubscriptionsDeviceOptions(Builder builder) {
+  protected GetTagsSubscriptionsDeviceOptions() { }
+
+  protected GetTagsSubscriptionsDeviceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.id,
@@ -159,7 +161,7 @@ public class ListTagsSubscriptionsDeviceOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a ListTagsSubscriptionsDeviceOptions builder
+   * @return a GetTagsSubscriptionsDeviceOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

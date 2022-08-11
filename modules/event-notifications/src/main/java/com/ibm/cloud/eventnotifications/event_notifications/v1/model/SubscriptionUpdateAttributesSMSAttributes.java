@@ -84,6 +84,8 @@ public class SubscriptionUpdateAttributesSMSAttributes extends SubscriptionUpdat
     }
   }
 
+  protected SubscriptionUpdateAttributesSMSAttributes() { }
+
   protected SubscriptionUpdateAttributesSMSAttributes(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
       "to cannot be null");

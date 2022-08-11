@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationDevicesOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDeviceCountOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,31 +23,25 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ListDestinationDevicesOptions model.
+ * Unit test class for the GetDeviceCountOptions model.
  */
-public class ListDestinationDevicesOptionsTest {
+public class GetDeviceCountOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListDestinationDevicesOptions() throws Throwable {
-    ListDestinationDevicesOptions listDestinationDevicesOptionsModel = new ListDestinationDevicesOptions.Builder()
+  public void testGetDeviceCountOptions() throws Throwable {
+    GetDeviceCountOptions getDeviceCountOptionsModel = new GetDeviceCountOptions.Builder()
       .instanceId("testString")
       .id("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .search("testString")
       .build();
-    assertEquals(listDestinationDevicesOptionsModel.instanceId(), "testString");
-    assertEquals(listDestinationDevicesOptionsModel.id(), "testString");
-    assertEquals(listDestinationDevicesOptionsModel.limit(), Long.valueOf("1"));
-    assertEquals(listDestinationDevicesOptionsModel.offset(), Long.valueOf("0"));
-    assertEquals(listDestinationDevicesOptionsModel.search(), "testString");
+    assertEquals(getDeviceCountOptionsModel.instanceId(), "testString");
+    assertEquals(getDeviceCountOptionsModel.id(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListDestinationDevicesOptionsError() throws Throwable {
-    new ListDestinationDevicesOptions.Builder().build();
+  public void testGetDeviceCountOptionsError() throws Throwable {
+    new GetDeviceCountOptions.Builder().build();
   }
 
 }

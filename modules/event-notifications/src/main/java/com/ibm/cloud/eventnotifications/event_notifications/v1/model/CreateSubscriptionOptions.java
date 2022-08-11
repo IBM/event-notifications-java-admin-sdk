@@ -143,6 +143,8 @@ public class CreateSubscriptionOptions extends GenericModel {
     }
   }
 
+  protected CreateSubscriptionOptions() { }
+
   protected CreateSubscriptionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

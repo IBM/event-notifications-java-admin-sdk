@@ -83,6 +83,8 @@ public class DeleteDestinationOptions extends GenericModel {
     }
   }
 
+  protected DeleteDestinationOptions() { }
+
   protected DeleteDestinationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");

@@ -35,10 +35,12 @@ public class DestinationConfigParamsChromeDestinationConfigTest {
       .apiKey("testString")
       .websiteUrl("testString")
       .publicKey("testString")
+      .preProd(false)
       .build();
     assertEquals(destinationConfigParamsChromeDestinationConfigModel.apiKey(), "testString");
     assertEquals(destinationConfigParamsChromeDestinationConfigModel.websiteUrl(), "testString");
     assertEquals(destinationConfigParamsChromeDestinationConfigModel.publicKey(), "testString");
+    assertEquals(destinationConfigParamsChromeDestinationConfigModel.preProd(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(destinationConfigParamsChromeDestinationConfigModel);
 
@@ -47,6 +49,7 @@ public class DestinationConfigParamsChromeDestinationConfigTest {
     assertEquals(destinationConfigParamsChromeDestinationConfigModelNew.apiKey(), "testString");
     assertEquals(destinationConfigParamsChromeDestinationConfigModelNew.websiteUrl(), "testString");
     assertEquals(destinationConfigParamsChromeDestinationConfigModelNew.publicKey(), "testString");
+    assertEquals(destinationConfigParamsChromeDestinationConfigModelNew.preProd(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
