@@ -390,10 +390,7 @@ System.out.println(destinationTagsSubscription);
 ```java
 ListTagsSubscriptionOptions listTagsSubscriptionOptionsModel = new ListTagsSubscriptionOptions.Builder()
   .instanceId(<instanceId>)  // Event notifications service instance GUID
-  .id(<destination-id>)      // Event notifications service instance Destination ID
-  .deviceId(<device-id>)     // Event notifications service device ID
-  .userId(<user-id>)         // Event notifications service user ID
-  .tagName(<tag-name>)       // Event notifications service tag name
+  .id(<destination-id>)      // Event notifications service instance Destination ID// Event notifications service user ID
   .build();
 
 // Invoke listTagsSubscription() with a valid options model and verify the result
@@ -407,7 +404,6 @@ GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptionsModel = new G
   .instanceId(<instanceId>)  // Event notifications service instance GUID
   .id(<destination-id>)      // Event notifications service instance Destination ID
   .deviceId(<device-id>)     // Event notifications service device ID
-  .tagName(<tag-name>)       // Event notifications service tag name
   .build();
 
 // Invoke getTagsSubscriptionsDevice() with a valid options model and verify the result
