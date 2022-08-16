@@ -79,6 +79,12 @@ EventNotifications eventNotificationsService = EventNotifications.newInstance();
 eventNotificationsService.setServiceUrl("https://" + region + ".event-notifications.cloud.ibm.com/event-notifications");
 
 ```
+To configure service URL for Private Endpoint
+
+```java
+eventNotificationsService.setServiceUrl("https://private." + region + ".event-notifications.cloud.ibm.com/event-notifications");
+```
+
 - region : Region of the Event Notifications Instance
 
 ## Using the SDK
