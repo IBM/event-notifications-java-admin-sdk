@@ -49,7 +49,7 @@ public class SubscriptionCreateAttributes extends GenericModel {
   /**
    * Gets the to.
    *
-   * The phone number to send the SMS to.
+   * The email id string.
    *
    * @return the to
    */

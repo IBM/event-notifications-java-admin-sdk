@@ -15,7 +15,6 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -25,14 +24,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the UpdateSubscriptionOptions model.
+ * Unit test class for the SubscriptionUpdateAttributesSMSUpdateAttributes model.
  */
-public class UpdateSubscriptionOptionsTest {
+public class SubscriptionUpdateAttributesSMSUpdateAttributesTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testUpdateSubscriptionOptions() throws Throwable {
+  public void testSubscriptionUpdateAttributesSMSUpdateAttributes() throws Throwable {
     SMSupdateAttributesTo smSupdateAttributesToModel = new SMSupdateAttributesTo.Builder()
       .add(java.util.Arrays.asList("testString"))
       .remove(java.util.Arrays.asList("testString"))
@@ -40,28 +39,21 @@ public class UpdateSubscriptionOptionsTest {
     assertEquals(smSupdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
     assertEquals(smSupdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
 
-    SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
+    SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
       .to(smSupdateAttributesToModel)
       .build();
-    assertEquals(subscriptionUpdateAttributesModel.to(), smSupdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.to(), smSupdateAttributesToModel);
 
-    UpdateSubscriptionOptions updateSubscriptionOptionsModel = new UpdateSubscriptionOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .name("testString")
-      .description("testString")
-      .attributes(subscriptionUpdateAttributesModel)
-      .build();
-    assertEquals(updateSubscriptionOptionsModel.instanceId(), "testString");
-    assertEquals(updateSubscriptionOptionsModel.id(), "testString");
-    assertEquals(updateSubscriptionOptionsModel.name(), "testString");
-    assertEquals(updateSubscriptionOptionsModel.description(), "testString");
-    assertEquals(updateSubscriptionOptionsModel.attributes(), subscriptionUpdateAttributesModel);
+    String json = TestUtilities.serialize(subscriptionUpdateAttributesSmsUpdateAttributesModel);
+
+    SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributesModelNew = TestUtilities.deserialize(json, SubscriptionUpdateAttributesSMSUpdateAttributes.class);
+    assertTrue(subscriptionUpdateAttributesSmsUpdateAttributesModelNew instanceof SubscriptionUpdateAttributesSMSUpdateAttributes);
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.to().toString(), smSupdateAttributesToModel.toString());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testUpdateSubscriptionOptionsError() throws Throwable {
-    new UpdateSubscriptionOptions.Builder().build();
+  public void testSubscriptionUpdateAttributesSMSUpdateAttributesError() throws Throwable {
+    new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder().build();
   }
 
 }

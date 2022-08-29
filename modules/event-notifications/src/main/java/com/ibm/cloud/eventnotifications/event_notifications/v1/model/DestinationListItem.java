@@ -39,6 +39,8 @@ public class DestinationListItem extends GenericModel {
     String PUSH_IOS = "push_ios";
     /** slack. */
     String SLACK = "slack";
+    /** ibmcf. */
+    String IBMCF = "ibmcf";
     /** push_safari. */
     String PUSH_SAFARI = "push_safari";
     /** msteams. */

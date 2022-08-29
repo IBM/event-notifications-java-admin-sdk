@@ -30,11 +30,11 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 public class SubscriptionAttributes extends DynamicModel<Object> {
 
   @SerializedName("to")
-  protected List<EmailAttributesResponseToItem> to;
+  protected List<SMSAttributesResponseToItem> to;
   @SerializedName("unsubscribed")
-  protected List<EmailAttributesResponseUnsubscribedItem> unsubscribed;
+  protected List<SMSAttributesResponseUnsubscribedItem> unsubscribed;
   @SerializedName("invited")
-  protected List<EmailAttributesResponseInvitedItem> invited;
+  protected List<SMSAttributesResponseInvitedItem> invited;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
   @SerializedName("reply_to_mail")
@@ -59,7 +59,7 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    *
    * @return the to
    */
-  public List<EmailAttributesResponseToItem> getTo() {
+  public List<SMSAttributesResponseToItem> getTo() {
     return this.to;
   }
 
@@ -70,7 +70,7 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    *
    * @return the unsubscribed
    */
-  public List<EmailAttributesResponseUnsubscribedItem> getUnsubscribed() {
+  public List<SMSAttributesResponseUnsubscribedItem> getUnsubscribed() {
     return this.unsubscribed;
   }
 
@@ -81,7 +81,7 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    *
    * @return the invited
    */
-  public List<EmailAttributesResponseInvitedItem> getInvited() {
+  public List<SMSAttributesResponseInvitedItem> getInvited() {
     return this.invited;
   }
 
