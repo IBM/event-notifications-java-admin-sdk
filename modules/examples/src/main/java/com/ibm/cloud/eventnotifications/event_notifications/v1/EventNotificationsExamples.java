@@ -351,7 +351,7 @@ public class EventNotificationsExamples {
 
       String cfName = "Cloud_Function_destination";
       String cfDescription = "Cloud Fun. Destination";
-      String cfTypeval= "ibmcf";
+      String cfTypeval = "ibmcf";
 
       CreateDestinationOptions createCFDestinationOptions = new CreateDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -474,7 +474,7 @@ public class EventNotificationsExamples {
 
       System.out.println(destination);
 
-      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig= new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
               .url("https://www.ibmcfendpoint.com/")
               .apiKey("asdasldjdksdaowidjoaisjd8o9")
               .build();
@@ -485,7 +485,6 @@ public class EventNotificationsExamples {
 
       String cfName = "Cloud_Function_destination";
       String cfDescription = "Cloud Fun. Destination";
-      String cfTypeval= "ibmcf";
 
       UpdateDestinationOptions updateCFDestinationOptions = new UpdateDestinationOptions.Builder()
               .instanceId(instanceId)
