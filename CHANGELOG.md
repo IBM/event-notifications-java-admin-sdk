@@ -1,3 +1,10 @@
+## [0.1.5](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.4...0.1.5) (2022-08-30)
+
+
+### Bug Fixes
+
+* add cloud functions destination support update readme ([61d6cbc](https://github.com/IBM/event-notifications-java-admin-sdk/commit/61d6cbc0567f8621b36ef3acce9eeefd63b9ba7d))
+
 ## [0.1.4](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.3...0.1.4) (2022-08-11)
 
 
