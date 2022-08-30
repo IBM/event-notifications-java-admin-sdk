@@ -13,13 +13,9 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseInvitedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseToItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseUnsubscribedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -27,16 +23,24 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the SubscriptionAttributes model.
+ * Unit test class for the SMSupdateAttributesTo model.
  */
-public class SubscriptionAttributesTest {
+public class SMSupdateAttributesToTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
-  // TODO: Add tests for models that are abstract
   @Test
-  public void testSubscriptionAttributes() throws Throwable {
-    SubscriptionAttributes subscriptionAttributesModel = new SubscriptionAttributes();
-    assertNotNull(subscriptionAttributesModel);
+  public void testSMSupdateAttributesTo() throws Throwable {
+    SMSupdateAttributesTo smSupdateAttributesToModel = new SMSupdateAttributesTo.Builder()
+      .add(java.util.Arrays.asList("testString"))
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+    assertEquals(smSupdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
+    assertEquals(smSupdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
+
+    String json = TestUtilities.serialize(smSupdateAttributesToModel);
+
+    SMSupdateAttributesTo smSupdateAttributesToModelNew = TestUtilities.deserialize(json, SMSupdateAttributesTo.class);
+    assertTrue(smSupdateAttributesToModelNew instanceof SMSupdateAttributesTo);
   }
 }

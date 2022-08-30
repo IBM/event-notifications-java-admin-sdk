@@ -24,7 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Destination extends GenericModel {
 
   /**
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams.
+   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/IBMCloudFunctions.
    */
   public interface Type {
     /** webhook. */
@@ -39,6 +39,8 @@ public class Destination extends GenericModel {
     String PUSH_IOS = "push_ios";
     /** slack. */
     String SLACK = "slack";
+    /** ibmcf. */
+    String IBMCF = "ibmcf";
     /** push_safari. */
     String PUSH_SAFARI = "push_safari";
     /** msteams. */
@@ -93,7 +95,7 @@ public class Destination extends GenericModel {
   /**
    * Gets the type.
    *
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams.
+   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/IBMCloudFunctions.
    *
    * @return the type
    */

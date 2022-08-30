@@ -21,14 +21,14 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * SubscriptionUpdateAttributes.
  *
  * Classes which extend this class:
- * - SubscriptionUpdateAttributesSMSAttributes
+ * - SubscriptionUpdateAttributesSMSUpdateAttributes
  * - SubscriptionUpdateAttributesEmailUpdateAttributes
  * - SubscriptionUpdateAttributesWebhookAttributes
  * - SubscriptionUpdateAttributesSlackAttributes
  */
 public class SubscriptionUpdateAttributes extends GenericModel {
 
-  protected List<String> to;
+  protected SMSupdateAttributesTo to;
   protected EmailUpdateAttributesTo toEmail;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
@@ -55,7 +55,7 @@ public class SubscriptionUpdateAttributes extends GenericModel {
    *
    * @return the to
    */
-  public List<String> to() {
+  public SMSupdateAttributesTo to() {
     return to;
   }
 

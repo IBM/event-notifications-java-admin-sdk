@@ -41,6 +41,8 @@ public class Subscription extends DynamicModel<Object> {
     String PUSH_FIREFOX = "push_firefox";
     /** slack. */
     String SLACK = "slack";
+    /** ibmcf. */
+    String IBMCF = "ibmcf";
     /** push_safari. */
     String PUSH_SAFARI = "push_safari";
     /** msteams. */

@@ -30,6 +30,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsChromeDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFirefoxDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIBMCloudFunctionsDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsMSTeamsDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsSafariDestinationConfig;
@@ -61,6 +62,10 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseInvitedItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseToItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseUnsubscribedItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
@@ -84,7 +89,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSlackAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
@@ -1475,7 +1480,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testCreateSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {}}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"to\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}]}}";
     String createSubscriptionPath = "/v1/instances/testString/subscriptions";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1593,7 +1598,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testGetSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {}}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"to\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}]}}";
     String getSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1696,16 +1701,22 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testUpdateSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {}}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"to\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}]}}";
     String updateSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the SubscriptionUpdateAttributesSMSAttributes model
-    SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
-      .to(java.util.Arrays.asList("testString"))
+    // Construct an instance of the SMSupdateAttributesTo model
+    SMSupdateAttributesTo smSupdateAttributesToModel = new SMSupdateAttributesTo.Builder()
+      .add(java.util.Arrays.asList("testString"))
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+
+    // Construct an instance of the SubscriptionUpdateAttributesSMSUpdateAttributes model
+    SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
+      .to(smSupdateAttributesToModel)
       .build();
 
     // Construct an instance of the UpdateSubscriptionOptions model

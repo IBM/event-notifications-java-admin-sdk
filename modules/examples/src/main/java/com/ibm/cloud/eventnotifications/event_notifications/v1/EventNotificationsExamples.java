@@ -49,6 +49,7 @@ public class EventNotificationsExamples {
   public static String topicId = "";
   public static String destinationId = "";
   public static String destinationId5 = "";
+  public static String destinationId7 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static Map<String, String> config = null;
@@ -300,7 +301,6 @@ public class EventNotificationsExamples {
       DestinationResponse destinationResponse = fcmResponse.getResult();
 
       System.out.println(destinationResponse);
-      // end-create_destination
       destinationId = destinationResponse.getId();
 
       DestinationConfigParamsSafariDestinationConfig safariDestinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
@@ -338,8 +338,37 @@ public class EventNotificationsExamples {
       destinationResponse = safariResponse.getResult();
 
       System.out.println(destinationResponse);
-      // end-create_destination
       destinationId5 = destinationResponse.getId();
+
+      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cfConfig = new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+              .url("https://www.ibmcfendpoint.com/")
+              .apiKey("adhakjsdasdoioweqiowe9")
+              .build();
+
+      DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
+              .params(cfConfig)
+              .build();
+
+      String cfName = "Cloud_Function_destination";
+      String cfDescription = "Cloud Fun. Destination";
+      String cfTypeval = "ibmcf";
+
+      CreateDestinationOptions createCFDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(cfName)
+              .type(cfTypeval)
+              .description(cfDescription)
+              .config(destinationCFConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> cfResponse = eventNotificationsService.createDestination(createCFDestinationOptions).execute();
+
+      DestinationResponse cfdestinationResponse = cfResponse.getResult();
+
+      System.out.println(cfdestinationResponse);
+      // end-create_destination
+      destinationId7 = cfdestinationResponse.getId();
 
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -442,6 +471,32 @@ public class EventNotificationsExamples {
       // Invoke operation
       Response<Destination> safariResponse = eventNotificationsService.updateDestination(updateSafariDestinationOptions).execute();
       destination = safariResponse.getResult();
+
+      System.out.println(destination);
+
+      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+              .url("https://www.ibmcfendpoint.com/")
+              .apiKey("asdasldjdksdaowidjoaisjd8o9")
+              .build();
+
+      DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
+              .params(cloudFunctionsDestinationConfig)
+              .build();
+
+      String cfName = "Cloud_Function_destination";
+      String cfDescription = "Cloud Fun. Destination";
+
+      UpdateDestinationOptions updateCFDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId7)
+              .name(cfName)
+              .description(cfDescription)
+              .config(destinationCFConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> cloudFunctionsResponse = eventNotificationsService.updateDestination(updateCFDestinationOptions).execute();
+      destination = cloudFunctionsResponse.getResult();
 
       System.out.println(destination);
       // end-update_destination
@@ -613,7 +668,6 @@ public class EventNotificationsExamples {
               .build();
 
       Response<Void> response = eventNotificationsService.deleteDestination(deleteDestinationOptions).execute();
-      // end-delete_destination
       System.out.printf("deleteDestination() response status code: %d%n", response.getStatusCode());
 
       DeleteDestinationOptions deleteSafariOptions = new DeleteDestinationOptions.Builder()
@@ -622,8 +676,16 @@ public class EventNotificationsExamples {
               .build();
 
       Response<Void> safariResponse = eventNotificationsService.deleteDestination(deleteSafariOptions).execute();
-      // end-delete_destination
       System.out.printf("deleteDestination() response status code: %d%n", safariResponse.getStatusCode());
+
+      DeleteDestinationOptions deleteCFOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId7)
+              .build();
+
+      Response<Void> cfResponse = eventNotificationsService.deleteDestination(deleteCFOptions).execute();
+      // end-delete_destination
+      System.out.printf("deleteDestination() response status code: %d%n", cfResponse.getStatusCode());
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

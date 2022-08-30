@@ -315,6 +315,10 @@ DestinationResponse destinationResponse = response.getResult();
 System.out.println(destinationResponse);
 ```
 
+Among the supported destinations, if you need to create Push Notification destinations, you have the additional option of choosing a destination of production type or pre-production type.
+Set `pre_prod` boolean parameter to *true* to configure destination as pre-production destination else set the value as *false*.
+Supported destinations are Android, iOS, Chrome, Firefox, and Safari.
+
 ### List Destinations
 
 ```java
@@ -530,38 +534,42 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
       List<String> devicePlatforms = new ArrayList<String>();
       devicePlatforms.add(<device-platforms>);
 
-      String notificationDevices =  "{\"user_ids\": [\"userId\"]}";
-      String fcmJsonString = "{ 'title' : '<notification-title>', 'badge': '<notification-message>' }";
-      String apnsJsonString = "{'alert': '<notification-message>', 'badge': 5 }";
-      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
-      JsonObject apnsJsonObject = JsonParser.parseString(apnsJsonString).getAsJsonObject();
+        String notificationDevices = "{\"user_ids\": [\"userId\"]}";
+        String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
+        String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+        String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
-      Map<String, Object> messageApnsHeader = new java.util.HashMap<String, Object>() { { put("apns-collapse-id", "<apns-apns-collapse-id-value>"); } };
+        NotificationCreate body = new NotificationCreate.Builder()
+        .id(InstanceID)
+        .ibmenseverity("<notification-severity>")
+        .id("<notification-id>")
+        .source("<source-id>")
+        .ibmensourceid("<source-id>")
+        .type("<notification-type>")
+        .time(new java.util.Date())
+        .ibmenpushto(notificationDevices)
+        .ibmenfcmbody(fcmJsonString)
+        .ibmenapnsbody(apnsJsonString)
+        .ibmensafaribody(safariJsonString)
+        .ibmendefaultshort("<short-Info>")
+        .ibmendefaultlong("<long-Info>")
+        .specversion("1.0")
+        .build();
 
-      SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
-              .instanceId(instanceId)
-              .ceIbmenseverity("<notification-severity>")
-              .ceId("<notification-id>")
-              .ceSource(sourceId)
-              .ceIbmensourceid(sourceId)
-              .ceType("<notification-type>")
-              .ceTime(new java.util.Date())
-              .ceIbmenpushto(notificationDevices)
-              .ceIbmenfcmbody(fcmJsonString)
-              .ceIbmenapnsbody(apnsJsonString)
-              .ceIbmensafaribody(safariJsonString)
-              .ceIbmenapnsheaders(messageApnsHeader)
-              .ceSpecversion("1.0")
-              .build();
+        SendNotificationsOptions sendNotificationsOptions = new SendNotificationsOptions.Builder()
+        .instanceId(instanceId)
+        .body(body)
+        .build();
+
+        Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
+        NotificationResponse notificationResponse = response.getResult();
       
-        Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
-      NotificationResponse notificationResponse = response.getResult();```
 ```
 <details open>
 <summary>Send Notifications Variables</summary>
 <br>
 
-- **CeIbmenpushto** - Set up the push notifications targets.
+- **ibmenpushto** - Set up the push notifications targets.
   - *fcm_devices* (Array of **String**) - Send notification to the list of specified Android devices.
   - *fcm_devices* (Array of **String**) - Send notification to the list of specified iOS devices.
   - *_devices* (Array of **String**) - Send notification to the list of specified Chrome devices.
@@ -574,22 +582,24 @@ Response<Void> response = eventNotificationsService.deleteSubscription(deleteSub
     - Pass 'WEB_CHROME' for Chrome browser.
 **Event Notifications SendNotificationsOptions** - Event Notifications Send Notifications method.
   - *InstanceID* (**String**) - Event Notifications instance AppGUID.
-  - *ceIbmenseverity* (**String**) - Severity for the notifications. Some sources can have the concept of an Event severity. Hence a handy way is provided to specify a severity of the event.
-  - *ceID* (**String**) - A unique identifier that identifies each event. source+id must be unique. The backend should be able to uniquely track this id in logs and other records. Send unique ID for each send notification. Same ID can be sent in case of failure of send notification. source+id will be logged in IBM Cloud Logging service. Using this combination we will be able to trace the event movement from one system to another and will aid in debugging and tracing.
-  - *ceSource* (**String**) - This is the identifier of the event producer. A way to uniquely identify the source of the event. For IBM Cloud services this is the crn of the service instance producing the events. For API sources this can be something the event producer backend can uniquely identify itself with.
-  - *ceIbmensourceid* (**String**) - This is the ID of the source created in EN. This is available in the EN UI in the "Sources" section.
-  - *ceType* (**String**) - This describes the type of event. It is of the form <event-type-name>:<sub-type> This type is defined by the producer. The event type name has to be prefixed with the reverse DNS names so the event type is uniquely identified. The same event type can be produced by 2 different sources. It is highly recommended to use hyphen - as a separator instead of _.
-  - *ceTime* (**String**) - Time of the notifications. UTC time stamp when the event occurred. Must be in the RFC 3339 format.
-  - *ceIbmenpushto* (**string**) - Targets for the FCM notifications. This contains details about the destination where you want to send push notification. This attribute is mandatory for successful delivery from an Android FCM or APNS destination
-  - *ceIbmenfcmbody* (**string**) - Set payload string specific to Android platform [Refer this FCM official [link](https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support)].
-  - *ceIbmenapnsbody* (**string**) - Set payload string specific to iOS platform [Refer this APNs official doc [link](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)].
-  - *ceIbmenapnsheaders* (**string**) - Set headers required for the APNs message [Refer this APNs official [link](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns)(Table 1 Header fields for a POST request)]
-  - *ceIbmenchromebody* (**string**) - Message body for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
-  - *ceIbmenfirefoxbody* (**string**) - Message body for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
-  - *ceIbmensafaribody* (**string**) - Set payload string specific to safari notifications [Refer this Safari official doc [link](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)].
-  - *ceIbmenchromeheaders* (**string**) - Headers for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
-  - *ceIbmenfirefoxheaders* (**string**) - Headers for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
-  - *ceSpecversion* (**String**) - Spec version of the Event Notifications. Default value is `1.0`.
+  - *ibmenseverity* (**String**) - Severity for the notifications. Some sources can have the concept of an Event severity. Hence a handy way is provided to specify a severity of the event.
+  - *id* (**String**) - A unique identifier that identifies each event. source+id must be unique. The backend should be able to uniquely track this id in logs and other records. Send unique ID for each send notification. Same ID can be sent in case of failure of send notification. source+id will be logged in IBM Cloud Logging service. Using this combination we will be able to trace the event movement from one system to another and will aid in debugging and tracing.
+  - *source* (**String**) - This is the identifier of the event producer. A way to uniquely identify the source of the event. For IBM Cloud services this is the crn of the service instance producing the events. For API sources this can be something the event producer backend can uniquely identify itself with.
+  - *ibmensourceid* (**String**) - This is the ID of the source created in EN. This is available in the EN UI in the "Sources" section.
+  - *type* (**String**) - This describes the type of event. It is of the form <event-type-name>:<sub-type> This type is defined by the producer. The event type name has to be prefixed with the reverse DNS names so the event type is uniquely identified. The same event type can be produced by 2 different sources. It is highly recommended to use hyphen - as a separator instead of _.
+  - *time* (**String**) - Time of the notifications. UTC time stamp when the event occurred. Must be in the RFC 3339 format.
+  - *ibmenpushto* (**string**) - Targets for the FCM notifications. This contains details about the destination where you want to send push notification. This attribute is mandatory for successful delivery from an Android FCM or APNS destination
+  - *ibmenfcmbody* (**string**) - Set payload string specific to Android platform [Refer this FCM official [link](https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support)].
+  - *ibmenapnsbody* (**string**) - Set payload string specific to iOS platform [Refer this APNs official doc [link](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)].
+  - *ibmenapnsheaders* (**string**) - Set headers required for the APNs message [Refer this APNs official [link](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns)(Table 1 Header fields for a POST request)]
+  - *ibmenchromebody* (**string**) - Message body for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
+  - *ibmenfirefoxbody* (**string**) - Message body for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
+  - *ibmensafaribody* (**string**) - Set payload string specific to safari notifications [Refer this Safari official doc [link](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html)].
+  - *ibmenchromeheaders* (**string**) - Headers for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
+  - *ibmenfirefoxheaders* (**string**) - Headers for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
+  - *ibmendefaultshort* (**string**) - Default short text for the message.
+  - *ibmendefaultlong* (**string**) - Default long text for the message.
+  - *specversion* (**String**) - Spec version of the Event Notifications. Default value is `1.0`.
 
 </details>
 

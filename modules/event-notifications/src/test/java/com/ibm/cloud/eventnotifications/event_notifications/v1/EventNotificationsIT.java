@@ -54,6 +54,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String safariCertificatePath = "";
   public static String destinationId5 = "";
   public static String destinationId6 = "";
+  public static String destinationId7 = "";
   public static String subscriptionId = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
@@ -540,6 +541,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       DestinationConfigParamsFCMDestinationConfig fcmConfig = new DestinationConfigParamsFCMDestinationConfig.Builder()
               .senderId(fcmSenderId)
               .serverKey(fcmServerKey)
+              .preProd(false)
               .build();
 
       DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
@@ -684,6 +686,43 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(msTeamsDestinationResponseResult.getType(), msTeamsTypeVal);
 
       destinationId6 = msTeamsDestinationResponseResult.getId();
+
+      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+              .url("https://www.ibmcfendpoint.com/")
+              .apiKey("qwellqwlaskasddasdla")
+              .build();
+
+      DestinationConfig cloudDestinationConfigModel = new DestinationConfig.Builder()
+              .params(cloudFunctionsDestinationConfig)
+              .build();
+
+      String cloudFunctionName = "Cloud_Functions_destination";
+      String cloudfunctionTypeVal = "ibmcf";
+      String cloudFunctionsDescription = "Cloud Functions Destination";
+
+      CreateDestinationOptions createCloudFunctionsDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(cloudFunctionName)
+              .type(cloudfunctionTypeVal)
+              .description(cloudFunctionsDescription)
+              .config(cloudDestinationConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> cloudFunctionsResponse = service.createDestination(createCloudFunctionsDestinationOptions).execute();
+      // Validate response
+      assertNotNull(cloudFunctionsResponse);
+      assertEquals(cloudFunctionsResponse.getStatusCode(), 201);
+
+      DestinationResponse cloudfunctionsDestinationResponseResult = cloudFunctionsResponse.getResult();
+
+      assertNotNull(cloudfunctionsDestinationResponseResult);
+      assertEquals(cloudfunctionsDestinationResponseResult.getDescription(), cloudFunctionsDescription);
+      assertEquals(cloudfunctionsDestinationResponseResult.getName(), cloudFunctionName);
+      assertEquals(cloudfunctionsDestinationResponseResult.getType(), cloudfunctionTypeVal);
+
+      destinationId7 = cloudfunctionsDestinationResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -938,6 +977,41 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(safariDestinationResult.getId(), destinationId5);
       assertEquals(safariDestinationResult.getDescription(), description);
       assertEquals(safariDestinationResult.getName(), name);
+
+      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig= new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+              .url("https://www.ibmcfendpoint.com/")
+              .apiKey("HzE55cF87iApSKJ4I4FQhOa4mAqYG1NMDmZ888")
+              .build();
+
+      DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
+              .params(cloudFunctionsDestinationConfig)
+              .build();
+
+      String cfName = "Cloud_Function_destination";
+      String cfDescription = "Cloud Fun. Destination";
+      String cfTypeval= "ibmcf";
+
+      UpdateDestinationOptions updateCFDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId7)
+              .name(cfName)
+              .description(cfDescription)
+              .config(destinationCFConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> cloudFunctionsResponse = service.updateDestination(updateCFDestinationOptions).execute();
+      // Validate response
+      assertNotNull(cloudFunctionsResponse);
+      assertEquals(cloudFunctionsResponse.getStatusCode(), 200);
+
+      Destination cloudFunctionsDestinationResponseResult = cloudFunctionsResponse.getResult();
+
+      assertNotNull(cloudFunctionsDestinationResponseResult);
+      assertEquals(cloudFunctionsDestinationResponseResult.getDescription(), cfDescription);
+      assertEquals(cloudFunctionsDestinationResponseResult.getName(), cfName);
+      assertEquals(cloudFunctionsDestinationResponseResult.getType(), cfTypeval);
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1422,6 +1496,17 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       deleteDestinationOptions = new DeleteDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId3)
+              .build();
+
+      // Invoke operation
+      response = service.deleteDestination(deleteDestinationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 204);
+
+      deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId7)
               .build();
 
       // Invoke operation
