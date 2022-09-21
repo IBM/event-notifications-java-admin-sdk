@@ -79,12 +79,23 @@ EventNotifications eventNotificationsService = EventNotifications.newInstance();
 eventNotificationsService.setServiceUrl("https://" + region + ".event-notifications.cloud.ibm.com/event-notifications");
 
 ```
-To configure service URL for Private Endpoint
+**To configure service URL for Private Endpoint**
 
+If you enabled service endpoints in your account, you can send API requests over the IBM Cloud private network. In the initialisation, the base endpoint URLs of the IAM(authenticator) & Event Notification(service) should be modified to point to private endpoints.
+1) Setting client options programmatically
 ```java
+Authenticator authenticator = new IamAuthenticator.Builder()
+        .apikey("<iam-api-key>")
+        .url("https://private.iam.cloud.ibm.com")
+        .build();
+
+EventNotifications eventNotificationsService = EventNotifications.newInstance();
 eventNotificationsService.setServiceUrl("https://private." + region + ".event-notifications.cloud.ibm.com/event-notifications");
 ```
-
+2) Using external configuration properties
+```java
+   EVENT_NOTIFICATIONS_AUTH_URL = https://private.iam.cloud.ibm.com/identity/token
+```        
 - region : Region of the Event Notifications Instance
 
 ## Using the SDK
