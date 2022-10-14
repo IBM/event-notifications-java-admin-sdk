@@ -731,8 +731,7 @@ public class EventNotificationsExamples {
       List<String> subscriptions = new ArrayList<>();
       subscriptions.add(subscriptionId2);
 
-      for (String subscription :
-              subscriptions) {
+      for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
                 .instanceId(instanceId)
                 .id(subscription)
@@ -778,8 +777,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId5);
       destinations.add(destinationId7);
 
-      for (String destination :
-              destinations) {
+      for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
                 .instanceId(instanceId)
                 .id(destination)
