@@ -15,6 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -39,21 +40,23 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributesTest {
     assertEquals(smSupdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
     assertEquals(smSupdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
 
+    UpdateAttributesUnsubscribed updateAttributesUnsubscribedModel = new UpdateAttributesUnsubscribed.Builder()
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+    assertEquals(updateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
+
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
       .to(smSupdateAttributesToModel)
+      .unsubscribed(updateAttributesUnsubscribedModel)
       .build();
     assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.to(), smSupdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.unsubscribed(), updateAttributesUnsubscribedModel);
 
     String json = TestUtilities.serialize(subscriptionUpdateAttributesSmsUpdateAttributesModel);
 
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributesModelNew = TestUtilities.deserialize(json, SubscriptionUpdateAttributesSMSUpdateAttributes.class);
     assertTrue(subscriptionUpdateAttributesSmsUpdateAttributesModelNew instanceof SubscriptionUpdateAttributesSMSUpdateAttributes);
     assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.to().toString(), smSupdateAttributesToModel.toString());
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.unsubscribed().toString(), updateAttributesUnsubscribedModel.toString());
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testSubscriptionUpdateAttributesSMSUpdateAttributesError() throws Throwable {
-    new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder().build();
-  }
-
 }

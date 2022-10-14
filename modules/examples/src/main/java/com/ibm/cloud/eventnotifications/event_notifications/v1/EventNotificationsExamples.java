@@ -17,10 +17,11 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.*;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,10 +49,12 @@ public class EventNotificationsExamples {
   public static String sourceId = "";
   public static String topicId = "";
   public static String destinationId = "";
+  public static String destinationId2 = "";
   public static String destinationId5 = "";
   public static String destinationId7 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
+  public static String subscriptionId2 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -175,7 +178,7 @@ public class EventNotificationsExamples {
               .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
               .build();
 
-      TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
+      SourcesItems topicUpdateSourcesItemModel = new SourcesItems.Builder()
               .id(sourceId)
               .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
               .build();
@@ -185,7 +188,7 @@ public class EventNotificationsExamples {
               .instanceId(instanceId)
               .name(topicName)
               .description("This topic is used for routing all compliance related notifications to the appropriate destinations")
-              .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
+              .sources(new java.util.ArrayList<SourcesItems>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
               .build();
 
       Response<TopicResponse> response = eventNotificationsService.createTopic(createTopicOptions).execute();
@@ -244,7 +247,7 @@ public class EventNotificationsExamples {
               .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
               .build();
 
-      TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
+      SourcesItems topicUpdateSourcesItemModel = new SourcesItems.Builder()
               .id(sourceId)
               .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesModel)))
               .build();
@@ -257,7 +260,7 @@ public class EventNotificationsExamples {
               .id(topicId)
               .name(name)
               .description(description)
-              .sources(new java.util.ArrayList<TopicUpdateSourcesItem>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
+              .sources(new java.util.ArrayList<SourcesItems>(java.util.Arrays.asList(topicUpdateSourcesItemModel)))
               .build();
 
       Response<Topic> response = eventNotificationsService.replaceTopic(replaceTopicOptions).execute();
@@ -274,7 +277,7 @@ public class EventNotificationsExamples {
       System.out.println("createDestination() result:");
       // begin-create_destination
 
-      DestinationConfigParamsFCMDestinationConfig fcmConfig = new DestinationConfigParamsFCMDestinationConfig.Builder()
+      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
               .senderId(fcmSenderId)
               .serverKey(fcmServerKey)
               .build();
@@ -303,7 +306,7 @@ public class EventNotificationsExamples {
       System.out.println(destinationResponse);
       destinationId = destinationResponse.getId();
 
-      DestinationConfigParamsSafariDestinationConfig safariDestinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+      DestinationConfigOneOfSafariDestinationConfig safariDestinationConfig = new DestinationConfigOneOfSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .websiteUrl("https://ensafaripush.mybluemix.net")
@@ -340,7 +343,7 @@ public class EventNotificationsExamples {
       System.out.println(destinationResponse);
       destinationId5 = destinationResponse.getId();
 
-      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cfConfig = new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+      DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cfConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
               .url("https://www.ibmcfendpoint.com/")
               .apiKey("adhakjsdasdoioweqiowe9")
               .build();
@@ -384,9 +387,17 @@ public class EventNotificationsExamples {
 
       Response<DestinationList> response = eventNotificationsService.listDestinations(listDestinationsOptions).execute();
       DestinationList destinationList = response.getResult();
+      // end-list_destinations
+      List<DestinationListItem> destinations = destinationList.getDestinations();
+
+      for (int i = 0; i < destinations.size(); i++) {
+        DestinationListItem destination = destinations.get(i);
+        if (destination.getId() != destinationId && destination.getType().equals("smtp_ibm")) {
+          destinationId2 = destination.getId();
+        }
+      }
 
       System.out.println(destinationList);
-      // end-list_destinations
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -414,7 +425,7 @@ public class EventNotificationsExamples {
       System.out.println("updateDestination() result:");
       // begin-update_destination
 
-      DestinationConfigParamsFCMDestinationConfig fcmConfig = new DestinationConfigParamsFCMDestinationConfig.Builder()
+      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
               .senderId(fcmSenderId)
               .serverKey(fcmServerKey)
               .build();
@@ -439,7 +450,7 @@ public class EventNotificationsExamples {
 
       System.out.println(destination);
 
-      DestinationConfigParamsSafariDestinationConfig destinationConfig = new DestinationConfigParamsSafariDestinationConfig.Builder()
+      DestinationConfigOneOfSafariDestinationConfig destinationConfig = new DestinationConfigOneOfSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
               .urlFormatString("https://ensafaripush.mybluemix.net/%@/?flight=%@")
@@ -474,7 +485,7 @@ public class EventNotificationsExamples {
 
       System.out.println(destination);
 
-      DestinationConfigParamsIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigParamsIBMCloudFunctionsDestinationConfig.Builder()
+      DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
               .url("https://www.ibmcfendpoint.com/")
               .apiKey("asdasldjdksdaowidjoaisjd8o9")
               .build();
@@ -526,6 +537,35 @@ public class EventNotificationsExamples {
       System.out.println(subscription);
       // end-create_subscription
       subscriptionId = subscription.getId();
+
+      ArrayList<String> toMail = new ArrayList<String>();
+      toMail.add("tester1@gmail.com");
+      toMail.add("tester3@ibm.com");
+      SubscriptionCreateAttributesEmailAttributes subscriptionCreateEmailAttributesModel = new SubscriptionCreateAttributesEmailAttributes.Builder()
+              .invited(toMail)
+              .addNotificationPayload(true)
+              .replyToMail("reply_to_mail@us.com")
+              .replyToName("US News")
+              .fromName("IBM")
+              .build();
+
+      name = "subscription_web_2";
+      description = "Subscription 2 for web";
+
+      createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .destinationId(destinationId2)
+              .topicId(topicId)
+              .attributes(subscriptionCreateEmailAttributesModel)
+              .description(description)
+              .build();
+
+      response = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
+
+      subscription = response.getResult();
+      System.out.println(subscription);
+      subscriptionId2 = subscription.getId();
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -584,6 +624,53 @@ public class EventNotificationsExamples {
       Subscription subscription = response.getResult();
 
       System.out.println(subscription);
+
+      ArrayList<String> toRemove = new ArrayList<String>();
+      toRemove.add("tester3@ibm.com");
+
+      ArrayList<String> toInvite = new ArrayList<String>();
+      toInvite.add("tester4@ibm.com");
+
+      UpdateAttributesSubscribed subscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed unSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toRemove)
+              .build();
+
+      UpdateAttributesInvited invited = new UpdateAttributesInvited.Builder()
+              .add(toInvite)
+              .build();
+
+      SubscriptionUpdateAttributesEmailUpdateAttributes subscriptionUpdateEmailAttributesModel = new SubscriptionUpdateAttributesEmailUpdateAttributes.Builder()
+              .addNotificationPayload(true)
+              .invited(invited)
+              .replyToMail("reply_to_mail@us.com")
+              .replyToName("US News")
+              .fromName("IBM")
+              .subscribed(subscribed)
+              .unsubscribed(unSubscribed)
+              .build();
+
+      name = "email subscription";
+      description = "subscription_update for email";
+
+      updateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .id(subscriptionId2)
+              .attributes(subscriptionUpdateEmailAttributesModel)
+              .description(description)
+              .build();
+
+      response = eventNotificationsService.updateSubscription(updateSubscriptionOptions).execute();
+      subscription = response.getResult();
+
+      System.out.println(subscription);
+
+      subscriptionId2 = subscription.getId();
+
       // end-update_subscription
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -640,6 +727,21 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSubscription(deleteSubscriptionOptions).execute();
       // end-delete_subscription
       System.out.printf("deleteSubscription() response status code: %d%n", response.getStatusCode());
+
+      List<String> subscriptions = new ArrayList<>();
+      subscriptions.add(subscriptionId2);
+
+      for (String subscription :
+              subscriptions) {
+        deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
+                .instanceId(instanceId)
+                .id(subscription)
+                .build();
+
+        // Invoke operation
+        response = eventNotificationsService.deleteSubscription(deleteSubscriptionOptions).execute();
+        System.out.printf("deleteSubscription() response status code: %d%n", response.getStatusCode());
+      }
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -668,24 +770,26 @@ public class EventNotificationsExamples {
               .build();
 
       Response<Void> response = eventNotificationsService.deleteDestination(deleteDestinationOptions).execute();
+      // end-delete_destination
       System.out.printf("deleteDestination() response status code: %d%n", response.getStatusCode());
 
-      DeleteDestinationOptions deleteSafariOptions = new DeleteDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId5)
-              .build();
 
-      Response<Void> safariResponse = eventNotificationsService.deleteDestination(deleteSafariOptions).execute();
-      System.out.printf("deleteDestination() response status code: %d%n", safariResponse.getStatusCode());
+      List<String> destinations = new ArrayList<>();
+      destinations.add(destinationId5);
+      destinations.add(destinationId7);
 
-      DeleteDestinationOptions deleteCFOptions = new DeleteDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId7)
-              .build();
+      for (String destination :
+              destinations) {
+        deleteDestinationOptions = new DeleteDestinationOptions.Builder()
+                .instanceId(instanceId)
+                .id(destination)
+                .build();
 
-      Response<Void> cfResponse = eventNotificationsService.deleteDestination(deleteCFOptions).execute();
-      // end-delete_destination
-      System.out.printf("deleteDestination() response status code: %d%n", cfResponse.getStatusCode());
+        // Invoke operation
+        response = eventNotificationsService.deleteDestination(deleteDestinationOptions).execute();
+        System.out.printf("deleteDestination() response status code: %d%n", response.getStatusCode());
+      }
+
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

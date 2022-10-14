@@ -29,7 +29,7 @@ public class Topic extends GenericModel {
   protected String updatedAt;
   @SerializedName("source_count")
   protected Long sourceCount;
-  protected List<SourcesListItem> sources;
+  protected List<SourcesListItems> sources;
   @SerializedName("subscription_count")
   protected Long subscriptionCount;
   protected List<SubscriptionListItem> subscriptions;
@@ -96,7 +96,7 @@ public class Topic extends GenericModel {
    *
    * @return the sources
    */
-  public List<SourcesListItem> getSources() {
+  public List<SourcesListItems> getSources() {
     return sources;
   }
 

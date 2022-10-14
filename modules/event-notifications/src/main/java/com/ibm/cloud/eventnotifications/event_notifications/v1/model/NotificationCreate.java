@@ -134,12 +134,18 @@ public class NotificationCreate extends DynamicModel<Object> {
      * Instantiates a new builder with required properties.
      *
      * @param specversion the specversion
+     * @param id the id
+     * @param source the source
+     * @param type the type
      * @param ibmensourceid the ibmensourceid
      * @param ibmendefaultshort the ibmendefaultshort
      * @param ibmendefaultlong the ibmendefaultlong
      */
-    public Builder(String specversion, String ibmensourceid, String ibmendefaultshort, String ibmendefaultlong) {
+    public Builder(String specversion, String id, String source, String type, String ibmensourceid, String ibmendefaultshort, String ibmendefaultlong) {
       this.specversion = specversion;
+      this.id = id;
+      this.source = source;
+      this.type = type;
       this.ibmensourceid = ibmensourceid;
       this.ibmendefaultshort = ibmendefaultshort;
       this.ibmendefaultlong = ibmendefaultlong;
@@ -406,6 +412,12 @@ public class NotificationCreate extends DynamicModel<Object> {
     super(new TypeToken<Object>() { });
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.specversion,
       "specversion cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.id,
+      "id cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.source,
+      "source cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
+      "type cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmensourceid,
       "ibmensourceid cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ibmendefaultshort,
@@ -689,7 +701,7 @@ public class NotificationCreate extends DynamicModel<Object> {
    * Gets the ibmenpushto.
    *
    * If platforms or tags or user_ids is used then do not use fcm_devices / apns_devices / chrome_devices /
-   * firefox_devices / safari_devices with it. Value should be stringified json.
+   * firefox_devices / safari_devices with it. Value should be stringified.
    *
    * @return the ibmenpushto
    */
@@ -709,7 +721,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenfcmbody.
    *
-   * Payload describing a notification FCM body. Value should be stringified json.
+   * Payload describing a notification FCM body. Value should be stringified.
    *
    * @return the ibmenfcmbody
    */
@@ -729,7 +741,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenapnsbody.
    *
-   * Payload describing a notification APNs body. Value should be stringified json.
+   * Payload describing a notification APNs body. Value should be stringified.
    *
    * @return the ibmenapnsbody
    */
@@ -749,7 +761,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenapnsheaders.
    *
-   * Headers for iOS notification. Value should be stringified json.
+   * Headers for iOS notification. Value should be stringified.
    *
    * @return the ibmenapnsheaders
    */
@@ -769,7 +781,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenchromebody.
    *
-   * Notification payload for Chrome. Value should be stringified json.
+   * Notification payload for Chrome. Value should be stringified.
    *
    * @return the ibmenchromebody
    */
@@ -789,7 +801,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenchromeheaders.
    *
-   * Headers for a Chrome notification. Value should be stringified json.
+   * Headers for a Chrome notification. Value should be stringified.
    *
    * @return the ibmenchromeheaders
    */
@@ -809,7 +821,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenfirefoxbody.
    *
-   * Notification payload for Firefox. Value should be stringified json.
+   * Notification payload for Firefox. Value should be stringified.
    *
    * @return the ibmenfirefoxbody
    */
@@ -829,7 +841,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenfirefoxheaders.
    *
-   * Headers for a Firefox notification. Value should be stringified json.
+   * Headers for a Firefox notification. Value should be stringified.
    *
    * @return the ibmenfirefoxheaders
    */
@@ -849,7 +861,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmensafaribody.
    *
-   * Payload describing a notification Safari body. Value should be stringified json.
+   * Payload describing a notification Safari body. Value should be stringified.
    *
    * @return the ibmensafaribody
    */

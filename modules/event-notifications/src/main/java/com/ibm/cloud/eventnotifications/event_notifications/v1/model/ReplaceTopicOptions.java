@@ -26,7 +26,7 @@ public class ReplaceTopicOptions extends GenericModel {
   protected String id;
   protected String name;
   protected String description;
-  protected List<TopicUpdateSourcesItem> sources;
+  protected List<SourcesItems> sources;
 
   /**
    * Builder.
@@ -36,7 +36,7 @@ public class ReplaceTopicOptions extends GenericModel {
     private String id;
     private String name;
     private String description;
-    private List<TopicUpdateSourcesItem> sources;
+    private List<SourcesItems> sources;
 
     private Builder(ReplaceTopicOptions replaceTopicOptions) {
       this.instanceId = replaceTopicOptions.instanceId;
@@ -78,11 +78,11 @@ public class ReplaceTopicOptions extends GenericModel {
      * @param sources the new sources
      * @return the ReplaceTopicOptions builder
      */
-    public Builder addSources(TopicUpdateSourcesItem sources) {
+    public Builder addSources(SourcesItems sources) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(sources,
         "sources cannot be null");
       if (this.sources == null) {
-        this.sources = new ArrayList<TopicUpdateSourcesItem>();
+        this.sources = new ArrayList<SourcesItems>();
       }
       this.sources.add(sources);
       return this;
@@ -139,7 +139,7 @@ public class ReplaceTopicOptions extends GenericModel {
      * @param sources the sources
      * @return the ReplaceTopicOptions builder
      */
-    public Builder sources(List<TopicUpdateSourcesItem> sources) {
+    public Builder sources(List<SourcesItems> sources) {
       this.sources = sources;
       return this;
     }
@@ -219,7 +219,7 @@ public class ReplaceTopicOptions extends GenericModel {
    *
    * @return the sources
    */
-  public List<TopicUpdateSourcesItem> sources() {
+  public List<SourcesItems> sources() {
     return sources;
   }
 }

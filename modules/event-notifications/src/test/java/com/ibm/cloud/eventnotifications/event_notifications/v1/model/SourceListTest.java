@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -38,5 +39,8 @@ public class SourceListTest {
     assertNull(sourceListModel.getOffset());
     assertNull(sourceListModel.getLimit());
     assertNull(sourceListModel.getSources());
+    assertNull(sourceListModel.getFirst());
+    assertNull(sourceListModel.getPrevious());
+    assertNull(sourceListModel.getNext());
   }
 }

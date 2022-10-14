@@ -15,6 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -40,10 +41,17 @@ public class UpdateSubscriptionOptionsTest {
     assertEquals(smSupdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
     assertEquals(smSupdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
 
+    UpdateAttributesUnsubscribed updateAttributesUnsubscribedModel = new UpdateAttributesUnsubscribed.Builder()
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+    assertEquals(updateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
+
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
       .to(smSupdateAttributesToModel)
+      .unsubscribed(updateAttributesUnsubscribedModel)
       .build();
     assertEquals(subscriptionUpdateAttributesModel.to(), smSupdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesModel.unsubscribed(), updateAttributesUnsubscribedModel);
 
     UpdateSubscriptionOptions updateSubscriptionOptionsModel = new UpdateSubscriptionOptions.Builder()
       .instanceId("testString")

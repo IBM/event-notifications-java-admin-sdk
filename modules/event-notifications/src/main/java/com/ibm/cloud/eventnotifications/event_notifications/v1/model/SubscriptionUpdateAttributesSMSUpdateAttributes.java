@@ -23,24 +23,17 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributes extends Subscriptio
    */
   public static class Builder {
     private SMSupdateAttributesTo to;
+    private UpdateAttributesUnsubscribed unsubscribed;
 
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributes) {
       this.to = subscriptionUpdateAttributesSmsUpdateAttributes.to;
+      this.unsubscribed = subscriptionUpdateAttributesSmsUpdateAttributes.unsubscribed;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param to the to
-     */
-    public Builder(SMSupdateAttributesTo to) {
-      this.to = to;
     }
 
     /**
@@ -62,14 +55,24 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributes extends Subscriptio
       this.to = to;
       return this;
     }
+
+    /**
+     * Set the unsubscribed.
+     *
+     * @param unsubscribed the unsubscribed
+     * @return the SubscriptionUpdateAttributesSMSUpdateAttributes builder
+     */
+    public Builder unsubscribed(UpdateAttributesUnsubscribed unsubscribed) {
+      this.unsubscribed = unsubscribed;
+      return this;
+    }
   }
 
   protected SubscriptionUpdateAttributesSMSUpdateAttributes() { }
 
   protected SubscriptionUpdateAttributesSMSUpdateAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
-      "to cannot be null");
     to = builder.to;
+    unsubscribed = builder.unsubscribed;
   }
 
   /**

@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicsListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -37,5 +38,8 @@ public class TopicListTest {
     assertNull(topicListModel.getOffset());
     assertNull(topicListModel.getLimit());
     assertNull(topicListModel.getTopics());
+    assertNull(topicListModel.getFirst());
+    assertNull(topicListModel.getPrevious());
+    assertNull(topicListModel.getNext());
   }
 }

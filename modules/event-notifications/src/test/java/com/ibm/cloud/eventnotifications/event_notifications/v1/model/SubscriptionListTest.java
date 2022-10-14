@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -38,5 +39,8 @@ public class SubscriptionListTest {
     assertNull(subscriptionListModel.getOffset());
     assertNull(subscriptionListModel.getLimit());
     assertNull(subscriptionListModel.getSubscriptions());
+    assertNull(subscriptionListModel.getFirst());
+    assertNull(subscriptionListModel.getPrevious());
+    assertNull(subscriptionListModel.getNext());
   }
 }

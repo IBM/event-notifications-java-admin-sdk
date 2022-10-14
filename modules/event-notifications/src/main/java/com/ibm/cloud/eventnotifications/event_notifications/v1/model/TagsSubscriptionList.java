@@ -28,6 +28,9 @@ public class TagsSubscriptionList extends GenericModel {
   protected Long limit;
   @SerializedName("tag_subscriptions")
   protected List<TagsSubscriptionListItem> tagSubscriptions;
+  protected PageHrefResponse first;
+  protected PageHrefResponse previous;
+  protected PageHrefResponse next;
 
   /**
    * Gets the totalCount.
@@ -71,6 +74,39 @@ public class TagsSubscriptionList extends GenericModel {
    */
   public List<TagsSubscriptionListItem> getTagSubscriptions() {
     return tagSubscriptions;
+  }
+
+  /**
+   * Gets the first.
+   *
+   * Response having URL of the page.
+   *
+   * @return the first
+   */
+  public PageHrefResponse getFirst() {
+    return first;
+  }
+
+  /**
+   * Gets the previous.
+   *
+   * Response having URL of the page.
+   *
+   * @return the previous
+   */
+  public PageHrefResponse getPrevious() {
+    return previous;
+  }
+
+  /**
+   * Gets the next.
+   *
+   * Response having URL of the page.
+   *
+   * @return the next
+   */
+  public PageHrefResponse getNext() {
+    return next;
   }
 }
 

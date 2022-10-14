@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -38,5 +39,8 @@ public class TagsSubscriptionListTest {
     assertNull(tagsSubscriptionListModel.getOffset());
     assertNull(tagsSubscriptionListModel.getLimit());
     assertNull(tagsSubscriptionListModel.getTagSubscriptions());
+    assertNull(tagsSubscriptionListModel.getFirst());
+    assertNull(tagsSubscriptionListModel.getPrevious());
+    assertNull(tagsSubscriptionListModel.getNext());
   }
 }

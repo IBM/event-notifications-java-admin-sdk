@@ -19,13 +19,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DestinationConfig extends GenericModel {
 
-  protected DestinationConfigParams params;
+  protected DestinationConfigOneOf params;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private DestinationConfigParams params;
+    private DestinationConfigOneOf params;
 
     private Builder(DestinationConfig destinationConfig) {
       this.params = destinationConfig.params;
@@ -42,7 +42,7 @@ public class DestinationConfig extends GenericModel {
      *
      * @param params the params
      */
-    public Builder(DestinationConfigParams params) {
+    public Builder(DestinationConfigOneOf params) {
       this.params = params;
     }
 
@@ -61,7 +61,7 @@ public class DestinationConfig extends GenericModel {
      * @param params the params
      * @return the DestinationConfig builder
      */
-    public Builder params(DestinationConfigParams params) {
+    public Builder params(DestinationConfigOneOf params) {
       this.params = params;
       return this;
     }
@@ -89,7 +89,7 @@ public class DestinationConfig extends GenericModel {
    *
    * @return the params
    */
-  public DestinationConfigParams params() {
+  public DestinationConfigOneOf params() {
     return params;
   }
 }

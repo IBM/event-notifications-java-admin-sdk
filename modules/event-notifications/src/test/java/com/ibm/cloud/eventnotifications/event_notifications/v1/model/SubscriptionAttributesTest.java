@@ -13,9 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseInvitedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseToItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseUnsubscribedItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;

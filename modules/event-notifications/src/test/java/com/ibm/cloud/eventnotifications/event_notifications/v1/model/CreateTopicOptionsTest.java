@@ -15,7 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdateSourcesItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -42,23 +42,23 @@ public class CreateTopicOptionsTest {
     assertEquals(rulesModel.eventTypeFilter(), "$.notification_event_info.event_type == 'cert_manager'");
     assertEquals(rulesModel.notificationFilter(), "$.notification.findings[0].severity == 'MODERATE'");
 
-    TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
+    SourcesItems sourcesItemsModel = new SourcesItems.Builder()
       .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
       .rules(java.util.Arrays.asList(rulesModel))
       .build();
-    assertEquals(topicUpdateSourcesItemModel.id(), "e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api");
-    assertEquals(topicUpdateSourcesItemModel.rules(), java.util.Arrays.asList(rulesModel));
+    assertEquals(sourcesItemsModel.id(), "e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api");
+    assertEquals(sourcesItemsModel.rules(), java.util.Arrays.asList(rulesModel));
 
     CreateTopicOptions createTopicOptionsModel = new CreateTopicOptions.Builder()
       .instanceId("testString")
       .name("testString")
       .description("testString")
-      .sources(java.util.Arrays.asList(topicUpdateSourcesItemModel))
+      .sources(java.util.Arrays.asList(sourcesItemsModel))
       .build();
     assertEquals(createTopicOptionsModel.instanceId(), "testString");
     assertEquals(createTopicOptionsModel.name(), "testString");
     assertEquals(createTopicOptionsModel.description(), "testString");
-    assertEquals(createTopicOptionsModel.sources(), java.util.Arrays.asList(topicUpdateSourcesItemModel));
+    assertEquals(createTopicOptionsModel.sources(), java.util.Arrays.asList(sourcesItemsModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
