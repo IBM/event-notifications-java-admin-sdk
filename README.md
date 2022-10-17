@@ -123,8 +123,6 @@ SDK Methods to consume
 - [Push Destination APIs](#push-destination-apis)
   - [Create Destination tag subscription](#create-destination-tag-subscription)
   - [List Destination tag subscription](#list-destination-tag-subscription)
-  - [List Destination device tag subscriptions](#list-destination-device-tag-subscriptions)
-  - [Get Device Count](#get-device-count)
   - [Delete Destination device tag subscription](#delete-destination-device-tag-subscription)
 - [Subscriptions](#subscriptions)
   - [Create Subscription](#create-subscription)
@@ -418,30 +416,6 @@ ListTagsSubscriptionOptions listTagsSubscriptionOptionsModel = new ListTagsSubsc
 Response<TagsSubscriptionList> response = eventNotificationsService.listTagsSubscription(listTagsSubscriptionOptionsModel).execute();
 TagsSubscriptionList tagsSubscriptionList = response.getResult();
 System.out.println(tagsSubscriptionList);
-```
-### List Destination device tag subscriptions
-```java
-GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptionsModel = new GetTagsSubscriptionsDeviceOptions.Builder()
-        .instanceId(<instanceId>)  // Event notifications service instance GUID
-        .id(<destination-id>)      // Event notifications service instance Destination ID
-        .deviceId(<device-id>)     // Event notifications service device ID
-        .build();
-
-// Invoke getTagsSubscriptionsDevice() with a valid options model and verify the result
-Response<TagsSubscriptionList> response = eventNotificationsService.getTagsSubscriptionsDevice(getTagsSubscriptionsDeviceOptionsModel).execute();
-TagsSubscriptionList tagsSubscriptionList = response.getResult();
-System.out.println(tagsSubscriptionList);
-```
-### Get Device Count
-```java
-GetDeviceCountOptions getDeviceCountOptionsModel = new GetDeviceCountOptions.Builder()
-        .instanceId(<instanceId>)  // Event notifications service instance GUID
-        .id(<destinationId>)       // Event notifications service instance Destination ID
-        .build();
-
-Response<DeviceCount> response = eventNotificationsService.getDeviceCount(getDeviceCountOptionsModel).execute();
-DeviceCount deviceCount = response.getResult();
-System.out.println(deviceCount.getTotalCount());
 ```
 ### Delete Destination device tag subscription
 ```java
