@@ -34,12 +34,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeviceCount;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDeviceCountOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
@@ -125,7 +122,8 @@ public class EventNotifications extends BaseService {
   /**
    * Send a notification.
    *
-   * Send Notifications body from the instance.
+   * Send Notifications body from the instance. For more information on Event notifications payload, see
+   * [here](https://cloud.ibm.com/docs/event-notifications?topic=event-notifications-en-spec-payload).
    *
    * @param sendNotificationsOptions the {@link SendNotificationsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link NotificationResponse}
@@ -684,66 +682,6 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List all Tag Subscriptions for a device.
-   *
-   * List all Tag Subscriptions for a device.
-   *
-   * @param getTagsSubscriptionsDeviceOptions the {@link GetTagsSubscriptionsDeviceOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link TagsSubscriptionList}
-   */
-  public ServiceCall<TagsSubscriptionList> getTagsSubscriptionsDevice(GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getTagsSubscriptionsDeviceOptions,
-      "getTagsSubscriptionsDeviceOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", getTagsSubscriptionsDeviceOptions.instanceId());
-    pathParamsMap.put("id", getTagsSubscriptionsDeviceOptions.id());
-    pathParamsMap.put("device_id", getTagsSubscriptionsDeviceOptions.deviceId());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/tag_subscriptions/devices/{device_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getTagsSubscriptionsDevice");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getTagsSubscriptionsDeviceOptions.tagName() != null) {
-      builder.query("tag_name", String.valueOf(getTagsSubscriptionsDeviceOptions.tagName()));
-    }
-    if (getTagsSubscriptionsDeviceOptions.limit() != null) {
-      builder.query("limit", String.valueOf(getTagsSubscriptionsDeviceOptions.limit()));
-    }
-    if (getTagsSubscriptionsDeviceOptions.offset() != null) {
-      builder.query("offset", String.valueOf(getTagsSubscriptionsDeviceOptions.offset()));
-    }
-    ResponseConverter<TagsSubscriptionList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TagsSubscriptionList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Get Device count.
-   *
-   * Get Device count.
-   *
-   * @param getDeviceCountOptions the {@link GetDeviceCountOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DeviceCount}
-   */
-  public ServiceCall<DeviceCount> getDeviceCount(GetDeviceCountOptions getDeviceCountOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getDeviceCountOptions,
-      "getDeviceCountOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", getDeviceCountOptions.instanceId());
-    pathParamsMap.put("id", getDeviceCountOptions.id());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/devices/count", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getDeviceCount");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<DeviceCount> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DeviceCount>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

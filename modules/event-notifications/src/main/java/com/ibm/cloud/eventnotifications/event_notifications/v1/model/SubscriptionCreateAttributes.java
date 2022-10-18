@@ -30,6 +30,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SubscriptionCreateAttributes extends GenericModel {
 
   protected List<String> to;
+  protected List<String> invited;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
   @SerializedName("reply_to_mail")
@@ -49,12 +50,23 @@ public class SubscriptionCreateAttributes extends GenericModel {
   /**
    * Gets the to.
    *
-   * The email id string.
+   * The sms id string.
    *
    * @return the to
    */
   public List<String> to() {
     return to;
+  }
+
+  /**
+   * Gets the invited.
+   *
+   * The email id string.
+   *
+   * @return the invited
+   */
+  public List<String> invited() {
+    return invited;
   }
 
   /**

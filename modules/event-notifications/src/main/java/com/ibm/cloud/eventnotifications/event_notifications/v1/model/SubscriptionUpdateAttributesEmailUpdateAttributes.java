@@ -12,9 +12,6 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * The attributes for an email notification.
  */
@@ -25,21 +22,21 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
    * Builder.
    */
   public static class Builder {
-    private EmailUpdateAttributesTo to;
+    private UpdateAttributesInvited invited;
     private Boolean addNotificationPayload;
     private String replyToMail;
     private String replyToName;
     private String fromName;
-    private List<String> invited;
-    private EmailUpdateAttributesUnsubscribed unsubscribed;
+    private UpdateAttributesSubscribed subscribed;
+    private UpdateAttributesUnsubscribed unsubscribed;
 
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributes) {
-      this.to = subscriptionUpdateAttributesEmailUpdateAttributes.toEmail;
+      this.invited = subscriptionUpdateAttributesEmailUpdateAttributes.invited;
       this.addNotificationPayload = subscriptionUpdateAttributesEmailUpdateAttributes.addNotificationPayload;
       this.replyToMail = subscriptionUpdateAttributesEmailUpdateAttributes.replyToMail;
       this.replyToName = subscriptionUpdateAttributesEmailUpdateAttributes.replyToName;
       this.fromName = subscriptionUpdateAttributesEmailUpdateAttributes.fromName;
-      this.invited = subscriptionUpdateAttributesEmailUpdateAttributes.invited;
+      this.subscribed = subscriptionUpdateAttributesEmailUpdateAttributes.subscribed;
       this.unsubscribed = subscriptionUpdateAttributesEmailUpdateAttributes.unsubscribed;
     }
 
@@ -52,14 +49,12 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param to the to
      * @param addNotificationPayload the addNotificationPayload
      * @param replyToMail the replyToMail
      * @param replyToName the replyToName
      * @param fromName the fromName
      */
-    public Builder(EmailUpdateAttributesTo to, Boolean addNotificationPayload, String replyToMail, String replyToName, String fromName) {
-      this.to = to;
+    public Builder(Boolean addNotificationPayload, String replyToMail, String replyToName, String fromName) {
       this.addNotificationPayload = addNotificationPayload;
       this.replyToMail = replyToMail;
       this.replyToName = replyToName;
@@ -76,29 +71,13 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     }
 
     /**
-     * Adds an invited to invited.
+     * Set the invited.
      *
-     * @param invited the new invited
+     * @param invited the invited
      * @return the SubscriptionUpdateAttributesEmailUpdateAttributes builder
      */
-    public Builder addInvited(String invited) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(invited,
-        "invited cannot be null");
-      if (this.invited == null) {
-        this.invited = new ArrayList<String>();
-      }
-      this.invited.add(invited);
-      return this;
-    }
-
-    /**
-     * Set the to.
-     *
-     * @param to the to
-     * @return the SubscriptionUpdateAttributesEmailUpdateAttributes builder
-     */
-    public Builder to(EmailUpdateAttributesTo to) {
-      this.to = to;
+    public Builder invited(UpdateAttributesInvited invited) {
+      this.invited = invited;
       return this;
     }
 
@@ -147,14 +126,13 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     }
 
     /**
-     * Set the invited.
-     * Existing invited will be replaced.
+     * Set the subscribed.
      *
-     * @param invited the invited
+     * @param subscribed the subscribed
      * @return the SubscriptionUpdateAttributesEmailUpdateAttributes builder
      */
-    public Builder invited(List<String> invited) {
-      this.invited = invited;
+    public Builder subscribed(UpdateAttributesSubscribed subscribed) {
+      this.subscribed = subscribed;
       return this;
     }
 
@@ -164,7 +142,7 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
      * @param unsubscribed the unsubscribed
      * @return the SubscriptionUpdateAttributesEmailUpdateAttributes builder
      */
-    public Builder unsubscribed(EmailUpdateAttributesUnsubscribed unsubscribed) {
+    public Builder unsubscribed(UpdateAttributesUnsubscribed unsubscribed) {
       this.unsubscribed = unsubscribed;
       return this;
     }
@@ -173,8 +151,6 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
   protected SubscriptionUpdateAttributesEmailUpdateAttributes() { }
 
   protected SubscriptionUpdateAttributesEmailUpdateAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
-      "to cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.addNotificationPayload,
       "addNotificationPayload cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.replyToMail,
@@ -183,12 +159,12 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
       "replyToName cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fromName,
       "fromName cannot be null");
-    toEmail = builder.to;
+    invited = builder.invited;
     addNotificationPayload = builder.addNotificationPayload;
     replyToMail = builder.replyToMail;
     replyToName = builder.replyToName;
     fromName = builder.fromName;
-    invited = builder.invited;
+    subscribed = builder.subscribed;
     unsubscribed = builder.unsubscribed;
   }
 

@@ -14,7 +14,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -32,27 +32,27 @@ public class DestinationConfigTest {
 
   @Test
   public void testDestinationConfig() throws Throwable {
-    DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
+    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook")
       .verb("post")
       .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .sensitiveHeaders(java.util.Arrays.asList("authorization"))
       .build();
-    assertEquals(destinationConfigParamsModel.url(), "https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook");
-    assertEquals(destinationConfigParamsModel.verb(), "post");
-    assertEquals(destinationConfigParamsModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
-    assertEquals(destinationConfigParamsModel.sensitiveHeaders(), java.util.Arrays.asList("authorization"));
+    assertEquals(destinationConfigOneOfModel.url(), "https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook");
+    assertEquals(destinationConfigOneOfModel.verb(), "post");
+    assertEquals(destinationConfigOneOfModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(destinationConfigOneOfModel.sensitiveHeaders(), java.util.Arrays.asList("authorization"));
 
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
-      .params(destinationConfigParamsModel)
+      .params(destinationConfigOneOfModel)
       .build();
-    assertEquals(destinationConfigModel.params(), destinationConfigParamsModel);
+    assertEquals(destinationConfigModel.params(), destinationConfigOneOfModel);
 
     String json = TestUtilities.serialize(destinationConfigModel);
 
     DestinationConfig destinationConfigModelNew = TestUtilities.deserialize(json, DestinationConfig.class);
     assertTrue(destinationConfigModelNew instanceof DestinationConfig);
-    assertEquals(destinationConfigModelNew.params().toString(), destinationConfigParamsModel.toString());
+    assertEquals(destinationConfigModelNew.params().toString(), destinationConfigOneOfModel.toString());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -12,8 +12,6 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -29,7 +27,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class SubscriptionUpdateAttributes extends GenericModel {
 
   protected SMSupdateAttributesTo to;
-  protected EmailUpdateAttributesTo toEmail;
+  protected UpdateAttributesUnsubscribed unsubscribed;
+  protected UpdateAttributesInvited invited;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
   @SerializedName("reply_to_mail")
@@ -38,8 +37,7 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   protected String replyToName;
   @SerializedName("from_name")
   protected String fromName;
-  protected List<String> invited;
-  protected EmailUpdateAttributesUnsubscribed unsubscribed;
+  protected UpdateAttributesSubscribed subscribed;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
@@ -59,8 +57,26 @@ public class SubscriptionUpdateAttributes extends GenericModel {
     return to;
   }
 
-  public EmailUpdateAttributesTo toEmail() {
-    return toEmail;
+  /**
+   * Gets the unsubscribed.
+   *
+   * The phone number or Email id to send the SMS/email to.
+   *
+   * @return the unsubscribed
+   */
+  public UpdateAttributesUnsubscribed unsubscribed() {
+    return unsubscribed;
+  }
+
+  /**
+   * Gets the invited.
+   *
+   * The email ids or phone numbers.
+   *
+   * @return the invited
+   */
+  public UpdateAttributesInvited invited() {
+    return invited;
   }
 
   /**
@@ -108,25 +124,14 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   }
 
   /**
-   * Gets the invited.
+   * Gets the subscribed.
    *
-   * The email ids invited.
+   * The email ids or phone number.
    *
-   * @return the invited
+   * @return the subscribed
    */
-  public List<String> invited() {
-    return invited;
-  }
-
-  /**
-   * Gets the unsubscribed.
-   *
-   * The email ids.
-   *
-   * @return the unsubscribed
-   */
-  public EmailUpdateAttributesUnsubscribed unsubscribed() {
-    return unsubscribed;
+  public UpdateAttributesSubscribed subscribed() {
+    return subscribed;
   }
 
   /**

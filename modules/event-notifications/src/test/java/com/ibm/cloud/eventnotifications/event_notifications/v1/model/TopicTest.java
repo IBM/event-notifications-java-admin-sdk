@@ -14,7 +14,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;

@@ -15,7 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;

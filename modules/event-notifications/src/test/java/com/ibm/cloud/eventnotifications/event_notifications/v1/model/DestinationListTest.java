@@ -15,6 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.DateUtils;
@@ -38,5 +39,8 @@ public class DestinationListTest {
     assertNull(destinationListModel.getOffset());
     assertNull(destinationListModel.getLimit());
     assertNull(destinationListModel.getDestinations());
+    assertNull(destinationListModel.getFirst());
+    assertNull(destinationListModel.getPrevious());
+    assertNull(destinationListModel.getNext());
   }
 }

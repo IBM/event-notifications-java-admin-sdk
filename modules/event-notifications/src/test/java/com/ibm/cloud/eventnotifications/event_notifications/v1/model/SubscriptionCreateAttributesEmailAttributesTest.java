@@ -32,13 +32,13 @@ public class SubscriptionCreateAttributesEmailAttributesTest {
   @Test
   public void testSubscriptionCreateAttributesEmailAttributes() throws Throwable {
     SubscriptionCreateAttributesEmailAttributes subscriptionCreateAttributesEmailAttributesModel = new SubscriptionCreateAttributesEmailAttributes.Builder()
-      .to(java.util.Arrays.asList("testString"))
+      .invited(java.util.Arrays.asList("testString"))
       .addNotificationPayload(false)
       .replyToMail("testString")
       .replyToName("testString")
       .fromName("testString")
       .build();
-    assertEquals(subscriptionCreateAttributesEmailAttributesModel.to(), java.util.Arrays.asList("testString"));
+    assertEquals(subscriptionCreateAttributesEmailAttributesModel.invited(), java.util.Arrays.asList("testString"));
     assertEquals(subscriptionCreateAttributesEmailAttributesModel.addNotificationPayload(), Boolean.valueOf(false));
     assertEquals(subscriptionCreateAttributesEmailAttributesModel.replyToMail(), "testString");
     assertEquals(subscriptionCreateAttributesEmailAttributesModel.replyToName(), "testString");

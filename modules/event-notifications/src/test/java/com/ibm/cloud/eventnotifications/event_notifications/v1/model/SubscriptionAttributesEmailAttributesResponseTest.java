@@ -13,9 +13,8 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseToItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseUnsubscribedItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -36,9 +35,9 @@ public class SubscriptionAttributesEmailAttributesResponseTest {
   @Test
   public void testSubscriptionAttributesEmailAttributesResponse() throws Throwable {
     SubscriptionAttributesEmailAttributesResponse subscriptionAttributesEmailAttributesResponseModel = new SubscriptionAttributesEmailAttributesResponse();
-    assertNull(subscriptionAttributesEmailAttributesResponseModel.getTo());
-    assertNull(subscriptionAttributesEmailAttributesResponseModel.getUnsubscribed());
     assertNull(subscriptionAttributesEmailAttributesResponseModel.getInvited());
+    assertNull(subscriptionAttributesEmailAttributesResponseModel.getSubscribed());
+    assertNull(subscriptionAttributesEmailAttributesResponseModel.getUnsubscribed());
     assertNull(subscriptionAttributesEmailAttributesResponseModel.isAddNotificationPayload());
     assertNull(subscriptionAttributesEmailAttributesResponseModel.getReplyToMail());
     assertNull(subscriptionAttributesEmailAttributesResponseModel.getReplyToName());

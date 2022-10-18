@@ -26,31 +26,26 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsS
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParams;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsChromeDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFCMDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsFirefoxDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIBMCloudFunctionsDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsIOSDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsMSTeamsDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsSafariDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsSlackDestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfChromeDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFCMDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFirefoxDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfIBMCloudFunctionsDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfIOSDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfMSTeamsDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSafariDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSlackDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeviceCount;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseToItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseUnsubscribedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesTo;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesUnsubscribed;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationsPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDeviceCountOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTagsSubscriptionsDeviceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
@@ -59,12 +54,11 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSub
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseInvitedItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseToItem;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesResponseUnsubscribedItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
@@ -72,7 +66,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
@@ -92,13 +88,18 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSlackAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicUpdateSourcesItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicsListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicsPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesInvited;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesSubscribed;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
@@ -111,6 +112,7 @@ import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.cloud.sdk.core.util.EnvironmentUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -360,7 +362,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testListSourcesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"enabled\": false, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 0}]}";
+    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"enabled\": false, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 0}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listSourcesPath = "/v1/instances/testString/sources";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -370,7 +372,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     // Construct an instance of the ListSourcesOptions model
     ListSourcesOptions listSourcesOptionsModel = new ListSourcesOptions.Builder()
       .instanceId("testString")
-      .limit(Long.valueOf("1"))
+      .limit(Long.valueOf("10"))
       .offset(Long.valueOf("0"))
       .search("testString")
       .build();
@@ -391,7 +393,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
     assertEquals(query.get("search"), "testString");
   }
@@ -413,6 +415,72 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.listSources(null).execute();
   }
 
+  // Test the listSources operation using the SourcesPager.getNext() method
+  @Test
+  public void testListSourcesWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSourcesOptions listSourcesOptions = new ListSourcesOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<SourceListItem> allResults = new ArrayList<>();
+    SourcesPager pager = new SourcesPager(eventNotificationsService, listSourcesOptions);
+    while (pager.hasNext()) {
+      List<SourceListItem> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listSources operation using the SourcesPager.getAll() method
+  @Test
+  public void testListSourcesWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSourcesOptions listSourcesOptions = new ListSourcesOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    SourcesPager pager = new SourcesPager(eventNotificationsService, listSourcesOptions);
+    List<SourceListItem> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
   // Test the getSource operation with a valid options model parameter
   @Test
   public void testGetSourceWOptions() throws Throwable {
@@ -589,8 +657,8 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
       .build();
 
-    // Construct an instance of the TopicUpdateSourcesItem model
-    TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
+    // Construct an instance of the SourcesItems model
+    SourcesItems sourcesItemsModel = new SourcesItems.Builder()
       .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
       .rules(java.util.Arrays.asList(rulesModel))
       .build();
@@ -600,7 +668,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .instanceId("testString")
       .name("testString")
       .description("testString")
-      .sources(java.util.Arrays.asList(topicUpdateSourcesItemModel))
+      .sources(java.util.Arrays.asList(sourcesItemsModel))
       .build();
 
     // Invoke createTopic() with a valid options model and verify the result
@@ -642,7 +710,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testListTopicsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"topics\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"source_count\": 0, \"sources_names\": [\"sourcesNames\"], \"subscription_count\": 0}]}";
+    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"topics\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"source_count\": 0, \"sources_names\": [\"sourcesNames\"], \"subscription_count\": 0}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listTopicsPath = "/v1/instances/testString/topics";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -652,7 +720,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     // Construct an instance of the ListTopicsOptions model
     ListTopicsOptions listTopicsOptionsModel = new ListTopicsOptions.Builder()
       .instanceId("testString")
-      .limit(Long.valueOf("1"))
+      .limit(Long.valueOf("10"))
       .offset(Long.valueOf("0"))
       .search("testString")
       .build();
@@ -673,7 +741,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
     assertEquals(query.get("search"), "testString");
   }
@@ -695,6 +763,72 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.listTopics(null).execute();
   }
 
+  // Test the listTopics operation using the TopicsPager.getNext() method
+  @Test
+  public void testListTopicsWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"topics\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source_count\":0,\"sources_names\":[\"sourcesNames\"],\"subscription_count\":0}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"topics\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source_count\":0,\"sources_names\":[\"sourcesNames\"],\"subscription_count\":0}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<TopicsListItem> allResults = new ArrayList<>();
+    TopicsPager pager = new TopicsPager(eventNotificationsService, listTopicsOptions);
+    while (pager.hasNext()) {
+      List<TopicsListItem> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listTopics operation using the TopicsPager.getAll() method
+  @Test
+  public void testListTopicsWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"topics\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source_count\":0,\"sources_names\":[\"sourcesNames\"],\"subscription_count\":0}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"topics\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source_count\":0,\"sources_names\":[\"sourcesNames\"],\"subscription_count\":0}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    TopicsPager pager = new TopicsPager(eventNotificationsService, listTopicsOptions);
+    List<TopicsListItem> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
   // Test the getTopic operation with a valid options model parameter
   @Test
   public void testGetTopicWOptions() throws Throwable {
@@ -767,8 +901,8 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
       .build();
 
-    // Construct an instance of the TopicUpdateSourcesItem model
-    TopicUpdateSourcesItem topicUpdateSourcesItemModel = new TopicUpdateSourcesItem.Builder()
+    // Construct an instance of the SourcesItems model
+    SourcesItems sourcesItemsModel = new SourcesItems.Builder()
       .id("e7c3b3ee-78d9-4e02-95c3-c001a05e6ea5:api")
       .rules(java.util.Arrays.asList(rulesModel))
       .build();
@@ -779,7 +913,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .id("testString")
       .name("testString")
       .description("testString")
-      .sources(java.util.Arrays.asList(topicUpdateSourcesItemModel))
+      .sources(java.util.Arrays.asList(sourcesItemsModel))
       .build();
 
     // Invoke replaceTopic() with a valid options model and verify the result
@@ -879,8 +1013,8 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .setResponseCode(201)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the DestinationConfigParamsWebhookDestinationConfig model
-    DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
+    // Construct an instance of the DestinationConfigOneOfWebhookDestinationConfig model
+    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("testString")
       .verb("get")
       .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
@@ -889,7 +1023,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
 
     // Construct an instance of the DestinationConfig model
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
-      .params(destinationConfigParamsModel)
+      .params(destinationConfigOneOfModel)
       .build();
 
     // Construct an instance of the CreateDestinationOptions model
@@ -954,7 +1088,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testListDestinationsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"destinations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"destinations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listDestinationsPath = "/v1/instances/testString/destinations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -964,7 +1098,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     // Construct an instance of the ListDestinationsOptions model
     ListDestinationsOptions listDestinationsOptionsModel = new ListDestinationsOptions.Builder()
       .instanceId("testString")
-      .limit(Long.valueOf("1"))
+      .limit(Long.valueOf("10"))
       .offset(Long.valueOf("0"))
       .search("testString")
       .build();
@@ -985,7 +1119,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
     assertEquals(query.get("search"), "testString");
   }
@@ -1007,6 +1141,72 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.listDestinations(null).execute();
   }
 
+  // Test the listDestinations operation using the DestinationsPager.getNext() method
+  @Test
+  public void testListDestinationsWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListDestinationsOptions listDestinationsOptions = new ListDestinationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<DestinationListItem> allResults = new ArrayList<>();
+    DestinationsPager pager = new DestinationsPager(eventNotificationsService, listDestinationsOptions);
+    while (pager.hasNext()) {
+      List<DestinationListItem> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listDestinations operation using the DestinationsPager.getAll() method
+  @Test
+  public void testListDestinationsWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListDestinationsOptions listDestinationsOptions = new ListDestinationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    DestinationsPager pager = new DestinationsPager(eventNotificationsService, listDestinationsOptions);
+    List<DestinationListItem> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
   // Test the getDestination operation with a valid options model parameter
   @Test
   public void testGetDestinationWOptions() throws Throwable {
@@ -1070,8 +1270,8 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the DestinationConfigParamsWebhookDestinationConfig model
-    DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
+    // Construct an instance of the DestinationConfigOneOfWebhookDestinationConfig model
+    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("testString")
       .verb("get")
       .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
@@ -1080,7 +1280,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
 
     // Construct an instance of the DestinationConfig model
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
-      .params(destinationConfigParamsModel)
+      .params(destinationConfigOneOfModel)
       .build();
 
     // Construct an instance of the UpdateDestinationOptions model
@@ -1192,117 +1392,6 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.deleteDestination(null).execute();
   }
 
-  // Test the getTagsSubscriptionsDevice operation with a valid options model parameter
-  @Test
-  public void testGetTagsSubscriptionsDeviceWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"tag_subscriptions\": [{\"id\": \"id\", \"device_id\": \"deviceId\", \"tag_name\": \"tagName\", \"user_id\": \"userId\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
-    String getTagsSubscriptionsDevicePath = "/v1/instances/testString/destinations/testString/tag_subscriptions/devices/testString";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetTagsSubscriptionsDeviceOptions model
-    GetTagsSubscriptionsDeviceOptions getTagsSubscriptionsDeviceOptionsModel = new GetTagsSubscriptionsDeviceOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .deviceId("testString")
-      .tagName("testString")
-      .limit(Long.valueOf("1"))
-      .offset(Long.valueOf("0"))
-      .build();
-
-    // Invoke getTagsSubscriptionsDevice() with a valid options model and verify the result
-    Response<TagsSubscriptionList> response = eventNotificationsService.getTagsSubscriptionsDevice(getTagsSubscriptionsDeviceOptionsModel).execute();
-    assertNotNull(response);
-    TagsSubscriptionList responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getTagsSubscriptionsDevicePath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("tag_name"), "testString");
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
-    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
-  }
-
-  // Test the getTagsSubscriptionsDevice operation with and without retries enabled
-  @Test
-  public void testGetTagsSubscriptionsDeviceWRetries() throws Throwable {
-    eventNotificationsService.enableRetries(4, 30);
-    testGetTagsSubscriptionsDeviceWOptions();
-
-    eventNotificationsService.disableRetries();
-    testGetTagsSubscriptionsDeviceWOptions();
-  }
-
-  // Test the getTagsSubscriptionsDevice operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetTagsSubscriptionsDeviceNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    eventNotificationsService.getTagsSubscriptionsDevice(null).execute();
-  }
-
-  // Test the getDeviceCount operation with a valid options model parameter
-  @Test
-  public void testGetDeviceCountWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10}";
-    String getDeviceCountPath = "/v1/instances/testString/destinations/testString/devices/count";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetDeviceCountOptions model
-    GetDeviceCountOptions getDeviceCountOptionsModel = new GetDeviceCountOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
-
-    // Invoke getDeviceCount() with a valid options model and verify the result
-    Response<DeviceCount> response = eventNotificationsService.getDeviceCount(getDeviceCountOptionsModel).execute();
-    assertNotNull(response);
-    DeviceCount responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getDeviceCountPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getDeviceCount operation with and without retries enabled
-  @Test
-  public void testGetDeviceCountWRetries() throws Throwable {
-    eventNotificationsService.enableRetries(4, 30);
-    testGetDeviceCountWOptions();
-
-    eventNotificationsService.disableRetries();
-    testGetDeviceCountWOptions();
-  }
-
-  // Test the getDeviceCount operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetDeviceCountNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    eventNotificationsService.getDeviceCount(null).execute();
-  }
-
   // Test the createTagsSubscription operation with a valid options model parameter
   @Test
   public void testCreateTagsSubscriptionWOptions() throws Throwable {
@@ -1361,7 +1450,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testListTagsSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"tag_subscriptions\": [{\"id\": \"id\", \"device_id\": \"deviceId\", \"tag_name\": \"tagName\", \"user_id\": \"userId\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"tag_subscriptions\": [{\"id\": \"id\", \"device_id\": \"deviceId\", \"tag_name\": \"tagName\", \"user_id\": \"userId\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listTagsSubscriptionPath = "/v1/instances/testString/destinations/testString/tag_subscriptions";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1375,7 +1464,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .deviceId("testString")
       .userId("testString")
       .tagName("testString")
-      .limit(Long.valueOf("1"))
+      .limit(Long.valueOf("10"))
       .offset(Long.valueOf("0"))
       .search("testString")
       .build();
@@ -1399,7 +1488,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     assertEquals(query.get("device_id"), "testString");
     assertEquals(query.get("user_id"), "testString");
     assertEquals(query.get("tag_name"), "testString");
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
     assertEquals(query.get("search"), "testString");
   }
@@ -1421,6 +1510,80 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.listTagsSubscription(null).execute();
   }
 
+  // Test the listTagsSubscription operation using the TagsSubscriptionPager.getNext() method
+  @Test
+  public void testListTagsSubscriptionWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"tag_subscriptions\":[{\"id\":\"id\",\"device_id\":\"deviceId\",\"tag_name\":\"tagName\",\"user_id\":\"userId\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"tag_subscriptions\":[{\"id\":\"id\",\"device_id\":\"deviceId\",\"tag_name\":\"tagName\",\"user_id\":\"userId\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListTagsSubscriptionOptions listTagsSubscriptionOptions = new ListTagsSubscriptionOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .deviceId("testString")
+      .userId("testString")
+      .tagName("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<TagsSubscriptionListItem> allResults = new ArrayList<>();
+    TagsSubscriptionPager pager = new TagsSubscriptionPager(eventNotificationsService, listTagsSubscriptionOptions);
+    while (pager.hasNext()) {
+      List<TagsSubscriptionListItem> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listTagsSubscription operation using the TagsSubscriptionPager.getAll() method
+  @Test
+  public void testListTagsSubscriptionWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"tag_subscriptions\":[{\"id\":\"id\",\"device_id\":\"deviceId\",\"tag_name\":\"tagName\",\"user_id\":\"userId\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"tag_subscriptions\":[{\"id\":\"id\",\"device_id\":\"deviceId\",\"tag_name\":\"tagName\",\"user_id\":\"userId\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListTagsSubscriptionOptions listTagsSubscriptionOptions = new ListTagsSubscriptionOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .deviceId("testString")
+      .userId("testString")
+      .tagName("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    TagsSubscriptionPager pager = new TagsSubscriptionPager(eventNotificationsService, listTagsSubscriptionOptions);
+    List<TagsSubscriptionListItem> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
   // Test the deleteTagsSubscription operation with a valid options model parameter
   @Test
   public void testDeleteTagsSubscriptionWOptions() throws Throwable {
@@ -1541,7 +1704,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testListSubscriptionsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listSubscriptionsPath = "/v1/instances/testString/subscriptions";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1552,7 +1715,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     ListSubscriptionsOptions listSubscriptionsOptionsModel = new ListSubscriptionsOptions.Builder()
       .instanceId("testString")
       .offset(Long.valueOf("0"))
-      .limit(Long.valueOf("1"))
+      .limit(Long.valueOf("10"))
       .search("testString")
       .build();
 
@@ -1573,7 +1736,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
     assertEquals(query.get("search"), "testString");
   }
 
@@ -1594,6 +1757,72 @@ public class EventNotificationsTest extends PowerMockTestCase {
     eventNotificationsService.listSubscriptions(null).execute();
   }
 
+  // Test the listSubscriptions operation using the SubscriptionsPager.getNext() method
+  @Test
+  public void testListSubscriptionsWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"subscriptions\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"destination_id\":\"destinationId\",\"destination_name\":\"destinationName\",\"destination_type\":\"sms_ibm\",\"topic_id\":\"topicId\",\"topic_name\":\"topicName\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"subscriptions\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"destination_id\":\"destinationId\",\"destination_name\":\"destinationName\",\"destination_type\":\"sms_ibm\",\"topic_id\":\"topicId\",\"topic_name\":\"topicName\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"total_count\":2,\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSubscriptionsOptions listSubscriptionsOptions = new ListSubscriptionsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<SubscriptionListItem> allResults = new ArrayList<>();
+    SubscriptionsPager pager = new SubscriptionsPager(eventNotificationsService, listSubscriptionsOptions);
+    while (pager.hasNext()) {
+      List<SubscriptionListItem> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listSubscriptions operation using the SubscriptionsPager.getAll() method
+  @Test
+  public void testListSubscriptionsWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"subscriptions\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"destination_id\":\"destinationId\",\"destination_name\":\"destinationName\",\"destination_type\":\"sms_ibm\",\"topic_id\":\"topicId\",\"topic_name\":\"topicName\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"subscriptions\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"destination_id\":\"destinationId\",\"destination_name\":\"destinationName\",\"destination_type\":\"sms_ibm\",\"topic_id\":\"topicId\",\"topic_name\":\"topicName\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"total_count\":2,\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSubscriptionsOptions listSubscriptionsOptions = new ListSubscriptionsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    SubscriptionsPager pager = new SubscriptionsPager(eventNotificationsService, listSubscriptionsOptions);
+    List<SubscriptionListItem> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
   // Test the getSubscription operation with a valid options model parameter
   @Test
   public void testGetSubscriptionWOptions() throws Throwable {
@@ -1714,9 +1943,15 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .remove(java.util.Arrays.asList("testString"))
       .build();
 
+    // Construct an instance of the UpdateAttributesUnsubscribed model
+    UpdateAttributesUnsubscribed updateAttributesUnsubscribedModel = new UpdateAttributesUnsubscribed.Builder()
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+
     // Construct an instance of the SubscriptionUpdateAttributesSMSUpdateAttributes model
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
       .to(smSupdateAttributesToModel)
+      .unsubscribed(updateAttributesUnsubscribedModel)
       .build();
 
     // Construct an instance of the UpdateSubscriptionOptions model

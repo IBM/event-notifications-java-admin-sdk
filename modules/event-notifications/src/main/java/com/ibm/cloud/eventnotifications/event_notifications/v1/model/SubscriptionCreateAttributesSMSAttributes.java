@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The attributes for an email notification.
+ * The attributes for an sms notification.
  */
 public class SubscriptionCreateAttributesSMSAttributes extends SubscriptionCreateAttributes {
 

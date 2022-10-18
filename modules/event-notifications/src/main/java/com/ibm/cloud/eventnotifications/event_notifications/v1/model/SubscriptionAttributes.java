@@ -30,11 +30,13 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 public class SubscriptionAttributes extends DynamicModel<Object> {
 
   @SerializedName("to")
-  protected List<SMSAttributesResponseToItem> to;
+  protected List<SMAttributesItems> to;
   @SerializedName("unsubscribed")
-  protected List<SMSAttributesResponseUnsubscribedItem> unsubscribed;
+  protected List<SMAttributesItems> unsubscribed;
   @SerializedName("invited")
-  protected List<SMSAttributesResponseInvitedItem> invited;
+  protected List<SMAttributesItems> invited;
+  @SerializedName("subscribed")
+  protected List<EmailAttributesResponseSubscribedUnsubscribedItems> subscribed;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
   @SerializedName("reply_to_mail")
@@ -55,11 +57,11 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   /**
    * Gets the to.
    *
-   * The email id string.
+   * The subscribed list.
    *
    * @return the to
    */
-  public List<SMSAttributesResponseToItem> getTo() {
+  public List<SMAttributesItems> getTo() {
     return this.to;
   }
 
@@ -70,19 +72,30 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    *
    * @return the unsubscribed
    */
-  public List<SMSAttributesResponseUnsubscribedItem> getUnsubscribed() {
+  public List<SMAttributesItems> getUnsubscribed() {
     return this.unsubscribed;
   }
 
   /**
    * Gets the invited.
    *
-   * The invited list.
+   * The email id string.
    *
    * @return the invited
    */
-  public List<SMSAttributesResponseInvitedItem> getInvited() {
+  public List<SMAttributesItems> getInvited() {
     return this.invited;
+  }
+
+  /**
+   * Gets the subscribed.
+   *
+   * The unsubscribe list.
+   *
+   * @return the subscribed
+   */
+  public List<EmailAttributesResponseSubscribedUnsubscribedItems> getSubscribed() {
+    return this.subscribed;
   }
 
   /**

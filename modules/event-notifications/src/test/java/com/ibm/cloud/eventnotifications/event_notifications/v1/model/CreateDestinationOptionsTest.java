@@ -15,7 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigParamsWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -34,21 +34,21 @@ public class CreateDestinationOptionsTest {
 
   @Test
   public void testCreateDestinationOptions() throws Throwable {
-    DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
+    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("testString")
       .verb("get")
       .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .sensitiveHeaders(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(destinationConfigParamsModel.url(), "testString");
-    assertEquals(destinationConfigParamsModel.verb(), "get");
-    assertEquals(destinationConfigParamsModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
-    assertEquals(destinationConfigParamsModel.sensitiveHeaders(), java.util.Arrays.asList("testString"));
+    assertEquals(destinationConfigOneOfModel.url(), "testString");
+    assertEquals(destinationConfigOneOfModel.verb(), "get");
+    assertEquals(destinationConfigOneOfModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(destinationConfigOneOfModel.sensitiveHeaders(), java.util.Arrays.asList("testString"));
 
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
-      .params(destinationConfigParamsModel)
+      .params(destinationConfigOneOfModel)
       .build();
-    assertEquals(destinationConfigModel.params(), destinationConfigParamsModel);
+    assertEquals(destinationConfigModel.params(), destinationConfigOneOfModel);
 
     CreateDestinationOptions createDestinationOptionsModel = new CreateDestinationOptions.Builder()
       .instanceId("testString")

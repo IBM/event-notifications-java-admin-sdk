@@ -25,14 +25,14 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
    * Builder.
    */
   public static class Builder {
-    private List<String> to;
+    private List<String> invited;
     private Boolean addNotificationPayload;
     private String replyToMail;
     private String replyToName;
     private String fromName;
 
     public Builder(SubscriptionCreateAttributes subscriptionCreateAttributesEmailAttributes) {
-      this.to = subscriptionCreateAttributesEmailAttributes.to;
+      this.invited = subscriptionCreateAttributesEmailAttributes.invited;
       this.addNotificationPayload = subscriptionCreateAttributesEmailAttributes.addNotificationPayload;
       this.replyToMail = subscriptionCreateAttributesEmailAttributes.replyToMail;
       this.replyToName = subscriptionCreateAttributesEmailAttributes.replyToName;
@@ -48,14 +48,14 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param to the to
+     * @param invited the invited
      * @param addNotificationPayload the addNotificationPayload
      * @param replyToMail the replyToMail
      * @param replyToName the replyToName
      * @param fromName the fromName
      */
-    public Builder(List<String> to, Boolean addNotificationPayload, String replyToMail, String replyToName, String fromName) {
-      this.to = to;
+    public Builder(List<String> invited, Boolean addNotificationPayload, String replyToMail, String replyToName, String fromName) {
+      this.invited = invited;
       this.addNotificationPayload = addNotificationPayload;
       this.replyToMail = replyToMail;
       this.replyToName = replyToName;
@@ -72,30 +72,30 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
     }
 
     /**
-     * Adds an to to to.
+     * Adds an invited to invited.
      *
-     * @param to the new to
+     * @param invited the new invited
      * @return the SubscriptionCreateAttributesEmailAttributes builder
      */
-    public Builder addTo(String to) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(to,
-        "to cannot be null");
-      if (this.to == null) {
-        this.to = new ArrayList<String>();
+    public Builder addInvited(String invited) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(invited,
+        "invited cannot be null");
+      if (this.invited == null) {
+        this.invited = new ArrayList<String>();
       }
-      this.to.add(to);
+      this.invited.add(invited);
       return this;
     }
 
     /**
-     * Set the to.
-     * Existing to will be replaced.
+     * Set the invited.
+     * Existing invited will be replaced.
      *
-     * @param to the to
+     * @param invited the invited
      * @return the SubscriptionCreateAttributesEmailAttributes builder
      */
-    public Builder to(List<String> to) {
-      this.to = to;
+    public Builder invited(List<String> invited) {
+      this.invited = invited;
       return this;
     }
 
@@ -147,8 +147,8 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
   protected SubscriptionCreateAttributesEmailAttributes() { }
 
   protected SubscriptionCreateAttributesEmailAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
-      "to cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.invited,
+      "invited cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.addNotificationPayload,
       "addNotificationPayload cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.replyToMail,
@@ -157,7 +157,7 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
       "replyToName cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fromName,
       "fromName cannot be null");
-    to = builder.to;
+    invited = builder.invited;
     addNotificationPayload = builder.addNotificationPayload;
     replyToMail = builder.replyToMail;
     replyToName = builder.replyToName;
