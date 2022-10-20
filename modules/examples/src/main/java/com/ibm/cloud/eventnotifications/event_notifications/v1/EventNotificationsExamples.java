@@ -50,11 +50,17 @@ public class EventNotificationsExamples {
   public static String topicId = "";
   public static String destinationId = "";
   public static String destinationId2 = "";
+  public static String destinationId3 = "";
+  public static String destinationId4 = "";
   public static String destinationId5 = "";
+  public static String destinationId6 = "";
   public static String destinationId7 = "";
+  public static String destinationId8 = "";
+  public static String destinationId9 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId2 = "";
+  public static String subscriptionId3 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -306,6 +312,61 @@ public class EventNotificationsExamples {
       System.out.println(destinationResponse);
       destinationId = destinationResponse.getId();
 
+      DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+              .url("https://gcm.com")
+              .verb("get")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("gcm_apikey", "testString"); } })
+              .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("gcm_apikey")))
+              .build();
+
+      DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfigParamsModel)
+              .build();
+
+      String name = "webhook_destination";
+      String typeVal = "webhook";
+      String description = "webhook Destination";
+
+      CreateDestinationOptions createDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .type(typeVal)
+              .description(description)
+              .config(destinationConfigModel)
+              .certificate(new FileInputStream(new File("/path")))
+              .certificateContentType("contentype")
+              .build();
+
+      Response<DestinationResponse> response = eventNotificationsService.createDestination(createDestinationOptions).execute();
+      DestinationResponse destinationResponseResult = response.getResult();
+      System.out.println(destinationResponseResult);
+      destinationId3 = destinationResponseResult.getId();
+
+      DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
+              .url("https://api.slack.com/myslack")
+              .build();
+
+      DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
+              .params(slackDestinationConfig)
+              .build();
+
+      String slackName = "Slack_destination";
+      String slackTypeVal = "slack";
+      String slackDescription = "Slack Destination";
+
+      CreateDestinationOptions createSlackDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackName)
+              .type(slackTypeVal)
+              .description(slackDescription)
+              .config(destinationSlackConfigModel)
+              .build();
+
+      Response<DestinationResponse> slackResponse = eventNotificationsService.createDestination(createSlackDestinationOptions).execute();
+      DestinationResponse slackDestinationResponseResult = slackResponse.getResult();
+      System.out.println(slackDestinationResponseResult);
+      destinationId4 = slackDestinationResponseResult.getId();
+
       DestinationConfigOneOfSafariDestinationConfig safariDestinationConfig = new DestinationConfigOneOfSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
@@ -335,13 +396,37 @@ public class EventNotificationsExamples {
               .certificate(stream)
               .build();
 
-      // Invoke operation
       Response<DestinationResponse> safariResponse = eventNotificationsService.createDestination(createSafariDestinationOptions).execute();
 
-      destinationResponse = safariResponse.getResult();
+      DestinationResponse safariDestinationResponse = safariResponse.getResult();
+      System.out.println(safariDestinationResponse);
+      destinationId5 = safariDestinationResponse.getId();
 
-      System.out.println(destinationResponse);
-      destinationId5 = destinationResponse.getId();
+      DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
+              .url("https://teams.microsoft.com")
+              .build();
+
+      DestinationConfig destinationMsTeamsConfigModel = new DestinationConfig.Builder()
+              .params(msTeamsDestinationConfig)
+              .build();
+
+      String msTeamsName = "MSTeams_destination";
+      String msTeamsTypeVal = "msteams";
+      String msTeamsDescription = "MSTeams Destination";
+
+      CreateDestinationOptions createMsTeamsDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(msTeamsName)
+              .type(msTeamsTypeVal)
+              .description(msTeamsDescription)
+              .config(destinationMsTeamsConfigModel)
+              .build();
+
+      Response<DestinationResponse> teamsResponse = eventNotificationsService.createDestination(createMsTeamsDestinationOptions).execute();
+
+      DestinationResponse msTeamsDestinationResponseResult = teamsResponse.getResult();
+      System.out.println(msTeamsDestinationResponseResult);
+      destinationId6 = msTeamsDestinationResponseResult.getId();
 
       DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cfConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
               .url("https://www.ibmcfendpoint.com/")
@@ -366,12 +451,67 @@ public class EventNotificationsExamples {
 
       // Invoke operation
       Response<DestinationResponse> cfResponse = eventNotificationsService.createDestination(createCFDestinationOptions).execute();
+      DestinationResponse cfDestinationResponse = cfResponse.getResult();
+      System.out.println(cfDestinationResponse);
+      destinationId7 = cfDestinationResponse.getId();
 
-      DestinationResponse cfdestinationResponse = cfResponse.getResult();
+      DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
+              .websiteUrl("https://cloud.ibm.com")
+              .apiKey("aksndkasdnkasd")
+              .preProd(false)
+              .publicKey("ksddkasjdaksd")
+              .build();
 
-      System.out.println(cfdestinationResponse);
+      DestinationConfig chromeDestinationConfigModel = new DestinationConfig.Builder()
+              .params(chromeDestinationConfig)
+              .build();
+
+      String chromeName = "Chrome_destination";
+      String chromeTypeVal = "push_chrome";
+      String chromeDescription = "Google Chrome Destination";
+
+      CreateDestinationOptions createChromeDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(chromeName)
+              .type(chromeTypeVal)
+              .description(chromeDescription)
+              .config(chromeDestinationConfigModel)
+              .build();
+
+      Response<DestinationResponse> chromeResponse = eventNotificationsService.createDestination(createChromeDestinationOptions).execute();
+      DestinationResponse chromeDestinationResponseResult = chromeResponse.getResult();
+      System.out.println(chromeDestinationResponseResult);
       // end-create_destination
-      destinationId7 = cfdestinationResponse.getId();
+      destinationId8 = chromeDestinationResponseResult.getId();
+
+
+      DestinationConfigOneOfFirefoxDestinationConfig firefoxDestinationConfig = new DestinationConfigOneOfFirefoxDestinationConfig.Builder()
+              .websiteUrl("https://cloud.ibm.com")
+              .preProd(false)
+              .publicKey("ksddkasjdaksd")
+              .build();
+
+      DestinationConfig fireFoxDestinationConfigModel = new DestinationConfig.Builder()
+              .params(firefoxDestinationConfig)
+              .build();
+
+      String firefoxName = "Firefox_destination";
+      String firefoxTypeVal = "push_firefox";
+      String firefoxDescription = "Firefox Destination";
+
+      CreateDestinationOptions createFireDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(firefoxName)
+              .type(firefoxTypeVal)
+              .description(firefoxDescription)
+              .config(fireFoxDestinationConfigModel)
+              .build();
+
+      Response<DestinationResponse> firefoxResponse = eventNotificationsService.createDestination(createFireDestinationOptions).execute();
+
+      DestinationResponse destinationFirefoxResponseResult = firefoxResponse.getResult();
+      System.out.println(destinationFirefoxResponseResult);
+      destinationId9 = destinationFirefoxResponseResult.getId();
 
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -450,6 +590,62 @@ public class EventNotificationsExamples {
 
       System.out.println(destination);
 
+      DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+              .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
+              .verb("get")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
+              .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
+              .build();
+
+      DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfigParamsModel)
+              .build();
+
+      String webName = "Admin GCM Compliance";
+      String webDescription = "This destination is for creating admin GCM webhook to receive compliance notifications";
+
+      UpdateDestinationOptions updateWebhookDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId3)
+              .name(webName)
+              .description(webDescription)
+              .config(destinationConfigModel)
+              .certificate(new FileInputStream(new File("/path")))
+              .certificateContentType("testString")
+              .build();
+
+      // Invoke operation
+      Response<Destination> webhookResponse = eventNotificationsService.updateDestination(updateWebhookDestinationOptions).execute();
+
+      Destination webhookDestinationResult = webhookResponse.getResult();
+      System.out.println(webhookDestinationResult);
+
+      DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
+              .url("https://api.slack.com/myslack")
+              .build();
+
+      DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
+              .params(slackDestinationConfig)
+              .build();
+
+      String slackName = "Slack_destination";
+      String slackTypeVal = "slack";
+      String slackDescription = "Slack Destination";
+
+      UpdateDestinationOptions updateSlackDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId4)
+              .name(slackName)
+              .description(slackDescription)
+              .config(destinationSlackConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> slackResponse = eventNotificationsService.updateDestination(updateSlackDestinationOptions).execute();
+      Destination slackDestinationResponseResult = slackResponse.getResult();
+
+      System.out.println(slackDestinationResponseResult);
+
       DestinationConfigOneOfSafariDestinationConfig destinationConfig = new DestinationConfigOneOfSafariDestinationConfig.Builder()
               .certType("p12")
               .password("safari")
@@ -485,6 +681,31 @@ public class EventNotificationsExamples {
 
       System.out.println(destination);
 
+      DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
+              .url("https://teams.microsoft.com")
+              .build();
+
+      DestinationConfig destinationMsTeamsConfigModel = new DestinationConfig.Builder()
+              .params(msTeamsDestinationConfig)
+              .build();
+
+      String msTeamsName = "MSTeams_destination_update";
+      String msTeamsDescription = "MSTeams Destination update";
+
+      UpdateDestinationOptions updateMsTeamsDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId6)
+              .name(msTeamsName)
+              .description(msTeamsDescription)
+              .config(destinationMsTeamsConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> teamsResponse = eventNotificationsService.updateDestination(updateMsTeamsDestinationOptions).execute();
+
+      Destination msTeamsDestinationResponseResult = teamsResponse.getResult();
+      System.out.println(msTeamsDestinationResponseResult);
+
       DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
               .url("https://www.ibmcfendpoint.com/")
               .apiKey("asdasldjdksdaowidjoaisjd8o9")
@@ -507,9 +728,60 @@ public class EventNotificationsExamples {
 
       // Invoke operation
       Response<Destination> cloudFunctionsResponse = eventNotificationsService.updateDestination(updateCFDestinationOptions).execute();
-      destination = cloudFunctionsResponse.getResult();
+      Destination cfDestination = cloudFunctionsResponse.getResult();
+      System.out.println(cfDestination);
 
-      System.out.println(destination);
+      DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
+              .websiteUrl("https://cloud.ibm.com")
+              .apiKey("aksndkasdnkasd")
+              .preProd(false)
+              .publicKey("ksddkasjdaksd")
+              .build();
+
+      DestinationConfig destinationChromeConfigModel = new DestinationConfig.Builder()
+              .params(chromeDestinationConfig)
+              .build();
+
+      String chromeName = "Chrome_destination_updated";
+      String chromeDescription = "Google Chrome Destination updated";
+
+      UpdateDestinationOptions updateChromeDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId8)
+              .name(chromeName)
+              .description(chromeDescription)
+              .config(destinationChromeConfigModel)
+              .build();
+
+      Response<Destination> chromeResponse = eventNotificationsService.updateDestination(updateChromeDestinationOptions).execute();
+
+      Destination chromeDestinationResult = chromeResponse.getResult();
+      System.out.println(chromeDestinationResult);
+
+      DestinationConfigOneOfFirefoxDestinationConfig firefoxDestinationConfig = new DestinationConfigOneOfFirefoxDestinationConfig.Builder()
+              .websiteUrl("https://cloud.ibm.com")
+              .preProd(false)
+              .publicKey("ksddkasjdaksd")
+              .build();
+
+      DestinationConfig destinationFirefoxConfigModel = new DestinationConfig.Builder()
+              .params(firefoxDestinationConfig)
+              .build();
+
+      String firefoxName = "Firefox_destination_update";
+      String firefoxDescription = "Firefox Destination updated";
+
+      UpdateDestinationOptions updateFireFoxDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId9)
+              .name(firefoxName)
+              .description(firefoxDescription)
+              .config(destinationFirefoxConfigModel)
+              .build();
+
+      Response<Destination> fireFoxResponse = eventNotificationsService.updateDestination(updateFireFoxDestinationOptions).execute();;
+      Destination firefoxDestinationResult = fireFoxResponse.getResult();
+      System.out.println(firefoxDestinationResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -549,23 +821,44 @@ public class EventNotificationsExamples {
               .fromName("IBM")
               .build();
 
-      name = "subscription_web_2";
-      description = "Subscription 2 for web";
+      String emailName = "subscription_email_update";
+      String emailDescription = "Subscription email update";
 
       createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
-              .name(name)
+              .name(emailName)
               .destinationId(destinationId2)
               .topicId(topicId)
               .attributes(subscriptionCreateEmailAttributesModel)
-              .description(description)
+              .description(emailDescription)
               .build();
 
-      response = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
+     Response<Subscription> emailResponse = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
 
-      subscription = response.getResult();
-      System.out.println(subscription);
-      subscriptionId2 = subscription.getId();
+     Subscription emailSubscription = emailResponse.getResult();
+      System.out.println(emailSubscription);
+      subscriptionId2 = emailSubscription.getId();
+
+      SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
+              .signingEnabled(true).build();
+      String webName = "subscription_web";
+      String webDescription = "Subscription for web";
+
+      CreateSubscriptionOptions createWebSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(webName)
+              .destinationId(destinationId3)
+              .topicId(topicId)
+              .description(webDescription)
+              .attributes(subscriptionCreateWebAttributesModel)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> webResponse = eventNotificationsService.createSubscription(createWebSubscriptionOptions).execute();
+      Subscription subscriptionResult = webResponse.getResult();
+
+      subscriptionId3 = subscriptionResult.getId();
+
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -669,7 +962,25 @@ public class EventNotificationsExamples {
 
       System.out.println(subscription);
 
-      subscriptionId2 = subscription.getId();
+      SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
+              .signingEnabled(true)
+              .build();
+
+      String webName = "web_sub_updated";
+      String webDescription = "Update web subscription";
+
+      UpdateSubscriptionOptions webUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId3)
+              .name(webName)
+              .description(webDescription)
+              .attributes(subscriptionUpdateWebAttributesModel)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> webResponse = eventNotificationsService.updateSubscription(webUpdateSubscriptionOptions).execute();
+      Subscription webSubscriptionResult = webResponse.getResult();
+      System.out.println(webSubscriptionResult);
 
       // end-update_subscription
     } catch (ServiceResponseException e) {
@@ -730,6 +1041,7 @@ public class EventNotificationsExamples {
 
       List<String> subscriptions = new ArrayList<>();
       subscriptions.add(subscriptionId2);
+      subscriptions.add(subscriptionId3);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -774,8 +1086,13 @@ public class EventNotificationsExamples {
 
 
       List<String> destinations = new ArrayList<>();
+      destinations.add(destinationId3);
+      destinations.add(destinationId4);
       destinations.add(destinationId5);
+      destinations.add(destinationId6);
       destinations.add(destinationId7);
+      destinations.add(destinationId8);
+      destinations.add(destinationId9);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
