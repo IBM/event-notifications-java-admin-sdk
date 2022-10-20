@@ -481,9 +481,7 @@ public class EventNotificationsExamples {
       Response<DestinationResponse> chromeResponse = eventNotificationsService.createDestination(createChromeDestinationOptions).execute();
       DestinationResponse chromeDestinationResponseResult = chromeResponse.getResult();
       System.out.println(chromeDestinationResponseResult);
-      // end-create_destination
       destinationId8 = chromeDestinationResponseResult.getId();
-
 
       DestinationConfigOneOfFirefoxDestinationConfig firefoxDestinationConfig = new DestinationConfigOneOfFirefoxDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
@@ -512,6 +510,7 @@ public class EventNotificationsExamples {
       DestinationResponse destinationFirefoxResponseResult = firefoxResponse.getResult();
       System.out.println(destinationFirefoxResponseResult);
       destinationId9 = destinationFirefoxResponseResult.getId();
+      // end-create_destination
 
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -629,7 +628,6 @@ public class EventNotificationsExamples {
               .build();
 
       String slackName = "Slack_destination";
-      String slackTypeVal = "slack";
       String slackDescription = "Slack Destination";
 
       UpdateDestinationOptions updateSlackDestinationOptions = new UpdateDestinationOptions.Builder()
@@ -677,9 +675,9 @@ public class EventNotificationsExamples {
 
       // Invoke operation
       Response<Destination> safariResponse = eventNotificationsService.updateDestination(updateSafariDestinationOptions).execute();
-      destination = safariResponse.getResult();
+      Destination safariDestination = safariResponse.getResult();
 
-      System.out.println(destination);
+      System.out.println(safariDestination);
 
       DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
               .url("https://teams.microsoft.com")

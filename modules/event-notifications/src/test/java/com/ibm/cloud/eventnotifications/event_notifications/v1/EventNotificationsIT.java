@@ -767,7 +767,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(chromeDestinationResponseResult.getName(), chromeName);
       assertEquals(chromeDestinationResponseResult.getType(), chromeTypeVal);
 
-      destinationId8 = destinationResponseResult.getId();
+      destinationId8 = chromeDestinationResponseResult.getId();
 
       DestinationConfigOneOfFirefoxDestinationConfig firefoxDestinationConfig = new DestinationConfigOneOfFirefoxDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
@@ -791,9 +791,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .config(fireFoxDestinationConfigModel)
               .build();
 
-// Invoke operation
+      // Invoke operation
       Response<DestinationResponse> firefoxResponse = service.createDestination(createfirefoxDestinationOptions).execute();
-// Validate response
+      // Validate response
       assertNotNull(firefoxResponse);
       assertEquals(firefoxResponse.getStatusCode(), 201);
 
@@ -1034,14 +1034,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .params(destinationConfig)
               .build();
 
-      name = "Safari_dest";
-      description = "This destination is for Safari";
+      String safName = "Safari_dest";
+      String safDescription = "This destination is for Safari";
 
       UpdateDestinationOptions updateSafariDestinationOptions = new UpdateDestinationOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId5)
-              .name(name)
-              .description(description)
+              .name(safName)
+              .description(safDescription)
               .config(destinationsafariConfigModel)
               .certificate(TestUtilities.createMockStream("This is a mock file."))
               .certificateContentType("testString")
@@ -1058,8 +1058,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(safariDestinationResult);
 
       assertEquals(safariDestinationResult.getId(), destinationId5);
-      assertEquals(safariDestinationResult.getDescription(), description);
-      assertEquals(safariDestinationResult.getName(), name);
+      assertEquals(safariDestinationResult.getDescription(), safDescription);
+      assertEquals(safariDestinationResult.getName(), safName);
 
       DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
               .url("https://teams.microsoft.com")
@@ -1307,6 +1307,50 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId3 = fcmSubscriptionResult.getId();
 
+      String slackName = "subscription_slack";
+      String slackDescription = "Subscription for slack";
+
+      CreateSubscriptionOptions createSlackSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackName)
+              .destinationId(destinationId4)
+              .topicId(topicId)
+              .description(slackDescription)
+              .build();
+
+      Response<Subscription> slackResponse = service.createSubscription(createSlackSubscriptionOptions).execute();
+
+      assertNotNull(slackResponse);
+      assertEquals(slackResponse.getStatusCode(), 201);
+      Subscription slackSubscriptionResult = slackResponse.getResult();
+      assertNotNull(slackSubscriptionResult);
+      assertEquals(slackSubscriptionResult.getDescription(), slackDescription);
+      assertEquals(slackSubscriptionResult.getName(), slackName);
+
+      subscriptionId8 = slackSubscriptionResult.getId();
+
+      String safName = "subscription_safari";
+      String safDescription = "Subscription for safari";
+
+      CreateSubscriptionOptions createSafariSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(safName)
+              .destinationId(destinationId5)
+              .topicId(topicId)
+              .description(safDescription)
+              .build();
+
+      Response<Subscription> safResponse = service.createSubscription(createSafariSubscriptionOptions).execute();
+
+      assertNotNull(safResponse);
+      assertEquals(safResponse.getStatusCode(), 201);
+      Subscription safSubscriptionResult = safResponse.getResult();
+      assertNotNull(safSubscriptionResult);
+      assertEquals(safSubscriptionResult.getDescription(), safDescription);
+      assertEquals(safSubscriptionResult.getName(), safName);
+
+      subscriptionId9 = safSubscriptionResult.getId();
+
       String msTeamsName = "subscription_msteams";
       String msTeamsDescription = "Subscription for msteams";
 
@@ -1397,50 +1441,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(fireSubscriptionResult.getName(), fireName);
 
       subscriptionId7 = fireSubscriptionResult.getId();
-
-      String slackName = "subscription_slack";
-      String slackDescription = "Subscription for slack";
-
-      CreateSubscriptionOptions createSlackSubscriptionOptions = new CreateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .name(slackName)
-              .destinationId(destinationId4)
-              .topicId(topicId)
-              .description(slackDescription)
-              .build();
-
-      Response<Subscription> slackResponse = service.createSubscription(createSlackSubscriptionOptions).execute();
-
-      assertNotNull(slackResponse);
-      assertEquals(slackResponse.getStatusCode(), 201);
-      Subscription slackSubscriptionResult = slackResponse.getResult();
-      assertNotNull(slackSubscriptionResult);
-      assertEquals(slackSubscriptionResult.getDescription(), fireDescription);
-      assertEquals(slackSubscriptionResult.getName(), fireName);
-
-      subscriptionId8 = slackSubscriptionResult.getId();
-
-      String safName = "subscription_safari";
-      String safDescription = "Subscription for safari";
-
-      CreateSubscriptionOptions createSafariSubscriptionOptions = new CreateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .name(safName)
-              .destinationId(destinationId5)
-              .topicId(topicId)
-              .description(safDescription)
-              .build();
-
-      Response<Subscription> safResponse = service.createSubscription(createSafariSubscriptionOptions).execute();
-
-      assertNotNull(safResponse);
-      assertEquals(safResponse.getStatusCode(), 201);
-      Subscription safSubscriptionResult = safResponse.getResult();
-      assertNotNull(safSubscriptionResult);
-      assertEquals(safSubscriptionResult.getDescription(), safDescription);
-      assertEquals(safSubscriptionResult.getName(), safName);
-
-      subscriptionId9 = safSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -1712,8 +1712,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(chromeSubscriptionResult.getName(), chromeName);
       assertEquals(chromeSubscriptionResult.getId(), subscriptionId6);
 
-      String fireName = "subscription_chrome_update";
-      String fireDescription = "Subscription chrome update";
+      String fireName = "subscription_Firefox_update";
+      String fireDescription = "Subscription Firefox update";
 
       UpdateSubscriptionOptions updateFireSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -1917,6 +1917,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId6);
       subscriptions.add(subscriptionId7);
       subscriptions.add(subscriptionId8);
+      subscriptions.add(subscriptionId9);
 
       for (String subscription :
               subscriptions) {
