@@ -805,7 +805,7 @@ public class EventNotificationsExamples {
       Subscription subscription = response.getResult();
 
       System.out.println(subscription);
-      // end-create_subscription
+      
       subscriptionId = subscription.getId();
 
       ArrayList<String> toMail = new ArrayList<String>();
@@ -854,7 +854,7 @@ public class EventNotificationsExamples {
       // Invoke operation
       Response<Subscription> webResponse = eventNotificationsService.createSubscription(createWebSubscriptionOptions).execute();
       Subscription subscriptionResult = webResponse.getResult();
-
+      // end-create_subscription
       subscriptionId3 = subscriptionResult.getId();
 
     } catch (ServiceResponseException e) {
