@@ -342,7 +342,7 @@ public class EventNotificationsExamples {
       System.out.println(destinationResponseResult);
       destinationId3 = destinationResponseResult.getId();
 
-      DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
+      DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig = new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
               .build();
 
@@ -402,7 +402,7 @@ public class EventNotificationsExamples {
       System.out.println(safariDestinationResponse);
       destinationId5 = safariDestinationResponse.getId();
 
-      DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
+      DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig = new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
               .url("https://teams.microsoft.com")
               .build();
 
@@ -619,7 +619,7 @@ public class EventNotificationsExamples {
       Destination webhookDestinationResult = webhookResponse.getResult();
       System.out.println(webhookDestinationResult);
 
-      DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
+      DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig = new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
               .build();
 
@@ -679,7 +679,7 @@ public class EventNotificationsExamples {
 
       System.out.println(safariDestination);
 
-      DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
+      DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig = new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
               .url("https://teams.microsoft.com")
               .build();
 
@@ -777,7 +777,7 @@ public class EventNotificationsExamples {
               .config(destinationFirefoxConfigModel)
               .build();
 
-      Response<Destination> fireFoxResponse = eventNotificationsService.updateDestination(updateFireFoxDestinationOptions).execute();;
+      Response<Destination> fireFoxResponse = eventNotificationsService.updateDestination(updateFireFoxDestinationOptions).execute();
       Destination firefoxDestinationResult = fireFoxResponse.getResult();
       System.out.println(firefoxDestinationResult);
       // end-update_destination
@@ -805,7 +805,6 @@ public class EventNotificationsExamples {
       Subscription subscription = response.getResult();
 
       System.out.println(subscription);
-      
       subscriptionId = subscription.getId();
 
       ArrayList<String> toMail = new ArrayList<String>();
