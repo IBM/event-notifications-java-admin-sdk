@@ -535,13 +535,13 @@ public class EventNotificationsExamples {
         DestinationListItem destination = destinations.get(i);
         if (destination.getId() != destinationId && destination.getType().equals("smtp_ibm")) {
           destinationId2 = destination.getId();
-          if(destinationId1 != ""){
+          if(destinationId1 != "") {
             break;
           }
         }
-        if(destination.getType().equals("sms_ibm")){
+        if (destination.getType().equals("sms_ibm")) {
           destinationId1 = destination.getId();
-          if(destinationId2 != ""){
+          if (destinationId2 != "") {
             break;
           }
         }
