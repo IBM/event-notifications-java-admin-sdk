@@ -1,3 +1,10 @@
+## [0.1.6](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.5...0.1.6) (2022-10-31)
+
+
+### Bug Fixes
+
+* sms opt in changes ([a2500f6](https://github.com/IBM/event-notifications-java-admin-sdk/commit/a2500f60d7a69decc2f3c337e0625dd03784d416))
+
 ## [0.1.5](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.4...0.1.5) (2022-08-30)
 
 
