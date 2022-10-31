@@ -535,7 +535,7 @@ public class EventNotificationsExamples {
         DestinationListItem destination = destinations.get(i);
         if (destination.getId() != destinationId && destination.getType().equals("smtp_ibm")) {
           destinationId2 = destination.getId();
-          if(destinationId1 != "") {
+          if (destinationId1 != "") {
             break;
           }
         }
