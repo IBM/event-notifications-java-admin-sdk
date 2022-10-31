@@ -13,7 +13,8 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -34,7 +35,7 @@ public class SubscriptionAttributesSMSAttributesResponseTest {
   @Test
   public void testSubscriptionAttributesSMSAttributesResponse() throws Throwable {
     SubscriptionAttributesSMSAttributesResponse subscriptionAttributesSmsAttributesResponseModel = new SubscriptionAttributesSMSAttributesResponse();
-    assertNull(subscriptionAttributesSmsAttributesResponseModel.getTo());
+    assertNull(subscriptionAttributesSmsAttributesResponseModel.getSubscribed());
     assertNull(subscriptionAttributesSmsAttributesResponseModel.getUnsubscribed());
     assertNull(subscriptionAttributesSmsAttributesResponseModel.getInvited());
   }

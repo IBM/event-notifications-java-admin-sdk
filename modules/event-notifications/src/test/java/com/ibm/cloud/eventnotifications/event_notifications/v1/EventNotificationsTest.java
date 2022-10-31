@@ -58,8 +58,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefRes
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMAttributesItems;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
@@ -1643,7 +1643,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testCreateSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"to\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}]}}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"subscribed\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"expires_at\": \"2019-01-01T12:00:00.000Z\"}]}}";
     String createSubscriptionPath = "/v1/instances/testString/subscriptions";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1652,7 +1652,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
 
     // Construct an instance of the SubscriptionCreateAttributesSMSAttributes model
     SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
-      .to(java.util.Arrays.asList("testString"))
+      .invited(java.util.Arrays.asList("testString"))
       .build();
 
     // Construct an instance of the CreateSubscriptionOptions model
@@ -1827,7 +1827,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testGetSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"to\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}]}}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"subscribed\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"expires_at\": \"2019-01-01T12:00:00.000Z\"}]}}";
     String getSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1930,16 +1930,21 @@ public class EventNotificationsTest extends PowerMockTestCase {
   @Test
   public void testUpdateSubscriptionWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"to\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"time\": \"2019-01-01T12:00:00.000Z\"}]}}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"updated_at\": \"updatedAt\", \"from\": \"from\", \"destination_type\": \"sms_ibm\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"attributes\": {\"subscribed\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"unsubscribed\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"invited\": [{\"phone_number\": \"phoneNumber\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"expires_at\": \"2019-01-01T12:00:00.000Z\"}]}}";
     String updateSubscriptionPath = "/v1/instances/testString/subscriptions/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the SMSupdateAttributesTo model
-    SMSupdateAttributesTo smSupdateAttributesToModel = new SMSupdateAttributesTo.Builder()
+    // Construct an instance of the UpdateAttributesInvited model
+    UpdateAttributesInvited updateAttributesInvitedModel = new UpdateAttributesInvited.Builder()
       .add(java.util.Arrays.asList("testString"))
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+
+    // Construct an instance of the UpdateAttributesSubscribed model
+    UpdateAttributesSubscribed updateAttributesSubscribedModel = new UpdateAttributesSubscribed.Builder()
       .remove(java.util.Arrays.asList("testString"))
       .build();
 
@@ -1950,7 +1955,8 @@ public class EventNotificationsTest extends PowerMockTestCase {
 
     // Construct an instance of the SubscriptionUpdateAttributesSMSUpdateAttributes model
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
-      .to(smSupdateAttributesToModel)
+      .invited(updateAttributesInvitedModel)
+      .subscribed(updateAttributesSubscribedModel)
       .unsubscribed(updateAttributesUnsubscribedModel)
       .build();
 

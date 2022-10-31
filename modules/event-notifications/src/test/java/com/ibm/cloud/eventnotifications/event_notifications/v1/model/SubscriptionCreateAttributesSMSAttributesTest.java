@@ -32,9 +32,9 @@ public class SubscriptionCreateAttributesSMSAttributesTest {
   @Test
   public void testSubscriptionCreateAttributesSMSAttributes() throws Throwable {
     SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesSmsAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
-      .to(java.util.Arrays.asList("testString"))
+      .invited(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(subscriptionCreateAttributesSmsAttributesModel.to(), java.util.Arrays.asList("testString"));
+    assertEquals(subscriptionCreateAttributesSmsAttributesModel.invited(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(subscriptionCreateAttributesSmsAttributesModel);
 

@@ -49,6 +49,7 @@ public class EventNotificationsExamples {
   public static String sourceId = "";
   public static String topicId = "";
   public static String destinationId = "";
+  public static String destinationId1 = "";
   public static String destinationId2 = "";
   public static String destinationId3 = "";
   public static String destinationId4 = "";
@@ -59,6 +60,7 @@ public class EventNotificationsExamples {
   public static String destinationId9 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
+  public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
   public static Map<String, String> config = null;
@@ -533,6 +535,15 @@ public class EventNotificationsExamples {
         DestinationListItem destination = destinations.get(i);
         if (destination.getId() != destinationId && destination.getType().equals("smtp_ibm")) {
           destinationId2 = destination.getId();
+          if (destinationId1 != "") {
+            break;
+          }
+        }
+        if (destination.getType().equals("sms_ibm")) {
+          destinationId1 = destination.getId();
+          if (destinationId2 != "") {
+            break;
+          }
         }
       }
 
@@ -790,8 +801,8 @@ public class EventNotificationsExamples {
       System.out.println("createSubscription() result:");
       // begin-create_subscription
 
-      String name = "FCM subscription";
-      String description = "Subscription for FCM";
+      String name = "Android/IOS/Chrome/Firefox/Safari subscription";
+      String description = "Subscription for Android/IOS/Chrome/Firefox/Safari";
 
       CreateSubscriptionOptions createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -806,6 +817,30 @@ public class EventNotificationsExamples {
 
       System.out.println(subscription);
       subscriptionId = subscription.getId();
+
+      ArrayList<String> toNumber = new ArrayList<String>();
+      toNumber.add("+12064563059");
+      toNumber.add("+12267054625");
+      SubscriptionCreateAttributesSMSAttributes subscriptionCreateSMSAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
+              .invited(toNumber)
+              .build();
+
+      String smsName = "subscription_sms";
+      String smsDescription = "Subscription sms";
+
+      createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(smsName)
+              .destinationId(destinationId1)
+              .topicId(topicId)
+              .attributes(subscriptionCreateSMSAttributesModel)
+              .description(smsDescription)
+              .build();
+
+      Response<Subscription> smsResponse = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
+      Subscription smsSubscriptionResult = smsResponse.getResult();
+      System.out.println(smsSubscriptionResult);
+      subscriptionId1 = smsSubscriptionResult.getId();
 
       ArrayList<String> toMail = new ArrayList<String>();
       toMail.add("tester1@gmail.com");
@@ -900,8 +935,8 @@ public class EventNotificationsExamples {
       System.out.println("updateSubscription() result:");
       // begin-update_subscription
 
-      String name = "FCM_sub_updated";
-      String description = "Update FCM subscription";
+      String name = "Android/IOS/Chrome/Firefox/Safari_sub_updated";
+      String description = "Update Android/IOS/Chrome/Firefox/Safari subscription";
 
       UpdateSubscriptionOptions updateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -914,6 +949,45 @@ public class EventNotificationsExamples {
       Subscription subscription = response.getResult();
 
       System.out.println(subscription);
+
+      ArrayList<String> toPhRemove = new ArrayList<String>();
+      toPhRemove.add("+12064512559");
+
+      ArrayList<String> toPhInvite = new ArrayList<String>();
+      toPhInvite.add("+12064512559");
+
+      UpdateAttributesSubscribed phSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toPhRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed phUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toPhRemove)
+              .build();
+
+      UpdateAttributesInvited phInvited = new UpdateAttributesInvited.Builder()
+              .add(toPhInvite)
+              .build();
+
+      SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateSMSAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
+              .invited(phInvited)
+              .subscribed(phSubscribed)
+              .unsubscribed(phUnSubscribed)
+              .build();
+
+      String smsName = "sms subscription update";
+      String smsDescription = "subscription_update for sms";
+
+      UpdateSubscriptionOptions smsUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(smsName)
+              .id(subscriptionId1)
+              .attributes(subscriptionUpdateSMSAttributesModel)
+              .description(smsDescription)
+              .build();
+
+      Response<Subscription> smsResponse = eventNotificationsService.updateSubscription(smsUpdateSubscriptionOptions).execute();
+      Subscription smsSubscriptionResult = smsResponse.getResult();
+      System.out.println(smsSubscriptionResult);
 
       ArrayList<String> toRemove = new ArrayList<String>();
       toRemove.add("tester3@ibm.com");
@@ -1038,6 +1112,7 @@ public class EventNotificationsExamples {
 
       List<String> subscriptions = new ArrayList<>();
       subscriptions.add(subscriptionId2);
+      subscriptions.add(subscriptionId1);
       subscriptions.add(subscriptionId3);
 
       for (String subscription : subscriptions) {

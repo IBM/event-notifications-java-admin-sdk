@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesUnsubscribed;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,22 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the EmailUpdateAttributesUnsubscribed model.
+ * Unit test class for the SMSAttributesItems model.
  */
-public class EmailUpdateAttributesUnsubscribedTest {
+public class SMSAttributesItemsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testEmailUpdateAttributesUnsubscribed() throws Throwable {
-    EmailUpdateAttributesUnsubscribed emailUpdateAttributesUnsubscribedModel = new EmailUpdateAttributesUnsubscribed.Builder()
-      .remove(java.util.Arrays.asList("testString"))
-      .build();
-    assertEquals(emailUpdateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
-
-    String json = TestUtilities.serialize(emailUpdateAttributesUnsubscribedModel);
-
-    EmailUpdateAttributesUnsubscribed emailUpdateAttributesUnsubscribedModelNew = TestUtilities.deserialize(json, EmailUpdateAttributesUnsubscribed.class);
-    assertTrue(emailUpdateAttributesUnsubscribedModelNew instanceof EmailUpdateAttributesUnsubscribed);
+  public void testSMSAttributesItems() throws Throwable {
+    SMSAttributesItems smsAttributesItemsModel = new SMSAttributesItems();
+    assertNull(smsAttributesItemsModel.getPhoneNumber());
+    assertNull(smsAttributesItemsModel.getUpdatedAt());
   }
 }
