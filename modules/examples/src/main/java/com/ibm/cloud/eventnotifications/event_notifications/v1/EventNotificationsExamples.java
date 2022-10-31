@@ -1112,6 +1112,7 @@ public class EventNotificationsExamples {
 
       List<String> subscriptions = new ArrayList<>();
       subscriptions.add(subscriptionId2);
+      subscriptions.add(subscriptionId1);
       subscriptions.add(subscriptionId3);
 
       for (String subscription : subscriptions) {
