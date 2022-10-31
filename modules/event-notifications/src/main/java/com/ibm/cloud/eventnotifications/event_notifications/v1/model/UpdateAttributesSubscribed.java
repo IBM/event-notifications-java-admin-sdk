@@ -18,7 +18,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The email ids or phone number.
+ * The email ids or phone numbers.
  */
 public class UpdateAttributesSubscribed extends GenericModel {
 
@@ -96,7 +96,7 @@ public class UpdateAttributesSubscribed extends GenericModel {
   /**
    * Gets the remove.
    *
-   * The email ids or phone number unsubscribed.
+   * The email ids or phone numbers to be unsubscribed.
    *
    * @return the remove
    */

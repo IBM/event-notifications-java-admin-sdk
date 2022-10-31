@@ -128,7 +128,7 @@ public class UpdateAttributesInvited extends GenericModel {
   /**
    * Gets the add.
    *
-   * The email ids or phone numbers.
+   * The email ids or phone numbers to be invited.
    *
    * @return the add
    */
@@ -139,7 +139,7 @@ public class UpdateAttributesInvited extends GenericModel {
   /**
    * Gets the remove.
    *
-   * The email ids for removal.
+   * The email ids or phone numbers for removal.
    *
    * @return the remove
    */

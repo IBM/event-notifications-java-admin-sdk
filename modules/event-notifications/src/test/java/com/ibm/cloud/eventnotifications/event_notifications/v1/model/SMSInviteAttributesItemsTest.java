@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailUpdateAttributesInvited;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,24 +23,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the EmailUpdateAttributesInvited model.
+ * Unit test class for the SMSInviteAttributesItems model.
  */
-public class EmailUpdateAttributesInvitedTest {
+public class SMSInviteAttributesItemsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testEmailUpdateAttributesInvited() throws Throwable {
-    EmailUpdateAttributesInvited emailUpdateAttributesInvitedModel = new EmailUpdateAttributesInvited.Builder()
-      .add(java.util.Arrays.asList("testString"))
-      .remove(java.util.Arrays.asList("testString"))
-      .build();
-    assertEquals(emailUpdateAttributesInvitedModel.add(), java.util.Arrays.asList("testString"));
-    assertEquals(emailUpdateAttributesInvitedModel.remove(), java.util.Arrays.asList("testString"));
-
-    String json = TestUtilities.serialize(emailUpdateAttributesInvitedModel);
-
-    EmailUpdateAttributesInvited emailUpdateAttributesInvitedModelNew = TestUtilities.deserialize(json, EmailUpdateAttributesInvited.class);
-    assertTrue(emailUpdateAttributesInvitedModelNew instanceof EmailUpdateAttributesInvited);
+  public void testSMSInviteAttributesItems() throws Throwable {
+    SMSInviteAttributesItems smsInviteAttributesItemsModel = new SMSInviteAttributesItems();
+    assertNull(smsInviteAttributesItemsModel.getPhoneNumber());
+    assertNull(smsInviteAttributesItemsModel.getUpdatedAt());
+    assertNull(smsInviteAttributesItemsModel.getExpiresAt());
   }
 }

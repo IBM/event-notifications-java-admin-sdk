@@ -48,6 +48,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String topicId2 = "";
   public static String topicId3 = "";
   public static String destinationId = "";
+  public static String destinationId1 = "";
   public static String destinationId2 = "";
   public static String destinationId3 = "";
   public static String destinationId4 = "";
@@ -58,6 +59,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId8 = "";
   public static String destinationId9 = "";
   public static String subscriptionId = "";
+  public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
   public static String subscriptionId4 = "";
@@ -855,6 +857,15 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
           DestinationListItem destination = destinations.get(i);
           if (destination.getId() != destinationId && destination.getId() != destinationId3 && destination.getType().equals("smtp_ibm")) {
             destinationId2 = destination.getId();
+            if(destinationId1 != ""){
+              break;
+            }
+          }
+          if(destination.getType().equals("sms_ibm")){
+            destinationId1 = destination.getId();
+            if(destinationId2 != ""){
+              break;
+            }
           }
         }
 
@@ -1251,6 +1262,37 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId = subscriptionResult.getId();
 
+
+      ArrayList<String> toNumber = new ArrayList<String>();
+      toNumber.add("+12064563059");
+      toNumber.add("+12267054625");
+      SubscriptionCreateAttributesSMSAttributes subscriptionCreateSMSAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
+              .invited(toNumber)
+              .build();
+
+      String smsName = "subscription_sms";
+      String smsDescription = "Subscription sms";
+
+      createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(smsName)
+              .destinationId(destinationId1)
+              .topicId(topicId)
+              .attributes(subscriptionCreateSMSAttributesModel)
+              .description(smsDescription)
+              .build();
+
+      Response<Subscription> smsResponse = service.createSubscription(createSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(smsResponse);
+      assertEquals(smsResponse.getStatusCode(), 201);
+      Subscription smsSubscriptionResult = smsResponse.getResult();
+      assertNotNull(smsSubscriptionResult);
+      assertEquals(smsSubscriptionResult.getDescription(), smsDescription);
+      assertEquals(smsSubscriptionResult.getName(), smsName);
+
+      subscriptionId1 = smsSubscriptionResult.getId();
+
       ArrayList<String> toMail = new ArrayList<String>();
       toMail.add("tester1@gmail.com");
       toMail.add("tester3@ibm.com");
@@ -1573,6 +1615,50 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(subscriptionResult.getDescription(), description);
       assertEquals(subscriptionResult.getId(), subscriptionId);
 
+      ArrayList<String> toPhRemove = new ArrayList<String>();
+      toPhRemove.add("+12064512559");
+
+      ArrayList<String> toPhInvite = new ArrayList<String>();
+      toPhInvite.add("+12064512559");
+
+      UpdateAttributesSubscribed phSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toPhRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed phUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toPhRemove)
+              .build();
+
+      UpdateAttributesInvited phInvited = new UpdateAttributesInvited.Builder()
+              .add(toPhInvite)
+              .build();
+
+      SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateSMSAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
+              .invited(phInvited)
+              .subscribed(phSubscribed)
+              .unsubscribed(phUnSubscribed)
+              .build();
+
+      String smsName = "sms subscription update";
+      String smsDescription = "subscription_update for sms";
+
+      UpdateSubscriptionOptions smsUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(smsName)
+              .id(subscriptionId1)
+              .attributes(subscriptionUpdateSMSAttributesModel)
+              .description(smsDescription)
+              .build();
+
+      Response<Subscription> smsResponse = service.updateSubscription(smsUpdateSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(smsResponse);
+      assertEquals(smsResponse.getStatusCode(), 200);
+      Subscription smsSubscriptionResult = smsResponse.getResult();
+      assertNotNull(smsSubscriptionResult);
+      assertEquals(smsSubscriptionResult.getDescription(), smsDescription);
+      assertEquals(smsSubscriptionResult.getName(), smsName);
+      assertEquals(smsSubscriptionResult.getId(), subscriptionId1);
 
       ArrayList<String> toRemove = new ArrayList<String>();
       toRemove.add("tester3@ibm.com");
@@ -1910,6 +1996,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       List<String> subscriptions = new ArrayList<>();
       subscriptions.add(subscriptionId);
+      subscriptions.add(subscriptionId1);
       subscriptions.add(subscriptionId2);
       subscriptions.add(subscriptionId3);
       subscriptions.add(subscriptionId4);

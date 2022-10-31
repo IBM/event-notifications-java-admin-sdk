@@ -18,7 +18,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The phone number or Email id to send the SMS/email to.
+ * The email ids or phone numbers.
  */
 public class UpdateAttributesUnsubscribed extends GenericModel {
 
@@ -96,7 +96,7 @@ public class UpdateAttributesUnsubscribed extends GenericModel {
   /**
    * Gets the remove.
    *
-   * array to add new items.
+   * The email ids or phone numbers to be unsubscribed.
    *
    * @return the remove
    */

@@ -20,11 +20,12 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * The sms attributes.
  */
-public class SMAttributesItems extends GenericModel {
+public class SMSAttributesItems extends GenericModel {
 
   @SerializedName("phone_number")
   protected String phoneNumber;
-  protected Date time;
+  @SerializedName("updated_at")
+  protected Date updatedAt;
 
   /**
    * Gets the phoneNumber.
@@ -38,14 +39,14 @@ public class SMAttributesItems extends GenericModel {
   }
 
   /**
-   * Gets the time.
+   * Gets the updatedAt.
    *
    * last updated time.
    *
-   * @return the time
+   * @return the updatedAt
    */
-  public Date getTime() {
-    return time;
+  public Date getUpdatedAt() {
+    return updatedAt;
   }
 }
 

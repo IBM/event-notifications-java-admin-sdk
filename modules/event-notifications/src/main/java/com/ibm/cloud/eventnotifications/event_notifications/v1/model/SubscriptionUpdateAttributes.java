@@ -26,9 +26,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class SubscriptionUpdateAttributes extends GenericModel {
 
-  protected SMSupdateAttributesTo to;
-  protected UpdateAttributesUnsubscribed unsubscribed;
   protected UpdateAttributesInvited invited;
+  protected UpdateAttributesSubscribed subscribed;
+  protected UpdateAttributesUnsubscribed unsubscribed;
   @SerializedName("add_notification_payload")
   protected Boolean addNotificationPayload;
   @SerializedName("reply_to_mail")
@@ -37,35 +37,12 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   protected String replyToName;
   @SerializedName("from_name")
   protected String fromName;
-  protected UpdateAttributesSubscribed subscribed;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
 
   protected SubscriptionUpdateAttributes() {
-  }
-
-  /**
-   * Gets the to.
-   *
-   * The phone number to send the SMS to.
-   *
-   * @return the to
-   */
-  public SMSupdateAttributesTo to() {
-    return to;
-  }
-
-  /**
-   * Gets the unsubscribed.
-   *
-   * The phone number or Email id to send the SMS/email to.
-   *
-   * @return the unsubscribed
-   */
-  public UpdateAttributesUnsubscribed unsubscribed() {
-    return unsubscribed;
   }
 
   /**
@@ -77,6 +54,28 @@ public class SubscriptionUpdateAttributes extends GenericModel {
    */
   public UpdateAttributesInvited invited() {
     return invited;
+  }
+
+  /**
+   * Gets the subscribed.
+   *
+   * The email ids or phone numbers.
+   *
+   * @return the subscribed
+   */
+  public UpdateAttributesSubscribed subscribed() {
+    return subscribed;
+  }
+
+  /**
+   * Gets the unsubscribed.
+   *
+   * The email ids or phone numbers.
+   *
+   * @return the unsubscribed
+   */
+  public UpdateAttributesUnsubscribed unsubscribed() {
+    return unsubscribed;
   }
 
   /**
@@ -121,17 +120,6 @@ public class SubscriptionUpdateAttributes extends GenericModel {
    */
   public String fromName() {
     return fromName;
-  }
-
-  /**
-   * Gets the subscribed.
-   *
-   * The email ids or phone number.
-   *
-   * @return the subscribed
-   */
-  public UpdateAttributesSubscribed subscribed() {
-    return subscribed;
   }
 
   /**

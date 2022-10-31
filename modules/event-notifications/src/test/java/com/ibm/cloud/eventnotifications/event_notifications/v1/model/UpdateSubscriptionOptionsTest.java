@@ -13,8 +13,9 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesInvited;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesSubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -34,12 +35,17 @@ public class UpdateSubscriptionOptionsTest {
 
   @Test
   public void testUpdateSubscriptionOptions() throws Throwable {
-    SMSupdateAttributesTo smSupdateAttributesToModel = new SMSupdateAttributesTo.Builder()
+    UpdateAttributesInvited updateAttributesInvitedModel = new UpdateAttributesInvited.Builder()
       .add(java.util.Arrays.asList("testString"))
       .remove(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(smSupdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
-    assertEquals(smSupdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
+    assertEquals(updateAttributesInvitedModel.add(), java.util.Arrays.asList("testString"));
+    assertEquals(updateAttributesInvitedModel.remove(), java.util.Arrays.asList("testString"));
+
+    UpdateAttributesSubscribed updateAttributesSubscribedModel = new UpdateAttributesSubscribed.Builder()
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+    assertEquals(updateAttributesSubscribedModel.remove(), java.util.Arrays.asList("testString"));
 
     UpdateAttributesUnsubscribed updateAttributesUnsubscribedModel = new UpdateAttributesUnsubscribed.Builder()
       .remove(java.util.Arrays.asList("testString"))
@@ -47,10 +53,12 @@ public class UpdateSubscriptionOptionsTest {
     assertEquals(updateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
 
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
-      .to(smSupdateAttributesToModel)
+      .invited(updateAttributesInvitedModel)
+      .subscribed(updateAttributesSubscribedModel)
       .unsubscribed(updateAttributesUnsubscribedModel)
       .build();
-    assertEquals(subscriptionUpdateAttributesModel.to(), smSupdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesModel.invited(), updateAttributesInvitedModel);
+    assertEquals(subscriptionUpdateAttributesModel.subscribed(), updateAttributesSubscribedModel);
     assertEquals(subscriptionUpdateAttributesModel.unsubscribed(), updateAttributesUnsubscribedModel);
 
     UpdateSubscriptionOptions updateSubscriptionOptionsModel = new UpdateSubscriptionOptions.Builder()

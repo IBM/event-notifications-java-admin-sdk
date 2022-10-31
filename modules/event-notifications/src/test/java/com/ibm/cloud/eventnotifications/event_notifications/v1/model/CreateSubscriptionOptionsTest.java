@@ -33,9 +33,9 @@ public class CreateSubscriptionOptionsTest {
   @Test
   public void testCreateSubscriptionOptions() throws Throwable {
     SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
-      .to(java.util.Arrays.asList("testString"))
+      .invited(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(subscriptionCreateAttributesModel.to(), java.util.Arrays.asList("testString"));
+    assertEquals(subscriptionCreateAttributesModel.invited(), java.util.Arrays.asList("testString"));
 
     CreateSubscriptionOptions createSubscriptionOptionsModel = new CreateSubscriptionOptions.Builder()
       .instanceId("testString")

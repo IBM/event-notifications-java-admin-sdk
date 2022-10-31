@@ -22,11 +22,13 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributes extends Subscriptio
    * Builder.
    */
   public static class Builder {
-    private SMSupdateAttributesTo to;
+    private UpdateAttributesInvited invited;
+    private UpdateAttributesSubscribed subscribed;
     private UpdateAttributesUnsubscribed unsubscribed;
 
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributes) {
-      this.to = subscriptionUpdateAttributesSmsUpdateAttributes.to;
+      this.invited = subscriptionUpdateAttributesSmsUpdateAttributes.invited;
+      this.subscribed = subscriptionUpdateAttributesSmsUpdateAttributes.subscribed;
       this.unsubscribed = subscriptionUpdateAttributesSmsUpdateAttributes.unsubscribed;
     }
 
@@ -46,13 +48,24 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributes extends Subscriptio
     }
 
     /**
-     * Set the to.
+     * Set the invited.
      *
-     * @param to the to
+     * @param invited the invited
      * @return the SubscriptionUpdateAttributesSMSUpdateAttributes builder
      */
-    public Builder to(SMSupdateAttributesTo to) {
-      this.to = to;
+    public Builder invited(UpdateAttributesInvited invited) {
+      this.invited = invited;
+      return this;
+    }
+
+    /**
+     * Set the subscribed.
+     *
+     * @param subscribed the subscribed
+     * @return the SubscriptionUpdateAttributesSMSUpdateAttributes builder
+     */
+    public Builder subscribed(UpdateAttributesSubscribed subscribed) {
+      this.subscribed = subscribed;
       return this;
     }
 
@@ -71,7 +84,8 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributes extends Subscriptio
   protected SubscriptionUpdateAttributesSMSUpdateAttributes() { }
 
   protected SubscriptionUpdateAttributesSMSUpdateAttributes(Builder builder) {
-    to = builder.to;
+    invited = builder.invited;
+    subscribed = builder.subscribed;
     unsubscribed = builder.unsubscribed;
   }
 

@@ -25,10 +25,10 @@ public class SubscriptionCreateAttributesSMSAttributes extends SubscriptionCreat
    * Builder.
    */
   public static class Builder {
-    private List<String> to;
+    private List<String> invited;
 
     public Builder(SubscriptionCreateAttributes subscriptionCreateAttributesSmsAttributes) {
-      this.to = subscriptionCreateAttributesSmsAttributes.to;
+      this.invited = subscriptionCreateAttributesSmsAttributes.invited;
     }
 
     /**
@@ -40,10 +40,10 @@ public class SubscriptionCreateAttributesSMSAttributes extends SubscriptionCreat
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param to the to
+     * @param invited the invited
      */
-    public Builder(List<String> to) {
-      this.to = to;
+    public Builder(List<String> invited) {
+      this.invited = invited;
     }
 
     /**
@@ -56,30 +56,30 @@ public class SubscriptionCreateAttributesSMSAttributes extends SubscriptionCreat
     }
 
     /**
-     * Adds an to to to.
+     * Adds an invited to invited.
      *
-     * @param to the new to
+     * @param invited the new invited
      * @return the SubscriptionCreateAttributesSMSAttributes builder
      */
-    public Builder addTo(String to) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(to,
-        "to cannot be null");
-      if (this.to == null) {
-        this.to = new ArrayList<String>();
+    public Builder addInvited(String invited) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(invited,
+        "invited cannot be null");
+      if (this.invited == null) {
+        this.invited = new ArrayList<String>();
       }
-      this.to.add(to);
+      this.invited.add(invited);
       return this;
     }
 
     /**
-     * Set the to.
-     * Existing to will be replaced.
+     * Set the invited.
+     * Existing invited will be replaced.
      *
-     * @param to the to
+     * @param invited the invited
      * @return the SubscriptionCreateAttributesSMSAttributes builder
      */
-    public Builder to(List<String> to) {
-      this.to = to;
+    public Builder invited(List<String> invited) {
+      this.invited = invited;
       return this;
     }
   }
@@ -87,9 +87,9 @@ public class SubscriptionCreateAttributesSMSAttributes extends SubscriptionCreat
   protected SubscriptionCreateAttributesSMSAttributes() { }
 
   protected SubscriptionCreateAttributesSMSAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.to,
-      "to cannot be null");
-    to = builder.to;
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.invited,
+      "invited cannot be null");
+    invited = builder.invited;
   }
 
   /**

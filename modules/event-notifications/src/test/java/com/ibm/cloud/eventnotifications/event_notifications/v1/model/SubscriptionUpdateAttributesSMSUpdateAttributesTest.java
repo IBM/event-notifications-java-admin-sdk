@@ -13,8 +13,9 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSupdateAttributesTo;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesInvited;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesSubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -33,12 +34,17 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributesTest {
 
   @Test
   public void testSubscriptionUpdateAttributesSMSUpdateAttributes() throws Throwable {
-    SMSupdateAttributesTo smSupdateAttributesToModel = new SMSupdateAttributesTo.Builder()
+    UpdateAttributesInvited updateAttributesInvitedModel = new UpdateAttributesInvited.Builder()
       .add(java.util.Arrays.asList("testString"))
       .remove(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(smSupdateAttributesToModel.add(), java.util.Arrays.asList("testString"));
-    assertEquals(smSupdateAttributesToModel.remove(), java.util.Arrays.asList("testString"));
+    assertEquals(updateAttributesInvitedModel.add(), java.util.Arrays.asList("testString"));
+    assertEquals(updateAttributesInvitedModel.remove(), java.util.Arrays.asList("testString"));
+
+    UpdateAttributesSubscribed updateAttributesSubscribedModel = new UpdateAttributesSubscribed.Builder()
+      .remove(java.util.Arrays.asList("testString"))
+      .build();
+    assertEquals(updateAttributesSubscribedModel.remove(), java.util.Arrays.asList("testString"));
 
     UpdateAttributesUnsubscribed updateAttributesUnsubscribedModel = new UpdateAttributesUnsubscribed.Builder()
       .remove(java.util.Arrays.asList("testString"))
@@ -46,17 +52,20 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributesTest {
     assertEquals(updateAttributesUnsubscribedModel.remove(), java.util.Arrays.asList("testString"));
 
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributesModel = new SubscriptionUpdateAttributesSMSUpdateAttributes.Builder()
-      .to(smSupdateAttributesToModel)
+      .invited(updateAttributesInvitedModel)
+      .subscribed(updateAttributesSubscribedModel)
       .unsubscribed(updateAttributesUnsubscribedModel)
       .build();
-    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.to(), smSupdateAttributesToModel);
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.invited(), updateAttributesInvitedModel);
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.subscribed(), updateAttributesSubscribedModel);
     assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModel.unsubscribed(), updateAttributesUnsubscribedModel);
 
     String json = TestUtilities.serialize(subscriptionUpdateAttributesSmsUpdateAttributesModel);
 
     SubscriptionUpdateAttributesSMSUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributesModelNew = TestUtilities.deserialize(json, SubscriptionUpdateAttributesSMSUpdateAttributes.class);
     assertTrue(subscriptionUpdateAttributesSmsUpdateAttributesModelNew instanceof SubscriptionUpdateAttributesSMSUpdateAttributes);
-    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.to().toString(), smSupdateAttributesToModel.toString());
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.invited().toString(), updateAttributesInvitedModel.toString());
+    assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.subscribed().toString(), updateAttributesSubscribedModel.toString());
     assertEquals(subscriptionUpdateAttributesSmsUpdateAttributesModelNew.unsubscribed().toString(), updateAttributesUnsubscribedModel.toString());
   }
 }
