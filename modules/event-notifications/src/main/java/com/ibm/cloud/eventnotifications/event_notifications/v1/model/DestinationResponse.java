@@ -40,6 +40,8 @@ public class DestinationResponse extends GenericModel {
     String SLACK = "slack";
     /** ibmcf. */
     String IBMCF = "ibmcf";
+    /** pagerduty. */
+    String PAGERDUTY = "pagerduty";
     /** push_safari. */
     String PUSH_SAFARI = "push_safari";
     /** msteams. */

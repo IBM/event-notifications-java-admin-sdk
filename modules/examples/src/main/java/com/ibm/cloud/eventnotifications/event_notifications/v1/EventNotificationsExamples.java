@@ -58,6 +58,7 @@ public class EventNotificationsExamples {
   public static String destinationId7 = "";
   public static String destinationId8 = "";
   public static String destinationId9 = "";
+  public static String destinationId10 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -512,6 +513,34 @@ public class EventNotificationsExamples {
       DestinationResponse destinationFirefoxResponseResult = firefoxResponse.getResult();
       System.out.println(destinationFirefoxResponseResult);
       destinationId9 = destinationFirefoxResponseResult.getId();
+
+      DestinationConfigOneOfPagerDutyDestinationConfig pdDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
+              .apiKey("dsdsdsdsdsdsdsd")
+              .routingKey("sdsdsdefsdfsdfsf")
+              .build();
+
+      DestinationConfig pagerDutyDestinationConfigModel = new DestinationConfig.Builder()
+              .params(pdDestinationConfig)
+              .build();
+
+      String pdName = "Pager_Duty_destination";
+      String pdTypeVal = "pagerduty";
+      String pdDescription = "PagerDuty Destination";
+
+      CreateDestinationOptions createPagerDutyDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(pdName)
+              .type(pdTypeVal)
+              .description(pdDescription)
+              .config(pagerDutyDestinationConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> pdResponse = eventNotificationsService.createDestination(createPagerDutyDestinationOptions).execute();
+      DestinationResponse destinationPagerDutyResponseResult = pdResponse.getResult();
+
+      System.out.println(destinationPagerDutyResponseResult);
+      destinationId10 = destinationPagerDutyResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -791,6 +820,30 @@ public class EventNotificationsExamples {
       Response<Destination> fireFoxResponse = eventNotificationsService.updateDestination(updateFireFoxDestinationOptions).execute();
       Destination firefoxDestinationResult = fireFoxResponse.getResult();
       System.out.println(firefoxDestinationResult);
+
+      DestinationConfigOneOfPagerDutyDestinationConfig pagerDutyDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
+              .apiKey("reereruhihihwehriwehriwh")
+              .routingKey("wewewewewewwewewewew")
+              .build();
+
+      DestinationConfig destinationPagerDutyConfigModel = new DestinationConfig.Builder()
+              .params(pagerDutyDestinationConfig)
+              .build();
+
+      String pdName = "Pager_Duty_destination_update";
+      String pdDescription = "Pager Duty Destination updated";
+
+      UpdateDestinationOptions updatePDDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId10)
+              .name(pdName)
+              .description(pdDescription)
+              .config(destinationPagerDutyConfigModel)
+              .build();
+
+      Response<Destination> pdResponse = eventNotificationsService.updateDestination(updatePDDestinationOptions).execute();;
+      Destination pdDestinationResult = pdResponse.getResult();
+      System.out.println(pdDestinationResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1165,6 +1218,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId7);
       destinations.add(destinationId8);
       destinations.add(destinationId9);
+      destinations.add(destinationId10);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
