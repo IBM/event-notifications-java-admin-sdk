@@ -841,7 +841,7 @@ public class EventNotificationsExamples {
               .config(destinationPagerDutyConfigModel)
               .build();
 
-      Response<Destination> pdResponse = eventNotificationsService.updateDestination(updatePDDestinationOptions).execute();;
+      Response<Destination> pdResponse = eventNotificationsService.updateDestination(updatePDDestinationOptions).execute();
       Destination pdDestinationResult = pdResponse.getResult();
       System.out.println(pdDestinationResult);
       // end-update_destination
