@@ -72,6 +72,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId10 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
+  public static String integrationId = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -2256,6 +2257,81 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // 500
       //
       //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1XListIntegrations() throws Exception {
+    try {
+      int limit = 1;
+      int offset = 0;
+      ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
+              .instanceId(instanceId)
+              .limit(Long.valueOf(limit))
+              .offset(Long.valueOf(offset))
+              .search(search)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationList> response = service.listIntegrations(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      assertNotNull(response.getResult().getIntegrations());
+
+      integrationId = response.getResult().getIntegrations().get(0).getId();
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1YGetIntegration() throws Exception {
+    try {
+      GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = service.getIntegration(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1ZUpdateIntegration() throws Exception {
+    try {
+      IntegrationMetadata metadata = new IntegrationMetadata.Builder()
+              .endpoint("https://private.us-south.kms.cloud.ibm.com")
+              .crn("crn:v1:staging:public:kms:us-south:a/****:****::")
+              .rootKeyId("sddsds-f326-4688-baaf-611750e79b61")
+              .build();
+
+      ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .type("kms")
+              .metadata(metadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = service.replaceIntegration(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
 
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",

@@ -35,15 +35,20 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationGetResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegrationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
@@ -935,6 +940,93 @@ public class EventNotifications extends BaseService {
     builder.bodyJson(contentJson);
     ResponseConverter<Subscription> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Subscription>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List all Integrations.
+   *
+   * List of all KMS Integrations.
+   *
+   * @param listIntegrationsOptions the {@link ListIntegrationsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link IntegrationList}
+   */
+  public ServiceCall<IntegrationList> listIntegrations(ListIntegrationsOptions listIntegrationsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listIntegrationsOptions,
+      "listIntegrationsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", listIntegrationsOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/integrations", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listIntegrations");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listIntegrationsOptions.offset() != null) {
+      builder.query("offset", String.valueOf(listIntegrationsOptions.offset()));
+    }
+    if (listIntegrationsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listIntegrationsOptions.limit()));
+    }
+    if (listIntegrationsOptions.search() != null) {
+      builder.query("search", String.valueOf(listIntegrationsOptions.search()));
+    }
+    ResponseConverter<IntegrationList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<IntegrationList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a single Integrations.
+   *
+   * Get a single KMS Integrations.
+   *
+   * @param getIntegrationOptions the {@link GetIntegrationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link IntegrationGetResponse}
+   */
+  public ServiceCall<IntegrationGetResponse> getIntegration(GetIntegrationOptions getIntegrationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getIntegrationOptions,
+      "getIntegrationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getIntegrationOptions.instanceId());
+    pathParamsMap.put("id", getIntegrationOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/integrations/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getIntegration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<IntegrationGetResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<IntegrationGetResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update an exisitng Integration.
+   *
+   * Update an exisitng KMS Integration.
+   *
+   * @param replaceIntegrationOptions the {@link ReplaceIntegrationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link IntegrationGetResponse}
+   */
+  public ServiceCall<IntegrationGetResponse> replaceIntegration(ReplaceIntegrationOptions replaceIntegrationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(replaceIntegrationOptions,
+      "replaceIntegrationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", replaceIntegrationOptions.instanceId());
+    pathParamsMap.put("id", replaceIntegrationOptions.id());
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/integrations/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "replaceIntegration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("type", replaceIntegrationOptions.type());
+    contentJson.add("metadata", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(replaceIntegrationOptions.metadata()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<IntegrationGetResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<IntegrationGetResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

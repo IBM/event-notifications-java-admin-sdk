@@ -298,7 +298,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the routingKey.
    *
-   * Routing Key for the pagerduty account.
+   * Routing Key(Integration Key) for the team in pagerduty account.
    *
    * @return the routingKey
    */

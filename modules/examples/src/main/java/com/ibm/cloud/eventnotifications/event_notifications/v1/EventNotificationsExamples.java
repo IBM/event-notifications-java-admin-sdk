@@ -67,6 +67,7 @@ public class EventNotificationsExamples {
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
+  public static String integrationId = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -1246,6 +1247,68 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptions).execute();
       // end-delete_source
       System.out.printf("deleteSource() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-list_integrations
+      int limit = 1;
+      int offset = 0;
+      ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
+              .instanceId(instanceId)
+              .limit(Long.valueOf(limit))
+              .offset(Long.valueOf(offset))
+              .search(search)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationList> response = eventNotificationsService.listIntegrations(integrationsOptions).execute();
+      integrationId = response.getResult().getIntegrations().get(0).getId();
+      // end-list_integrations
+      System.out.printf("listIntegrations() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-get_integration
+      GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = eventNotificationsService.getIntegration(integrationsOptions).execute();
+      // end-get_integration
+      System.out.printf("getIntegrations() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-update_integration
+
+      IntegrationMetadata metadata = new IntegrationMetadata.Builder()
+              .endpoint("https://private.us-south.kms.cloud.ibm.com")
+              .crn("crn:v1:staging:public:kms:us-south:a/****:****::")
+              .rootKeyId("sddsds-f326-4688-baaf-611750e79b61")
+              .build();
+
+      ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .type("kms")
+              .metadata(metadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(integrationsOptions).execute();
+      // end-update_integration
+      System.out.printf("updateIntegration() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
