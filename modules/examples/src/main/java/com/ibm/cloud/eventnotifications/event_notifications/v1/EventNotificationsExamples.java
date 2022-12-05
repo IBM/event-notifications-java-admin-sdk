@@ -516,8 +516,8 @@ public class EventNotificationsExamples {
       destinationId9 = destinationFirefoxResponseResult.getId();
 
       DestinationConfigOneOfPagerDutyDestinationConfig pdDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
-              .apiKey("dsdsdsdsdsdsdsd")
-              .routingKey("sdsdsdefsdfsdfsf")
+              .apiKey("insert apikey here")
+              .routingKey("insert routing key here")
               .build();
 
       DestinationConfig pagerDutyDestinationConfigModel = new DestinationConfig.Builder()
@@ -823,8 +823,8 @@ public class EventNotificationsExamples {
       System.out.println(firefoxDestinationResult);
 
       DestinationConfigOneOfPagerDutyDestinationConfig pagerDutyDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
-              .apiKey("reereruhihihwehriwehriwh")
-              .routingKey("wewewewewewwewewewew")
+              .apiKey("insert apiKey here")
+              .routingKey("insert routing key here")
               .build();
 
       DestinationConfig destinationPagerDutyConfigModel = new DestinationConfig.Builder()

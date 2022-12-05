@@ -130,6 +130,10 @@ SDK Methods to consume
   - [Get Subscription](#get-subscription)
   - [Update Subscription](#update-subscription)
   - [Delete Subscription](#delete-subscription)
+- [Integration](#integration)
+  - [List Integrations](#list-integrations)
+  - [Get Integrations](#get-integration)
+  - [Update Integration](#update-integration)
 - [Send Notifications](#send-notifications)
 
 ## Source
@@ -504,6 +508,45 @@ DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOpti
     .build();
 
 Response<Void> response = eventNotificationsService.deleteSubscription(deleteSubscriptionOptions).execute();
+```
+## Integration
+
+### Get Integration
+```java
+GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<integrationId>)
+        .build();
+
+Response<IntegrationGetResponse> response = eventNotificationsService.getIntegration(integrationsOptions).execute();
+```
+### List Integrations
+```java
+ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
+        .instanceId(<instanceId>)
+        .limit(<limit>)
+        .offset(<offset>)
+        .search(<search>)
+        .build();
+
+Response<IntegrationList> response = eventNotificationsService.listIntegrations(integrationsOptions).execute();
+```
+### Update Integration
+```java
+IntegrationMetadata metadata = new IntegrationMetadata.Builder()
+        .endpoint("<end-point>")
+        .crn("<crn>")
+        .rootKeyId(<rootKeyId>)
+        .build();
+
+ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<integrationId>)
+        .type(<integrationType>)
+        .metadata(metadata)
+        .build();
+        
+Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(integrationsOptions).execute();
 ```
 ### Send Notifications
 ```java
