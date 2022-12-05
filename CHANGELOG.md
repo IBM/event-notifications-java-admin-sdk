@@ -1,3 +1,10 @@
+## [0.1.7](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.6...0.1.7) (2022-12-05)
+
+
+### Bug Fixes
+
+* add PagerDuty destination and KMS integration ([6cd55bd](https://github.com/IBM/event-notifications-java-admin-sdk/commit/6cd55bdf0f2890539132c36497b8994fe1b03166))
+
 ## [0.1.6](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.5...0.1.6) (2022-10-31)
 
 
