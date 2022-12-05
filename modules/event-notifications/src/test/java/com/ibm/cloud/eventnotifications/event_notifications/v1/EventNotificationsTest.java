@@ -33,6 +33,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfIBMCloudFunctionsDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfIOSDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfMSTeamsDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfPagerDutyDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSafariDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSlackDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
@@ -44,10 +45,17 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationGetResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationMetadata;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegrationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
@@ -55,6 +63,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsO
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
@@ -2002,6 +2011,242 @@ public class EventNotificationsTest extends PowerMockTestCase {
   public void testUpdateSubscriptionNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.updateSubscription(null).execute();
+  }
+
+  // Test the listIntegrations operation with a valid options model parameter
+  @Test
+  public void testListIntegrationsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"integrations\": [{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String listIntegrationsPath = "/v1/instances/testString/integrations";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the ListIntegrationsOptions model
+    ListIntegrationsOptions listIntegrationsOptionsModel = new ListIntegrationsOptions.Builder()
+      .instanceId("testString")
+      .offset(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    // Invoke listIntegrations() with a valid options model and verify the result
+    Response<IntegrationList> response = eventNotificationsService.listIntegrations(listIntegrationsOptionsModel).execute();
+    assertNotNull(response);
+    IntegrationList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listIntegrationsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
+    assertEquals(query.get("search"), "testString");
+  }
+
+  // Test the listIntegrations operation with and without retries enabled
+  @Test
+  public void testListIntegrationsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testListIntegrationsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testListIntegrationsWOptions();
+  }
+
+  // Test the listIntegrations operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListIntegrationsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.listIntegrations(null).execute();
+  }
+
+  // Test the listIntegrations operation using the IntegrationsPager.getNext() method
+  @Test
+  public void testListIntegrationsWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListIntegrationsOptions listIntegrationsOptions = new ListIntegrationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<IntegrationListItem> allResults = new ArrayList<>();
+    IntegrationsPager pager = new IntegrationsPager(eventNotificationsService, listIntegrationsOptions);
+    while (pager.hasNext()) {
+      List<IntegrationListItem> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listIntegrations operation using the IntegrationsPager.getAll() method
+  @Test
+  public void testListIntegrationsWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListIntegrationsOptions listIntegrationsOptions = new ListIntegrationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    IntegrationsPager pager = new IntegrationsPager(eventNotificationsService, listIntegrationsOptions);
+    List<IntegrationListItem> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the getIntegration operation with a valid options model parameter
+  @Test
+  public void testGetIntegrationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String getIntegrationPath = "/v1/instances/testString/integrations/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetIntegrationOptions model
+    GetIntegrationOptions getIntegrationOptionsModel = new GetIntegrationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke getIntegration() with a valid options model and verify the result
+    Response<IntegrationGetResponse> response = eventNotificationsService.getIntegration(getIntegrationOptionsModel).execute();
+    assertNotNull(response);
+    IntegrationGetResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getIntegrationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getIntegration operation with and without retries enabled
+  @Test
+  public void testGetIntegrationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetIntegrationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetIntegrationWOptions();
+  }
+
+  // Test the getIntegration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetIntegrationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getIntegration(null).execute();
+  }
+
+  // Test the replaceIntegration operation with a valid options model parameter
+  @Test
+  public void testReplaceIntegrationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String replaceIntegrationPath = "/v1/instances/testString/integrations/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the IntegrationMetadata model
+    IntegrationMetadata integrationMetadataModel = new IntegrationMetadata.Builder()
+      .endpoint("testString")
+      .crn("testString")
+      .rootKeyId("testString")
+      .build();
+
+    // Construct an instance of the ReplaceIntegrationOptions model
+    ReplaceIntegrationOptions replaceIntegrationOptionsModel = new ReplaceIntegrationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .type("testString")
+      .metadata(integrationMetadataModel)
+      .build();
+
+    // Invoke replaceIntegration() with a valid options model and verify the result
+    Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(replaceIntegrationOptionsModel).execute();
+    assertNotNull(response);
+    IntegrationGetResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PUT");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, replaceIntegrationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the replaceIntegration operation with and without retries enabled
+  @Test
+  public void testReplaceIntegrationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testReplaceIntegrationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testReplaceIntegrationWOptions();
+  }
+
+  // Test the replaceIntegration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testReplaceIntegrationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.replaceIntegration(null).execute();
   }
 
   // Perform setup needed before each test method

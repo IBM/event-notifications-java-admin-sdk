@@ -58,6 +58,7 @@ public class EventNotificationsExamples {
   public static String destinationId7 = "";
   public static String destinationId8 = "";
   public static String destinationId9 = "";
+  public static String destinationId10 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -66,6 +67,7 @@ public class EventNotificationsExamples {
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
+  public static String integrationId = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -512,6 +514,34 @@ public class EventNotificationsExamples {
       DestinationResponse destinationFirefoxResponseResult = firefoxResponse.getResult();
       System.out.println(destinationFirefoxResponseResult);
       destinationId9 = destinationFirefoxResponseResult.getId();
+
+      DestinationConfigOneOfPagerDutyDestinationConfig pdDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
+              .apiKey("insert apikey here")
+              .routingKey("insert routing key here")
+              .build();
+
+      DestinationConfig pagerDutyDestinationConfigModel = new DestinationConfig.Builder()
+              .params(pdDestinationConfig)
+              .build();
+
+      String pdName = "Pager_Duty_destination";
+      String pdTypeVal = "pagerduty";
+      String pdDescription = "PagerDuty Destination";
+
+      CreateDestinationOptions createPagerDutyDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(pdName)
+              .type(pdTypeVal)
+              .description(pdDescription)
+              .config(pagerDutyDestinationConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> pdResponse = eventNotificationsService.createDestination(createPagerDutyDestinationOptions).execute();
+      DestinationResponse destinationPagerDutyResponseResult = pdResponse.getResult();
+
+      System.out.println(destinationPagerDutyResponseResult);
+      destinationId10 = destinationPagerDutyResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -791,6 +821,30 @@ public class EventNotificationsExamples {
       Response<Destination> fireFoxResponse = eventNotificationsService.updateDestination(updateFireFoxDestinationOptions).execute();
       Destination firefoxDestinationResult = fireFoxResponse.getResult();
       System.out.println(firefoxDestinationResult);
+
+      DestinationConfigOneOfPagerDutyDestinationConfig pagerDutyDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
+              .apiKey("insert apiKey here")
+              .routingKey("insert routing key here")
+              .build();
+
+      DestinationConfig destinationPagerDutyConfigModel = new DestinationConfig.Builder()
+              .params(pagerDutyDestinationConfig)
+              .build();
+
+      String pdName = "Pager_Duty_destination_update";
+      String pdDescription = "Pager Duty Destination updated";
+
+      UpdateDestinationOptions updatePDDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId10)
+              .name(pdName)
+              .description(pdDescription)
+              .config(destinationPagerDutyConfigModel)
+              .build();
+
+      Response<Destination> pdResponse = eventNotificationsService.updateDestination(updatePDDestinationOptions).execute();
+      Destination pdDestinationResult = pdResponse.getResult();
+      System.out.println(pdDestinationResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1165,6 +1219,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId7);
       destinations.add(destinationId8);
       destinations.add(destinationId9);
+      destinations.add(destinationId10);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
@@ -1192,6 +1247,67 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptions).execute();
       // end-delete_source
       System.out.printf("deleteSource() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-list_integrations
+      int limit = 1;
+      int offset = 0;
+      ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
+              .instanceId(instanceId)
+              .limit(Long.valueOf(limit))
+              .offset(Long.valueOf(offset))
+              .search(search)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationList> response = eventNotificationsService.listIntegrations(integrationsOptions).execute();
+      integrationId = response.getResult().getIntegrations().get(0).getId();
+      // end-list_integrations
+      System.out.printf("listIntegrations() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-get_integration
+      GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = eventNotificationsService.getIntegration(integrationsOptions).execute();
+      // end-get_integration
+      System.out.printf("getIntegrations() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-replace_integration
+      IntegrationMetadata metadata = new IntegrationMetadata.Builder()
+              .endpoint("https://private.us-south.kms.cloud.ibm.com")
+              .crn("insert crn")
+              .rootKeyId("insert root key id")
+              .build();
+
+      ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .type("kms/hs-crypto")
+              .metadata(metadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(integrationsOptions).execute();
+      // end-replace_integration
+      System.out.printf("updateIntegration() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

@@ -58,6 +58,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId7 = "";
   public static String destinationId8 = "";
   public static String destinationId9 = "";
+  public static String destinationId10 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -68,8 +69,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId7 = "";
   public static String subscriptionId8 = "";
   public static String subscriptionId9 = "";
+  public static String subscriptionId10 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
+  public static String integrationId = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -808,6 +811,42 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId9 = destinationFirefoxResponseResult.getId();
 
+      DestinationConfigOneOfPagerDutyDestinationConfig pdDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
+              .apiKey("sdzCTz8Bdwc3NcsdcUVs72A")
+              .routingKey("asjweioweioeweioww")
+              .build();
+
+      DestinationConfig pagerDutyDestinationConfigModel = new DestinationConfig.Builder()
+              .params(pdDestinationConfig)
+              .build();
+
+      String pdName = "Pager_Duty_destination";
+      String pdTypeVal = "pagerduty";
+      String pdDescription = "PagerDuty Destination";
+
+      CreateDestinationOptions createPagerDutyDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(pdName)
+              .type(pdTypeVal)
+              .description(pdDescription)
+              .config(pagerDutyDestinationConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> pdResponse = service.createDestination(createPagerDutyDestinationOptions).execute();
+      // Validate response
+      assertNotNull(pdResponse);
+      assertEquals(pdResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationPagerDutyResponseResult = pdResponse.getResult();
+
+      assertNotNull(destinationPagerDutyResponseResult);
+      assertEquals(destinationPagerDutyResponseResult.getDescription(), pdDescription);
+      assertEquals(destinationPagerDutyResponseResult.getName(), pdName);
+      assertEquals(destinationPagerDutyResponseResult.getType(), pdTypeVal);
+
+      destinationId10 = destinationPagerDutyResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1209,6 +1248,40 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(firefoxDestinationResult.getDescription(), firefoxDescription);
       assertEquals(firefoxDestinationResult.getName(), firefoxName);
 
+      DestinationConfigOneOfPagerDutyDestinationConfig pagerDutyDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
+              .apiKey("erererTz8Bdwc3NcUVs72A")
+              .routingKey("eweewiu329489348934")
+              .build();
+
+      DestinationConfig destinationPagerDutyConfigModel = new DestinationConfig.Builder()
+              .params(pagerDutyDestinationConfig)
+              .build();
+
+      String pdName = "Pager_Duty_destination_update";
+      String pdDescription = "Pager Duty Destination updated";
+
+      UpdateDestinationOptions updatePDDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId10)
+              .name(pdName)
+              .description(pdDescription)
+              .config(destinationPagerDutyConfigModel)
+              .build();
+
+      Response<Destination> pdResponse = service.updateDestination(updatePDDestinationOptions).execute();;
+
+      assertNotNull(pdResponse);
+      assertEquals(pdResponse.getStatusCode(), 200);
+
+
+      Destination pdDestinationResult = pdResponse.getResult();
+
+      assertNotNull(pdDestinationResult);
+
+      assertEquals(pdDestinationResult.getId(), destinationId10);
+      assertEquals(pdDestinationResult.getDescription(), pdDescription);
+      assertEquals(pdDestinationResult.getName(), pdName);
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1483,6 +1556,28 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(fireSubscriptionResult.getName(), fireName);
 
       subscriptionId7 = fireSubscriptionResult.getId();
+
+      String pdName = "subscription_pager_duty";
+      String pdDescription = "Subscription for pager duty";
+
+      CreateSubscriptionOptions createPDSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(pdName)
+              .destinationId(destinationId10)
+              .topicId(topicId)
+              .description(pdDescription)
+              .build();
+
+      Response<Subscription> pdResponse = service.createSubscription(createPDSubscriptionOptions).execute();
+
+      assertNotNull(pdResponse);
+      assertEquals(pdResponse.getStatusCode(), 201);
+      Subscription pdSubscriptionResult = pdResponse.getResult();
+      assertNotNull(pdSubscriptionResult);
+      assertEquals(pdSubscriptionResult.getDescription(), pdDescription);
+      assertEquals(pdSubscriptionResult.getName(), pdName);
+
+      subscriptionId10 = pdSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -1861,6 +1956,26 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(safariSubscriptionResult.getName(), safName);
       assertEquals(safariSubscriptionResult.getId(), subscriptionId9);
 
+      String pdName = "subscription_PD_update";
+      String pdDescription = "Subscription Pager Duty update";
+
+      UpdateSubscriptionOptions updatePDSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId10)
+              .name(pdName)
+              .description(pdDescription)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> pdResponse = service.updateSubscription(updatePDSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(pdResponse);
+      assertEquals(pdResponse.getStatusCode(), 200);
+      Subscription pdSubscriptionResult = pdResponse.getResult();
+      assertNotNull(pdSubscriptionResult);
+      assertEquals(pdSubscriptionResult.getDescription(), pdDescription);
+      assertEquals(pdSubscriptionResult.getName(), pdName);
+      assertEquals(pdSubscriptionResult.getId(), subscriptionId10);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2005,6 +2120,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId7);
       subscriptions.add(subscriptionId8);
       subscriptions.add(subscriptionId9);
+      subscriptions.add(subscriptionId10);
 
       for (String subscription :
               subscriptions) {
@@ -2086,6 +2202,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId7);
       destinations.add(destinationId8);
       destinations.add(destinationId9);
+      destinations.add(destinationId10);
 
       for (String destination :
               destinations) {
@@ -2140,6 +2257,81 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // 500
       //
       //
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1XListIntegrations() throws Exception {
+    try {
+      int limit = 1;
+      int offset = 0;
+      ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
+              .instanceId(instanceId)
+              .limit(Long.valueOf(limit))
+              .offset(Long.valueOf(offset))
+              .search(search)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationList> response = service.listIntegrations(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      assertNotNull(response.getResult().getIntegrations());
+
+      integrationId = response.getResult().getIntegrations().get(0).getId();
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1YGetIntegration() throws Exception {
+    try {
+      GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = service.getIntegration(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1ZUpdateIntegration() throws Exception {
+    try {
+      IntegrationMetadata metadata = new IntegrationMetadata.Builder()
+              .endpoint("https://private.us-south.kms.cloud.ibm.com")
+              .crn("crn:v1:staging:public:kms:us-south:a/****:****::")
+              .rootKeyId("sddsds-f326-4688-baaf-611750e79b61")
+              .build();
+
+      ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(integrationId)
+              .type("kms")
+              .metadata(metadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> response = service.replaceIntegration(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
 
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",

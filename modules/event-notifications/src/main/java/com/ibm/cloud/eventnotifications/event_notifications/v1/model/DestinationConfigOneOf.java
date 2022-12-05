@@ -31,6 +31,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfSafariDestinationConfig
  * - DestinationConfigOneOfMSTeamsDestinationConfig
  * - DestinationConfigOneOfIBMCloudFunctionsDestinationConfig
+ * - DestinationConfigOneOfPagerDutyDestinationConfig
  */
 public class DestinationConfigOneOf extends GenericModel {
 
@@ -79,6 +80,8 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String urlFormatString;
   @SerializedName("website_push_id")
   protected String websitePushId;
+  @SerializedName("routing_key")
+  protected String routingKey;
 
   protected DestinationConfigOneOf() {
   }
@@ -290,6 +293,17 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public String websitePushId() {
     return websitePushId;
+  }
+
+  /**
+   * Gets the routingKey.
+   *
+   * Routing Key(Integration Key) for the team in pagerduty account.
+   *
+   * @return the routingKey
+   */
+  public String routingKey() {
+    return routingKey;
   }
 }
 
