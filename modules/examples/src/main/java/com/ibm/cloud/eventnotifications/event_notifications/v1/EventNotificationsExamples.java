@@ -1290,24 +1290,23 @@ public class EventNotificationsExamples {
     }
 
     try {
-      // begin-update_integration
-
+      // begin-replace_integration
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint("https://private.us-south.kms.cloud.ibm.com")
-              .crn("crn:v1:staging:public:kms:us-south:a/****:****::")
-              .rootKeyId("sddsds-f326-4688-baaf-611750e79b61")
+              .crn("insert crn")
+              .rootKeyId("insert root key id")
               .build();
 
       ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
               .instanceId(instanceId)
               .id(integrationId)
-              .type("kms")
+              .type("kms/hs-crypto")
               .metadata(metadata)
               .build();
 
       // Invoke operation
       Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(integrationsOptions).execute();
-      // end-update_integration
+      // end-replace_integration
       System.out.printf("updateIntegration() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
