@@ -1145,7 +1145,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig= new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
               .url("https://www.ibmcfendpoint.com/")
-              .apiKey("HzE55cF87iApSKJ4I4FQhOa4mAqYG1NMDmZ888")
+              .apiKey("apikey")
               .build();
 
       DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
