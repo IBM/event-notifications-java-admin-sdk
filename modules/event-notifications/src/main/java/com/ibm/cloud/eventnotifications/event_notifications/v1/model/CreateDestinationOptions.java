@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,8 @@ public class CreateDestinationOptions extends GenericModel {
     String PUSH_SAFARI = "push_safari";
     /** msteams. */
     String MSTEAMS = "msteams";
+    /** servicenow. */
+    String SERVICENOW = "servicenow";
   }
 
   protected String instanceId;
@@ -498,7 +500,7 @@ public class CreateDestinationOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The Destintion name.
+   * The Destination name.
    *
    * @return the name
    */

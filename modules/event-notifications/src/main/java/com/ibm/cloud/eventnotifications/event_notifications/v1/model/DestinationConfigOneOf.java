@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfMSTeamsDestinationConfig
  * - DestinationConfigOneOfIBMCloudFunctionsDestinationConfig
  * - DestinationConfigOneOfPagerDutyDestinationConfig
+ * - DestinationConfigOneOfServiceNowDestinationConfig
  */
 public class DestinationConfigOneOf extends GenericModel {
 
@@ -82,6 +83,13 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String websitePushId;
   @SerializedName("routing_key")
   protected String routingKey;
+  @SerializedName("client_id")
+  protected String clientId;
+  @SerializedName("client_secret")
+  protected String clientSecret;
+  protected String username;
+  @SerializedName("instance_name")
+  protected String instanceName;
 
   protected DestinationConfigOneOf() {
   }
@@ -177,7 +185,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the isSandbox.
    *
-   * Sandbox mode for IOS destinations.
+   * Sandbox mode for iOS destinations.
    *
    * @return the isSandbox
    */
@@ -265,7 +273,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the websiteName.
    *
-   * Websire url.
+   * Website url.
    *
    * @return the websiteName
    */
@@ -276,7 +284,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the urlFormatString.
    *
-   * Websire url.
+   * Website url.
    *
    * @return the urlFormatString
    */
@@ -287,7 +295,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the websitePushId.
    *
-   * Websire url.
+   * Website url.
    *
    * @return the websitePushId
    */
@@ -298,12 +306,56 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the routingKey.
    *
-   * Routing Key(Integration Key) for the team in pagerduty account.
+   * Routing Key (Integration Key) for the team in PagerDuty account.
    *
    * @return the routingKey
    */
   public String routingKey() {
     return routingKey;
+  }
+
+  /**
+   * Gets the clientId.
+   *
+   * ClientID for the ServiceNow account oauth.
+   *
+   * @return the clientId
+   */
+  public String clientId() {
+    return clientId;
+  }
+
+  /**
+   * Gets the clientSecret.
+   *
+   * ClientSecret for the ServiceNow account oauth.
+   *
+   * @return the clientSecret
+   */
+  public String clientSecret() {
+    return clientSecret;
+  }
+
+  /**
+   * Gets the username.
+   *
+   * Username for ServiceNow account REST API.
+   *
+   * @return the username
+   */
+  public String username() {
+    return username;
+  }
+
+  /**
+   * Gets the instanceName.
+   *
+   * Instance name for ServiceNow account.
+   *
+   * @return the instanceName
+   */
+  public String instanceName() {
+    return instanceName;
   }
 }
 

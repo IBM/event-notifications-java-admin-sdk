@@ -59,6 +59,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId8 = "";
   public static String destinationId9 = "";
   public static String destinationId10 = "";
+  public static String destinationId11 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -70,9 +71,15 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId8 = "";
   public static String subscriptionId9 = "";
   public static String subscriptionId10 = "";
+  public static String subscriptionId11 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
+  public static String sNowClientId="";
+  public static String sNowClientSecret="";
+  public static String sNowUserName="";
+  public static String sNowPassword="";
+  public static String sNowInstanceName="";
 
   /**
    * This method provides our config filename to the base class.
@@ -102,6 +109,11 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     fcmSenderId = config.get("FCM_ID");
     fcmServerKey = config.get("FCM_KEY");
     safariCertificatePath = config.get("SAFARI_CERTIFICATE");
+    sNowClientId = config.get("SNOW_CLIENT_ID");
+    sNowClientSecret = config.get("SNOW_CLIENT_SECRET");
+    sNowUserName = config.get("SNOW_USER_NAME");
+    sNowPassword = config.get("SNOW_PASSWORD");
+    sNowInstanceName = config.get("SNOW_INSTANCE_NAME");
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -847,6 +859,45 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId10 = destinationPagerDutyResponseResult.getId();
 
+      DestinationConfigOneOfServiceNowDestinationConfig serviceNowDestinationConfig = new DestinationConfigOneOfServiceNowDestinationConfig.Builder()
+              .clientId(sNowClientId)
+              .clientSecret(sNowClientSecret)
+              .username(sNowUserName)
+              .password(sNowPassword)
+              .instanceName(sNowInstanceName)
+              .build();
+
+      DestinationConfig serviceNowDestinationConfigModel = new DestinationConfig.Builder()
+              .params(serviceNowDestinationConfig)
+              .build();
+
+      String serviceNowName = "servicenow_destination";
+      String serviceNowTypeVal = "servicenow";
+      String serviceNowDescription = "ServiceNow Destination";
+
+      CreateDestinationOptions createServiceNowDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(serviceNowName)
+              .type(serviceNowTypeVal)
+              .description(serviceNowDescription)
+              .config(serviceNowDestinationConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> serviceNowResponse = service.createDestination(createServiceNowDestinationOptions).execute();
+      // Validate response
+      assertNotNull(serviceNowResponse);
+      assertEquals(serviceNowResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationServiceNowResponseResult = serviceNowResponse.getResult();
+
+      assertNotNull(destinationServiceNowResponseResult);
+      assertEquals(destinationServiceNowResponseResult.getDescription(), serviceNowDescription);
+      assertEquals(destinationServiceNowResponseResult.getName(), serviceNowName);
+      assertEquals(destinationServiceNowResponseResult.getType(), serviceNowTypeVal);
+
+      destinationId11 = destinationServiceNowResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1282,6 +1333,43 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(pdDestinationResult.getDescription(), pdDescription);
       assertEquals(pdDestinationResult.getName(), pdName);
 
+      DestinationConfigOneOfServiceNowDestinationConfig serviceNowDestinationConfig = new DestinationConfigOneOfServiceNowDestinationConfig.Builder()
+              .clientId(sNowClientId)
+              .clientSecret(sNowClientSecret)
+              .username(sNowUserName)
+              .password(sNowPassword)
+              .instanceName(sNowInstanceName)
+              .build();
+
+      DestinationConfig serviceNowDestinationConfigModel = new DestinationConfig.Builder()
+              .params(serviceNowDestinationConfig)
+              .build();
+
+      String serviceNowName = "servicenow_destination_update";
+      String serviceNowDescription = "update ServiceNow Destination";
+
+      UpdateDestinationOptions updateServiceNowDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId11)
+              .name(serviceNowName)
+              .description(serviceNowDescription)
+              .config(serviceNowDestinationConfigModel)
+              .build();
+
+      Response<Destination> sNowResponse = service.updateDestination(updateServiceNowDestinationOptions).execute();
+
+      assertNotNull(sNowResponse);
+      assertEquals(sNowResponse.getStatusCode(), 200);
+
+
+      Destination sNowDestinationResult = sNowResponse.getResult();
+
+      assertNotNull(sNowDestinationResult);
+
+      assertEquals(sNowDestinationResult.getId(), destinationId11);
+      assertEquals(sNowDestinationResult.getDescription(), serviceNowDescription);
+      assertEquals(sNowDestinationResult.getName(), serviceNowName);
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1578,6 +1666,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(pdSubscriptionResult.getName(), pdName);
 
       subscriptionId10 = pdSubscriptionResult.getId();
+
+      String sNowName = "subscription_service_now";
+      String sNowDescription = "Subscription for service now";
+
+      SubscriptionCreateAttributesServiceNowAttributes sNowAttributes = new SubscriptionCreateAttributesServiceNowAttributes.Builder()
+              .assignedTo("user")
+              .assignmentGroup("group")
+              .build();
+
+      CreateSubscriptionOptions createSNowSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(sNowName)
+              .destinationId(destinationId11)
+              .topicId(topicId)
+              .description(sNowDescription)
+              .attributes(sNowAttributes)
+              .build();
+
+      Response<Subscription> sNowResponse = service.createSubscription(createSNowSubscriptionOptions).execute();
+
+      assertNotNull(sNowResponse);
+      assertEquals(sNowResponse.getStatusCode(), 201);
+      Subscription sNowSubscriptionResult = sNowResponse.getResult();
+      assertNotNull(sNowSubscriptionResult);
+      assertEquals(sNowSubscriptionResult.getDescription(), sNowDescription);
+      assertEquals(sNowSubscriptionResult.getName(), sNowName);
+
+      subscriptionId11 = sNowSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -1976,6 +2092,33 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(pdSubscriptionResult.getDescription(), pdDescription);
       assertEquals(pdSubscriptionResult.getName(), pdName);
       assertEquals(pdSubscriptionResult.getId(), subscriptionId10);
+
+      String sNowName = "subscription_Service_Now_update";
+      String sNowDescription = "Subscription Service Now update";
+
+      SubscriptionUpdateAttributesServiceNowAttributes sNowAttributes = new SubscriptionUpdateAttributesServiceNowAttributes.Builder()
+              .assignedTo("user")
+              .assignmentGroup("group")
+              .build();
+
+      UpdateSubscriptionOptions updateSNowSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId11)
+              .name(sNowName)
+              .description(sNowDescription)
+              .attributes(sNowAttributes)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> sNowResponse = service.updateSubscription(updateSNowSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(sNowResponse);
+      assertEquals(sNowResponse.getStatusCode(), 200);
+      Subscription sNowSubscriptionResult = sNowResponse.getResult();
+      assertNotNull(sNowSubscriptionResult);
+      assertEquals(sNowSubscriptionResult.getDescription(), sNowDescription);
+      assertEquals(sNowSubscriptionResult.getName(), sNowName);
+      assertEquals(sNowSubscriptionResult.getId(), subscriptionId11);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2121,6 +2264,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId8);
       subscriptions.add(subscriptionId9);
       subscriptions.add(subscriptionId10);
+      subscriptions.add(subscriptionId11);
 
       for (String subscription :
               subscriptions) {
@@ -2203,6 +2347,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId8);
       destinations.add(destinationId9);
       destinations.add(destinationId10);
+      destinations.add(destinationId11);
 
       for (String destination :
               destinations) {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Destination extends GenericModel {
 
   /**
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions.
+   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/ServiceNow.
    */
   public interface Type {
     /** webhook. */
@@ -47,6 +47,8 @@ public class Destination extends GenericModel {
     String PUSH_SAFARI = "push_safari";
     /** msteams. */
     String MSTEAMS = "msteams";
+    /** servicenow. */
+    String SERVICENOW = "servicenow";
   }
 
   protected String id;
@@ -97,7 +99,7 @@ public class Destination extends GenericModel {
   /**
    * Gets the type.
    *
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions.
+   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/ServiceNow.
    *
    * @return the type
    */

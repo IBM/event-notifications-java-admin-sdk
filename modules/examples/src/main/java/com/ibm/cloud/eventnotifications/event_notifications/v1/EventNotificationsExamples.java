@@ -59,15 +59,22 @@ public class EventNotificationsExamples {
   public static String destinationId8 = "";
   public static String destinationId9 = "";
   public static String destinationId10 = "";
+  public static String destinationId11 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
+  public static String subscriptionId4 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
+  public static String sNowClientId="";
+  public static String sNowClientSecret="";
+  public static String sNowUserName="";
+  public static String sNowPassword="";
+  public static String sNowInstanceName="";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -98,6 +105,11 @@ public class EventNotificationsExamples {
     fcmSenderId = config.get("FCM_ID");
     fcmServerKey = config.get("FCM_KEY");
     safariCertificatePath = config.get("SAFARI_CERTIFICATE");
+    sNowClientId = config.get("SNOW_CLIENT_ID");
+    sNowClientSecret = config.get("SNOW_CLIENT_SECRET");
+    sNowUserName = config.get("SNOW_USER_NAME");
+    sNowPassword = config.get("SNOW_PASSWORD");
+    sNowInstanceName = config.get("SNOW_INSTANCE_NAME");
 
     try {
       System.out.println("createSources() result:");
@@ -542,6 +554,37 @@ public class EventNotificationsExamples {
 
       System.out.println(destinationPagerDutyResponseResult);
       destinationId10 = destinationPagerDutyResponseResult.getId();
+
+      DestinationConfigOneOfServiceNowDestinationConfig serviceNowDestinationConfig = new DestinationConfigOneOfServiceNowDestinationConfig.Builder()
+              .clientId(sNowClientId)
+              .clientSecret(sNowClientSecret)
+              .username(sNowUserName)
+              .password(sNowPassword)
+              .instanceName(sNowInstanceName)
+              .build();
+
+      DestinationConfig serviceNowDestinationConfigModel = new DestinationConfig.Builder()
+              .params(serviceNowDestinationConfig)
+              .build();
+
+      String serviceNowName = "servicenow_destination";
+      String serviceNowTypeVal = "servicenow";
+      String serviceNowDescription = "ServiceNow Destination";
+
+      CreateDestinationOptions createServiceNowDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(serviceNowName)
+              .type(serviceNowTypeVal)
+              .description(serviceNowDescription)
+              .config(serviceNowDestinationConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> serviceNowResponse = eventNotificationsService.createDestination(createServiceNowDestinationOptions).execute();
+      // Validate response
+      DestinationResponse destinationServiceNowResponseResult = serviceNowResponse.getResult();
+      System.out.println(destinationServiceNowResponseResult);
+      destinationId11 = destinationServiceNowResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -845,6 +888,34 @@ public class EventNotificationsExamples {
       Response<Destination> pdResponse = eventNotificationsService.updateDestination(updatePDDestinationOptions).execute();
       Destination pdDestinationResult = pdResponse.getResult();
       System.out.println(pdDestinationResult);
+
+      DestinationConfigOneOfServiceNowDestinationConfig serviceNowDestinationConfig = new DestinationConfigOneOfServiceNowDestinationConfig.Builder()
+              .clientId(sNowClientId)
+              .clientSecret(sNowClientSecret)
+              .username(sNowUserName)
+              .password(sNowPassword)
+              .instanceName(sNowInstanceName)
+              .build();
+
+      DestinationConfig serviceNowDestinationConfigModel = new DestinationConfig.Builder()
+              .params(serviceNowDestinationConfig)
+              .build();
+
+      String serviceNowName = "servicenow_destination_update";
+      String serviceNowDescription = "update ServiceNow Destination";
+
+      UpdateDestinationOptions updateServiceNowDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId11)
+              .name(serviceNowName)
+              .description(serviceNowDescription)
+              .config(serviceNowDestinationConfigModel)
+              .build();
+
+      Response<Destination> sNowResponse = eventNotificationsService.updateDestination(updateServiceNowDestinationOptions).execute();
+      Destination sNowDestinationResult = sNowResponse.getResult();
+      System.out.println(sNowDestinationResult);
+
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -942,8 +1013,29 @@ public class EventNotificationsExamples {
       // Invoke operation
       Response<Subscription> webResponse = eventNotificationsService.createSubscription(createWebSubscriptionOptions).execute();
       Subscription subscriptionResult = webResponse.getResult();
-      // end-create_subscription
       subscriptionId3 = subscriptionResult.getId();
+
+      String sNowName = "subscription_service_now";
+      String sNowDescription = "Subscription for service now";
+
+      SubscriptionCreateAttributesServiceNowAttributes sNowAttributes = new SubscriptionCreateAttributesServiceNowAttributes.Builder()
+              .assignedTo("user")
+              .assignmentGroup("group")
+              .build();
+
+      CreateSubscriptionOptions createSNowSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(sNowName)
+              .destinationId(destinationId11)
+              .topicId(topicId)
+              .description(sNowDescription)
+              .attributes(sNowAttributes)
+              .build();
+
+      Response<Subscription> sNowResponse = eventNotificationsService.createSubscription(createSNowSubscriptionOptions).execute();
+      Subscription sNowSubscriptionResult = sNowResponse.getResult();
+      subscriptionId4 = sNowSubscriptionResult.getId();
+      // end-create_subscription
 
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1107,6 +1199,26 @@ public class EventNotificationsExamples {
       Subscription webSubscriptionResult = webResponse.getResult();
       System.out.println(webSubscriptionResult);
 
+      String sNowName = "subscription_Service_Now_update";
+      String sNowDescription = "Subscription Service Now update";
+
+      SubscriptionUpdateAttributesServiceNowAttributes sNowAttributes = new SubscriptionUpdateAttributesServiceNowAttributes.Builder()
+              .assignedTo("user")
+              .assignmentGroup("group")
+              .build();
+
+      UpdateSubscriptionOptions updateSNowSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId4)
+              .name(sNowName)
+              .description(sNowDescription)
+              .attributes(sNowAttributes)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> sNowResponse = eventNotificationsService.updateSubscription(updateSNowSubscriptionOptions).execute();
+      Subscription sNowSubscriptionResult = sNowResponse.getResult();
+      System.out.println(sNowSubscriptionResult);
       // end-update_subscription
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1168,6 +1280,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId2);
       subscriptions.add(subscriptionId1);
       subscriptions.add(subscriptionId3);
+      subscriptions.add(subscriptionId4);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -1220,6 +1333,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId8);
       destinations.add(destinationId9);
       destinations.add(destinationId10);
+      destinations.add(destinationId11);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()

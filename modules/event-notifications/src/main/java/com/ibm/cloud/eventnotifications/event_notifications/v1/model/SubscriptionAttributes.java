@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SubscriptionAttributesEmailAttributesResponse
  * - SubscriptionAttributesWebhookAttributesResponse
  * - SubscriptionAttributesSlackAttributesResponse
+ * - SubscriptionAttributesServiceNowAttributesResponse
  */
 public class SubscriptionAttributes extends DynamicModel<Object> {
 
@@ -47,6 +48,10 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  @SerializedName("assigned_to")
+  protected String assignedTo;
+  @SerializedName("assignment_group")
+  protected String assignmentGroup;
 
   protected SubscriptionAttributes() {
     super(new TypeToken<Object>() { });
@@ -149,5 +154,27 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public String getAttachmentColor() {
     return this.attachmentColor;
+  }
+
+  /**
+   * Gets the assignedTo.
+   *
+   * Assigned name from ServiceNow account.
+   *
+   * @return the assignedTo
+   */
+  public String getAssignedTo() {
+    return this.assignedTo;
+  }
+
+  /**
+   * Gets the assignmentGroup.
+   *
+   * Assigned group name from ServiceNow account.
+   *
+   * @return the assignmentGroup
+   */
+  public String getAssignmentGroup() {
+    return this.assignmentGroup;
   }
 }
