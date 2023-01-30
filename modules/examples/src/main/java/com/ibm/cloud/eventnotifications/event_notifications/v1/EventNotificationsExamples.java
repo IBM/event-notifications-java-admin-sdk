@@ -474,8 +474,6 @@ public class EventNotificationsExamples {
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
               .apiKey("aksndkasdnkasd")
-              .preProd(false)
-              .publicKey("ksddkasjdaksd")
               .build();
 
       DestinationConfig chromeDestinationConfigModel = new DestinationConfig.Builder()
@@ -501,8 +499,6 @@ public class EventNotificationsExamples {
 
       DestinationConfigOneOfFirefoxDestinationConfig firefoxDestinationConfig = new DestinationConfigOneOfFirefoxDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
-              .preProd(false)
-              .publicKey("ksddkasjdaksd")
               .build();
 
       DestinationConfig fireFoxDestinationConfigModel = new DestinationConfig.Builder()
@@ -816,8 +812,6 @@ public class EventNotificationsExamples {
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
               .apiKey("aksndkasdnkasd")
-              .preProd(false)
-              .publicKey("ksddkasjdaksd")
               .build();
 
       DestinationConfig destinationChromeConfigModel = new DestinationConfig.Builder()
@@ -842,8 +836,6 @@ public class EventNotificationsExamples {
 
       DestinationConfigOneOfFirefoxDestinationConfig firefoxDestinationConfig = new DestinationConfigOneOfFirefoxDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
-              .preProd(false)
-              .publicKey("ksddkasjdaksd")
               .build();
 
       DestinationConfig destinationFirefoxConfigModel = new DestinationConfig.Builder()
