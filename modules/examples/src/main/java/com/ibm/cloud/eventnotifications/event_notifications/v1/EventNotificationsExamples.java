@@ -70,11 +70,11 @@ public class EventNotificationsExamples {
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
-  public static String sNowClientId="";
-  public static String sNowClientSecret="";
-  public static String sNowUserName="";
-  public static String sNowPassword="";
-  public static String sNowInstanceName="";
+  public static String sNowClientId = "";
+  public static String sNowClientSecret = "";
+  public static String sNowUserName = "";
+  public static String sNowPassword = "";
+  public static String sNowInstanceName = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
