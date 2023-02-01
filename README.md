@@ -38,7 +38,7 @@ Service Name | Artifact Coordinates
 * Java 8 or above.
 
 ## Installation
-The current version of this SDK is: 0.1.7
+The current version of this SDK is: 0.1.8
 
 Each service's artifact coordinates are listed in the table above.
 

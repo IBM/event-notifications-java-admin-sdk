@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -127,7 +127,7 @@ public class EventNotifications extends BaseService {
   /**
    * Send a notification.
    *
-   * Send Notifications body from the instance. For more information on Event notifications payload, see
+   * Send Notifications body from the instance. For more information about Event Notifications payload, see
    * [here](https://cloud.ibm.com/docs/event-notifications?topic=event-notifications-en-spec-payload).
    *
    * @param sendNotificationsOptions the {@link SendNotificationsOptions} containing the options for the call
@@ -246,7 +246,7 @@ public class EventNotifications extends BaseService {
   /**
    * Get a Source.
    *
-   * Get a Sources.
+   * Get a Source.
    *
    * @param getSourceOptions the {@link GetSourceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Source}
@@ -977,9 +977,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Get a single Integrations.
+   * Get a single Integration.
    *
-   * Get a single KMS Integrations.
+   * Get a single KMS Integration.
    *
    * @param getIntegrationOptions the {@link GetIntegrationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link IntegrationGetResponse}
@@ -1002,9 +1002,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update an exisitng Integration.
+   * Update an existing Integration.
    *
-   * Update an exisitng KMS Integration.
+   * Update an existing KMS Integration.
    *
    * @param replaceIntegrationOptions the {@link ReplaceIntegrationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link IntegrationGetResponse}

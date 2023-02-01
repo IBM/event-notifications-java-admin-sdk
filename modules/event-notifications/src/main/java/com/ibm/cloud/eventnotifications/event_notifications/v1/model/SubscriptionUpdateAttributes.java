@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionUpdateAttributesEmailUpdateAttributes
  * - SubscriptionUpdateAttributesWebhookAttributes
  * - SubscriptionUpdateAttributesSlackAttributes
+ * - SubscriptionUpdateAttributesServiceNowAttributes
  */
 public class SubscriptionUpdateAttributes extends GenericModel {
 
@@ -41,6 +42,10 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  @SerializedName("assigned_to")
+  protected String assignedTo;
+  @SerializedName("assignment_group")
+  protected String assignmentGroup;
 
   protected SubscriptionUpdateAttributes() {
   }
@@ -142,6 +147,28 @@ public class SubscriptionUpdateAttributes extends GenericModel {
    */
   public String attachmentColor() {
     return attachmentColor;
+  }
+
+  /**
+   * Gets the assignedTo.
+   *
+   * Name of user ServiceNow incident will be assigned to.
+   *
+   * @return the assignedTo
+   */
+  public String assignedTo() {
+    return assignedTo;
+  }
+
+  /**
+   * Gets the assignmentGroup.
+   *
+   * Group Name to which incident will be assigned to.
+   *
+   * @return the assignmentGroup
+   */
+  public String assignmentGroup() {
+    return assignmentGroup;
   }
 }
 
