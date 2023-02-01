@@ -44,7 +44,6 @@ package-lock.json
 /**/dependency-reduced-pom.xml
 
 # files produced by "npm install" commands during build
-package.json
 package-lock.json
 node_modules/
 
