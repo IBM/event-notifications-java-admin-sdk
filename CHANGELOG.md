@@ -1,3 +1,11 @@
+## [0.1.8](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.7...0.1.8) (2023-02-01)
+
+
+### Bug Fixes
+
+* add service now destination support ([08d0e84](https://github.com/IBM/event-notifications-java-admin-sdk/commit/08d0e8422ef9d993a410fa7f522f626745f16791))
+* add Service Now Destination support ([4676ef2](https://github.com/IBM/event-notifications-java-admin-sdk/commit/4676ef264ff950a1e271c308a9f5b1e242b66724))
+
 ## [0.1.7](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.6...0.1.7) (2022-12-05)
 
 
