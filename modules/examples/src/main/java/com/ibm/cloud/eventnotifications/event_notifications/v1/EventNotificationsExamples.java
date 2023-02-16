@@ -965,7 +965,7 @@ public class EventNotificationsExamples {
               .config(destinationFcmV1ConfigModel)
               .build();
 
-      Response<Destination> fcmV1Response = eventNotificationsService.updateDestination(updateV1DestinationOptions).execute();;
+      Response<Destination> fcmV1Response = eventNotificationsService.updateDestination(updateV1DestinationOptions).execute();
       Destination fcmV1destination = fcmV1Response.getResult();
 
       System.out.println(fcmV1destination);
