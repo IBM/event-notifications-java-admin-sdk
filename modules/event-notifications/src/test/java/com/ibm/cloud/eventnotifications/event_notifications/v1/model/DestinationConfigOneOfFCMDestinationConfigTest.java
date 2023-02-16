@@ -35,10 +35,16 @@ public class DestinationConfigOneOfFCMDestinationConfigTest {
       .serverKey("testString")
       .senderId("testString")
       .preProd(false)
+      .projectId("testString")
+      .privateKey("testString")
+      .clientEmail("testString")
       .build();
     assertEquals(destinationConfigOneOfFcmDestinationConfigModel.serverKey(), "testString");
     assertEquals(destinationConfigOneOfFcmDestinationConfigModel.senderId(), "testString");
     assertEquals(destinationConfigOneOfFcmDestinationConfigModel.preProd(), Boolean.valueOf(false));
+    assertEquals(destinationConfigOneOfFcmDestinationConfigModel.projectId(), "testString");
+    assertEquals(destinationConfigOneOfFcmDestinationConfigModel.privateKey(), "testString");
+    assertEquals(destinationConfigOneOfFcmDestinationConfigModel.clientEmail(), "testString");
 
     String json = TestUtilities.serialize(destinationConfigOneOfFcmDestinationConfigModel);
 
@@ -47,11 +53,8 @@ public class DestinationConfigOneOfFCMDestinationConfigTest {
     assertEquals(destinationConfigOneOfFcmDestinationConfigModelNew.serverKey(), "testString");
     assertEquals(destinationConfigOneOfFcmDestinationConfigModelNew.senderId(), "testString");
     assertEquals(destinationConfigOneOfFcmDestinationConfigModelNew.preProd(), Boolean.valueOf(false));
+    assertEquals(destinationConfigOneOfFcmDestinationConfigModelNew.projectId(), "testString");
+    assertEquals(destinationConfigOneOfFcmDestinationConfigModelNew.privateKey(), "testString");
+    assertEquals(destinationConfigOneOfFcmDestinationConfigModelNew.clientEmail(), "testString");
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testDestinationConfigOneOfFCMDestinationConfigError() throws Throwable {
-    new DestinationConfigOneOfFCMDestinationConfig.Builder().build();
-  }
-
 }

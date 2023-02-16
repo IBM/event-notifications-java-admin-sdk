@@ -60,6 +60,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId9 = "";
   public static String destinationId10 = "";
   public static String destinationId11 = "";
+  public static String destinationId12 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -72,14 +73,18 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId9 = "";
   public static String subscriptionId10 = "";
   public static String subscriptionId11 = "";
+  public static String subscriptionId12 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
-  public static String sNowClientId="";
-  public static String sNowClientSecret="";
-  public static String sNowUserName="";
-  public static String sNowPassword="";
-  public static String sNowInstanceName="";
+  public static String sNowClientId = "";
+  public static String sNowClientSecret = "";
+  public static String sNowUserName = "";
+  public static String sNowPassword = "";
+  public static String sNowInstanceName = "";
+  public static String fcmProjectID = "";
+  public static String fcmPrivateKey = "";
+  public static String fcmClientEmail = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -114,6 +119,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     sNowUserName = config.get("SNOW_USER_NAME");
     sNowPassword = config.get("SNOW_PASSWORD");
     sNowInstanceName = config.get("SNOW_INSTANCE_NAME");
+    fcmProjectID = config.get("FCM_PROJECT_ID");
+    fcmPrivateKey = config.get("FCM_PRIVATE_KEY");
+    fcmClientEmail = config.get("FCM_CLIENT_EMAIL");
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -894,6 +902,44 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId11 = destinationServiceNowResponseResult.getId();
 
+      fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
+              .clientEmail(fcmClientEmail)
+              .privateKey(fcmPrivateKey)
+              .projectId(fcmProjectID)
+              .preProd(false)
+              .build();
+
+      destinationFcmConfigModel = new DestinationConfig.Builder()
+              .params(fcmConfig)
+              .build();
+
+      fcmName = "FCM_destination_v1";
+      fcmTypeVal = "push_android";
+      fcmDescription = "Fcm Destination_v1";
+
+      createFCMDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(fcmName)
+              .type(fcmTypeVal)
+              .description(fcmDescription)
+              .config(destinationFcmConfigModel)
+              .build();
+
+      // Invoke operation
+      fcmResponse = service.createDestination(createFCMDestinationOptions).execute();
+      // Validate response
+      assertNotNull(fcmResponse);
+      assertEquals(fcmResponse.getStatusCode(), 201);
+
+      destinationFCMResponseResult = fcmResponse.getResult();
+
+      assertNotNull(destinationFCMResponseResult);
+      assertEquals(destinationFCMResponseResult.getDescription(), fcmDescription);
+      assertEquals(destinationFCMResponseResult.getName(), fcmName);
+      assertEquals(destinationFCMResponseResult.getType(), fcmTypeVal);
+
+      destinationId12 = destinationFCMResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1362,6 +1408,37 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(sNowDestinationResult.getDescription(), serviceNowDescription);
       assertEquals(sNowDestinationResult.getName(), serviceNowName);
 
+      fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
+              .clientEmail(fcmClientEmail)
+              .privateKey(fcmPrivateKey)
+              .projectId(fcmProjectID)
+              .build();
+
+
+      destinationFcmConfigModel = new DestinationConfig.Builder()
+              .params(fcmConfig)
+              .build();
+
+      fcmName = "FCM destination v1 update";
+      fcmDescription = "This is a Destination for FCM V1 update";
+
+      updateDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId12)
+              .name(fcmName)
+              .description(fcmDescription)
+              .config(destinationFcmConfigModel)
+              .build();
+
+      response = service.updateDestination(updateDestinationOptions).execute();;
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      destinationResult = response.getResult();
+      assertNotNull(destinationResult);
+      assertEquals(destinationResult.getId(), destinationId12);
+      assertEquals(destinationResult.getDescription(), fcmDescription);
+      assertEquals(destinationResult.getName(), fcmName);
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1686,6 +1763,28 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(sNowSubscriptionResult.getName(), sNowName);
 
       subscriptionId11 = sNowSubscriptionResult.getId();
+
+      fcmName = "subscription_V1_FCM";
+      fcmDescription = "Subscription V1 FCM";
+
+      createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(fcmName)
+              .destinationId(destinationId12)
+              .topicId(topicId3)
+              .description(fcmDescription)
+              .build();
+
+      fcmResponse = service.createSubscription(createSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(fcmResponse);
+      assertEquals(fcmResponse.getStatusCode(), 201);
+      fcmSubscriptionResult = fcmResponse.getResult();
+      assertNotNull(fcmSubscriptionResult);
+      assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
+      assertEquals(fcmSubscriptionResult.getName(), fcmName);
+
+      subscriptionId12 = fcmSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -2111,6 +2210,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(sNowSubscriptionResult.getDescription(), sNowDescription);
       assertEquals(sNowSubscriptionResult.getName(), sNowName);
       assertEquals(sNowSubscriptionResult.getId(), subscriptionId11);
+
+      fcmName = "FCM_sub_V1_updated";
+      fcmDescription = "Update FCM V1 subscription";
+
+      updateFCMSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId12)
+              .name(fcmName)
+              .description(fcmDescription)
+              .build();
+
+      // Invoke operation
+      fcmResponse = service.updateSubscription(updateFCMSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(fcmResponse);
+      assertEquals(fcmResponse.getStatusCode(), 200);
+
+      fcmSubscriptionResult = fcmResponse.getResult();
+
+      assertNotNull(fcmSubscriptionResult);
+      assertEquals(fcmSubscriptionResult.getName(), fcmName);
+      assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
+      assertEquals(fcmSubscriptionResult.getId(), subscriptionId12);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2134,9 +2256,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public void test1RSendNotifications() throws Exception {
     try {
       // begin-send_notifications
-      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
-      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
-      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
+      String notificationDevices = "{\"platforms\":[\"push_ios\",\"push_android\",\"push_chrome\",\"push_firefox\"]}";
+      String fcmJsonString = "{\"message\": {\"android\": {\"notification\": {\"title\": \"Alert message\",\"body\": \"Bob wants to play Poker\"},\"data\": {\"name\": \"Willie Greenholt\",\"description\": \"notification for the Poker\"}}}}";
+      String apnsJsonString = "{\"aps\":{\"alert\":{\"title\":\"Hello!! GameRequest\",\"body\":\"Bob wants to play poker\",\"action-loc-key\":\"PLAY\"},\"badge\":5}}";
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
       NotificationCreate body = new NotificationCreate.Builder()
@@ -2257,6 +2379,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId9);
       subscriptions.add(subscriptionId10);
       subscriptions.add(subscriptionId11);
+      subscriptions.add(subscriptionId12);
 
       for (String subscription :
               subscriptions) {
@@ -2340,6 +2463,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId9);
       destinations.add(destinationId10);
       destinations.add(destinationId11);
+      destinations.add(destinationId12);
 
       for (String destination :
               destinations) {

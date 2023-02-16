@@ -25,28 +25,23 @@ public class DestinationConfigOneOfFCMDestinationConfig extends DestinationConfi
     private String serverKey;
     private String senderId;
     private Boolean preProd;
+    private String projectId;
+    private String privateKey;
+    private String clientEmail;
 
     public Builder(DestinationConfigOneOf destinationConfigOneOfFcmDestinationConfig) {
       this.serverKey = destinationConfigOneOfFcmDestinationConfig.serverKey;
       this.senderId = destinationConfigOneOfFcmDestinationConfig.senderId;
       this.preProd = destinationConfigOneOfFcmDestinationConfig.preProd;
+      this.projectId = destinationConfigOneOfFcmDestinationConfig.projectId;
+      this.privateKey = destinationConfigOneOfFcmDestinationConfig.privateKey;
+      this.clientEmail = destinationConfigOneOfFcmDestinationConfig.clientEmail;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param serverKey the serverKey
-     * @param senderId the senderId
-     */
-    public Builder(String serverKey, String senderId) {
-      this.serverKey = serverKey;
-      this.senderId = senderId;
     }
 
     /**
@@ -90,18 +85,50 @@ public class DestinationConfigOneOfFCMDestinationConfig extends DestinationConfi
       this.preProd = preProd;
       return this;
     }
+
+    /**
+     * Set the projectId.
+     *
+     * @param projectId the projectId
+     * @return the DestinationConfigOneOfFCMDestinationConfig builder
+     */
+    public Builder projectId(String projectId) {
+      this.projectId = projectId;
+      return this;
+    }
+
+    /**
+     * Set the privateKey.
+     *
+     * @param privateKey the privateKey
+     * @return the DestinationConfigOneOfFCMDestinationConfig builder
+     */
+    public Builder privateKey(String privateKey) {
+      this.privateKey = privateKey;
+      return this;
+    }
+
+    /**
+     * Set the clientEmail.
+     *
+     * @param clientEmail the clientEmail
+     * @return the DestinationConfigOneOfFCMDestinationConfig builder
+     */
+    public Builder clientEmail(String clientEmail) {
+      this.clientEmail = clientEmail;
+      return this;
+    }
   }
 
   protected DestinationConfigOneOfFCMDestinationConfig() { }
 
   protected DestinationConfigOneOfFCMDestinationConfig(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.serverKey,
-      "serverKey cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.senderId,
-      "senderId cannot be null");
     serverKey = builder.serverKey;
     senderId = builder.senderId;
     preProd = builder.preProd;
+    projectId = builder.projectId;
+    privateKey = builder.privateKey;
+    clientEmail = builder.clientEmail;
   }
 
   /**
