@@ -147,7 +147,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the serverKey.
    *
-   * FCM server_key(deprecated-FCM legacy HTTP API).
+   * FCM server_key.
    *
    * @return the serverKey
    */
@@ -158,7 +158,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the senderId.
    *
-   * FCM sender_id(deprecated-FCM legacy HTTP API).
+   * FCM sender_id.
    *
    * @return the senderId
    */

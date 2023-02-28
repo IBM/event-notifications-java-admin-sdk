@@ -13,7 +13,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 /**
- * Payload describing an FCM destination configuration.
+ * Payload describing an FCM destination configuration. project_id, private_key and client_email for FCM HTTP v1 APIs.
  */
 public class DestinationConfigOneOfFCMDestinationConfig extends DestinationConfigOneOf {
 

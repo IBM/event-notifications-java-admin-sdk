@@ -171,14 +171,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   @Test
   public void test1BListSources() throws Exception {
     try {
-      Boolean moreResults = true;
+      boolean moreResults = true;
       int limit = 1;
       int offset = 0;
       while (moreResults) {
         ListSourcesOptions listSourcesOptions = new ListSourcesOptions.Builder()
                 .instanceId(instanceId)
-                .limit(Long.valueOf(limit))
-                .offset(Long.valueOf(offset))
+                .limit(limit)
+                .offset(offset)
                 .search(search)
                 .build();
 
@@ -397,14 +397,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   @Test
   public void test1FListTopics() throws Exception {
     try {
-      Boolean moreResults = true;
+      boolean moreResults = true;
       int limit = 1;
       int offset = 0;
       while (moreResults) {
         ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
                 .instanceId(instanceId)
-                .limit(Long.valueOf(limit))
-                .offset(Long.valueOf(offset))
+                .limit(limit)
+                .offset(offset)
                 .search(search)
                 .build();
 
@@ -961,15 +961,15 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   @Test
   public void test1JListDestinations() throws Exception {
     try {
-      Boolean moreResults = true;
+      boolean moreResults = true;
       int limit = 1;
       int offset = 0;
 
       while (moreResults) {
         ListDestinationsOptions listDestinationsOptions = new ListDestinationsOptions.Builder()
                 .instanceId(instanceId)
-                .limit(Long.valueOf(limit))
-                .offset(Long.valueOf(offset))
+                .limit(limit)
+                .offset(offset)
                 .search(search)
                 .build();
 
@@ -1116,7 +1116,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .config(destinationFcmConfigModel)
               .build();
 
-      response = service.updateDestination(updateDestinationOptions).execute();;
+      response = service.updateDestination(updateDestinationOptions).execute();
 
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
@@ -1290,7 +1290,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .config(destinationChromeConfigModel)
               .build();
 
-      Response<Destination> chromeResponse = service.updateDestination(updateChromeDestinationOptions).execute();;
+      Response<Destination> chromeResponse = service.updateDestination(updateChromeDestinationOptions).execute();
 
       assertNotNull(chromeResponse);
       assertEquals(chromeResponse.getStatusCode(), 200);
@@ -1323,7 +1323,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .config(destinationFirefoxConfigModel)
               .build();
 
-      Response<Destination> fireFoxResponse = service.updateDestination(updateFireFoxDestinationOptions).execute();;
+      Response<Destination> fireFoxResponse = service.updateDestination(updateFireFoxDestinationOptions).execute();
 
       assertNotNull(fireFoxResponse);
       assertEquals(fireFoxResponse.getStatusCode(), 200);
@@ -1357,7 +1357,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .config(destinationPagerDutyConfigModel)
               .build();
 
-      Response<Destination> pdResponse = service.updateDestination(updatePDDestinationOptions).execute();;
+      Response<Destination> pdResponse = service.updateDestination(updatePDDestinationOptions).execute();
 
       assertNotNull(pdResponse);
       assertEquals(pdResponse.getStatusCode(), 200);
@@ -1430,7 +1430,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .config(destinationFcmConfigModel)
               .build();
 
-      response = service.updateDestination(updateDestinationOptions).execute();;
+      response = service.updateDestination(updateDestinationOptions).execute();
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
       destinationResult = response.getResult();
@@ -1461,9 +1461,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   @Test
   public void test1NCreateSubscription() throws Exception {
     try {
-      /*SubscriptionCreateAttributesSMSAttributes subscriptionCreateAttributesModel = new SubscriptionCreateAttributesSMSAttributes.Builder()
-      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();*/
       SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
               .signingEnabled(true).build();
       String name = "subscription_web";
@@ -1808,7 +1805,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   @Test
   public void test1OListSubscriptions() throws Exception {
     try {
-      Boolean moreResults = true;
+      boolean moreResults = true;
       int limit = 1;
       int offset = 0;
       while (moreResults) {
@@ -1886,9 +1883,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   @Test
   public void test1QUpdateSubscription() throws Exception {
     try {
-      /*SubscriptionUpdateAttributesSMSAttributes subscriptionUpdateAttributesModel = new SubscriptionUpdateAttributesSMSAttributes.Builder()
-      .to(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();*/
       SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
               .signingEnabled(true)
               .build();
@@ -2532,8 +2526,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       int offset = 0;
       ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
               .instanceId(instanceId)
-              .limit(Long.valueOf(limit))
-              .offset(Long.valueOf(offset))
+              .limit(limit)
+              .offset(offset)
               .search(search)
               .build();
 

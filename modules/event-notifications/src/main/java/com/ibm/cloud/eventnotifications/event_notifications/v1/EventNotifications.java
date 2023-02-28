@@ -691,9 +691,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Create a new Tag subscription.
+   * Create a new tag subscription.
    *
-   * Create a new Tag subscription.
+   * Create a new tag subscription.
    *
    * @param createTagsSubscriptionOptions the {@link CreateTagsSubscriptionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DestinationTagsSubscriptionResponse}
@@ -720,9 +720,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * List all Tag Subscriptions.
+   * List all tag subscriptions.
    *
-   * List all Tag Subscriptions.
+   * List all tag subscriptions.
    *
    * @param listTagsSubscriptionOptions the {@link ListTagsSubscriptionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link TagsSubscriptionList}
@@ -763,9 +763,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Delete a Tag subcription.
+   * Delete a tag subscription.
    *
-   * Delete a Tag subcription.
+   * Delete a tag subscription.
    *
    * @param deleteTagsSubscriptionOptions the {@link DeleteTagsSubscriptionOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
