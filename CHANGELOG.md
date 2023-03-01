@@ -1,3 +1,10 @@
+## [0.1.9](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.8...0.1.9) (2023-03-01)
+
+
+### Bug Fixes
+
+* add FCM V1 destination support ([98bec9e](https://github.com/IBM/event-notifications-java-admin-sdk/commit/98bec9e58577b52555887211434fde4ea19985f4))
+
 ## [0.1.8](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.7...0.1.8) (2023-02-01)
 
 
