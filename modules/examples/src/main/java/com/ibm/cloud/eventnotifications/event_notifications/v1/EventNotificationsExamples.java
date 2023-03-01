@@ -60,6 +60,7 @@ public class EventNotificationsExamples {
   public static String destinationId9 = "";
   public static String destinationId10 = "";
   public static String destinationId11 = "";
+  public static String destinationId12 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -75,6 +76,9 @@ public class EventNotificationsExamples {
   public static String sNowUserName = "";
   public static String sNowPassword = "";
   public static String sNowInstanceName = "";
+  public static String fcmProjectID = "";
+  public static String fcmPrivateKey = "";
+  public static String fcmClientEmail = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -110,6 +114,9 @@ public class EventNotificationsExamples {
     sNowUserName = config.get("SNOW_USER_NAME");
     sNowPassword = config.get("SNOW_PASSWORD");
     sNowInstanceName = config.get("SNOW_INSTANCE_NAME");
+    fcmProjectID = config.get("FCM_PROJECT_ID");
+    fcmPrivateKey = config.get("FCM_PRIVATE_KEY");
+    fcmClientEmail = config.get("FCM_CLIENT_EMAIL");
 
     try {
       System.out.println("createSources() result:");
@@ -581,6 +588,35 @@ public class EventNotificationsExamples {
       DestinationResponse destinationServiceNowResponseResult = serviceNowResponse.getResult();
       System.out.println(destinationServiceNowResponseResult);
       destinationId11 = destinationServiceNowResponseResult.getId();
+
+      DestinationConfigOneOfFCMDestinationConfig fcmV1Config = new DestinationConfigOneOfFCMDestinationConfig.Builder()
+              .clientEmail(fcmClientEmail)
+              .privateKey(fcmPrivateKey)
+              .projectId(fcmProjectID)
+              .preProd(false)
+              .build();
+
+      DestinationConfig destinationFCMV1ConfigModel = new DestinationConfig.Builder()
+              .params(fcmConfig)
+              .build();
+
+      String fcmV1Name = "FCM_destination_v1";
+      String fcmV1TypeVal = "push_android";
+      String fcmV1Description = "Fcm Destination_v1";
+
+      CreateDestinationOptions createFCMV1DestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(fcmV1Name)
+              .type(fcmV1TypeVal)
+              .description(fcmV1Description)
+              .config(destinationFCMV1ConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> fcmV1Response = eventNotificationsService.createDestination(createFCMV1DestinationOptions).execute();
+      // Validate response
+      DestinationResponse destinationV1Response = fcmV1Response.getResult();
+      destinationId12 = destinationV1Response.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -908,6 +944,31 @@ public class EventNotificationsExamples {
       Destination sNowDestinationResult = sNowResponse.getResult();
       System.out.println(sNowDestinationResult);
 
+      DestinationConfigOneOfFCMDestinationConfig fcmV1Config = new DestinationConfigOneOfFCMDestinationConfig.Builder()
+              .clientEmail(fcmClientEmail)
+              .privateKey(fcmPrivateKey)
+              .projectId(fcmProjectID)
+              .build();
+
+      DestinationConfig destinationFcmV1ConfigModel = new DestinationConfig.Builder()
+              .params(fcmV1Config)
+              .build();
+
+      String fcmV1Name = "FCM destination v1 update";
+      String fcmV1Description = "This is a Destination for FCM V1 update";
+
+      UpdateDestinationOptions updateV1DestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId12)
+              .name(fcmV1Name)
+              .description(fcmV1Description)
+              .config(destinationFcmV1ConfigModel)
+              .build();
+
+      Response<Destination> fcmV1Response = eventNotificationsService.updateDestination(updateV1DestinationOptions).execute();
+      Destination fcmV1destination = fcmV1Response.getResult();
+
+      System.out.println(fcmV1destination);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",

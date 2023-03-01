@@ -58,6 +58,12 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String senderId;
   @SerializedName("pre_prod")
   protected Boolean preProd;
+  @SerializedName("project_id")
+  protected String projectId;
+  @SerializedName("private_key")
+  protected String privateKey;
+  @SerializedName("client_email")
+  protected String clientEmail;
   @SerializedName("cert_type")
   protected String certType;
   @SerializedName("is_sandbox")
@@ -169,6 +175,39 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public Boolean preProd() {
     return preProd;
+  }
+
+  /**
+   * Gets the projectId.
+   *
+   * FCM project_id.
+   *
+   * @return the projectId
+   */
+  public String projectId() {
+    return projectId;
+  }
+
+  /**
+   * Gets the privateKey.
+   *
+   * FCM private_key.
+   *
+   * @return the privateKey
+   */
+  public String privateKey() {
+    return privateKey;
+  }
+
+  /**
+   * Gets the clientEmail.
+   *
+   * FCM client_email.
+   *
+   * @return the clientEmail
+   */
+  public String clientEmail() {
+    return clientEmail;
   }
 
   /**

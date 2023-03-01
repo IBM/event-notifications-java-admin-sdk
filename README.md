@@ -563,7 +563,7 @@ Response<IntegrationGetResponse> response = eventNotificationsService.replaceInt
       devicePlatforms.add(<device-platforms>);
 
         String notificationDevices = "{\"user_ids\": [\"userId\"]}";
-        String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
+        String fcmJsonString = "{\"message\": {\"android\": {\"notification\": {\"title\": \"Alert message\",\"body\": \"Bob wants to play Poker\"},\"data\": {\"name\": \"Willie Greenholt\",\"description\": \"notification for the Poker\"}}}}";
         String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
         String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
 
