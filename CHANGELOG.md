@@ -1,3 +1,10 @@
+## [0.1.10](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.9...0.1.10) (2023-03-28)
+
+
+### Bug Fixes
+
+* add code engine destination support ([7448d4c](https://github.com/IBM/event-notifications-java-admin-sdk/commit/7448d4cf34aec1e778406f6f4137e0a48c5b0e37))
+
 ## [0.1.9](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.8...0.1.9) (2023-03-01)
 
 
