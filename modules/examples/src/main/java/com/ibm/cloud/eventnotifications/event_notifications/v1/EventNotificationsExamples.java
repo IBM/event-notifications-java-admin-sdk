@@ -61,6 +61,7 @@ public class EventNotificationsExamples {
   public static String destinationId10 = "";
   public static String destinationId11 = "";
   public static String destinationId12 = "";
+  public static String destinationId13 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -79,6 +80,7 @@ public class EventNotificationsExamples {
   public static String fcmProjectID = "";
   public static String fcmPrivateKey = "";
   public static String fcmClientEmail = "";
+  public static String codeEngineURL = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -117,6 +119,7 @@ public class EventNotificationsExamples {
     fcmProjectID = config.get("FCM_PROJECT_ID");
     fcmPrivateKey = config.get("FCM_PRIVATE_KEY");
     fcmClientEmail = config.get("FCM_CLIENT_EMAIL");
+    codeEngineURL = config.get("CODE_ENGINE_URL");
 
     try {
       System.out.println("createSources() result:");
@@ -617,6 +620,35 @@ public class EventNotificationsExamples {
       // Validate response
       DestinationResponse destinationV1Response = fcmV1Response.getResult();
       destinationId12 = destinationV1Response.getId();
+
+      DestinationConfigOneOfWebhookDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+              .url(codeEngineURL)
+              .verb("get")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
+              .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
+              .build();
+
+      DestinationConfig destinationCEConfigModel = new DestinationConfig.Builder()
+              .params(destinationCEConfigParamsModel)
+              .build();
+
+      String codeEngineName = "code-engine_destination";
+      String codeEngineTypeVal = "ibmce";
+      String codeEngineDescription = "code engine Destination";
+
+      CreateDestinationOptions createCEDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(codeEngineName)
+              .type(codeEngineTypeVal)
+              .description(codeEngineDescription)
+              .config(destinationCEConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> ceResponse = eventNotificationsService.createDestination(createCEDestinationOptions).execute();
+      DestinationResponse destinationCEResponseResult = ceResponse.getResult();
+      System.out.println(destinationCEResponseResult);
+      destinationId13 = destinationCEResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -969,6 +1001,34 @@ public class EventNotificationsExamples {
       Destination fcmV1destination = fcmV1Response.getResult();
 
       System.out.println(fcmV1destination);
+
+      DestinationConfigOneOfWebhookDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+              .url(codeEngineURL)
+              .verb("get")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization1", "testString"); } })
+              .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization1")))
+              .build();
+
+      DestinationConfig destinationCEConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfigCEParamsModel)
+              .build();
+
+      String ceName = "code engine update";
+      String ceDescription = "This destination is for code engine to receive notifications";
+
+      UpdateDestinationOptions updateCEDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId13)
+              .name(ceName)
+              .description(ceDescription)
+              .config(destinationCEConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> ceResponse = eventNotificationsService.updateDestination(updateCEDestinationOptions).execute();
+
+      Destination ceDestinationResult = ceResponse.getResult();
+      System.out.println(ceDestinationResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1387,6 +1447,8 @@ public class EventNotificationsExamples {
       destinations.add(destinationId9);
       destinations.add(destinationId10);
       destinations.add(destinationId11);
+      destinations.add(destinationId12);
+      destinations.add(destinationId13);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()

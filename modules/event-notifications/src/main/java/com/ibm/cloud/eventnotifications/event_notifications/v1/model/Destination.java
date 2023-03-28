@@ -24,7 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Destination extends GenericModel {
 
   /**
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/ServiceNow.
+   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow.
    */
   public interface Type {
     /** webhook. */
@@ -41,6 +41,8 @@ public class Destination extends GenericModel {
     String SLACK = "slack";
     /** ibmcf. */
     String IBMCF = "ibmcf";
+    /** ibmce. */
+    String IBMCE = "ibmce";
     /** pagerduty. */
     String PAGERDUTY = "pagerduty";
     /** push_safari. */
@@ -99,7 +101,7 @@ public class Destination extends GenericModel {
   /**
    * Gets the type.
    *
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/ServiceNow.
+   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow.
    *
    * @return the type
    */

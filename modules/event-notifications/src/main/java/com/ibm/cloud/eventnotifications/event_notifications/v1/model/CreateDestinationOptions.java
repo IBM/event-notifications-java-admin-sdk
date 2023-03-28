@@ -42,6 +42,8 @@ public class CreateDestinationOptions extends GenericModel {
     String SLACK = "slack";
     /** ibmcf. */
     String IBMCF = "ibmcf";
+    /** ibmce. */
+    String IBMCE = "ibmce";
     /** pagerduty. */
     String PAGERDUTY = "pagerduty";
     /** push_safari. */

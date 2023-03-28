@@ -61,6 +61,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId10 = "";
   public static String destinationId11 = "";
   public static String destinationId12 = "";
+  public static String destinationId13 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -74,6 +75,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId10 = "";
   public static String subscriptionId11 = "";
   public static String subscriptionId12 = "";
+  public static String subscriptionId13 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -85,6 +87,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String fcmProjectID = "";
   public static String fcmPrivateKey = "";
   public static String fcmClientEmail = "";
+  public static String codeEngineURL = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -122,6 +125,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     fcmProjectID = config.get("FCM_PROJECT_ID");
     fcmPrivateKey = config.get("FCM_PRIVATE_KEY");
     fcmClientEmail = config.get("FCM_CLIENT_EMAIL");
+    codeEngineURL = config.get("CODE_ENGINE_URL");
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -940,6 +944,44 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId12 = destinationFCMResponseResult.getId();
 
+      DestinationConfigOneOfWebhookDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+              .url(codeEngineURL)
+              .verb("get")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
+              .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
+              .build();
+
+      DestinationConfig destinationCEConfigModel = new DestinationConfig.Builder()
+              .params(destinationCEConfigParamsModel)
+              .build();
+
+      String codeEngineName = "code-engine_destination";
+      String codeEngineTypeVal = "ibmce";
+      String codeEngineDescription = "code engine Destination";
+
+      CreateDestinationOptions createCEDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(codeEngineName)
+              .type(codeEngineTypeVal)
+              .description(codeEngineDescription)
+              .config(destinationCEConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> ceResponse = service.createDestination(createCEDestinationOptions).execute();
+      // Validate response
+      assertNotNull(ceResponse);
+      assertEquals(ceResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationCEResponseResult = ceResponse.getResult();
+
+      assertNotNull(destinationCEResponseResult);
+      assertEquals(destinationCEResponseResult.getDescription(), codeEngineDescription);
+      assertEquals(destinationCEResponseResult.getName(), codeEngineName);
+      assertEquals(destinationCEResponseResult.getType(), codeEngineTypeVal);
+
+      destinationId13 = destinationCEResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1439,6 +1481,42 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), fcmDescription);
       assertEquals(destinationResult.getName(), fcmName);
 
+      DestinationConfigOneOfWebhookDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+              .url(codeEngineURL)
+              .verb("get")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization1", "testString"); } })
+              .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization1")))
+              .build();
+
+      DestinationConfig destinationCEConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfigCEParamsModel)
+              .build();
+
+      String ceName = "code engine update";
+      String ceDescription = "This destination is for code engine to receive notifications";
+
+      UpdateDestinationOptions updateCEDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId13)
+              .name(ceName)
+              .description(ceDescription)
+              .config(destinationCEConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> ceResponse = service.updateDestination(updateCEDestinationOptions).execute();
+      // Validate response
+      assertNotNull(ceResponse);
+      assertEquals(ceResponse.getStatusCode(), 200);
+
+      Destination destinationCEResult = ceResponse.getResult();
+
+      assertNotNull(destinationCEResult);
+
+      assertEquals(destinationCEResult.getId(), destinationId13);
+      assertEquals(destinationCEResult.getDescription(), ceDescription);
+      assertEquals(destinationCEResult.getName(), ceName);
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1782,6 +1860,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(fcmSubscriptionResult.getName(), fcmName);
 
       subscriptionId12 = fcmSubscriptionResult.getId();
+
+      SubscriptionCreateAttributesWebhookAttributes subscriptionCreateCEAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
+              .signingEnabled(true).build();
+      String ceName = "subscription_code_engine";
+      String ceDescription = "Subscription for code engine";
+
+      CreateSubscriptionOptions createCESubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(ceName)
+              .destinationId(destinationId13)
+              .topicId(topicId)
+              .description(ceDescription)
+              .attributes(subscriptionCreateCEAttributesModel)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> ceResponse = service.createSubscription(createCESubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(ceResponse);
+      assertEquals(ceResponse.getStatusCode(), 201);
+
+      Subscription subscriptionCEResult = ceResponse.getResult();
+
+      assertNotNull(subscriptionCEResult);
+      assertEquals(subscriptionCEResult.getDescription(), ceDescription);
+      assertEquals(subscriptionCEResult.getName(), ceName);
+
+      subscriptionId13 = subscriptionCEResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -2227,6 +2333,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(fcmSubscriptionResult.getName(), fcmName);
       assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
       assertEquals(fcmSubscriptionResult.getId(), subscriptionId12);
+
+      SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateCEAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
+              .signingEnabled(true)
+              .build();
+
+      String ceName = "CE_sub_updated";
+      String ceDescription = "Update code engine subscription";
+
+      UpdateSubscriptionOptions updateCESubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId13)
+              .name(ceName)
+              .description(ceDescription)
+              .attributes(subscriptionUpdateCEAttributesModel)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> ceResponse = service.updateSubscription(updateCESubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(ceResponse);
+      assertEquals(ceResponse.getStatusCode(), 200);
+
+      Subscription subscriptionCEResult = ceResponse.getResult();
+
+      assertNotNull(subscriptionCEResult);
+      assertEquals(subscriptionCEResult.getName(), ceName);
+      assertEquals(subscriptionCEResult.getDescription(), ceDescription);
+      assertEquals(subscriptionCEResult.getId(), subscriptionId13);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2374,6 +2508,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId10);
       subscriptions.add(subscriptionId11);
       subscriptions.add(subscriptionId12);
+      subscriptions.add(subscriptionId13);
 
       for (String subscription :
               subscriptions) {
@@ -2458,6 +2593,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId10);
       destinations.add(destinationId11);
       destinations.add(destinationId12);
+      destinations.add(destinationId13);
 
       for (String destination :
               destinations) {
