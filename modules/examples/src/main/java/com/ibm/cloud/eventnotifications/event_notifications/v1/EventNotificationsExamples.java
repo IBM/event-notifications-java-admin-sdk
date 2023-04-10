@@ -68,6 +68,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
   public static String subscriptionId4 = "";
+  public static String subscriptionId5 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -1148,6 +1149,27 @@ public class EventNotificationsExamples {
       Response<Subscription> sNowResponse = eventNotificationsService.createSubscription(createSNowSubscriptionOptions).execute();
       Subscription sNowSubscriptionResult = sNowResponse.getResult();
       subscriptionId4 = sNowSubscriptionResult.getId();
+
+      String slackName = "subscription_slack";
+      String slackDescription = "Subscription for slack";
+
+      SubscriptionCreateAttributesSlackAttributes slackCreateAttributes = new SubscriptionCreateAttributesSlackAttributes.Builder()
+              .attachmentColor("#0000FF")
+              .build();
+
+      CreateSubscriptionOptions createSlackSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackName)
+              .destinationId(destinationId4)
+              .topicId(topicId)
+              .description(slackDescription)
+              .attributes(slackCreateAttributes)
+              .build();
+
+      Response<Subscription> slackResponse = eventNotificationsService.createSubscription(createSlackSubscriptionOptions).execute();
+
+      Subscription slackSubscriptionResult = slackResponse.getResult();
+      subscriptionId5 = slackSubscriptionResult.getId();
       // end-create_subscription
 
     } catch (ServiceResponseException e) {
@@ -1332,6 +1354,26 @@ public class EventNotificationsExamples {
       Response<Subscription> sNowResponse = eventNotificationsService.updateSubscription(updateSNowSubscriptionOptions).execute();
       Subscription sNowSubscriptionResult = sNowResponse.getResult();
       System.out.println(sNowSubscriptionResult);
+
+      String slackName = "subscription_slack_update";
+      String slackDescription = "Subscription slack update";
+      SubscriptionUpdateAttributesSlackAttributes slackUpdateAttributes = new SubscriptionUpdateAttributesSlackAttributes.Builder()
+              .attachmentColor("#0000FF")
+              .build();
+
+      UpdateSubscriptionOptions updateSlackSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId5)
+              .name(slackName)
+              .description(slackDescription)
+              .attributes(slackUpdateAttributes)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> slackResponse = eventNotificationsService.updateSubscription(updateSlackSubscriptionOptions).execute();
+      Subscription slackSubscriptionResult = slackResponse.getResult();
+      System.out.println(slackSubscriptionResult);
+
       // end-update_subscription
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1394,6 +1436,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId1);
       subscriptions.add(subscriptionId3);
       subscriptions.add(subscriptionId4);
+      subscriptions.add(subscriptionId5);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
