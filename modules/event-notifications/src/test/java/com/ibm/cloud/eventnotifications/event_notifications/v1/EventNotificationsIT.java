@@ -1657,12 +1657,17 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String slackName = "subscription_slack";
       String slackDescription = "Subscription for slack";
 
+      SubscriptionCreateAttributesSlackAttributes slackCreateAttributes = new SubscriptionCreateAttributesSlackAttributes.Builder()
+              .attachmentColor("#0000FF")
+              .build();
+
       CreateSubscriptionOptions createSlackSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .name(slackName)
               .destinationId(destinationId4)
               .topicId(topicId)
               .description(slackDescription)
+              .attributes(slackCreateAttributes)
               .build();
 
       Response<Subscription> slackResponse = service.createSubscription(createSlackSubscriptionOptions).execute();
@@ -2224,11 +2229,16 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String slackName = "subscription_slack_update";
       String slackDescription = "Subscription slack update";
 
+      SubscriptionUpdateAttributesSlackAttributes slackUpdateAttributes = new SubscriptionUpdateAttributesSlackAttributes.Builder()
+      .attachmentColor("#0000FF")
+      .build();
+
       UpdateSubscriptionOptions updateSlackSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .id(subscriptionId8)
               .name(slackName)
               .description(slackDescription)
+              .attributes(slackUpdateAttributes)
               .build();
 
       // Invoke operation

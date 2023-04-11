@@ -42,10 +42,4 @@ public class SubscriptionCreateAttributesSlackAttributesTest {
     assertTrue(subscriptionCreateAttributesSlackAttributesModelNew instanceof SubscriptionCreateAttributesSlackAttributes);
     assertEquals(subscriptionCreateAttributesSlackAttributesModelNew.attachmentColor(), "testString");
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testSubscriptionCreateAttributesSlackAttributesError() throws Throwable {
-    new SubscriptionCreateAttributesSlackAttributes.Builder().build();
-  }
-
 }

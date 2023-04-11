@@ -35,15 +35,6 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
     }
 
     /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param attachmentColor the attachmentColor
-     */
-    public Builder(String attachmentColor) {
-      this.attachmentColor = attachmentColor;
-    }
-
-    /**
      * Builds a SubscriptionUpdateAttributesSlackAttributes.
      *
      * @return the new SubscriptionUpdateAttributesSlackAttributes instance
@@ -67,8 +58,6 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
   protected SubscriptionUpdateAttributesSlackAttributes() { }
 
   protected SubscriptionUpdateAttributesSlackAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.attachmentColor,
-      "attachmentColor cannot be null");
     attachmentColor = builder.attachmentColor;
   }
 
