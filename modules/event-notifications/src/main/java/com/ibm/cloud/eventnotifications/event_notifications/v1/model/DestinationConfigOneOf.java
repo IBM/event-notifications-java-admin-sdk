@@ -33,6 +33,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfIBMCloudFunctionsDestinationConfig
  * - DestinationConfigOneOfPagerDutyDestinationConfig
  * - DestinationConfigOneOfServiceNowDestinationConfig
+ * - DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig
  */
 public class DestinationConfigOneOf extends GenericModel {
 
@@ -96,6 +97,11 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String username;
   @SerializedName("instance_name")
   protected String instanceName;
+  @SerializedName("bucket_name")
+  protected String bucketName;
+  @SerializedName("instance_id")
+  protected String instanceId;
+  protected String endpoint;
 
   protected DestinationConfigOneOf() {
   }
@@ -395,6 +401,39 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public String instanceName() {
     return instanceName;
+  }
+
+  /**
+   * Gets the bucketName.
+   *
+   * Bucket Name for Cloud Object Storage.
+   *
+   * @return the bucketName
+   */
+  public String bucketName() {
+    return bucketName;
+  }
+
+  /**
+   * Gets the instanceId.
+   *
+   * Instance Id of Cloud Object Storage.
+   *
+   * @return the instanceId
+   */
+  public String instanceId() {
+    return instanceId;
+  }
+
+  /**
+   * Gets the endpoint.
+   *
+   * End Point of Cloud Object Storage.
+   *
+   * @return the endpoint
+   */
+  public String endpoint() {
+    return endpoint;
   }
 }
 

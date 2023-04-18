@@ -62,6 +62,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId11 = "";
   public static String destinationId12 = "";
   public static String destinationId13 = "";
+  public static String destinationId14 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -76,6 +77,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId11 = "";
   public static String subscriptionId12 = "";
   public static String subscriptionId13 = "";
+  public static String subscriptionId14 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -982,6 +984,43 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId13 = destinationCEResponseResult.getId();
 
+      DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig destinationCOSConfigParamsModel = new DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig.Builder()
+              .bucketName("encosbucket")
+              .instanceId("e8a6b5a3-3ff4-48ef-ad88-ea86a4d4a3b6")
+              .endpoint("https://s3.us-west.cloud-object-storage.test.appdomain.cloud")
+              .build();
+
+      DestinationConfig destinationCOSConfigModel = new DestinationConfig.Builder()
+              .params(destinationCOSConfigParamsModel)
+              .build();
+
+      String cosName = "Cloud Object Storage";
+      String cosTypeVal = "ibmcos";
+      String cosDescription = "Cloud Object Storage Destination";
+
+      CreateDestinationOptions createCOSDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(cosName)
+              .type(cosTypeVal)
+              .description(cosDescription)
+              .config(destinationCOSConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> cosResponse = service.createDestination(createCOSDestinationOptions).execute();
+      // Validate response
+      assertNotNull(cosResponse);
+      assertEquals(cosResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationCOSResponseResult = cosResponse.getResult();
+
+      assertNotNull(destinationCOSResponseResult);
+      assertEquals(destinationCOSResponseResult.getDescription(), cosDescription);
+      assertEquals(destinationCOSResponseResult.getName(), cosName);
+      assertEquals(destinationCOSResponseResult.getType(), cosTypeVal);
+
+      destinationId14 = destinationCOSResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1517,6 +1556,41 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationCEResult.getDescription(), ceDescription);
       assertEquals(destinationCEResult.getName(), ceName);
 
+      DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig destinationCOSConfigParamsModel = new DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig.Builder()
+              .bucketName("encosbucket")
+              .instanceId("e8a6b5a3-3ff4-48ef-ad88-ea86a4d4a3b6")
+              .endpoint("https://s3.us-west.cloud-object-storage.test.appdomain.cloud")
+              .build();
+
+      DestinationConfig destinationCOSConfigModel = new DestinationConfig.Builder()
+              .params(destinationCOSConfigParamsModel)
+              .build();
+
+      String cosName = "Cloud Object Storage update";
+      String cosDescription = "Cloud Object Storage Destination updated";
+
+      UpdateDestinationOptions updateCOSDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId14)
+              .name(cosName)
+              .description(cosDescription)
+              .config(destinationCOSConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> cosResponse = service.updateDestination(updateCOSDestinationOptions).execute();
+      // Validate response
+      assertNotNull(cosResponse);
+      assertEquals(cosResponse.getStatusCode(), 200);
+
+      Destination destinationCOSResult = cosResponse.getResult();
+
+      assertNotNull(destinationCOSResult);
+
+      assertEquals(destinationCOSResult.getId(), destinationId14);
+      assertEquals(destinationCOSResult.getDescription(), cosDescription);
+      assertEquals(destinationCOSResult.getName(), cosName);
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1893,6 +1967,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(subscriptionCEResult.getName(), ceName);
 
       subscriptionId13 = subscriptionCEResult.getId();
+
+      String cosName = "subscription_COS";
+      String cosDescription = "Subscription for COS";
+      CreateSubscriptionOptions createCOSSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(cosName)
+              .destinationId(destinationId14)
+              .topicId(topicId)
+              .description(cosDescription)
+              .build();
+
+      Response<Subscription> cosResponse = service.createSubscription(createCOSSubscriptionOptions).execute();
+
+      assertNotNull(cosResponse);
+      assertEquals(cosResponse.getStatusCode(), 201);
+      Subscription cosSubscriptionResult = cosResponse.getResult();
+      assertNotNull(cosSubscriptionResult);
+      assertEquals(cosSubscriptionResult.getDescription(), cosDescription);
+      assertEquals(cosSubscriptionResult.getName(), cosName);
+
+      subscriptionId14 = cosSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -2371,6 +2466,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(subscriptionCEResult.getName(), ceName);
       assertEquals(subscriptionCEResult.getDescription(), ceDescription);
       assertEquals(subscriptionCEResult.getId(), subscriptionId13);
+
+      String cosName = "subscription_COS_update";
+      String cosDescription = "Subscription COS update";
+
+      UpdateSubscriptionOptions updateCOSSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId14)
+              .name(cosName)
+              .description(cosDescription)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> cosResponse = service.updateSubscription(updateCOSSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(cosResponse);
+      assertEquals(cosResponse.getStatusCode(), 200);
+      Subscription cosSubscriptionResult = cosResponse.getResult();
+      assertNotNull(cosSubscriptionResult);
+      assertEquals(cosSubscriptionResult.getDescription(), cosDescription);
+      assertEquals(cosSubscriptionResult.getName(), cosName);
+      assertEquals(cosSubscriptionResult.getId(), subscriptionId14);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2519,6 +2635,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId11);
       subscriptions.add(subscriptionId12);
       subscriptions.add(subscriptionId13);
+      subscriptions.add(subscriptionId14);
 
       for (String subscription :
               subscriptions) {
@@ -2604,6 +2721,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId11);
       destinations.add(destinationId12);
       destinations.add(destinationId13);
+      destinations.add(destinationId14);
 
       for (String destination :
               destinations) {

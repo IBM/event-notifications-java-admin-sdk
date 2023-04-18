@@ -24,7 +24,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Destination extends GenericModel {
 
   /**
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow.
+   * Destination type
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage.
    */
   public interface Type {
     /** webhook. */
@@ -51,6 +52,8 @@ public class Destination extends GenericModel {
     String MSTEAMS = "msteams";
     /** servicenow. */
     String SERVICENOW = "servicenow";
+    /** ibmcos. */
+    String IBMCOS = "ibmcos";
   }
 
   protected String id;
@@ -101,7 +104,8 @@ public class Destination extends GenericModel {
   /**
    * Gets the type.
    *
-   * Destination type Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow.
+   * Destination type
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage.
    *
    * @return the type
    */
