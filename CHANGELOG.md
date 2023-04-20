@@ -1,3 +1,10 @@
+## [0.1.11](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.10...0.1.11) (2023-04-20)
+
+
+### Bug Fixes
+
+* adds COS destination support ([e16c9ae](https://github.com/IBM/event-notifications-java-admin-sdk/commit/e16c9ae86425ee0f94a3b534f4a725af1efcc662))
+
 ## [0.1.10](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.9...0.1.10) (2023-03-28)
 
 
