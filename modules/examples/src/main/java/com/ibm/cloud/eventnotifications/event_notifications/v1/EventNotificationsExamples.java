@@ -62,6 +62,7 @@ public class EventNotificationsExamples {
   public static String destinationId11 = "";
   public static String destinationId12 = "";
   public static String destinationId13 = "";
+  public static String destinationId14 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -650,6 +651,34 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCEResponseResult = ceResponse.getResult();
       System.out.println(destinationCEResponseResult);
       destinationId13 = destinationCEResponseResult.getId();
+
+      DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig destinationCOSConfigParamsModel = new DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig.Builder()
+              .bucketName("encosbucket")
+              .instanceId("e8a6b5a3-xxxx-xxxx-xxxx-ea86a4d4axxx")
+              .endpoint("https://s3.us-west.cloud-object-storage.test.appdomain.cloud")
+              .build();
+
+      DestinationConfig destinationCOSConfigModel = new DestinationConfig.Builder()
+              .params(destinationCOSConfigParamsModel)
+              .build();
+
+      String cosName = "Cloud Object Storage";
+      String cosTypeVal = "ibmcos";
+      String cosDescription = "Cloud Object Storage Destination";
+
+      CreateDestinationOptions createCOSDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(cosName)
+              .type(cosTypeVal)
+              .description(cosDescription)
+              .config(destinationCOSConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> cosResponse = eventNotificationsService.createDestination(createCOSDestinationOptions).execute();
+      DestinationResponse destinationCOSResponseResult = ceResponse.getResult();
+      System.out.println(destinationCOSResponseResult);
+      destinationId14 = destinationCOSResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -1030,6 +1059,32 @@ public class EventNotificationsExamples {
 
       Destination ceDestinationResult = ceResponse.getResult();
       System.out.println(ceDestinationResult);
+
+      DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig destinationCOSConfigParamsModel = new DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig.Builder()
+              .bucketName("encosbucket")
+              .instanceId("e8a6b5a3-xxxx-xxxx-xxxx-ea86a4d4axxx")
+              .endpoint("https://s3.us-west.cloud-object-storage.test.appdomain.cloud")
+              .build();
+
+      DestinationConfig destinationCOSConfigModel = new DestinationConfig.Builder()
+              .params(destinationCOSConfigParamsModel)
+              .build();
+
+      String cosName = "Cloud Object Storage update";
+      String cosDescription = "Cloud Object Storage Destination updated";
+
+      UpdateDestinationOptions updateCOSDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId14)
+              .name(cosName)
+              .description(cosDescription)
+              .config(destinationCOSConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> cosResponse = eventNotificationsService.updateDestination(updateCOSDestinationOptions).execute();
+      Destination cosDestinationResult = cosResponse.getResult();
+      System.out.println(cosDestinationResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1492,6 +1547,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId11);
       destinations.add(destinationId12);
       destinations.add(destinationId13);
+      destinations.add(destinationId14);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()

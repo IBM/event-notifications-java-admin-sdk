@@ -53,6 +53,8 @@ public class Subscription extends DynamicModel<Object> {
     String MSTEAMS = "msteams";
     /** servicenow. */
     String SERVICENOW = "servicenow";
+    /** ibmcos. */
+    String IBMCOS = "ibmcos";
   }
 
   @SerializedName("id")

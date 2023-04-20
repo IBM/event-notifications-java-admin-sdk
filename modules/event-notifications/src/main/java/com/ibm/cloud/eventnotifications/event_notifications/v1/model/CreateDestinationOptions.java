@@ -52,6 +52,8 @@ public class CreateDestinationOptions extends GenericModel {
     String MSTEAMS = "msteams";
     /** servicenow. */
     String SERVICENOW = "servicenow";
+    /** ibmcos. */
+    String IBMCOS = "ibmcos";
   }
 
   protected String instanceId;
