@@ -63,6 +63,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId12 = "";
   public static String destinationId13 = "";
   public static String destinationId14 = "";
+  public static String destinationId15 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -78,6 +79,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId12 = "";
   public static String subscriptionId13 = "";
   public static String subscriptionId14 = "";
+  public static String subscriptionId15 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -90,6 +92,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String fcmPrivateKey = "";
   public static String fcmClientEmail = "";
   public static String codeEngineURL = "";
+  public static String huaweiClientId = "";
+  public static String huaweiClientSecret = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -128,6 +132,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     fcmPrivateKey = config.get("FCM_PRIVATE_KEY");
     fcmClientEmail = config.get("FCM_CLIENT_EMAIL");
     codeEngineURL = config.get("CODE_ENGINE_URL");
+    huaweiClientId = config.get("HUAWEI_CLIENT_ID");
+    huaweiClientSecret = config.get("HUAWEI_CLIENT_SECRET");
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -1021,6 +1027,43 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId14 = destinationCOSResponseResult.getId();
 
+      DestinationConfigOneOfHuaweiDestinationConfig destinationHuaweiConfigParamsModel = new DestinationConfigOneOfHuaweiDestinationConfig.Builder()
+              .clientId(huaweiClientId)
+              .clientSecret(huaweiClientSecret)
+              .preProd(false)
+              .build();
+
+      DestinationConfig destinationHuaweiConfigModel = new DestinationConfig.Builder()
+              .params(destinationHuaweiConfigParamsModel)
+              .build();
+
+      String huaweiName = "Huawei";
+      String huaweiTypeVal = "push_huawei";
+      String huaweiDescription = "Huawei Destination";
+
+      CreateDestinationOptions createHuaweiDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(huaweiName)
+              .type(huaweiTypeVal)
+              .description(huaweiDescription)
+              .config(destinationHuaweiConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> huaweiResponse = service.createDestination(createHuaweiDestinationOptions).execute();
+      // Validate response
+      assertNotNull(huaweiResponse);
+      assertEquals(huaweiResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationHuaweiResponseResult = huaweiResponse.getResult();
+
+      assertNotNull(destinationHuaweiResponseResult);
+      assertEquals(destinationHuaweiResponseResult.getDescription(), huaweiDescription);
+      assertEquals(destinationHuaweiResponseResult.getName(), huaweiName);
+      assertEquals(destinationHuaweiResponseResult.getType(), huaweiTypeVal);
+
+      destinationId15 = destinationHuaweiResponseResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1591,6 +1634,40 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationCOSResult.getDescription(), cosDescription);
       assertEquals(destinationCOSResult.getName(), cosName);
 
+      DestinationConfigOneOfHuaweiDestinationConfig destinationHuaweiConfigParamsModel = new DestinationConfigOneOfHuaweiDestinationConfig.Builder()
+              .clientId(huaweiClientId)
+              .clientSecret(huaweiClientSecret)
+              .preProd(false)
+              .build();
+
+      DestinationConfig destinationHuaweiConfigModel = new DestinationConfig.Builder()
+              .params(destinationHuaweiConfigParamsModel)
+              .build();
+
+      String huaweiName = "Huawei update";
+      String huaweiDescription = "Huawei Destination updated";
+
+      UpdateDestinationOptions updateHuaweiDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId15)
+              .name(huaweiName)
+              .description(huaweiDescription)
+              .config(destinationHuaweiConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> huaweiResponse = service.updateDestination(updateHuaweiDestinationOptions).execute();
+      // Validate response
+      assertNotNull(huaweiResponse);
+      assertEquals(huaweiResponse.getStatusCode(), 200);
+
+      Destination destinationHuaweiResult = huaweiResponse.getResult();
+
+      assertNotNull(destinationHuaweiResult);
+
+      assertEquals(destinationHuaweiResult.getId(), destinationId15);
+      assertEquals(destinationHuaweiResult.getDescription(), huaweiDescription);
+      assertEquals(destinationHuaweiResult.getName(), huaweiName);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1988,6 +2065,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(cosSubscriptionResult.getName(), cosName);
 
       subscriptionId14 = cosSubscriptionResult.getId();
+
+      String huaweiName = "subscription_Huawei";
+      String huaweiDescription = "Subscription for Huawei";
+      CreateSubscriptionOptions createHuaweiSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(huaweiName)
+              .destinationId(destinationId15)
+              .topicId(topicId)
+              .description(huaweiDescription)
+              .build();
+
+      Response<Subscription> huaweiResponse = service.createSubscription(createHuaweiSubscriptionOptions).execute();
+
+      assertNotNull(huaweiResponse);
+      assertEquals(huaweiResponse.getStatusCode(), 201);
+      Subscription huaweiSubscriptionResult = huaweiResponse.getResult();
+      assertNotNull(huaweiSubscriptionResult);
+      assertEquals(huaweiSubscriptionResult.getDescription(), cosDescription);
+      assertEquals(huaweiSubscriptionResult.getName(), cosName);
+
+      subscriptionId15 = huaweiSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -2487,6 +2585,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(cosSubscriptionResult.getDescription(), cosDescription);
       assertEquals(cosSubscriptionResult.getName(), cosName);
       assertEquals(cosSubscriptionResult.getId(), subscriptionId14);
+
+      String huaweiName = "subscription_Huawei_update";
+      String huaweiDescription = "Subscription Huawei update";
+
+      UpdateSubscriptionOptions updateHuaweiSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId15)
+              .name(huaweiName)
+              .description(huaweiDescription)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> huaweiResponse = service.updateSubscription(updateHuaweiSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(huaweiResponse);
+      assertEquals(huaweiResponse.getStatusCode(), 200);
+      Subscription huaweiSubscriptionResult = huaweiResponse.getResult();
+      assertNotNull(huaweiSubscriptionResult);
+      assertEquals(huaweiSubscriptionResult.getDescription(), cosDescription);
+      assertEquals(huaweiSubscriptionResult.getName(), cosName);
+      assertEquals(huaweiSubscriptionResult.getId(), subscriptionId15);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2636,6 +2755,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId12);
       subscriptions.add(subscriptionId13);
       subscriptions.add(subscriptionId14);
+      subscriptions.add(subscriptionId15);
 
       for (String subscription :
               subscriptions) {
@@ -2722,6 +2842,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId12);
       destinations.add(destinationId13);
       destinations.add(destinationId14);
+      destinations.add(destinationId15);
 
       for (String destination :
               destinations) {

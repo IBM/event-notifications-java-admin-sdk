@@ -63,6 +63,7 @@ public class EventNotificationsExamples {
   public static String destinationId12 = "";
   public static String destinationId13 = "";
   public static String destinationId14 = "";
+  public static String destinationId15 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -83,6 +84,8 @@ public class EventNotificationsExamples {
   public static String fcmPrivateKey = "";
   public static String fcmClientEmail = "";
   public static String codeEngineURL = "";
+  public static String huaweiClientId = "";
+  public static String huaweiClientSecret = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -122,6 +125,8 @@ public class EventNotificationsExamples {
     fcmPrivateKey = config.get("FCM_PRIVATE_KEY");
     fcmClientEmail = config.get("FCM_CLIENT_EMAIL");
     codeEngineURL = config.get("CODE_ENGINE_URL");
+    huaweiClientId = config.get("HUAWEI_CLIENT_ID");
+    huaweiClientSecret = config.get("HUAWEI_CLIENT_SECRET");
 
     try {
       System.out.println("createSources() result:");
@@ -679,6 +684,34 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCOSResponseResult = ceResponse.getResult();
       System.out.println(destinationCOSResponseResult);
       destinationId14 = destinationCOSResponseResult.getId();
+
+      DestinationConfigOneOfHuaweiDestinationConfig destinationHuaweiConfigParamsModel = new DestinationConfigOneOfHuaweiDestinationConfig.Builder()
+              .clientId(huaweiClientId)
+              .clientSecret(huaweiClientSecret)
+              .preProd(false)
+              .build();
+
+      DestinationConfig destinationHuaweiConfigModel = new DestinationConfig.Builder()
+              .params(destinationHuaweiConfigParamsModel)
+              .build();
+
+      String huaweiName = "Huawei";
+      String huaweiTypeVal = "push_huawei";
+      String huaweiDescription = "Huawei Destination";
+
+      CreateDestinationOptions createHuaweiDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(huaweiName)
+              .type(huaweiTypeVal)
+              .description(huaweiDescription)
+              .config(destinationHuaweiConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> huaweiResponse = eventNotificationsService.createDestination(createHuaweiDestinationOptions).execute();
+      DestinationResponse destinationHuaweiResponseResult = huaweiResponse.getResult();
+      System.out.println(destinationHuaweiResponseResult);
+      destinationId15 = destinationHuaweiResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -1085,6 +1118,32 @@ public class EventNotificationsExamples {
       Response<Destination> cosResponse = eventNotificationsService.updateDestination(updateCOSDestinationOptions).execute();
       Destination cosDestinationResult = cosResponse.getResult();
       System.out.println(cosDestinationResult);
+
+      DestinationConfigOneOfHuaweiDestinationConfig destinationHuaweiConfigParamsModel = new DestinationConfigOneOfHuaweiDestinationConfig.Builder()
+              .clientId(huaweiClientId)
+              .clientSecret(huaweiClientSecret)
+              .preProd(false)
+              .build();
+
+      DestinationConfig destinationHuaweiConfigModel = new DestinationConfig.Builder()
+              .params(destinationHuaweiConfigParamsModel)
+              .build();
+
+      String huaweiName = "Huawei update";
+      String huaweiDescription = "Huawei Destination updated";
+
+      UpdateDestinationOptions updateHuaweiDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId15)
+              .name(huaweiName)
+              .description(huaweiDescription)
+              .config(destinationHuaweiConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> huaweiResponse = eventNotificationsService.updateDestination(updateHuaweiDestinationOptions).execute();
+      Destination huaweiDestinationResult = huaweiResponse.getResult();
+      System.out.println(huaweiDestinationResult );
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1548,6 +1607,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId12);
       destinations.add(destinationId13);
       destinations.add(destinationId14);
+      destinations.add(destinationId15);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
