@@ -2082,8 +2082,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(huaweiResponse.getStatusCode(), 201);
       Subscription huaweiSubscriptionResult = huaweiResponse.getResult();
       assertNotNull(huaweiSubscriptionResult);
-      assertEquals(huaweiSubscriptionResult.getDescription(), cosDescription);
-      assertEquals(huaweiSubscriptionResult.getName(), cosName);
+      assertEquals(huaweiSubscriptionResult.getDescription(), huaweiDescription);
+      assertEquals(huaweiSubscriptionResult.getName(), huaweiName);
 
       subscriptionId15 = huaweiSubscriptionResult.getId();
 
@@ -2603,8 +2603,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(huaweiResponse.getStatusCode(), 200);
       Subscription huaweiSubscriptionResult = huaweiResponse.getResult();
       assertNotNull(huaweiSubscriptionResult);
-      assertEquals(huaweiSubscriptionResult.getDescription(), cosDescription);
-      assertEquals(huaweiSubscriptionResult.getName(), cosName);
+      assertEquals(huaweiSubscriptionResult.getDescription(), huaweiDescription);
+      assertEquals(huaweiSubscriptionResult.getName(), huaweiName);
       assertEquals(huaweiSubscriptionResult.getId(), subscriptionId15);
       //
       // The following status codes aren't covered by tests.

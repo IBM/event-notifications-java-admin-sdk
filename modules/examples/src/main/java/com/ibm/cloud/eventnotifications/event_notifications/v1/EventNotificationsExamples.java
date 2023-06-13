@@ -681,7 +681,7 @@ public class EventNotificationsExamples {
 
       // Invoke operation
       Response<DestinationResponse> cosResponse = eventNotificationsService.createDestination(createCOSDestinationOptions).execute();
-      DestinationResponse destinationCOSResponseResult = ceResponse.getResult();
+      DestinationResponse destinationCOSResponseResult = cosResponse.getResult();
       System.out.println(destinationCOSResponseResult);
       destinationId14 = destinationCOSResponseResult.getId();
 
