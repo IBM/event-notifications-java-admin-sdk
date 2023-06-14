@@ -34,6 +34,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfPagerDutyDestinationConfig
  * - DestinationConfigOneOfServiceNowDestinationConfig
  * - DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig
+ * - DestinationConfigOneOfHuaweiDestinationConfig
  */
 public class DestinationConfigOneOf extends GenericModel {
 

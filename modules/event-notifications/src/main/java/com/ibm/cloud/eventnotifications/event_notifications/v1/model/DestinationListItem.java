@@ -53,6 +53,8 @@ public class DestinationListItem extends GenericModel {
     String SERVICENOW = "servicenow";
     /** ibmcos. */
     String IBMCOS = "ibmcos";
+    /** push_huawei. */
+    String PUSH_HUAWEI = "push_huawei";
   }
 
   protected String id;
