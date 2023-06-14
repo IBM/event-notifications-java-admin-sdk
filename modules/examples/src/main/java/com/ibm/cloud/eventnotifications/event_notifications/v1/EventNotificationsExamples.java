@@ -1143,7 +1143,7 @@ public class EventNotificationsExamples {
       // Invoke operation
       Response<Destination> huaweiResponse = eventNotificationsService.updateDestination(updateHuaweiDestinationOptions).execute();
       Destination huaweiDestinationResult = huaweiResponse.getResult();
-      System.out.println(huaweiDestinationResult );
+      System.out.println(huaweiDestinationResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
