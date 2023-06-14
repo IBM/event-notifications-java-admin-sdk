@@ -35,7 +35,7 @@ Service Name | Artifact Coordinates
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An Event Notifications Instance
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Java 11 or above.
+* Java 8 or above.
 
 ## Installation
 The current version of this SDK is: 0.1.11
