@@ -1,3 +1,10 @@
+## [0.1.12](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.11...0.1.12) (2023-06-14)
+
+
+### Bug Fixes
+
+* huawei destination support ([9281141](https://github.com/IBM/event-notifications-java-admin-sdk/commit/928114157dcd7093cf26534aceeca49477da9a63))
+
 ## [0.1.11](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.10...0.1.11) (2023-04-20)
 
 
