@@ -65,6 +65,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmenfirefoxbody;
   @SerializedName("ibmenfirefoxheaders")
   protected String ibmenfirefoxheaders;
+  @SerializedName("ibmenhuaweibody")
+  protected String ibmenhuaweibody;
   @SerializedName("ibmensafaribody")
   protected String ibmensafaribody;
 
@@ -96,6 +98,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmenchromeheaders;
     private String ibmenfirefoxbody;
     private String ibmenfirefoxheaders;
+    private String ibmenhuaweibody;
     private String ibmensafaribody;
     private Map<String, Object> dynamicProperties;
 
@@ -120,6 +123,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmenchromeheaders = notificationCreate.ibmenchromeheaders;
       this.ibmenfirefoxbody = notificationCreate.ibmenfirefoxbody;
       this.ibmenfirefoxheaders = notificationCreate.ibmenfirefoxheaders;
+      this.ibmenhuaweibody = notificationCreate.ibmenhuaweibody;
       this.ibmensafaribody = notificationCreate.ibmensafaribody;
       this.dynamicProperties = notificationCreate.getProperties();
     }
@@ -381,6 +385,17 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
+     * Set the ibmenhuaweibody.
+     *
+     * @param ibmenhuaweibody the ibmenhuaweibody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenhuaweibody(String ibmenhuaweibody) {
+      this.ibmenhuaweibody = ibmenhuaweibody;
+      return this;
+    }
+
+    /**
      * Set the ibmensafaribody.
      *
      * @param ibmensafaribody the ibmensafaribody
@@ -444,6 +459,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmenchromeheaders = builder.ibmenchromeheaders;
     ibmenfirefoxbody = builder.ibmenfirefoxbody;
     ibmenfirefoxheaders = builder.ibmenfirefoxheaders;
+    ibmenhuaweibody = builder.ibmenhuaweibody;
     ibmensafaribody = builder.ibmensafaribody;
     this.setProperties(builder.dynamicProperties);
   }
@@ -856,6 +872,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmenfirefoxheaders(final String ibmenfirefoxheaders) {
     this.ibmenfirefoxheaders = ibmenfirefoxheaders;
+  }
+
+  /**
+   * Gets the ibmenhuaweibody.
+   *
+   * Payload describing a notification Huawei body. Value should be stringified.
+   *
+   * @return the ibmenhuaweibody
+   */
+  public String getIbmenhuaweibody() {
+    return this.ibmenhuaweibody;
+  }
+
+  /**
+   * Sets the ibmenhuaweibody.
+   *
+   * @param ibmenhuaweibody the new ibmenhuaweibody
+   */
+  public void setIbmenhuaweibody(final String ibmenhuaweibody) {
+    this.ibmenhuaweibody = ibmenhuaweibody;
   }
 
   /**

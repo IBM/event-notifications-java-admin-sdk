@@ -54,6 +54,7 @@ public class SendBulkNotificationsOptionsTest {
       .ibmenchromeheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
       .ibmenfirefoxbody("testString")
       .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
+      .ibmenhuaweibody("testString")
       .ibmensafaribody("testString")
       .add("foo", "testString")
       .build();
@@ -77,6 +78,7 @@ public class SendBulkNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmenchromeheaders(), "{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}");
     assertEquals(notificationCreateModel.getIbmenfirefoxbody(), "testString");
     assertEquals(notificationCreateModel.getIbmenfirefoxheaders(), "{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}");
+    assertEquals(notificationCreateModel.getIbmenhuaweibody(), "testString");
     assertEquals(notificationCreateModel.getIbmensafaribody(), "testString");
     assertEquals(notificationCreateModel.get("foo"), "testString");
 

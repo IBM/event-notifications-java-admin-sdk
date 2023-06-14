@@ -94,6 +94,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String codeEngineURL = "";
   public static String huaweiClientId = "";
   public static String huaweiClientSecret = "";
+  public static String cosBucketName = "";
+  public static String cosInstanceID = "";
+  public static String cosEndPoint = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -134,6 +137,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     codeEngineURL = config.get("CODE_ENGINE_URL");
     huaweiClientId = config.get("HUAWEI_CLIENT_ID");
     huaweiClientSecret = config.get("HUAWEI_CLIENT_SECRET");
+    cosBucketName = config.get("COS_BUCKET_NAME");
+    cosEndPoint = config.get("COS_ENDPOINT");
+    cosInstanceID = config.get("COS_INSTANCE");
+
     service.enableRetries(4, 30);
 
     System.out.println("Setup complete.");
@@ -991,9 +998,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinationId13 = destinationCEResponseResult.getId();
 
       DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig destinationCOSConfigParamsModel = new DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig.Builder()
-              .bucketName("encosbucket")
-              .instanceId("e8a6b5a3-3ff4-48ef-ad88-ea86a4d4a3b6")
-              .endpoint("https://s3.us-west.cloud-object-storage.test.appdomain.cloud")
+              .bucketName(cosBucketName)
+              .instanceId(cosInstanceID)
+              .endpoint(cosEndPoint)
               .build();
 
       DestinationConfig destinationCOSConfigModel = new DestinationConfig.Builder()
@@ -1600,9 +1607,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationCEResult.getName(), ceName);
 
       DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig destinationCOSConfigParamsModel = new DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig.Builder()
-              .bucketName("encosbucket")
-              .instanceId("e8a6b5a3-3ff4-48ef-ad88-ea86a4d4a3b6")
-              .endpoint("https://s3.us-west.cloud-object-storage.test.appdomain.cloud")
+              .bucketName(cosBucketName)
+              .instanceId(cosInstanceID)
+              .endpoint(cosEndPoint)
               .build();
 
       DestinationConfig destinationCOSConfigModel = new DestinationConfig.Builder()
@@ -2629,10 +2636,11 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public void test1RSendNotifications() throws Exception {
     try {
       // begin-send_notifications
-      String notificationDevices = "{\"platforms\":[\"push_ios\",\"push_android\",\"push_chrome\",\"push_firefox\"]}";
+      String notificationDevices = "{\"platforms\":[\"push_ios\",\"push_android\",\"push_chrome\",\"push_firefox\", \"push_huawei\"]}";
       String fcmJsonString = "{\"message\": {\"android\": {\"notification\": {\"title\": \"Alert message\",\"body\": \"Bob wants to play Poker\"},\"data\": {\"name\": \"Willie Greenholt\",\"description\": \"notification for the Poker\"}}}}";
       String apnsJsonString = "{\"aps\":{\"alert\":{\"title\":\"Hello!! GameRequest\",\"body\":\"Bob wants to play poker\",\"action-loc-key\":\"PLAY\"},\"badge\":5}}";
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
+      String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
 
       NotificationCreate body = new NotificationCreate.Builder()
               .id(instanceId)
@@ -2645,6 +2653,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ibmenpushto(notificationDevices)
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
+              .ibmenhuaweibody(huaweiJsonString)
               .ibmensafaribody(safariJsonString)
               .ibmendefaultshort("Match Info")
               .ibmendefaultlong("Portugal lead the group with a 2-0 win")
