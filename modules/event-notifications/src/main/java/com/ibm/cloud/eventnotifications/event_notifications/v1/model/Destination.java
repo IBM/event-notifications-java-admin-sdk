@@ -25,7 +25,7 @@ public class Destination extends GenericModel {
 
   /**
    * Destination type
-   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage.
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
    */
   public interface Type {
     /** webhook. */
@@ -107,7 +107,7 @@ public class Destination extends GenericModel {
    * Gets the type.
    *
    * Destination type
-   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage.
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
    *
    * @return the type
    */

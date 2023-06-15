@@ -196,6 +196,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .ibmenchromeheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
       .ibmenfirefoxbody("testString")
       .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
+      .ibmenhuaweibody("testString")
       .ibmensafaribody("testString")
       .add("foo", "testString")
       .build();
@@ -274,6 +275,7 @@ public class EventNotificationsTest extends PowerMockTestCase {
       .ibmenchromeheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
       .ibmenfirefoxbody("testString")
       .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
+      .ibmenhuaweibody("testString")
       .ibmensafaribody("testString")
       .add("foo", "testString")
       .build();
