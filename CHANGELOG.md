@@ -1,3 +1,10 @@
+## [0.1.13](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.12...0.1.13) (2023-06-15)
+
+
+### Bug Fixes
+
+* update notification payload for huawei ([34eaf6b](https://github.com/IBM/event-notifications-java-admin-sdk/commit/34eaf6ba305056995a89b4a3e2954032e6aa755d))
+
 ## [0.1.12](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.11...0.1.12) (2023-06-14)
 
 
