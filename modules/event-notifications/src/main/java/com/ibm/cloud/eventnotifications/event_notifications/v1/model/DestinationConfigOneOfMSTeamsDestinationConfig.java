@@ -24,6 +24,11 @@ public class DestinationConfigOneOfMSTeamsDestinationConfig extends DestinationC
   public static class Builder {
     private String url;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfMSTeamsDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfMsTeamsDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfMsTeamsDestinationConfig) {
       this.url = destinationConfigOneOfMsTeamsDestinationConfig.url;
     }

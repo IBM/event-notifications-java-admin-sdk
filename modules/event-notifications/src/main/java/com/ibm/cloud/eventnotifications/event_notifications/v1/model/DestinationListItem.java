@@ -68,6 +68,8 @@ public class DestinationListItem extends GenericModel {
   @SerializedName("updated_at")
   protected Date updatedAt;
 
+  protected DestinationListItem() { }
+
   /**
    * Gets the id.
    *

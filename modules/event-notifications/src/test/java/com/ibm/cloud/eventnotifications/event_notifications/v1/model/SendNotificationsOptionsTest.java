@@ -44,7 +44,7 @@ public class SendNotificationsOptionsTest {
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
       .subject("testString")
-      .data(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
       .ibmenpushto("{\"platforms\":[\"push_android\"]}")
       .ibmenfcmbody("testString")
@@ -68,7 +68,7 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
     assertEquals(notificationCreateModel.getIbmendefaultlong(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
-    assertEquals(notificationCreateModel.getData(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
     assertEquals(notificationCreateModel.getIbmenpushto(), "{\"platforms\":[\"push_android\"]}");
     assertEquals(notificationCreateModel.getIbmenfcmbody(), "testString");

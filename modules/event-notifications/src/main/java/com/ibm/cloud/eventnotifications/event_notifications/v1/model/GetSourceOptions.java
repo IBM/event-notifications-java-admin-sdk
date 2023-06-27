@@ -29,6 +29,11 @@ public class GetSourceOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing GetSourceOptions instance.
+     *
+     * @param getSourceOptions the instance to initialize the Builder with
+     */
     private Builder(GetSourceOptions getSourceOptions) {
       this.instanceId = getSourceOptions.instanceId;
       this.id = getSourceOptions.id;

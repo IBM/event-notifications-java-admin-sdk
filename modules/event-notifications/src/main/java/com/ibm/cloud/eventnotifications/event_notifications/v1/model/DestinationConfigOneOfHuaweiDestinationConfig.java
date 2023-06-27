@@ -26,6 +26,11 @@ public class DestinationConfigOneOfHuaweiDestinationConfig extends DestinationCo
     private String clientSecret;
     private Boolean preProd;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfHuaweiDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfHuaweiDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfHuaweiDestinationConfig) {
       this.clientId = destinationConfigOneOfHuaweiDestinationConfig.clientId;
       this.clientSecret = destinationConfigOneOfHuaweiDestinationConfig.clientSecret;

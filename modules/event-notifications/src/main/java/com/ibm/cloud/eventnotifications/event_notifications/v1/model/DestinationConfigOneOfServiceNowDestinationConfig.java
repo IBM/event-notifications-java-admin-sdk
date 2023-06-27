@@ -28,6 +28,11 @@ public class DestinationConfigOneOfServiceNowDestinationConfig extends Destinati
     private String password;
     private String instanceName;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfServiceNowDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfServiceNowDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfServiceNowDestinationConfig) {
       this.clientId = destinationConfigOneOfServiceNowDestinationConfig.clientId;
       this.clientSecret = destinationConfigOneOfServiceNowDestinationConfig.clientSecret;

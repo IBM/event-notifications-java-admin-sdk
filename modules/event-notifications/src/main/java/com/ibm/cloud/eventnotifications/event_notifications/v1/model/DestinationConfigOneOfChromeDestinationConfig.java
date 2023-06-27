@@ -27,6 +27,11 @@ public class DestinationConfigOneOfChromeDestinationConfig extends DestinationCo
     private String publicKey;
     private Boolean preProd;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfChromeDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfChromeDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfChromeDestinationConfig) {
       this.apiKey = destinationConfigOneOfChromeDestinationConfig.apiKey;
       this.websiteUrl = destinationConfigOneOfChromeDestinationConfig.websiteUrl;

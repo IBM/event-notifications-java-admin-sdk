@@ -30,6 +30,8 @@ public class IntegrationGetResponse extends GenericModel {
   @SerializedName("updated_at")
   protected Date updatedAt;
 
+  protected IntegrationGetResponse() { }
+
   /**
    * Gets the id.
    *

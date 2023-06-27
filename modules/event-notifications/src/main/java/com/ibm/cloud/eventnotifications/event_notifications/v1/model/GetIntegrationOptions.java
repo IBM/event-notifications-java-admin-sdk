@@ -29,6 +29,11 @@ public class GetIntegrationOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing GetIntegrationOptions instance.
+     *
+     * @param getIntegrationOptions the instance to initialize the Builder with
+     */
     private Builder(GetIntegrationOptions getIntegrationOptions) {
       this.instanceId = getIntegrationOptions.instanceId;
       this.id = getIntegrationOptions.id;

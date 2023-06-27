@@ -33,6 +33,11 @@ public class CreateTagsSubscriptionOptions extends GenericModel {
     private String deviceId;
     private String tagName;
 
+    /**
+     * Instantiates a new Builder from an existing CreateTagsSubscriptionOptions instance.
+     *
+     * @param createTagsSubscriptionOptions the instance to initialize the Builder with
+     */
     private Builder(CreateTagsSubscriptionOptions createTagsSubscriptionOptions) {
       this.instanceId = createTagsSubscriptionOptions.instanceId;
       this.id = createTagsSubscriptionOptions.id;

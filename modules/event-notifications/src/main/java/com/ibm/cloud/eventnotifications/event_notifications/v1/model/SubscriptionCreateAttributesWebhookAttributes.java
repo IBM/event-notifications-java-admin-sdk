@@ -24,6 +24,11 @@ public class SubscriptionCreateAttributesWebhookAttributes extends SubscriptionC
   public static class Builder {
     private Boolean signingEnabled;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionCreateAttributesWebhookAttributes instance.
+     *
+     * @param subscriptionCreateAttributesWebhookAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionCreateAttributes subscriptionCreateAttributesWebhookAttributes) {
       this.signingEnabled = subscriptionCreateAttributesWebhookAttributes.signingEnabled;
     }

@@ -25,6 +25,11 @@ public class DestinationConfigOneOfIBMCloudFunctionsDestinationConfig extends De
     private String url;
     private String apiKey;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfIBMCloudFunctionsDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfIbmCloudFunctionsDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfIbmCloudFunctionsDestinationConfig) {
       this.url = destinationConfigOneOfIbmCloudFunctionsDestinationConfig.url;
       this.apiKey = destinationConfigOneOfIbmCloudFunctionsDestinationConfig.apiKey;

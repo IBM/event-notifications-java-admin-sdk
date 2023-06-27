@@ -33,6 +33,11 @@ public class ListTopicsOptions extends GenericModel {
     private Long offset;
     private String search;
 
+    /**
+     * Instantiates a new Builder from an existing ListTopicsOptions instance.
+     *
+     * @param listTopicsOptions the instance to initialize the Builder with
+     */
     private Builder(ListTopicsOptions listTopicsOptions) {
       this.instanceId = listTopicsOptions.instanceId;
       this.limit = listTopicsOptions.limit;

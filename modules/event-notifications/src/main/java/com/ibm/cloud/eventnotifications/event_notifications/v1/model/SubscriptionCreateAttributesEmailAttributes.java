@@ -31,6 +31,11 @@ public class SubscriptionCreateAttributesEmailAttributes extends SubscriptionCre
     private String replyToName;
     private String fromName;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionCreateAttributesEmailAttributes instance.
+     *
+     * @param subscriptionCreateAttributesEmailAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionCreateAttributes subscriptionCreateAttributesEmailAttributes) {
       this.invited = subscriptionCreateAttributesEmailAttributes.invited;
       this.addNotificationPayload = subscriptionCreateAttributesEmailAttributes.addNotificationPayload;

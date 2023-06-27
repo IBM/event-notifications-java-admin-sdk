@@ -35,6 +35,8 @@ public class Source extends GenericModel {
   @SerializedName("topic_names")
   protected List<String> topicNames;
 
+  protected Source() { }
+
   /**
    * Gets the id.
    *

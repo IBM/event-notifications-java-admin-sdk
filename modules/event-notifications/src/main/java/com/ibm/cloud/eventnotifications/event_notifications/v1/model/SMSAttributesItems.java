@@ -27,6 +27,8 @@ public class SMSAttributesItems extends GenericModel {
   @SerializedName("updated_at")
   protected Date updatedAt;
 
+  protected SMSAttributesItems() { }
+
   /**
    * Gets the phoneNumber.
    *

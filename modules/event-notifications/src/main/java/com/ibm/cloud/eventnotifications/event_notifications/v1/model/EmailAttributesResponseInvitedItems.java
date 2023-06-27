@@ -28,6 +28,8 @@ public class EmailAttributesResponseInvitedItems extends GenericModel {
   @SerializedName("expires_at")
   protected Date expiresAt;
 
+  protected EmailAttributesResponseInvitedItems() { }
+
   /**
    * Gets the email.
    *

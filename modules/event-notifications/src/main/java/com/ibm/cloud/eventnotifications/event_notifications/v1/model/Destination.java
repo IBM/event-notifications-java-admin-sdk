@@ -70,6 +70,8 @@ public class Destination extends GenericModel {
   @SerializedName("subscription_names")
   protected List<String> subscriptionNames;
 
+  protected Destination() { }
+
   /**
    * Gets the id.
    *

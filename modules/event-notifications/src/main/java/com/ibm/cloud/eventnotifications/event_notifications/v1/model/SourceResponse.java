@@ -29,6 +29,8 @@ public class SourceResponse extends GenericModel {
   @SerializedName("created_at")
   protected Date createdAt;
 
+  protected SourceResponse() { }
+
   /**
    * Gets the id.
    *

@@ -25,6 +25,8 @@ public class SourcesListItems extends GenericModel {
   protected String name;
   protected List<RulesGet> rules;
 
+  protected SourcesListItems() { }
+
   /**
    * Gets the id.
    *

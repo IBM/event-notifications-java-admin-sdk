@@ -37,12 +37,12 @@ public class UpdateDestinationOptionsTest {
     DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("testString")
       .verb("get")
-      .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .customHeaders(java.util.Collections.singletonMap("foo", "testString"))
       .sensitiveHeaders(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(destinationConfigOneOfModel.url(), "testString");
     assertEquals(destinationConfigOneOfModel.verb(), "get");
-    assertEquals(destinationConfigOneOfModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(destinationConfigOneOfModel.customHeaders(), java.util.Collections.singletonMap("foo", "testString"));
     assertEquals(destinationConfigOneOfModel.sensitiveHeaders(), java.util.Arrays.asList("testString"));
 
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()

@@ -31,6 +31,11 @@ public class GetTopicOptions extends GenericModel {
     private String id;
     private String include;
 
+    /**
+     * Instantiates a new Builder from an existing GetTopicOptions instance.
+     *
+     * @param getTopicOptions the instance to initialize the Builder with
+     */
     private Builder(GetTopicOptions getTopicOptions) {
       this.instanceId = getTopicOptions.instanceId;
       this.id = getTopicOptions.id;

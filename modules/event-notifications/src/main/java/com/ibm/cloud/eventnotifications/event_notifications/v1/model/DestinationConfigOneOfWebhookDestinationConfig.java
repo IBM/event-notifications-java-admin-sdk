@@ -41,6 +41,11 @@ public class DestinationConfigOneOfWebhookDestinationConfig extends DestinationC
     private Map<String, String> customHeaders;
     private List<String> sensitiveHeaders;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfWebhookDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfWebhookDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfWebhookDestinationConfig) {
       this.url = destinationConfigOneOfWebhookDestinationConfig.url;
       this.verb = destinationConfigOneOfWebhookDestinationConfig.verb;

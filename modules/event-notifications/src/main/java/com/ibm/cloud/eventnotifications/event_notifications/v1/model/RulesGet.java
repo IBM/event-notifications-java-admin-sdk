@@ -29,6 +29,8 @@ public class RulesGet extends GenericModel {
   protected String updatedAt;
   protected String id;
 
+  protected RulesGet() { }
+
   /**
    * Gets the enabled.
    *

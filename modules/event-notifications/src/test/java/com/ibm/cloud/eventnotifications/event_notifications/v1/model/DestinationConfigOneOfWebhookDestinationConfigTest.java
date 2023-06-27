@@ -34,12 +34,12 @@ public class DestinationConfigOneOfWebhookDestinationConfigTest {
     DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfWebhookDestinationConfigModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("testString")
       .verb("get")
-      .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .customHeaders(java.util.Collections.singletonMap("foo", "testString"))
       .sensitiveHeaders(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(destinationConfigOneOfWebhookDestinationConfigModel.url(), "testString");
     assertEquals(destinationConfigOneOfWebhookDestinationConfigModel.verb(), "get");
-    assertEquals(destinationConfigOneOfWebhookDestinationConfigModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(destinationConfigOneOfWebhookDestinationConfigModel.customHeaders(), java.util.Collections.singletonMap("foo", "testString"));
     assertEquals(destinationConfigOneOfWebhookDestinationConfigModel.sensitiveHeaders(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(destinationConfigOneOfWebhookDestinationConfigModel);

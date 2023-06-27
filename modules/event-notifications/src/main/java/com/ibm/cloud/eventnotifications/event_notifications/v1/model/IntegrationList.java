@@ -31,6 +31,8 @@ public class IntegrationList extends GenericModel {
   protected PageHrefResponse previous;
   protected PageHrefResponse next;
 
+  protected IntegrationList() { }
+
   /**
    * Gets the totalCount.
    *

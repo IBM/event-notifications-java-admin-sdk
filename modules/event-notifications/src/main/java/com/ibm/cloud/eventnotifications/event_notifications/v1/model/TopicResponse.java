@@ -26,6 +26,8 @@ public class TopicResponse extends GenericModel {
   @SerializedName("created_at")
   protected String createdAt;
 
+  protected TopicResponse() { }
+
   /**
    * Gets the id.
    *

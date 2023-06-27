@@ -33,6 +33,11 @@ public class CreateSourcesOptions extends GenericModel {
     private String description;
     private Boolean enabled;
 
+    /**
+     * Instantiates a new Builder from an existing CreateSourcesOptions instance.
+     *
+     * @param createSourcesOptions the instance to initialize the Builder with
+     */
     private Builder(CreateSourcesOptions createSourcesOptions) {
       this.instanceId = createSourcesOptions.instanceId;
       this.name = createSourcesOptions.name;

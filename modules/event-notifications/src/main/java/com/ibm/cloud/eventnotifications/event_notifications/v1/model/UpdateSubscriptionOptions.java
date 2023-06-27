@@ -35,6 +35,11 @@ public class UpdateSubscriptionOptions extends GenericModel {
     private String description;
     private SubscriptionUpdateAttributes attributes;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateSubscriptionOptions instance.
+     *
+     * @param updateSubscriptionOptions the instance to initialize the Builder with
+     */
     private Builder(UpdateSubscriptionOptions updateSubscriptionOptions) {
       this.instanceId = updateSubscriptionOptions.instanceId;
       this.id = updateSubscriptionOptions.id;

@@ -104,8 +104,7 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String instanceId;
   protected String endpoint;
 
-  protected DestinationConfigOneOf() {
-  }
+  protected DestinationConfigOneOf() { }
 
   /**
    * Gets the url.
@@ -157,7 +156,9 @@ public class DestinationConfigOneOf extends GenericModel {
    * FCM server_key.
    *
    * @return the serverKey
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public String serverKey() {
     return serverKey;
   }
@@ -168,7 +169,9 @@ public class DestinationConfigOneOf extends GenericModel {
    * FCM sender_id.
    *
    * @return the senderId
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public String senderId() {
     return senderId;
   }

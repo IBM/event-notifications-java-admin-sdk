@@ -30,6 +30,11 @@ public class DestinationConfigOneOfIOSDestinationConfig extends DestinationConfi
     private String bundleId;
     private Boolean preProd;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfIOSDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfIosDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfIosDestinationConfig) {
       this.certType = destinationConfigOneOfIosDestinationConfig.certType;
       this.isSandbox = destinationConfigOneOfIosDestinationConfig.isSandbox;

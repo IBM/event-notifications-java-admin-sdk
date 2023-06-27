@@ -24,6 +24,11 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
   public static class Builder {
     private String url;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfSlackDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfSlackDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfSlackDestinationConfig) {
       this.url = destinationConfigOneOfSlackDestinationConfig.url;
     }

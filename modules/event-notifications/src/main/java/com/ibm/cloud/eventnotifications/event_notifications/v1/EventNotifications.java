@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.54.0-af6d2126-20220803-151219
+ * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
  */
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
@@ -84,8 +84,14 @@ import okhttp3.MultipartBody;
  */
 public class EventNotifications extends BaseService {
 
+  /**
+   * Default service name used when configuring the `EventNotifications` client.
+   */
   public static final String DEFAULT_SERVICE_NAME = "event_notifications";
 
+  /**
+   * Default service endpoint URL.
+   */
   public static final String DEFAULT_SERVICE_URL = "https://us-south.event-notifications.cloud.ibm.com/event-notifications";
 
  /**
@@ -612,7 +618,8 @@ public class EventNotifications extends BaseService {
   public ServiceCall<Destination> updateDestination(UpdateDestinationOptions updateDestinationOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(updateDestinationOptions,
       "updateDestinationOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDestinationOptions.name() != null) || (updateDestinationOptions.description() != null) || (updateDestinationOptions.config() != null) || (updateDestinationOptions.certificate() != null) || (updateDestinationOptions.icon16x16() != null) || (updateDestinationOptions.icon16x162x() != null) || (updateDestinationOptions.icon32x32() != null) || (updateDestinationOptions.icon32x322x() != null) || (updateDestinationOptions.icon128x128() != null) || (updateDestinationOptions.icon128x1282x() != null), "At least one of name, description, config, certificate, icon16x16, icon16x162x, icon32x32, icon32x322x, icon128x128, or icon128x1282x must be supplied.");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((updateDestinationOptions.name() != null) || (updateDestinationOptions.description() != null) || (updateDestinationOptions.config() != null) || (updateDestinationOptions.certificate() != null) || (updateDestinationOptions.icon16x16() != null) || (updateDestinationOptions.icon16x162x() != null) || (updateDestinationOptions.icon32x32() != null) || (updateDestinationOptions.icon32x322x() != null) || (updateDestinationOptions.icon128x128() != null) || (updateDestinationOptions.icon128x1282x() != null),
+      "At least one of name, description, config, certificate, icon16x16, icon16x162x, icon32x32, icon32x322x, icon128x128, or icon128x1282x must be supplied.");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("instance_id", updateDestinationOptions.instanceId());
     pathParamsMap.put("id", updateDestinationOptions.id());

@@ -36,6 +36,11 @@ public class CreateTopicOptions extends GenericModel {
     private String description;
     private List<SourcesItems> sources;
 
+    /**
+     * Instantiates a new Builder from an existing CreateTopicOptions instance.
+     *
+     * @param createTopicOptions the instance to initialize the Builder with
+     */
     private Builder(CreateTopicOptions createTopicOptions) {
       this.instanceId = createTopicOptions.instanceId;
       this.name = createTopicOptions.name;

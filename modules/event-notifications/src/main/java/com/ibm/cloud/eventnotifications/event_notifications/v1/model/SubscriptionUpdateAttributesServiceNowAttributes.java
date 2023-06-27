@@ -25,6 +25,11 @@ public class SubscriptionUpdateAttributesServiceNowAttributes extends Subscripti
     private String assignedTo;
     private String assignmentGroup;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionUpdateAttributesServiceNowAttributes instance.
+     *
+     * @param subscriptionUpdateAttributesServiceNowAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesServiceNowAttributes) {
       this.assignedTo = subscriptionUpdateAttributesServiceNowAttributes.assignedTo;
       this.assignmentGroup = subscriptionUpdateAttributesServiceNowAttributes.assignmentGroup;

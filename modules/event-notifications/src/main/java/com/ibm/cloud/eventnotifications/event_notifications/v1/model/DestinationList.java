@@ -31,6 +31,8 @@ public class DestinationList extends GenericModel {
   protected PageHrefResponse previous;
   protected PageHrefResponse next;
 
+  protected DestinationList() { }
+
   /**
    * Gets the totalCount.
    *

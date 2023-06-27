@@ -32,6 +32,8 @@ public class SourceListItem extends GenericModel {
   @SerializedName("topic_count")
   protected Long topicCount;
 
+  protected SourceListItem() { }
+
   /**
    * Gets the id.
    *

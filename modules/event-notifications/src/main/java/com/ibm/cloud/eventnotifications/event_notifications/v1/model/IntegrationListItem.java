@@ -30,6 +30,8 @@ public class IntegrationListItem extends GenericModel {
   @SerializedName("updated_at")
   protected Date updatedAt;
 
+  protected IntegrationListItem() { }
+
   /**
    * Gets the id.
    *

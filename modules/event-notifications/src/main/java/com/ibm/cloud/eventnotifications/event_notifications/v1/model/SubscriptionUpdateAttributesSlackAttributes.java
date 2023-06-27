@@ -24,6 +24,11 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
   public static class Builder {
     private String attachmentColor;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionUpdateAttributesSlackAttributes instance.
+     *
+     * @param subscriptionUpdateAttributesSlackAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesSlackAttributes) {
       this.attachmentColor = subscriptionUpdateAttributesSlackAttributes.attachmentColor;
     }

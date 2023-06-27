@@ -26,6 +26,11 @@ public class DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig extend
     private String instanceId;
     private String endpoint;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfIbmCloudObjectStorageDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfIbmCloudObjectStorageDestinationConfig) {
       this.bucketName = destinationConfigOneOfIbmCloudObjectStorageDestinationConfig.bucketName;
       this.instanceId = destinationConfigOneOfIbmCloudObjectStorageDestinationConfig.instanceId;

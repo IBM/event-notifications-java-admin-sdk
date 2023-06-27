@@ -29,6 +29,11 @@ public class DeleteSourceOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteSourceOptions instance.
+     *
+     * @param deleteSourceOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteSourceOptions deleteSourceOptions) {
       this.instanceId = deleteSourceOptions.instanceId;
       this.id = deleteSourceOptions.id;

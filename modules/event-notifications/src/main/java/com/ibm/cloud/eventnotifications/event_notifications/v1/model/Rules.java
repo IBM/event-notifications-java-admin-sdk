@@ -34,6 +34,11 @@ public class Rules extends GenericModel {
     private String eventTypeFilter;
     private String notificationFilter;
 
+    /**
+     * Instantiates a new Builder from an existing Rules instance.
+     *
+     * @param rules the instance to initialize the Builder with
+     */
     private Builder(Rules rules) {
       this.enabled = rules.enabled;
       this.eventTypeFilter = rules.eventTypeFilter;

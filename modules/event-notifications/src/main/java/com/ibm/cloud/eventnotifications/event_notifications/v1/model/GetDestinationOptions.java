@@ -29,6 +29,11 @@ public class GetDestinationOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing GetDestinationOptions instance.
+     *
+     * @param getDestinationOptions the instance to initialize the Builder with
+     */
     private Builder(GetDestinationOptions getDestinationOptions) {
       this.instanceId = getDestinationOptions.instanceId;
       this.id = getDestinationOptions.id;

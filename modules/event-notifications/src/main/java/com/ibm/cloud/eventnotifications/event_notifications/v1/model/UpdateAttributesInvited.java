@@ -32,6 +32,11 @@ public class UpdateAttributesInvited extends GenericModel {
     private List<String> add;
     private List<String> remove;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateAttributesInvited instance.
+     *
+     * @param updateAttributesInvited the instance to initialize the Builder with
+     */
     private Builder(UpdateAttributesInvited updateAttributesInvited) {
       this.add = updateAttributesInvited.add;
       this.remove = updateAttributesInvited.remove;

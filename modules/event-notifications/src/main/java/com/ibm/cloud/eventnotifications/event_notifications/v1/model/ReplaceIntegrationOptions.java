@@ -33,6 +33,11 @@ public class ReplaceIntegrationOptions extends GenericModel {
     private String type;
     private IntegrationMetadata metadata;
 
+    /**
+     * Instantiates a new Builder from an existing ReplaceIntegrationOptions instance.
+     *
+     * @param replaceIntegrationOptions the instance to initialize the Builder with
+     */
     private Builder(ReplaceIntegrationOptions replaceIntegrationOptions) {
       this.instanceId = replaceIntegrationOptions.instanceId;
       this.id = replaceIntegrationOptions.id;

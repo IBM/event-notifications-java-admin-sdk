@@ -35,6 +35,11 @@ public class UpdateSourceOptions extends GenericModel {
     private String description;
     private Boolean enabled;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateSourceOptions instance.
+     *
+     * @param updateSourceOptions the instance to initialize the Builder with
+     */
     private Builder(UpdateSourceOptions updateSourceOptions) {
       this.instanceId = updateSourceOptions.instanceId;
       this.id = updateSourceOptions.id;

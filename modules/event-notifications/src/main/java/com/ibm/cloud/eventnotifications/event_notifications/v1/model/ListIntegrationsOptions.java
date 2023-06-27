@@ -33,6 +33,11 @@ public class ListIntegrationsOptions extends GenericModel {
     private Long limit;
     private String search;
 
+    /**
+     * Instantiates a new Builder from an existing ListIntegrationsOptions instance.
+     *
+     * @param listIntegrationsOptions the instance to initialize the Builder with
+     */
     private Builder(ListIntegrationsOptions listIntegrationsOptions) {
       this.instanceId = listIntegrationsOptions.instanceId;
       this.offset = listIntegrationsOptions.offset;
