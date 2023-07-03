@@ -33,6 +33,11 @@ public class ListSubscriptionsOptions extends GenericModel {
     private Long limit;
     private String search;
 
+    /**
+     * Instantiates a new Builder from an existing ListSubscriptionsOptions instance.
+     *
+     * @param listSubscriptionsOptions the instance to initialize the Builder with
+     */
     private Builder(ListSubscriptionsOptions listSubscriptionsOptions) {
       this.instanceId = listSubscriptionsOptions.instanceId;
       this.offset = listSubscriptionsOptions.offset;

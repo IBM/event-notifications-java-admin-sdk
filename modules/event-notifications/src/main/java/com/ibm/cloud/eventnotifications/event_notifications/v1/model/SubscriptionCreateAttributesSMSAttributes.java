@@ -27,6 +27,11 @@ public class SubscriptionCreateAttributesSMSAttributes extends SubscriptionCreat
   public static class Builder {
     private List<String> invited;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionCreateAttributesSMSAttributes instance.
+     *
+     * @param subscriptionCreateAttributesSmsAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionCreateAttributes subscriptionCreateAttributesSmsAttributes) {
       this.invited = subscriptionCreateAttributesSmsAttributes.invited;
     }

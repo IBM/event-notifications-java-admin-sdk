@@ -37,6 +37,11 @@ public class CreateSubscriptionOptions extends GenericModel {
     private String description;
     private SubscriptionCreateAttributes attributes;
 
+    /**
+     * Instantiates a new Builder from an existing CreateSubscriptionOptions instance.
+     *
+     * @param createSubscriptionOptions the instance to initialize the Builder with
+     */
     private Builder(CreateSubscriptionOptions createSubscriptionOptions) {
       this.instanceId = createSubscriptionOptions.instanceId;
       this.name = createSubscriptionOptions.name;

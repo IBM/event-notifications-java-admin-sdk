@@ -47,8 +47,7 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   @SerializedName("assignment_group")
   protected String assignmentGroup;
 
-  protected SubscriptionUpdateAttributes() {
-  }
+  protected SubscriptionUpdateAttributes() { }
 
   /**
    * Gets the invited.

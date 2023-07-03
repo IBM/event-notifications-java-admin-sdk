@@ -29,6 +29,11 @@ public class GetSubscriptionOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing GetSubscriptionOptions instance.
+     *
+     * @param getSubscriptionOptions the instance to initialize the Builder with
+     */
     private Builder(GetSubscriptionOptions getSubscriptionOptions) {
       this.instanceId = getSubscriptionOptions.instanceId;
       this.id = getSubscriptionOptions.id;

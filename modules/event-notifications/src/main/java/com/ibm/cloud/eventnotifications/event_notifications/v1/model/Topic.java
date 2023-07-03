@@ -34,6 +34,8 @@ public class Topic extends GenericModel {
   protected Long subscriptionCount;
   protected List<SubscriptionListItem> subscriptions;
 
+  protected Topic() { }
+
   /**
    * Gets the id.
    *

@@ -31,6 +31,8 @@ public class SubscriptionList extends GenericModel {
   protected PageHrefResponse previous;
   protected PageHrefResponse next;
 
+  protected SubscriptionList() { }
+
   /**
    * Gets the totalCount.
    *

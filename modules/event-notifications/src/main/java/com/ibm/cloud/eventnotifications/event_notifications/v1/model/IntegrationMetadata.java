@@ -33,6 +33,11 @@ public class IntegrationMetadata extends GenericModel {
     private String crn;
     private String rootKeyId;
 
+    /**
+     * Instantiates a new Builder from an existing IntegrationMetadata instance.
+     *
+     * @param integrationMetadata the instance to initialize the Builder with
+     */
     private Builder(IntegrationMetadata integrationMetadata) {
       this.endpoint = integrationMetadata.endpoint;
       this.crn = integrationMetadata.crn;

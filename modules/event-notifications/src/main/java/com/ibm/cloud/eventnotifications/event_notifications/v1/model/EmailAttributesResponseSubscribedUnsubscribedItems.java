@@ -26,6 +26,8 @@ public class EmailAttributesResponseSubscribedUnsubscribedItems extends GenericM
   @SerializedName("updated_at")
   protected Date updatedAt;
 
+  protected EmailAttributesResponseSubscribedUnsubscribedItems() { }
+
   /**
    * Gets the email.
    *

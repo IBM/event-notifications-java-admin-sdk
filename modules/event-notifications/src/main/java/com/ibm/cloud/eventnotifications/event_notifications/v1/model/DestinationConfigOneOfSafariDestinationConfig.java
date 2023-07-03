@@ -30,6 +30,11 @@ public class DestinationConfigOneOfSafariDestinationConfig extends DestinationCo
     private String websitePushId;
     private Boolean preProd;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfSafariDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfSafariDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfSafariDestinationConfig) {
       this.certType = destinationConfigOneOfSafariDestinationConfig.certType;
       this.password = destinationConfigOneOfSafariDestinationConfig.password;

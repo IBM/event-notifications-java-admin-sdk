@@ -29,6 +29,11 @@ public class DeleteSubscriptionOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteSubscriptionOptions instance.
+     *
+     * @param deleteSubscriptionOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteSubscriptionOptions deleteSubscriptionOptions) {
       this.instanceId = deleteSubscriptionOptions.instanceId;
       this.id = deleteSubscriptionOptions.id;

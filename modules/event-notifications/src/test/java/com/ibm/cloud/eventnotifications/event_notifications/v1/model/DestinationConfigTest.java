@@ -35,12 +35,12 @@ public class DestinationConfigTest {
     DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
       .url("https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook")
       .verb("post")
-      .customHeaders(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .customHeaders(java.util.Collections.singletonMap("foo", "testString"))
       .sensitiveHeaders(java.util.Arrays.asList("authorization"))
       .build();
     assertEquals(destinationConfigOneOfModel.url(), "https://1ea472c0.us-south.apigw.appdomain.cloud/nhwebhook/sendwebhook");
     assertEquals(destinationConfigOneOfModel.verb(), "post");
-    assertEquals(destinationConfigOneOfModel.customHeaders(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(destinationConfigOneOfModel.customHeaders(), java.util.Collections.singletonMap("foo", "testString"));
     assertEquals(destinationConfigOneOfModel.sensitiveHeaders(), java.util.Arrays.asList("authorization"));
 
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()

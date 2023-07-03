@@ -29,6 +29,11 @@ public class DeleteTopicOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteTopicOptions instance.
+     *
+     * @param deleteTopicOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteTopicOptions deleteTopicOptions) {
       this.instanceId = deleteTopicOptions.instanceId;
       this.id = deleteTopicOptions.id;

@@ -26,6 +26,11 @@ public class DestinationConfigOneOfFirefoxDestinationConfig extends DestinationC
     private String publicKey;
     private Boolean preProd;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfFirefoxDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfFirefoxDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfFirefoxDestinationConfig) {
       this.websiteUrl = destinationConfigOneOfFirefoxDestinationConfig.websiteUrl;
       this.publicKey = destinationConfigOneOfFirefoxDestinationConfig.publicKey;

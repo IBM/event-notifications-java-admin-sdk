@@ -26,6 +26,11 @@ public class SubscriptionUpdateAttributesSMSUpdateAttributes extends Subscriptio
     private UpdateAttributesSubscribed subscribed;
     private UpdateAttributesUnsubscribed unsubscribed;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionUpdateAttributesSMSUpdateAttributes instance.
+     *
+     * @param subscriptionUpdateAttributesSmsUpdateAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesSmsUpdateAttributes) {
       this.invited = subscriptionUpdateAttributesSmsUpdateAttributes.invited;
       this.subscribed = subscriptionUpdateAttributesSmsUpdateAttributes.subscribed;

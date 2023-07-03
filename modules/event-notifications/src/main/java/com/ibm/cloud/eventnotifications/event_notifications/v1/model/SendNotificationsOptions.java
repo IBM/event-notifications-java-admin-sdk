@@ -29,6 +29,11 @@ public class SendNotificationsOptions extends GenericModel {
     private String instanceId;
     private NotificationCreate body;
 
+    /**
+     * Instantiates a new Builder from an existing SendNotificationsOptions instance.
+     *
+     * @param sendNotificationsOptions the instance to initialize the Builder with
+     */
     private Builder(SendNotificationsOptions sendNotificationsOptions) {
       this.instanceId = sendNotificationsOptions.instanceId;
       this.body = sendNotificationsOptions.body;

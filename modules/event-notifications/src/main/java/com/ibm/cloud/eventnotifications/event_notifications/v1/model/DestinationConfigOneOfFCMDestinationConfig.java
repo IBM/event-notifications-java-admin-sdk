@@ -29,6 +29,11 @@ public class DestinationConfigOneOfFCMDestinationConfig extends DestinationConfi
     private String privateKey;
     private String clientEmail;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfFCMDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfFcmDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfFcmDestinationConfig) {
       this.serverKey = destinationConfigOneOfFcmDestinationConfig.serverKey;
       this.senderId = destinationConfigOneOfFcmDestinationConfig.senderId;
@@ -58,7 +63,9 @@ public class DestinationConfigOneOfFCMDestinationConfig extends DestinationConfi
      *
      * @param serverKey the serverKey
      * @return the DestinationConfigOneOfFCMDestinationConfig builder
+     * @deprecated this method is deprecated and may be removed in a future release
      */
+    @Deprecated
     public Builder serverKey(String serverKey) {
       this.serverKey = serverKey;
       return this;
@@ -69,7 +76,9 @@ public class DestinationConfigOneOfFCMDestinationConfig extends DestinationConfi
      *
      * @param senderId the senderId
      * @return the DestinationConfigOneOfFCMDestinationConfig builder
+     * @deprecated this method is deprecated and may be removed in a future release
      */
+    @Deprecated
     public Builder senderId(String senderId) {
       this.senderId = senderId;
       return this;

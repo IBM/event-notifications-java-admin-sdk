@@ -35,7 +35,7 @@ Service Name | Artifact Coordinates
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An Event Notifications Instance
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Java 8 or above.
+* Java 11 or above.
 
 ## Installation
 The current version of this SDK is: 0.1.13
@@ -566,6 +566,7 @@ Response<IntegrationGetResponse> response = eventNotificationsService.replaceInt
         String fcmJsonString = "{\"message\": {\"android\": {\"notification\": {\"title\": \"Alert message\",\"body\": \"Bob wants to play Poker\"},\"data\": {\"name\": \"Willie Greenholt\",\"description\": \"notification for the Poker\"}}}}";
         String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
         String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
+        String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
 
         NotificationCreate body = new NotificationCreate.Builder()
         .id(InstanceID)
@@ -577,6 +578,7 @@ Response<IntegrationGetResponse> response = eventNotificationsService.replaceInt
         .time(new java.util.Date())
         .ibmenpushto(notificationDevices)
         .ibmenfcmbody(fcmJsonString)
+        .ibmenhuaweibody(huaweiJsonString)
         .ibmenapnsbody(apnsJsonString)
         .ibmensafaribody(safariJsonString)
         .ibmendefaultshort("<short-Info>")

@@ -27,6 +27,11 @@ public class DestinationConfig extends GenericModel {
   public static class Builder {
     private DestinationConfigOneOf params;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfig instance.
+     *
+     * @param destinationConfig the instance to initialize the Builder with
+     */
     private Builder(DestinationConfig destinationConfig) {
       this.params = destinationConfig.params;
     }

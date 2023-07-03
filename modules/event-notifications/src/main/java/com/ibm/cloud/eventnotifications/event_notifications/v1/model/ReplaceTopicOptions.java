@@ -38,6 +38,11 @@ public class ReplaceTopicOptions extends GenericModel {
     private String description;
     private List<SourcesItems> sources;
 
+    /**
+     * Instantiates a new Builder from an existing ReplaceTopicOptions instance.
+     *
+     * @param replaceTopicOptions the instance to initialize the Builder with
+     */
     private Builder(ReplaceTopicOptions replaceTopicOptions) {
       this.instanceId = replaceTopicOptions.instanceId;
       this.id = replaceTopicOptions.id;

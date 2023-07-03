@@ -21,6 +21,8 @@ public class PageHrefResponse extends GenericModel {
 
   protected String href;
 
+  protected PageHrefResponse() { }
+
   /**
    * Gets the href.
    *

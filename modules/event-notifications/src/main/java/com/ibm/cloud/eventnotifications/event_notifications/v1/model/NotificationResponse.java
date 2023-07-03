@@ -23,6 +23,8 @@ public class NotificationResponse extends GenericModel {
   @SerializedName("notification_id")
   protected String notificationId;
 
+  protected NotificationResponse() { }
+
   /**
    * Gets the notificationId.
    *

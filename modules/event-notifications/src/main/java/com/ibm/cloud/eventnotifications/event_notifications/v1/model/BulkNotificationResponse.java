@@ -27,6 +27,8 @@ public class BulkNotificationResponse extends GenericModel {
   @SerializedName("bulk_messages")
   protected List<Object> bulkMessages;
 
+  protected BulkNotificationResponse() { }
+
   /**
    * Gets the bulkNotificationId.
    *

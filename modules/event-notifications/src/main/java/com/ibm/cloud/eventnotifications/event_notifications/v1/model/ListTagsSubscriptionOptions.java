@@ -41,6 +41,11 @@ public class ListTagsSubscriptionOptions extends GenericModel {
     private Long offset;
     private String search;
 
+    /**
+     * Instantiates a new Builder from an existing ListTagsSubscriptionOptions instance.
+     *
+     * @param listTagsSubscriptionOptions the instance to initialize the Builder with
+     */
     private Builder(ListTagsSubscriptionOptions listTagsSubscriptionOptions) {
       this.instanceId = listTagsSubscriptionOptions.instanceId;
       this.id = listTagsSubscriptionOptions.id;

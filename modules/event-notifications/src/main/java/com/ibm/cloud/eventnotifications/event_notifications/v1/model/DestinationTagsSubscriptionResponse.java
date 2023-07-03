@@ -32,6 +32,8 @@ public class DestinationTagsSubscriptionResponse extends GenericModel {
   @SerializedName("created_at")
   protected Date createdAt;
 
+  protected DestinationTagsSubscriptionResponse() { }
+
   /**
    * Gets the id.
    *

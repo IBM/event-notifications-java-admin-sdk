@@ -33,6 +33,11 @@ public class ListSourcesOptions extends GenericModel {
     private Long offset;
     private String search;
 
+    /**
+     * Instantiates a new Builder from an existing ListSourcesOptions instance.
+     *
+     * @param listSourcesOptions the instance to initialize the Builder with
+     */
     private Builder(ListSourcesOptions listSourcesOptions) {
       this.instanceId = listSourcesOptions.instanceId;
       this.limit = listSourcesOptions.limit;

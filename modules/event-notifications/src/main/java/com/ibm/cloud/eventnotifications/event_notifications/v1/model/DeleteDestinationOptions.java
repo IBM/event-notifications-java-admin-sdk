@@ -29,6 +29,11 @@ public class DeleteDestinationOptions extends GenericModel {
     private String instanceId;
     private String id;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteDestinationOptions instance.
+     *
+     * @param deleteDestinationOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteDestinationOptions deleteDestinationOptions) {
       this.instanceId = deleteDestinationOptions.instanceId;
       this.id = deleteDestinationOptions.id;

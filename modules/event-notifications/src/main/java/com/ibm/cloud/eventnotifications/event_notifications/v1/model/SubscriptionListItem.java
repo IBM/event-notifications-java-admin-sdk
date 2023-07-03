@@ -76,6 +76,8 @@ public class SubscriptionListItem extends GenericModel {
   @SerializedName("updated_at")
   protected Date updatedAt;
 
+  protected SubscriptionListItem() { }
+
   /**
    * Gets the id.
    *

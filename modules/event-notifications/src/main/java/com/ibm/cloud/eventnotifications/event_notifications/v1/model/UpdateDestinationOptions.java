@@ -68,6 +68,11 @@ public class UpdateDestinationOptions extends GenericModel {
     private InputStream icon128x1282x;
     private String icon128x1282xContentType;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateDestinationOptions instance.
+     *
+     * @param updateDestinationOptions the instance to initialize the Builder with
+     */
     private Builder(UpdateDestinationOptions updateDestinationOptions) {
       this.instanceId = updateDestinationOptions.instanceId;
       this.id = updateDestinationOptions.id;

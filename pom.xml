@@ -26,31 +26,34 @@
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>9.15.1</sdk-core-version>
+        <sdk-core-version>9.17.5</sdk-core-version>
 
         <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>event-notifications-java-admin-sdk</git-repository-name>
 
-        <testng-version>7.4.0</testng-version>
-        <okhttp3-version>4.9.1</okhttp3-version>
-        <surefire-version>3.0.0-M3</surefire-version>
-        <jacoco-plugin-version>0.8.7</jacoco-plugin-version>
+        <testng-version>7.7.1</testng-version>
+        <okhttp3-version>4.10.0</okhttp3-version>
+        <surefire-version>3.0.0-M7</surefire-version>
+        <jacoco-plugin-version>0.8.8</jacoco-plugin-version>
         <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
-        <nexus-staging-plugin-version>1.6.8</nexus-staging-plugin-version>
+        <nexus-staging-plugin-version>1.6.13</nexus-staging-plugin-version>
         <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
-        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
-        <maven-shade-plugin-version>3.2.2</maven-shade-plugin-version>
-        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
-        <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
-        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
-        <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
-        <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
-        <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
-        <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
-        <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
-        <powermock-version>2.0.5</powermock-version>
-        <mockito-version>3.2.4</mockito-version>
-        <slf4j-version>1.7.28</slf4j-version>
+        <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
+        <maven-shade-plugin-version>3.3.0</maven-shade-plugin-version>
+        <maven-jar-plugin-version>3.2.2</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>3.4.1</maven-javadoc-plugin-version>
+        <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
+        <maven-site-plugin-version>3.12.1</maven-site-plugin-version>
+        <maven-checkstyle-plugin-version>3.2.0</maven-checkstyle-plugin-version>
+        <maven-reports-plugin-version>3.4.1</maven-reports-plugin-version>
+        <maven-failsafe-plugin-version>3.0.0-M7</maven-failsafe-plugin-version>
+        <maven-buildnumber-plugin-version>3.0.0</maven-buildnumber-plugin-version>
+        <slf4j-version>2.0.6</slf4j-version>
+        <java-source-version>1.8</java-source-version>
+        <java-target-version>1.8</java-target-version>
+        <min-maven-version>3.5.0</min-maven-version>
+        <min-jdk-version>11</min-jdk-version>
+        <maven-enforcer-version>3.1.0</maven-enforcer-version>
 
         <!-- versions of transitive dependencies we need to override to avoid vulnerability alerts -->
         <junit-version>4.13.2</junit-version>
@@ -164,19 +167,12 @@
                 <version>${okhttp3-version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito2</artifactId>
-                <version>${powermock-version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-testng</artifactId>
-                <version>${powermock-version}</version>
-                <scope>test</scope>
-            </dependency>
             <!-- Depedency needed to build examples -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-jdk14</artifactId>
@@ -188,6 +184,31 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-version}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-versions</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>${min-maven-version}</version>
+                                        <message>Apache Maven ${min-maven-version}+ is required to build this project.</message>
+                                    </requireMavenVersion>
+                                    <requireJavaVersion>
+                                        <version>${min-jdk-version}</version>
+                                        <message>Java ${min-jdk-version}+ is required to build this project.</message>
+                                    </requireJavaVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -239,8 +260,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin-version}</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${java-source-version}</source>
+                        <target>${java-target-version}</target>
                     </configuration>
                 </plugin>
                 <plugin>

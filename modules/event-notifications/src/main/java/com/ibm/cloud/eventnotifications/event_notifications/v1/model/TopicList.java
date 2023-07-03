@@ -31,6 +31,8 @@ public class TopicList extends GenericModel {
   protected PageHrefResponse previous;
   protected PageHrefResponse next;
 
+  protected TopicList() { }
+
   /**
    * Gets the totalCount.
    *

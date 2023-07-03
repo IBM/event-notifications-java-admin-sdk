@@ -32,6 +32,8 @@ public class TopicsListItem extends GenericModel {
   @SerializedName("subscription_count")
   protected Long subscriptionCount;
 
+  protected TopicsListItem() { }
+
   /**
    * Gets the id.
    *

@@ -30,6 +30,11 @@ public class UpdateAttributesSubscribed extends GenericModel {
   public static class Builder {
     private List<String> remove;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateAttributesSubscribed instance.
+     *
+     * @param updateAttributesSubscribed the instance to initialize the Builder with
+     */
     private Builder(UpdateAttributesSubscribed updateAttributesSubscribed) {
       this.remove = updateAttributesSubscribed.remove;
     }

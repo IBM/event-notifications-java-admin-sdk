@@ -32,6 +32,11 @@ public class SourcesItems extends GenericModel {
     private String id;
     private List<Rules> rules;
 
+    /**
+     * Instantiates a new Builder from an existing SourcesItems instance.
+     *
+     * @param sourcesItems the instance to initialize the Builder with
+     */
     private Builder(SourcesItems sourcesItems) {
       this.id = sourcesItems.id;
       this.rules = sourcesItems.rules;

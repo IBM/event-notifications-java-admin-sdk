@@ -29,6 +29,8 @@ public class SMSInviteAttributesItems extends GenericModel {
   @SerializedName("expires_at")
   protected Date expiresAt;
 
+  protected SMSInviteAttributesItems() { }
+
   /**
    * Gets the phoneNumber.
    *

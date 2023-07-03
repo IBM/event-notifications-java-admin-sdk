@@ -30,6 +30,11 @@ public class SubscriptionUpdateAttributesEmailUpdateAttributes extends Subscript
     private UpdateAttributesSubscribed subscribed;
     private UpdateAttributesUnsubscribed unsubscribed;
 
+    /**
+     * Instantiates a new Builder from an existing SubscriptionUpdateAttributesEmailUpdateAttributes instance.
+     *
+     * @param subscriptionUpdateAttributesEmailUpdateAttributes the instance to initialize the Builder with
+     */
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesEmailUpdateAttributes) {
       this.invited = subscriptionUpdateAttributesEmailUpdateAttributes.invited;
       this.addNotificationPayload = subscriptionUpdateAttributesEmailUpdateAttributes.addNotificationPayload;

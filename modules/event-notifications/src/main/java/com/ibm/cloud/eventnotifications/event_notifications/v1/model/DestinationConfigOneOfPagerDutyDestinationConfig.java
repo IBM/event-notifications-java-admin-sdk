@@ -25,6 +25,11 @@ public class DestinationConfigOneOfPagerDutyDestinationConfig extends Destinatio
     private String apiKey;
     private String routingKey;
 
+    /**
+     * Instantiates a new Builder from an existing DestinationConfigOneOfPagerDutyDestinationConfig instance.
+     *
+     * @param destinationConfigOneOfPagerDutyDestinationConfig the instance to initialize the Builder with
+     */
     public Builder(DestinationConfigOneOf destinationConfigOneOfPagerDutyDestinationConfig) {
       this.apiKey = destinationConfigOneOfPagerDutyDestinationConfig.apiKey;
       this.routingKey = destinationConfigOneOfPagerDutyDestinationConfig.routingKey;

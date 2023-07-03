@@ -17,5 +17,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
  */
 public class SubscriptionCreateAttributesFCMAttributes extends SubscriptionCreateAttributes {
 
+
+  protected SubscriptionCreateAttributesFCMAttributes() { }
 }
 

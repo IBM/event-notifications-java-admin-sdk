@@ -32,6 +32,11 @@ public class SendBulkNotificationsOptions extends GenericModel {
     private String instanceId;
     private List<NotificationCreate> bulkMessages;
 
+    /**
+     * Instantiates a new Builder from an existing SendBulkNotificationsOptions instance.
+     *
+     * @param sendBulkNotificationsOptions the instance to initialize the Builder with
+     */
     private Builder(SendBulkNotificationsOptions sendBulkNotificationsOptions) {
       this.instanceId = sendBulkNotificationsOptions.instanceId;
       this.bulkMessages = sendBulkNotificationsOptions.bulkMessages;

@@ -31,6 +31,8 @@ public class SourceList extends GenericModel {
   protected PageHrefResponse previous;
   protected PageHrefResponse next;
 
+  protected SourceList() { }
+
   /**
    * Gets the totalCount.
    *

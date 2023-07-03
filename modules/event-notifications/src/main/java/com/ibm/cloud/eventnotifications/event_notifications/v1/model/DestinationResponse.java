@@ -64,6 +64,8 @@ public class DestinationResponse extends GenericModel {
   @SerializedName("created_at")
   protected Date createdAt;
 
+  protected DestinationResponse() { }
+
   /**
    * Gets the id.
    *

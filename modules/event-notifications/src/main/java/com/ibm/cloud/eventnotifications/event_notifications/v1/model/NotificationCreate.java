@@ -102,6 +102,11 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmensafaribody;
     private Map<String, Object> dynamicProperties;
 
+    /**
+     * Instantiates a new Builder from an existing NotificationCreate instance.
+     *
+     * @param notificationCreate the instance to initialize the Builder with
+     */
     private Builder(NotificationCreate notificationCreate) {
       this.specversion = notificationCreate.specversion;
       this.time = notificationCreate.time;
