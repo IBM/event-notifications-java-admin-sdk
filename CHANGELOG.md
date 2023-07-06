@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.13...0.2.0) (2023-07-06)
+
+
+### Features
+
+* adopt java11 as min JDK for tstng package ([ff09435](https://github.com/IBM/event-notifications-java-admin-sdk/commit/ff094354dc643dd75c0995fb819b5ec73e27e465))
+
 ## [0.1.13](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.12...0.1.13) (2023-06-15)
 
 
