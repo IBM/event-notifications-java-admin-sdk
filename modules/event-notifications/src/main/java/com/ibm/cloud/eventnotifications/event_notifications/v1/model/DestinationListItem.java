@@ -55,6 +55,8 @@ public class DestinationListItem extends GenericModel {
     String IBMCOS = "ibmcos";
     /** push_huawei. */
     String PUSH_HUAWEI = "push_huawei";
+    /** smtp_custom. */
+    String SMTP_CUSTOM = "smtp_custom";
   }
 
   protected String id;

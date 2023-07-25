@@ -22,6 +22,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * DestinationConfigOneOf.
  *
  * Classes which extend this class:
+ * - DestinationConfigOneOfCustomDomainEmailDestinationConfig
  * - DestinationConfigOneOfWebhookDestinationConfig
  * - DestinationConfigOneOfFCMDestinationConfig
  * - DestinationConfigOneOfIOSDestinationConfig
@@ -48,6 +49,9 @@ public class DestinationConfigOneOf extends GenericModel {
     String POST = "post";
   }
 
+  protected String domain;
+  protected DKIMAttributes dkim;
+  protected SPFAttributes spf;
   protected String url;
   protected String verb;
   @SerializedName("custom_headers")
@@ -105,6 +109,39 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String endpoint;
 
   protected DestinationConfigOneOf() { }
+
+  /**
+   * Gets the domain.
+   *
+   * Email Domain.
+   *
+   * @return the domain
+   */
+  public String domain() {
+    return domain;
+  }
+
+  /**
+   * Gets the dkim.
+   *
+   * The DKIM attributes.
+   *
+   * @return the dkim
+   */
+  public DKIMAttributes dkim() {
+    return dkim;
+  }
+
+  /**
+   * Gets the spf.
+   *
+   * The SPF attributes.
+   *
+   * @return the spf
+   */
+  public SPFAttributes spf() {
+    return spf;
+  }
 
   /**
    * Gets the url.

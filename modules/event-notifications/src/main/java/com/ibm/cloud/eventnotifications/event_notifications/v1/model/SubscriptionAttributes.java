@@ -24,6 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * Classes which extend this class:
  * - SubscriptionAttributesSMSAttributesResponse
  * - SubscriptionAttributesEmailAttributesResponse
+ * - SubscriptionAttributesCustomEmailAttributesResponse
  * - SubscriptionAttributesWebhookAttributesResponse
  * - SubscriptionAttributesSlackAttributesResponse
  * - SubscriptionAttributesServiceNowAttributesResponse
@@ -44,6 +45,8 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected String replyToName;
   @SerializedName("from_name")
   protected String fromName;
+  @SerializedName("from_email")
+  protected String fromEmail;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
@@ -132,6 +135,17 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public String getFromName() {
     return this.fromName;
+  }
+
+  /**
+   * Gets the fromEmail.
+   *
+   * The email from.
+   *
+   * @return the fromEmail
+   */
+  public String getFromEmail() {
+    return this.fromEmail;
   }
 
   /**

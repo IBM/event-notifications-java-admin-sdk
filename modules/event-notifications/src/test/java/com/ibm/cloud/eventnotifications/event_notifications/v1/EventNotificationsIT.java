@@ -64,6 +64,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId13 = "";
   public static String destinationId14 = "";
   public static String destinationId15 = "";
+  public static String destinationId16 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -80,6 +81,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId13 = "";
   public static String subscriptionId14 = "";
   public static String subscriptionId15 = "";
+  public static String subscriptionId16 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -1071,6 +1073,41 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId15 = destinationHuaweiResponseResult.getId();
 
+      DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationCustomConfigParamsModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+              .domain("ashwin.event-notifications.test.cloud.ibm.com").build();
+
+      DestinationConfig destinationcustomConfigModel = new DestinationConfig.Builder()
+              .params(destinationCustomConfigParamsModel)
+              .build();
+
+      String customName = "Custom Email";
+      String customTypeVal = "smtp_custom";
+      String customDescription = "Custom Email Destination";
+
+      CreateDestinationOptions createCustomEmailDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(customName)
+              .type(customTypeVal)
+              .description(customDescription)
+              .config(destinationcustomConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> customResponse = service.createDestination(createCustomEmailDestinationOptions).execute();
+      // Validate response
+      assertNotNull(customResponse);
+      assertEquals(customResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationCustomResponseResult = customResponse.getResult();
+
+      assertNotNull(destinationCustomResponseResult);
+      assertEquals(destinationCustomResponseResult.getDescription(), customDescription);
+      assertEquals(destinationCustomResponseResult.getName(), customName);
+      assertEquals(destinationCustomResponseResult.getType(), customTypeVal);
+
+      destinationId16 = destinationCustomResponseResult.getId();
+
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1675,6 +1712,41 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationHuaweiResult.getId(), destinationId15);
       assertEquals(destinationHuaweiResult.getDescription(), huaweiDescription);
       assertEquals(destinationHuaweiResult.getName(), huaweiName);
+
+      DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationCustomConfigParamsModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+              .domain("apprapp.test.cloud.ibm.com")
+              .build();
+
+      DestinationConfig destinationCustomConfigModel = new DestinationConfig.Builder()
+              .params(destinationCustomConfigParamsModel)
+              .build();
+
+      String customName = "Custom email update";
+      String customDescription = "Custom Email Destination updated";
+
+      UpdateDestinationOptions updateCustomDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .name(customName)
+              .description(customDescription)
+              .config(destinationCustomConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> customResponse = service.updateDestination(updateCustomDestinationOptions).execute();
+      // Validate response
+      assertNotNull(customResponse);
+      assertEquals(customResponse.getStatusCode(), 200);
+
+      Destination destinationCustomResult = customResponse.getResult();
+
+      assertNotNull(destinationCustomResult);
+
+      assertEquals(destinationCustomResult.getId(), destinationId16);
+      assertEquals(destinationCustomResult.getDescription(), customDescription);
+      assertEquals(destinationCustomResult.getName(), customName);
+
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2093,6 +2165,40 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(huaweiSubscriptionResult.getName(), huaweiName);
 
       subscriptionId15 = huaweiSubscriptionResult.getId();
+
+      ArrayList<String> customToMail = new ArrayList<String>();
+      customToMail.add("xyz@ibm.com");
+      customToMail.add("tester3@ibm.com");
+      SubscriptionCreateAttributesCustomEmailAttributes subscriptionCreateCustomEmailAttributesModel = new SubscriptionCreateAttributesCustomEmailAttributes.Builder()
+              .invited(customToMail)
+              .addNotificationPayload(true)
+              .replyToMail("abc@gmail.com")
+              .replyToName("abc")
+              .fromName("IBM")
+              .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .build();
+
+      String customName = "subscription_Custom_Email";
+      String customDescription = "Subscription for Custom Email";
+      CreateSubscriptionOptions createCustomSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customName)
+              .destinationId(destinationId16)
+              .topicId(topicId)
+              .attributes(subscriptionCreateCustomEmailAttributesModel)
+              .description(customDescription)
+              .build();
+
+      Response<Subscription> customResponse = service.createSubscription(createCustomSubscriptionOptions).execute();
+
+      assertNotNull(customResponse);
+      assertEquals(customResponse.getStatusCode(), 201);
+      Subscription customSubscriptionResult = customResponse.getResult();
+      assertNotNull(customSubscriptionResult);
+      assertEquals(customSubscriptionResult.getDescription(), customDescription);
+      assertEquals(customSubscriptionResult.getName(), customName);
+
+      subscriptionId16 = customSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -2613,6 +2719,55 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(huaweiSubscriptionResult.getDescription(), huaweiDescription);
       assertEquals(huaweiSubscriptionResult.getName(), huaweiName);
       assertEquals(huaweiSubscriptionResult.getId(), subscriptionId15);
+
+      ArrayList<String> toCustomRemove = new ArrayList<String>();
+      toCustomRemove.add("tester3@ibm.com");
+
+      ArrayList<String> toCustomInvite = new ArrayList<String>();
+      toCustomInvite.add("tester4@ibm.com");
+
+      UpdateAttributesSubscribed customSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toCustomRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed CustomUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toCustomRemove)
+              .build();
+
+      UpdateAttributesInvited customInvited = new UpdateAttributesInvited.Builder()
+              .add(toCustomInvite)
+              .build();
+
+      SubscriptionUpdateAttributesCustomEmailUpdateAttributes subscriptionUpdateCustomEmailAttributesModel = new SubscriptionUpdateAttributesCustomEmailUpdateAttributes.Builder()
+              .addNotificationPayload(true)
+              .invited(customInvited)
+              .replyToMail("abc@gmail.com")
+              .replyToName("US News")
+              .fromName("IBM")
+              .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .subscribed(customSubscribed)
+              .unsubscribed(CustomUnSubscribed)
+              .build();
+
+      String customEmailName = "Custom email subscription";
+      String customEmailDescription = "subscription_update for Custom email";
+
+      UpdateSubscriptionOptions customEmailUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customEmailName)
+              .id(subscriptionId16)
+              .attributes(subscriptionUpdateCustomEmailAttributesModel)
+              .description(customEmailDescription)
+              .build();
+
+      Response<Subscription> customEmailResponse = service.updateSubscription(customEmailUpdateSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(customEmailResponse);
+      assertEquals(customEmailResponse.getStatusCode(), 200);
+      Subscription customEmailSubscriptionResult = customEmailResponse.getResult();
+      assertNotNull(customEmailSubscriptionResult);
+      assertEquals(customEmailSubscriptionResult.getDescription(), customEmailDescription);
+      assertEquals(customEmailSubscriptionResult.getName(), customEmailName);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2765,6 +2920,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId13);
       subscriptions.add(subscriptionId14);
       subscriptions.add(subscriptionId15);
+      subscriptions.add(subscriptionId16);
 
       for (String subscription :
               subscriptions) {
@@ -2852,6 +3008,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId13);
       destinations.add(destinationId14);
       destinations.add(destinationId15);
+      destinations.add(destinationId16);
 
       for (String destination :
               destinations) {

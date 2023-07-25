@@ -14,8 +14,6 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -25,16 +23,29 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DestinationConfigOneOf model.
+ * Unit test class for the DKIMAttributes model.
  */
-public class DestinationConfigOneOfTest {
+public class DKIMAttributesTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
-  // TODO: Add tests for models that are abstract
   @Test
-  public void testDestinationConfigOneOf() throws Throwable {
-    DestinationConfigOneOf destinationConfigOneOfModel = new DestinationConfigOneOf();
-    assertNotNull(destinationConfigOneOfModel);
+  public void testDKIMAttributes() throws Throwable {
+    DKIMAttributes dkimAttributesModel = new DKIMAttributes.Builder()
+      .publicKey("testString")
+      .selector("testString")
+      .verification("testString")
+      .build();
+    assertEquals(dkimAttributesModel.publicKey(), "testString");
+    assertEquals(dkimAttributesModel.selector(), "testString");
+    assertEquals(dkimAttributesModel.verification(), "testString");
+
+    String json = TestUtilities.serialize(dkimAttributesModel);
+
+    DKIMAttributes dkimAttributesModelNew = TestUtilities.deserialize(json, DKIMAttributes.class);
+    assertTrue(dkimAttributesModelNew instanceof DKIMAttributes);
+    assertEquals(dkimAttributesModelNew.publicKey(), "testString");
+    assertEquals(dkimAttributesModelNew.selector(), "testString");
+    assertEquals(dkimAttributesModelNew.verification(), "testString");
   }
 }
