@@ -2730,7 +2730,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .remove(toCustomRemove)
               .build();
 
-      UpdateAttributesUnsubscribed CustomUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+      UpdateAttributesUnsubscribed customUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
               .remove(toCustomRemove)
               .build();
 
@@ -2746,7 +2746,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .fromName("IBM")
               .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
               .subscribed(customSubscribed)
-              .unsubscribed(CustomUnSubscribed)
+              .unsubscribed(customUnSubscribed)
               .build();
 
       String customEmailName = "Custom email subscription";
