@@ -1074,7 +1074,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinationId15 = destinationHuaweiResponseResult.getId();
 
       DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationCustomConfigParamsModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
-              .domain("ashwin.event-notifications.test.cloud.ibm.com").build();
+              .domain("test.event-notifications.test.cloud.ibm.com").build();
 
       DestinationConfig destinationcustomConfigModel = new DestinationConfig.Builder()
               .params(destinationCustomConfigParamsModel)
@@ -1745,6 +1745,26 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationCustomResult.getId(), destinationId16);
       assertEquals(destinationCustomResult.getDescription(), customDescription);
       assertEquals(destinationCustomResult.getName(), customName);
+
+      UpdateVerifyDestinationOptions updateSpfVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .type("spf")
+              .build();
+
+      Response<VerificationResponse> spfVerificationResponse = service.updateVerifyDestination(updateSpfVerifyDestinationOptionsModel).execute();
+      VerificationResponse spfResponseObj = spfVerificationResponse.getResult();
+      assertNotNull(spfResponseObj);
+
+      UpdateVerifyDestinationOptions updateDkimVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .type("dkim")
+              .build();
+
+      Response<VerificationResponse> dkimVerificationResponse = service.updateVerifyDestination(updateDkimVerifyDestinationOptionsModel).execute();
+      VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
+      assertNotNull(dkimResponseObj);
 
 
       //

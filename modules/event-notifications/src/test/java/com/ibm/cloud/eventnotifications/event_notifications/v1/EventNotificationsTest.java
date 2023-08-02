@@ -124,6 +124,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
@@ -1432,6 +1434,60 @@ public class EventNotificationsTest {
   public void testDeleteDestinationNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.deleteDestination(null).execute();
+  }
+
+  // Test the updateVerifyDestination operation with a valid options model parameter
+  @Test
+  public void testUpdateVerifyDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"type\": \"type\", \"verification\": \"verification\"}";
+    String updateVerifyDestinationPath = "/v1/instances/testString/destinations/testString/verify";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateVerifyDestinationOptions model
+    UpdateVerifyDestinationOptions updateVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .type("testString")
+      .build();
+
+    // Invoke updateVerifyDestination() with a valid options model and verify the result
+    Response<VerificationResponse> response = eventNotificationsService.updateVerifyDestination(updateVerifyDestinationOptionsModel).execute();
+    assertNotNull(response);
+    VerificationResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateVerifyDestinationPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("type"), "testString");
+  }
+
+  // Test the updateVerifyDestination operation with and without retries enabled
+  @Test
+  public void testUpdateVerifyDestinationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateVerifyDestinationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateVerifyDestinationWOptions();
+  }
+
+  // Test the updateVerifyDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateVerifyDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateVerifyDestination(null).execute();
   }
 
   // Test the createTagsSubscription operation with a valid options model parameter

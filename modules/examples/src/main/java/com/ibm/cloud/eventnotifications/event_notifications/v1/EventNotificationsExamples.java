@@ -1201,6 +1201,28 @@ public class EventNotificationsExamples {
       Response<Destination> customResponse = eventNotificationsService.updateDestination(updateCustomDestinationOptions).execute();
       Destination destinationCustomResult = customResponse.getResult();
       System.out.println(destinationCustomResult);
+
+      UpdateVerifyDestinationOptions updateSpfVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .type("spf")
+              .build();
+
+      // Invoke updateVerifyDestination() with a valid options model and verify the result
+      Response<VerificationResponse> spfVerificationResponse = eventNotificationsService.updateVerifyDestination(updateSpfVerifyDestinationOptionsModel).execute();
+      VerificationResponse spfResponseObj = spfVerificationResponse.getResult();
+      System.out.println(spfResponseObj);
+
+      UpdateVerifyDestinationOptions updateDkimVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .type("dkim")
+              .build();
+
+      // Invoke updateVerifyDestination() with a valid options model and verify the result
+      Response<VerificationResponse> dkimVerificationResponse = eventNotificationsService.updateVerifyDestination(updateDkimVerifyDestinationOptionsModel).execute();
+      VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
+      System.out.println(dkimResponseObj);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",

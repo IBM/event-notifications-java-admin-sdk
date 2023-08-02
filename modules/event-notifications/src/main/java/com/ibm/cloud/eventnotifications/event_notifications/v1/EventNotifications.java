@@ -64,6 +64,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicRespon
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -694,6 +696,32 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Verify status of spf or dkim records of custom email.
+   *
+   * Verify status of spf or dkim records of custom email.
+   *
+   * @param updateVerifyDestinationOptions the {@link UpdateVerifyDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link VerificationResponse}
+   */
+  public ServiceCall<VerificationResponse> updateVerifyDestination(UpdateVerifyDestinationOptions updateVerifyDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateVerifyDestinationOptions,
+      "updateVerifyDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateVerifyDestinationOptions.instanceId());
+    pathParamsMap.put("id", updateVerifyDestinationOptions.id());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/verify", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateVerifyDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("type", String.valueOf(updateVerifyDestinationOptions.type()));
+    ResponseConverter<VerificationResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<VerificationResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
