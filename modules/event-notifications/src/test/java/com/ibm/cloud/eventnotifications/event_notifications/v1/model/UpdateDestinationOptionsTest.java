@@ -13,8 +13,10 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCustomDomainEmailDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -34,16 +36,32 @@ public class UpdateDestinationOptionsTest {
 
   @Test
   public void testUpdateDestinationOptions() throws Throwable {
-    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
-      .url("testString")
-      .verb("get")
-      .customHeaders(java.util.Collections.singletonMap("foo", "testString"))
-      .sensitiveHeaders(java.util.Arrays.asList("testString"))
+    DKIMAttributes dkimAttributesModel = new DKIMAttributes.Builder()
+      .publicKey("testString")
+      .selector("testString")
+      .verification("testString")
       .build();
-    assertEquals(destinationConfigOneOfModel.url(), "testString");
-    assertEquals(destinationConfigOneOfModel.verb(), "get");
-    assertEquals(destinationConfigOneOfModel.customHeaders(), java.util.Collections.singletonMap("foo", "testString"));
-    assertEquals(destinationConfigOneOfModel.sensitiveHeaders(), java.util.Arrays.asList("testString"));
+    assertEquals(dkimAttributesModel.publicKey(), "testString");
+    assertEquals(dkimAttributesModel.selector(), "testString");
+    assertEquals(dkimAttributesModel.verification(), "testString");
+
+    SPFAttributes spfAttributesModel = new SPFAttributes.Builder()
+      .txtName("testString")
+      .txtValue("testString")
+      .verification("testString")
+      .build();
+    assertEquals(spfAttributesModel.txtName(), "testString");
+    assertEquals(spfAttributesModel.txtValue(), "testString");
+    assertEquals(spfAttributesModel.verification(), "testString");
+
+    DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+      .domain("testString")
+      .dkim(dkimAttributesModel)
+      .spf(spfAttributesModel)
+      .build();
+    assertEquals(destinationConfigOneOfModel.domain(), "testString");
+    assertEquals(destinationConfigOneOfModel.dkim(), dkimAttributesModel);
+    assertEquals(destinationConfigOneOfModel.spf(), spfAttributesModel);
 
     DestinationConfig destinationConfigModel = new DestinationConfig.Builder()
       .params(destinationConfigOneOfModel)

@@ -13,9 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -25,16 +23,27 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DestinationConfigOneOf model.
+ * Unit test class for the UpdateVerifyDestinationOptions model.
  */
-public class DestinationConfigOneOfTest {
+public class UpdateVerifyDestinationOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
-  // TODO: Add tests for models that are abstract
   @Test
-  public void testDestinationConfigOneOf() throws Throwable {
-    DestinationConfigOneOf destinationConfigOneOfModel = new DestinationConfigOneOf();
-    assertNotNull(destinationConfigOneOfModel);
+  public void testUpdateVerifyDestinationOptions() throws Throwable {
+    UpdateVerifyDestinationOptions updateVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .type("testString")
+      .build();
+    assertEquals(updateVerifyDestinationOptionsModel.instanceId(), "testString");
+    assertEquals(updateVerifyDestinationOptionsModel.id(), "testString");
+    assertEquals(updateVerifyDestinationOptionsModel.type(), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateVerifyDestinationOptionsError() throws Throwable {
+    new UpdateVerifyDestinationOptions.Builder().build();
+  }
+
 }

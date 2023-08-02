@@ -64,6 +64,7 @@ public class EventNotificationsExamples {
   public static String destinationId13 = "";
   public static String destinationId14 = "";
   public static String destinationId15 = "";
+  public static String destinationId16 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -71,6 +72,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId3 = "";
   public static String subscriptionId4 = "";
   public static String subscriptionId5 = "";
+  public static String subscriptionId6 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -718,6 +720,31 @@ public class EventNotificationsExamples {
       DestinationResponse destinationHuaweiResponseResult = huaweiResponse.getResult();
       System.out.println(destinationHuaweiResponseResult);
       destinationId15 = destinationHuaweiResponseResult.getId();
+
+      DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationCustomConfigParamsModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+              .domain("abc.event-notifications.test.cloud.ibm.com").build();
+
+      DestinationConfig destinationcustomConfigModel = new DestinationConfig.Builder()
+              .params(destinationCustomConfigParamsModel)
+              .build();
+
+      String customName = "Custom Email";
+      String customTypeVal = "smtp_custom";
+      String customDescription = "Custom Email Destination";
+
+      CreateDestinationOptions createCustomEmailDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(customName)
+              .type(customTypeVal)
+              .description(customDescription)
+              .config(destinationcustomConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> customResponse = eventNotificationsService.createDestination(createCustomEmailDestinationOptions).execute();
+      DestinationResponse destinationCustomResponseResult = customResponse.getResult();
+      System.out.println(destinationCustomResponseResult);
+      destinationId16 = destinationCustomResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -1150,6 +1177,52 @@ public class EventNotificationsExamples {
       Response<Destination> huaweiResponse = eventNotificationsService.updateDestination(updateHuaweiDestinationOptions).execute();
       Destination huaweiDestinationResult = huaweiResponse.getResult();
       System.out.println(huaweiDestinationResult);
+
+      DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationCustomConfigParamsModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+              .domain("apprapp.test.cloud.ibm.com")
+              .build();
+
+      DestinationConfig destinationCustomConfigModel = new DestinationConfig.Builder()
+              .params(destinationCustomConfigParamsModel)
+              .build();
+
+      String customName = "Custom email update";
+      String customDescription = "Custom Email Destination updated";
+
+      UpdateDestinationOptions updateCustomDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .name(customName)
+              .description(customDescription)
+              .config(destinationCustomConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> customResponse = eventNotificationsService.updateDestination(updateCustomDestinationOptions).execute();
+      Destination destinationCustomResult = customResponse.getResult();
+      System.out.println(destinationCustomResult);
+
+      UpdateVerifyDestinationOptions updateSpfVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .type("spf")
+              .build();
+
+      // Invoke updateVerifyDestination() with a valid options model and verify the result
+      Response<VerificationResponse> spfVerificationResponse = eventNotificationsService.updateVerifyDestination(updateSpfVerifyDestinationOptionsModel).execute();
+      VerificationResponse spfResponseObj = spfVerificationResponse.getResult();
+      System.out.println(spfResponseObj);
+
+      UpdateVerifyDestinationOptions updateDkimVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId16)
+              .type("dkim")
+              .build();
+
+      // Invoke updateVerifyDestination() with a valid options model and verify the result
+      Response<VerificationResponse> dkimVerificationResponse = eventNotificationsService.updateVerifyDestination(updateDkimVerifyDestinationOptionsModel).execute();
+      VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
+      System.out.println(dkimResponseObj);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1290,6 +1363,33 @@ public class EventNotificationsExamples {
 
       Subscription slackSubscriptionResult = slackResponse.getResult();
       subscriptionId5 = slackSubscriptionResult.getId();
+
+      ArrayList<String> customToMail = new ArrayList<String>();
+      customToMail.add("xyz@ibm.com");
+      customToMail.add("tester3@ibm.com");
+      SubscriptionCreateAttributesCustomEmailAttributes subscriptionCreateCustomEmailAttributesModel = new SubscriptionCreateAttributesCustomEmailAttributes.Builder()
+              .invited(customToMail)
+              .addNotificationPayload(true)
+              .replyToMail("abc@gmail.com")
+              .replyToName("abc")
+              .fromName("IBM")
+              .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .build();
+
+      String customName = "subscription_Custom_Email";
+      String customDescription = "Subscription for Custom Email";
+      CreateSubscriptionOptions createCustomSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customName)
+              .destinationId(destinationId16)
+              .topicId(topicId)
+              .attributes(subscriptionCreateCustomEmailAttributesModel)
+              .description(customDescription)
+              .build();
+
+      Response<Subscription> customResponse = eventNotificationsService.createSubscription(createCustomSubscriptionOptions).execute();
+      Subscription customSubscriptionResult = customResponse.getResult();
+      subscriptionId6 = customSubscriptionResult.getId();
       // end-create_subscription
 
     } catch (ServiceResponseException e) {
@@ -1494,6 +1594,50 @@ public class EventNotificationsExamples {
       Subscription slackSubscriptionResult = slackResponse.getResult();
       System.out.println(slackSubscriptionResult);
 
+      ArrayList<String> toCustomRemove = new ArrayList<String>();
+      toCustomRemove.add("tester3@ibm.com");
+
+      ArrayList<String> toCustomInvite = new ArrayList<String>();
+      toCustomInvite.add("tester4@ibm.com");
+
+      UpdateAttributesSubscribed customSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toCustomRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed customUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toCustomRemove)
+              .build();
+
+      UpdateAttributesInvited customInvited = new UpdateAttributesInvited.Builder()
+              .add(toCustomInvite)
+              .build();
+
+      SubscriptionUpdateAttributesCustomEmailUpdateAttributes subscriptionUpdateCustomEmailAttributesModel = new SubscriptionUpdateAttributesCustomEmailUpdateAttributes.Builder()
+              .addNotificationPayload(true)
+              .invited(customInvited)
+              .replyToMail("abc@gmail.com")
+              .replyToName("US News")
+              .fromName("IBM")
+              .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .subscribed(customSubscribed)
+              .unsubscribed(customUnSubscribed)
+              .build();
+
+      String customEmailName = "Custom email subscription";
+      String customEmailDescription = "subscription_update for Custom email";
+
+      UpdateSubscriptionOptions customEmailUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customEmailName)
+              .id(subscriptionId6)
+              .attributes(subscriptionUpdateCustomEmailAttributesModel)
+              .description(customEmailDescription)
+              .build();
+
+      Response<Subscription> customEmailResponse = eventNotificationsService.updateSubscription(customEmailUpdateSubscriptionOptions).execute();
+      Subscription customEmailSubscriptionResult = customEmailResponse.getResult();
+      System.out.println(customEmailSubscriptionResult);
+
       // end-update_subscription
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1559,6 +1703,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId3);
       subscriptions.add(subscriptionId4);
       subscriptions.add(subscriptionId5);
+      subscriptions.add(subscriptionId6);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -1616,6 +1761,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId13);
       destinations.add(destinationId14);
       destinations.add(destinationId15);
+      destinations.add(destinationId16);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()

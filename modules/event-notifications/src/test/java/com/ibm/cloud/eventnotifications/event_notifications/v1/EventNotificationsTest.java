@@ -19,6 +19,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourc
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
@@ -28,6 +29,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfChromeDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCustomDomainEmailDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFCMDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFirefoxDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfHuaweiDestinationConfig;
@@ -72,6 +74,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
@@ -83,12 +86,14 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesList
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCustomEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesServiceNowAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSlackAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomEmailAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEmailAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesFCMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSMSAttributes;
@@ -98,6 +103,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesServiceNowAttributes;
@@ -118,6 +124,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
@@ -1016,19 +1024,32 @@ public class EventNotificationsTest {
   @Test
   public void testCreateDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"url\": \"url\", \"verb\": \"get\", \"custom_headers\": {\"mapKey\": \"inner\"}, \"sensitive_headers\": [\"sensitiveHeaders\"]}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createDestinationPath = "/v1/instances/testString/destinations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(201)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the DestinationConfigOneOfWebhookDestinationConfig model
-    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
-      .url("testString")
-      .verb("get")
-      .customHeaders(java.util.Collections.singletonMap("foo", "testString"))
-      .sensitiveHeaders(java.util.Arrays.asList("testString"))
+    // Construct an instance of the DKIMAttributes model
+    DKIMAttributes dkimAttributesModel = new DKIMAttributes.Builder()
+      .publicKey("testString")
+      .selector("testString")
+      .verification("testString")
+      .build();
+
+    // Construct an instance of the SPFAttributes model
+    SPFAttributes spfAttributesModel = new SPFAttributes.Builder()
+      .txtName("testString")
+      .txtValue("testString")
+      .verification("testString")
+      .build();
+
+    // Construct an instance of the DestinationConfigOneOfCustomDomainEmailDestinationConfig model
+    DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+      .domain("testString")
+      .dkim(dkimAttributesModel)
+      .spf(spfAttributesModel)
       .build();
 
     // Construct an instance of the DestinationConfig model
@@ -1221,7 +1242,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"url\": \"url\", \"verb\": \"get\", \"custom_headers\": {\"mapKey\": \"inner\"}, \"sensitive_headers\": [\"sensitiveHeaders\"]}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
     String getDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1273,19 +1294,32 @@ public class EventNotificationsTest {
   @Test
   public void testUpdateDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"url\": \"url\", \"verb\": \"get\", \"custom_headers\": {\"mapKey\": \"inner\"}, \"sensitive_headers\": [\"sensitiveHeaders\"]}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
     String updateDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the DestinationConfigOneOfWebhookDestinationConfig model
-    DestinationConfigOneOfWebhookDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
-      .url("testString")
-      .verb("get")
-      .customHeaders(java.util.Collections.singletonMap("foo", "testString"))
-      .sensitiveHeaders(java.util.Arrays.asList("testString"))
+    // Construct an instance of the DKIMAttributes model
+    DKIMAttributes dkimAttributesModel = new DKIMAttributes.Builder()
+      .publicKey("testString")
+      .selector("testString")
+      .verification("testString")
+      .build();
+
+    // Construct an instance of the SPFAttributes model
+    SPFAttributes spfAttributesModel = new SPFAttributes.Builder()
+      .txtName("testString")
+      .txtValue("testString")
+      .verification("testString")
+      .build();
+
+    // Construct an instance of the DestinationConfigOneOfCustomDomainEmailDestinationConfig model
+    DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationConfigOneOfModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
+      .domain("testString")
+      .dkim(dkimAttributesModel)
+      .spf(spfAttributesModel)
       .build();
 
     // Construct an instance of the DestinationConfig model
@@ -1400,6 +1434,60 @@ public class EventNotificationsTest {
   public void testDeleteDestinationNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.deleteDestination(null).execute();
+  }
+
+  // Test the updateVerifyDestination operation with a valid options model parameter
+  @Test
+  public void testUpdateVerifyDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"type\": \"type\", \"verification\": \"verification\"}";
+    String updateVerifyDestinationPath = "/v1/instances/testString/destinations/testString/verify";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateVerifyDestinationOptions model
+    UpdateVerifyDestinationOptions updateVerifyDestinationOptionsModel = new UpdateVerifyDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .type("testString")
+      .build();
+
+    // Invoke updateVerifyDestination() with a valid options model and verify the result
+    Response<VerificationResponse> response = eventNotificationsService.updateVerifyDestination(updateVerifyDestinationOptionsModel).execute();
+    assertNotNull(response);
+    VerificationResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateVerifyDestinationPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("type"), "testString");
+  }
+
+  // Test the updateVerifyDestination operation with and without retries enabled
+  @Test
+  public void testUpdateVerifyDestinationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateVerifyDestinationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateVerifyDestinationWOptions();
+  }
+
+  // Test the updateVerifyDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateVerifyDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateVerifyDestination(null).execute();
   }
 
   // Test the createTagsSubscription operation with a valid options model parameter

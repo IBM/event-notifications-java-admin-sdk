@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * Classes which extend this class:
  * - SubscriptionCreateAttributesSMSAttributes
  * - SubscriptionCreateAttributesEmailAttributes
+ * - SubscriptionCreateAttributesCustomEmailAttributes
  * - SubscriptionCreateAttributesWebhookAttributes
  * - SubscriptionCreateAttributesFCMAttributes
  * - SubscriptionCreateAttributesSlackAttributes
@@ -39,6 +40,8 @@ public class SubscriptionCreateAttributes extends GenericModel {
   protected String replyToName;
   @SerializedName("from_name")
   protected String fromName;
+  @SerializedName("from_email")
+  protected String fromEmail;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
@@ -103,6 +106,17 @@ public class SubscriptionCreateAttributes extends GenericModel {
    */
   public String fromName() {
     return fromName;
+  }
+
+  /**
+   * Gets the fromEmail.
+   *
+   * The email from.
+   *
+   * @return the fromEmail
+   */
+  public String fromEmail() {
+    return fromEmail;
   }
 
   /**

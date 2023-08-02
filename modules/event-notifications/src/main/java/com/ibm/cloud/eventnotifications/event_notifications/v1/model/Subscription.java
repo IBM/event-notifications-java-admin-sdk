@@ -57,6 +57,8 @@ public class Subscription extends DynamicModel<Object> {
     String IBMCOS = "ibmcos";
     /** push_huawei. */
     String PUSH_HUAWEI = "push_huawei";
+    /** smtp_custom. */
+    String SMTP_CUSTOM = "smtp_custom";
   }
 
   @SerializedName("id")

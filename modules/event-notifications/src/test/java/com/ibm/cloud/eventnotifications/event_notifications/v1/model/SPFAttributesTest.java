@@ -13,8 +13,6 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -25,16 +23,29 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DestinationConfigOneOf model.
+ * Unit test class for the SPFAttributes model.
  */
-public class DestinationConfigOneOfTest {
+public class SPFAttributesTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
-  // TODO: Add tests for models that are abstract
   @Test
-  public void testDestinationConfigOneOf() throws Throwable {
-    DestinationConfigOneOf destinationConfigOneOfModel = new DestinationConfigOneOf();
-    assertNotNull(destinationConfigOneOfModel);
+  public void testSPFAttributes() throws Throwable {
+    SPFAttributes spfAttributesModel = new SPFAttributes.Builder()
+      .txtName("testString")
+      .txtValue("testString")
+      .verification("testString")
+      .build();
+    assertEquals(spfAttributesModel.txtName(), "testString");
+    assertEquals(spfAttributesModel.txtValue(), "testString");
+    assertEquals(spfAttributesModel.verification(), "testString");
+
+    String json = TestUtilities.serialize(spfAttributesModel);
+
+    SPFAttributes spfAttributesModelNew = TestUtilities.deserialize(json, SPFAttributes.class);
+    assertTrue(spfAttributesModelNew instanceof SPFAttributes);
+    assertEquals(spfAttributesModelNew.txtName(), "testString");
+    assertEquals(spfAttributesModelNew.txtValue(), "testString");
+    assertEquals(spfAttributesModelNew.verification(), "testString");
   }
 }
