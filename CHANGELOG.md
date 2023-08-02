@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.0...0.2.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* adds custom domain email support ([8e959dd](https://github.com/IBM/event-notifications-java-admin-sdk/commit/8e959dd214b8aef9c14cc2680466f9149547825a))
+
 # [0.2.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.1.13...0.2.0) (2023-07-06)
 
 
