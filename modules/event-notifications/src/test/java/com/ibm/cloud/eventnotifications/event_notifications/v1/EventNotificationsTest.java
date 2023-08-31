@@ -18,12 +18,14 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDesti
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
@@ -53,6 +55,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinat
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationGetResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationList;
@@ -64,6 +67,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegra
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTemplatesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
@@ -113,6 +117,11 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Template;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplatesPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
@@ -124,6 +133,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -1018,6 +1028,355 @@ public class EventNotificationsTest {
   public void testDeleteTopicNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.deleteTopic(null).execute();
+  }
+
+  // Test the createTemplate operation with a valid options model parameter
+  @Test
+  public void testCreateTemplateWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"params\": {\"body\": \"body\", \"subject\": \"subject\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String createTemplatePath = "/v1/instances/testString/templates";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the TemplateConfig model
+    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
+      .body("testString")
+      .subject("testString")
+      .build();
+
+    // Construct an instance of the CreateTemplateOptions model
+    CreateTemplateOptions createTemplateOptionsModel = new CreateTemplateOptions.Builder()
+      .instanceId("testString")
+      .name("testString")
+      .type("smtp_custom.notification")
+      .params(templateConfigModel)
+      .description("testString")
+      .build();
+
+    // Invoke createTemplate() with a valid options model and verify the result
+    Response<TemplateResponse> response = eventNotificationsService.createTemplate(createTemplateOptionsModel).execute();
+    assertNotNull(response);
+    TemplateResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createTemplatePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the createTemplate operation with and without retries enabled
+  @Test
+  public void testCreateTemplateWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testCreateTemplateWOptions();
+
+    eventNotificationsService.disableRetries();
+    testCreateTemplateWOptions();
+  }
+
+  // Test the createTemplate operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateTemplateNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.createTemplate(null).execute();
+  }
+
+  // Test the listTemplates operation with a valid options model parameter
+  @Test
+  public void testListTemplatesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"templates\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String listTemplatesPath = "/v1/instances/testString/templates";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the ListTemplatesOptions model
+    ListTemplatesOptions listTemplatesOptionsModel = new ListTemplatesOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .offset(Long.valueOf("0"))
+      .search("testString")
+      .build();
+
+    // Invoke listTemplates() with a valid options model and verify the result
+    Response<TemplateList> response = eventNotificationsService.listTemplates(listTemplatesOptionsModel).execute();
+    assertNotNull(response);
+    TemplateList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listTemplatesPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
+    assertEquals(query.get("search"), "testString");
+  }
+
+  // Test the listTemplates operation with and without retries enabled
+  @Test
+  public void testListTemplatesWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testListTemplatesWOptions();
+
+    eventNotificationsService.disableRetries();
+    testListTemplatesWOptions();
+  }
+
+  // Test the listTemplates operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListTemplatesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.listTemplates(null).execute();
+  }
+
+  // Test the listTemplates operation using the TemplatesPager.getNext() method
+  @Test
+  public void testListTemplatesWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<Template> allResults = new ArrayList<>();
+    TemplatesPager pager = new TemplatesPager(eventNotificationsService, listTemplatesOptions);
+    while (pager.hasNext()) {
+      List<Template> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listTemplates operation using the TemplatesPager.getAll() method
+  @Test
+  public void testListTemplatesWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    TemplatesPager pager = new TemplatesPager(eventNotificationsService, listTemplatesOptions);
+    List<Template> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the getTemplate operation with a valid options model parameter
+  @Test
+  public void testGetTemplateWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String getTemplatePath = "/v1/instances/testString/templates/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetTemplateOptions model
+    GetTemplateOptions getTemplateOptionsModel = new GetTemplateOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke getTemplate() with a valid options model and verify the result
+    Response<Template> response = eventNotificationsService.getTemplate(getTemplateOptionsModel).execute();
+    assertNotNull(response);
+    Template responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getTemplatePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getTemplate operation with and without retries enabled
+  @Test
+  public void testGetTemplateWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetTemplateWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetTemplateWOptions();
+  }
+
+  // Test the getTemplate operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetTemplateNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getTemplate(null).execute();
+  }
+
+  // Test the updateTemplate operation with a valid options model parameter
+  @Test
+  public void testUpdateTemplateWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String updateTemplatePath = "/v1/instances/testString/templates/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the TemplateConfig model
+    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
+      .body("testString")
+      .subject("testString")
+      .build();
+
+    // Construct an instance of the UpdateTemplateOptions model
+    UpdateTemplateOptions updateTemplateOptionsModel = new UpdateTemplateOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .name("testString")
+      .description("testString")
+      .type("smtp_custom.notification")
+      .params(templateConfigModel)
+      .build();
+
+    // Invoke updateTemplate() with a valid options model and verify the result
+    Response<Template> response = eventNotificationsService.updateTemplate(updateTemplateOptionsModel).execute();
+    assertNotNull(response);
+    Template responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PUT");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateTemplatePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateTemplate operation with and without retries enabled
+  @Test
+  public void testUpdateTemplateWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateTemplateWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateTemplateWOptions();
+  }
+
+  // Test the updateTemplate operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateTemplateNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateTemplate(null).execute();
+  }
+
+  // Test the deleteTemplate operation with a valid options model parameter
+  @Test
+  public void testDeleteTemplateWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String deleteTemplatePath = "/v1/instances/testString/templates/testString";
+    server.enqueue(new MockResponse()
+      .setResponseCode(204)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the DeleteTemplateOptions model
+    DeleteTemplateOptions deleteTemplateOptionsModel = new DeleteTemplateOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke deleteTemplate() with a valid options model and verify the result
+    Response<Void> response = eventNotificationsService.deleteTemplate(deleteTemplateOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteTemplatePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the deleteTemplate operation with and without retries enabled
+  @Test
+  public void testDeleteTemplateWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testDeleteTemplateWOptions();
+
+    eventNotificationsService.disableRetries();
+    testDeleteTemplateWOptions();
+  }
+
+  // Test the deleteTemplate operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteTemplateNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.deleteTemplate(null).execute();
   }
 
   // Test the createDestination operation with a valid options model parameter

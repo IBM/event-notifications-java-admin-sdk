@@ -60,6 +60,8 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributesTest {
       .fromEmail("testString")
       .subscribed(updateAttributesSubscribedModel)
       .unsubscribed(updateAttributesUnsubscribedModel)
+      .templateIdNotification("testString")
+      .templateIdInvitation("testString")
       .build();
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.invited(), updateAttributesInvitedModel);
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.addNotificationPayload(), Boolean.valueOf(false));
@@ -69,6 +71,8 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributesTest {
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.fromEmail(), "testString");
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.subscribed(), updateAttributesSubscribedModel);
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.unsubscribed(), updateAttributesUnsubscribedModel);
+    assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.templateIdNotification(), "testString");
+    assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel.templateIdInvitation(), "testString");
 
     String json = TestUtilities.serialize(subscriptionUpdateAttributesCustomEmailUpdateAttributesModel);
 
@@ -82,6 +86,8 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributesTest {
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModelNew.fromEmail(), "testString");
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModelNew.subscribed().toString(), updateAttributesSubscribedModel.toString());
     assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModelNew.unsubscribed().toString(), updateAttributesUnsubscribedModel.toString());
+    assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModelNew.templateIdNotification(), "testString");
+    assertEquals(subscriptionUpdateAttributesCustomEmailUpdateAttributesModelNew.templateIdInvitation(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

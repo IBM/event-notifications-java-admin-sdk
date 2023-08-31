@@ -121,6 +121,12 @@ SDK Methods to consume
   - [Update Destination](#update-destination)
   - [Delete Destination](#delete-destination)
   - [Custom Domain_Name_verification](#custom-domain-name-verification)
+- [Templates](#templates)
+  - [Create Template](#create-template)
+  - [List Templates](#list-templates)
+  - [Get Template](#get-template)
+  - [Update Template](#update-template)
+  - [Delete Template](#delete-template)
 - [Push Destination APIs](#push-destination-apis)
   - [Create Destination tag subscription](#create-destination-tag-subscription)
   - [List Destination tag subscription](#list-destination-tag-subscription)
@@ -412,6 +418,83 @@ Response<VerificationResponse> verificationResponse = service.updateVerifyDestin
 VerificationResponse responseObj = verificationResponse.getResult();
 
 ```
+
+## Templates
+
+Template is a pre-defined layout, that may include content like images, text and dynamic content based on event. Rather than creating a new content from scratch each time, you can use a template as a base and configure them in subscription. 
+supports the following templates:
+
+- Custom Email notification
+- Custom Email invitation
+
+### Create Template
+```java
+TemplateConfig templateConfig = new TemplateConfig.Builder()
+        .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+        .subject("Hi this is invitation for invitation message")
+        .build();
+
+CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(templateConfig)
+        .build();
+
+Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
+```
+### List Templates
+```java
+ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
+        .instanceId(<instanceId>)
+        .limit(<limit>)
+        .offset(<offset>)
+        .search(<search>)
+        .build();
+
+Response<TemplateList> response = eventNotificationsService.listTemplates(listTemplatesOptions).execute();
+```
+
+### Get Template
+```java
+GetTemplateOptions getTemplateOptions = new GetTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<templateId>)
+        .build();
+
+Response<Template> response = eventNotificationsService.getTemplate(getTemplateOptions).execute();
+```
+
+### Update Template
+```java
+TemplateConfig templateConfig = new TemplateConfig.Builder()
+              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .subject("Hi this is invitation for invitation message")
+              .build();
+
+UpdateTemplateOptions updateTemplateInvitationOptions = new UpdateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<templateId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<templateType>)
+        .params(templateConfig)
+        .build();
+
+Response<Template> invitationResponse = eventNotificationsService.updateTemplate(updateTemplateInvitationOptions).execute();
+```
+
+### Delete Template
+```java
+DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()
+                .instanceId(<instanceId>)
+                .id(<templateId>)
+                .build();
+
+Response<Void> response = eventNotificationsService.deleteTemplate(deleteTemplateOptions).execute();
+```
+
 ## Push Destination APIs
 
 ### Create Destination tag subscription

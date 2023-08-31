@@ -43,5 +43,7 @@ public class SubscriptionAttributesCustomEmailAttributesResponseTest {
     assertNull(subscriptionAttributesCustomEmailAttributesResponseModel.getReplyToName());
     assertNull(subscriptionAttributesCustomEmailAttributesResponseModel.getFromName());
     assertNull(subscriptionAttributesCustomEmailAttributesResponseModel.getFromEmail());
+    assertNull(subscriptionAttributesCustomEmailAttributesResponseModel.getTemplateIdNotification());
+    assertNull(subscriptionAttributesCustomEmailAttributesResponseModel.getTemplateIdInvitation());
   }
 }

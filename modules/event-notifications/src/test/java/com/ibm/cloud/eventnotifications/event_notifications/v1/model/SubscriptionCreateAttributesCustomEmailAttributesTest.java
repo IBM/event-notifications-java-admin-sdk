@@ -38,6 +38,8 @@ public class SubscriptionCreateAttributesCustomEmailAttributesTest {
       .replyToName("testString")
       .fromName("testString")
       .fromEmail("testString")
+      .templateIdNotification("testString")
+      .templateIdInvitation("testString")
       .build();
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.invited(), java.util.Arrays.asList("testString"));
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.addNotificationPayload(), Boolean.valueOf(false));
@@ -45,6 +47,8 @@ public class SubscriptionCreateAttributesCustomEmailAttributesTest {
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.replyToName(), "testString");
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.fromName(), "testString");
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.fromEmail(), "testString");
+    assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.templateIdNotification(), "testString");
+    assertEquals(subscriptionCreateAttributesCustomEmailAttributesModel.templateIdInvitation(), "testString");
 
     String json = TestUtilities.serialize(subscriptionCreateAttributesCustomEmailAttributesModel);
 
@@ -55,6 +59,8 @@ public class SubscriptionCreateAttributesCustomEmailAttributesTest {
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModelNew.replyToName(), "testString");
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModelNew.fromName(), "testString");
     assertEquals(subscriptionCreateAttributesCustomEmailAttributesModelNew.fromEmail(), "testString");
+    assertEquals(subscriptionCreateAttributesCustomEmailAttributesModelNew.templateIdNotification(), "testString");
+    assertEquals(subscriptionCreateAttributesCustomEmailAttributesModelNew.templateIdInvitation(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

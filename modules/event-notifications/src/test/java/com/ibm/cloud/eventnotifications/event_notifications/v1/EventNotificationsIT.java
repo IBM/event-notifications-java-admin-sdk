@@ -99,6 +99,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String cosBucketName = "";
   public static String cosInstanceID = "";
   public static String cosEndPoint = "";
+  public static String templateInvitationID = "";
+  public static String templateNotificationID = "";
+
 
   /**
    * This method provides our config filename to the base class.
@@ -1714,7 +1717,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationHuaweiResult.getName(), huaweiName);
 
       DestinationConfigOneOfCustomDomainEmailDestinationConfig destinationCustomConfigParamsModel = new DestinationConfigOneOfCustomDomainEmailDestinationConfig.Builder()
-              .domain("apprapp.test.cloud.ibm.com")
+              .domain("test.event-notifications.test.cloud.ibm.com")
               .build();
 
       DestinationConfig destinationCustomConfigModel = new DestinationConfig.Builder()
@@ -1787,7 +1790,175 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1NCreateSubscription() throws Exception {
+  public void test1MCreateTemplate() throws Exception {
+    try {
+      String name = "template invitation name";
+      String description = "template description";
+
+      TemplateConfig templateConfig = new TemplateConfig.Builder()
+              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .subject("Hi this is invitation for invitation message")
+              .build();
+
+      CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_INVITATION)
+              .params(templateConfig)
+              .build();
+
+      Response<TemplateResponse> invitationResponse = service.createTemplate(createTemplateInvitationOptions).execute();
+      assertNotNull(invitationResponse);
+      assertEquals(invitationResponse.getStatusCode(), 201);
+      TemplateResponse invitationTemplateResult = invitationResponse.getResult();
+
+      assertNotNull(invitationTemplateResult);
+      assertEquals(invitationTemplateResult.getDescription(), description);
+      assertEquals(invitationTemplateResult.getName(), name);
+
+      templateInvitationID = invitationTemplateResult.getId();
+
+      name = "template notification name";
+      CreateTemplateOptions createTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_NOTIFICATION)
+              .params(templateConfig)
+              .build();
+
+      Response<TemplateResponse> notificationResponse = service.createTemplate(createTemplateNotificationOptions).execute();
+      assertNotNull(notificationResponse);
+      assertEquals(notificationResponse.getStatusCode(), 201);
+      TemplateResponse notificationTemplateResult = notificationResponse.getResult();
+
+      assertNotNull(notificationTemplateResult );
+      assertEquals(notificationTemplateResult .getDescription(), description);
+      assertEquals(notificationTemplateResult .getName(), name);
+      templateNotificationID= notificationTemplateResult.getId();
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1NGetTemplate() throws Exception {
+    try {
+      GetTemplateOptions getTemplateOptions = new GetTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(templateInvitationID)
+              .build();
+
+      // Invoke operation
+      Response<Template> response = service.getTemplate(getTemplateOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Template template = response.getResult();
+      assertNotNull(template);
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1OUpdateTemplate() throws Exception {
+    try {
+      String name = "template name";
+      String description = "template description";
+
+      TemplateConfig templateConfig = new TemplateConfig.Builder()
+              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .subject("Hi this is invitation for invitation message")
+              .build();
+
+      UpdateTemplateOptions updateTemplateInvitationOptions = new UpdateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(templateInvitationID)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_INVITATION)
+              .params(templateConfig)
+              .build();
+
+      Response<Template> invitationResponse = service.updateTemplate(updateTemplateInvitationOptions).execute();
+      assertNotNull(invitationResponse);
+      assertEquals(invitationResponse.getStatusCode(), 200);
+      Template invitationTemplateResult = invitationResponse.getResult();
+
+      assertNotNull(invitationTemplateResult);
+      assertEquals(invitationTemplateResult.getDescription(), description);
+      assertEquals(invitationTemplateResult.getName(), name);
+      assertEquals(invitationTemplateResult.getId(), templateInvitationID);
+
+      UpdateTemplateOptions updateTemplateNotificationOptions = new UpdateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(templateNotificationID)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_NOTIFICATION)
+              .params(templateConfig)
+              .build();
+
+      Response<Template> notificationResponse = service.updateTemplate(updateTemplateNotificationOptions).execute();
+      assertNotNull(notificationResponse);
+      assertEquals(notificationResponse.getStatusCode(), 200);
+      Template notificationTemplateResult = notificationResponse.getResult();
+
+      assertNotNull(notificationTemplateResult );
+      assertEquals(notificationTemplateResult .getDescription(), description);
+      assertEquals(notificationTemplateResult .getName(), name);
+      assertEquals(notificationTemplateResult.getId(), templateNotificationID);
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test1PListTemplates() throws Exception {
+    try {
+      boolean moreResults = true;
+      int limit = 1;
+      int offset = 0;
+      while (moreResults) {
+        ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
+                .instanceId(instanceId)
+                .offset(offset)
+                .limit(limit)
+                .search(search)
+                .build();
+
+        // Invoke operation
+        Response<TemplateList> response = service.listTemplates(listTemplatesOptions).execute();
+        // Validate response
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), 200);
+
+        TemplateList templateListResult = response.getResult();
+
+        assertNotNull(templateListResult);
+
+        if (templateListResult.getTotalCount() <= offset) {
+          moreResults = false;
+        }
+        offset += 1;
+      }
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+  @Test
+  public void test1QCreateSubscription() throws Exception {
     try {
       SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
               .signingEnabled(true).build();
@@ -2188,14 +2359,15 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       ArrayList<String> customToMail = new ArrayList<String>();
       customToMail.add("xyz@ibm.com");
-      customToMail.add("tester3@ibm.com");
       SubscriptionCreateAttributesCustomEmailAttributes subscriptionCreateCustomEmailAttributesModel = new SubscriptionCreateAttributesCustomEmailAttributes.Builder()
               .invited(customToMail)
               .addNotificationPayload(true)
               .replyToMail("abc@gmail.com")
               .replyToName("abc")
               .fromName("IBM")
-              .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .templateIdInvitation(templateInvitationID)
+              .templateIdNotification(templateNotificationID)
+              .fromEmail("test@test.event-notifications.test.cloud.ibm.com")
               .build();
 
       String customName = "subscription_Custom_Email";
@@ -2238,9 +2410,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
-
   @Test
-  public void test1OListSubscriptions() throws Exception {
+  public void test1RListSubscriptions() throws Exception {
     try {
       boolean moreResults = true;
       int limit = 1;
@@ -2284,7 +2455,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1PGetSubscription() throws Exception {
+  public void test1SGetSubscription() throws Exception {
     try {
       GetSubscriptionOptions getSubscriptionOptions = new GetSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -2318,7 +2489,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1QUpdateSubscription() throws Exception {
+  public void test1TUpdateSubscription() throws Exception {
     try {
       SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
               .signingEnabled(true)
@@ -2764,7 +2935,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .replyToMail("abc@gmail.com")
               .replyToName("US News")
               .fromName("IBM")
-              .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .fromEmail("test@shwin.event-notifications.test.cloud.ibm.com")
+              .templateIdInvitation(templateInvitationID)
+              .templateIdNotification(templateNotificationID)
               .subscribed(customSubscribed)
               .unsubscribed(customUnSubscribed)
               .build();
@@ -2808,7 +2981,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1RSendNotifications() throws Exception {
+  public void test1USendNotifications() throws Exception {
     try {
       // begin-send_notifications
       String notificationDevices = "{\"platforms\":[\"push_ios\",\"push_android\",\"push_chrome\",\"push_firefox\", \"push_huawei\"]}";
@@ -2852,7 +3025,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1SSendBulkNotifications() throws Exception {
+  public void test1VSendBulkNotifications() throws Exception {
     try {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
@@ -2920,7 +3093,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1TDeleteSubscription() throws Exception {
+  public void test1WDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -2972,7 +3145,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1UDeleteTopic() throws Exception {
+  public void test1XDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -3010,7 +3183,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1VDeleteDestination() throws Exception {
+  public void test1YDeleteDestination() throws Exception {
     try {
 
       List<String> destinations = new ArrayList<>();
@@ -3061,7 +3234,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1WDeleteSource() throws Exception {
+  public void test1ZDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -3091,7 +3264,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1XListIntegrations() throws Exception {
+  public void test2AListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -3118,7 +3291,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1YGetIntegration() throws Exception {
+  public void test2BGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -3138,7 +3311,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1ZUpdateIntegration() throws Exception {
+  public void test2CUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint("https://private.us-south.kms.cloud.ibm.com")
@@ -3159,6 +3332,31 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test2DDeleteTemplate() throws Exception {
+    try {
+     List<String> templates = new ArrayList<>();
+     templates.add(templateInvitationID);
+     templates.add(templateNotificationID);
+
+      for (String template : templates) {
+        DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()
+                .instanceId(instanceId)
+                .id(template)
+                .build();
+
+        // Invoke operation
+        Response<Void> response = service.deleteTemplate(deleteTemplateOptions).execute();
+        // Validate response
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), 204);
+      }
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));

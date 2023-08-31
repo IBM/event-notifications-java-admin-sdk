@@ -24,11 +24,13 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDesti
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
@@ -38,6 +40,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinat
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationGetResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationList;
@@ -46,6 +49,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegra
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTemplatesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
@@ -58,12 +62,16 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceRespo
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Template;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
@@ -489,6 +497,158 @@ public class EventNotifications extends BaseService {
   }
 
   /**
+   * Create a new Template.
+   *
+   * Create a new Template.
+   *
+   * @param createTemplateOptions the {@link CreateTemplateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link TemplateResponse}
+   */
+  public ServiceCall<TemplateResponse> createTemplate(CreateTemplateOptions createTemplateOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createTemplateOptions,
+      "createTemplateOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", createTemplateOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/templates", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "createTemplate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createTemplateOptions.name());
+    contentJson.addProperty("type", createTemplateOptions.type());
+    contentJson.add("params", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createTemplateOptions.params()));
+    if (createTemplateOptions.description() != null) {
+      contentJson.addProperty("description", createTemplateOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<TemplateResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TemplateResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List all templates.
+   *
+   * List all Templates.
+   *
+   * @param listTemplatesOptions the {@link ListTemplatesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link TemplateList}
+   */
+  public ServiceCall<TemplateList> listTemplates(ListTemplatesOptions listTemplatesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listTemplatesOptions,
+      "listTemplatesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", listTemplatesOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/templates", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listTemplates");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listTemplatesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listTemplatesOptions.limit()));
+    }
+    if (listTemplatesOptions.offset() != null) {
+      builder.query("offset", String.valueOf(listTemplatesOptions.offset()));
+    }
+    if (listTemplatesOptions.search() != null) {
+      builder.query("search", String.valueOf(listTemplatesOptions.search()));
+    }
+    ResponseConverter<TemplateList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TemplateList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get details of a Template.
+   *
+   * Get details of a Template.
+   *
+   * @param getTemplateOptions the {@link GetTemplateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Template}
+   */
+  public ServiceCall<Template> getTemplate(GetTemplateOptions getTemplateOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getTemplateOptions,
+      "getTemplateOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getTemplateOptions.instanceId());
+    pathParamsMap.put("id", getTemplateOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/templates/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getTemplate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Template> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Template>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update details of a Template.
+   *
+   * Update details of a Template.
+   *
+   * @param updateTemplateOptions the {@link UpdateTemplateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Template}
+   */
+  public ServiceCall<Template> updateTemplate(UpdateTemplateOptions updateTemplateOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateTemplateOptions,
+      "updateTemplateOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateTemplateOptions.instanceId());
+    pathParamsMap.put("id", updateTemplateOptions.id());
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/templates/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateTemplate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateTemplateOptions.name() != null) {
+      contentJson.addProperty("name", updateTemplateOptions.name());
+    }
+    if (updateTemplateOptions.description() != null) {
+      contentJson.addProperty("description", updateTemplateOptions.description());
+    }
+    if (updateTemplateOptions.type() != null) {
+      contentJson.addProperty("type", updateTemplateOptions.type());
+    }
+    if (updateTemplateOptions.params() != null) {
+      contentJson.add("params", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateTemplateOptions.params()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Template> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Template>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a Template.
+   *
+   * Delete a Template.
+   *
+   * @param deleteTemplateOptions the {@link DeleteTemplateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteTemplate(DeleteTemplateOptions deleteTemplateOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteTemplateOptions,
+      "deleteTemplateOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", deleteTemplateOptions.instanceId());
+    pathParamsMap.put("id", deleteTemplateOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/templates/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "deleteTemplate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Create a new Destination.
    *
    * Create a new Destination.
@@ -700,9 +860,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Verify status of spf or dkim records of custom email.
+   * Verify SPF and DKIM records of custom domain.
    *
-   * Verify status of spf or dkim records of custom email.
+   * Verify SPF and DKIM records of custom domain.
    *
    * @param updateVerifyDestinationOptions the {@link UpdateVerifyDestinationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link VerificationResponse}

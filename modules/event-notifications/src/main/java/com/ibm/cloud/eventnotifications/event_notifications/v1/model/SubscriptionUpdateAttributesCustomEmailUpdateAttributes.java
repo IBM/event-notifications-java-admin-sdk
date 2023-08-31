@@ -30,6 +30,8 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributes extends Sub
     private String fromEmail;
     private UpdateAttributesSubscribed subscribed;
     private UpdateAttributesUnsubscribed unsubscribed;
+    private String templateIdNotification;
+    private String templateIdInvitation;
 
     /**
      * Instantiates a new Builder from an existing SubscriptionUpdateAttributesCustomEmailUpdateAttributes instance.
@@ -45,6 +47,8 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributes extends Sub
       this.fromEmail = subscriptionUpdateAttributesCustomEmailUpdateAttributes.fromEmail;
       this.subscribed = subscriptionUpdateAttributesCustomEmailUpdateAttributes.subscribed;
       this.unsubscribed = subscriptionUpdateAttributesCustomEmailUpdateAttributes.unsubscribed;
+      this.templateIdNotification = subscriptionUpdateAttributesCustomEmailUpdateAttributes.templateIdNotification;
+      this.templateIdInvitation = subscriptionUpdateAttributesCustomEmailUpdateAttributes.templateIdInvitation;
     }
 
     /**
@@ -166,6 +170,28 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributes extends Sub
       this.unsubscribed = unsubscribed;
       return this;
     }
+
+    /**
+     * Set the templateIdNotification.
+     *
+     * @param templateIdNotification the templateIdNotification
+     * @return the SubscriptionUpdateAttributesCustomEmailUpdateAttributes builder
+     */
+    public Builder templateIdNotification(String templateIdNotification) {
+      this.templateIdNotification = templateIdNotification;
+      return this;
+    }
+
+    /**
+     * Set the templateIdInvitation.
+     *
+     * @param templateIdInvitation the templateIdInvitation
+     * @return the SubscriptionUpdateAttributesCustomEmailUpdateAttributes builder
+     */
+    public Builder templateIdInvitation(String templateIdInvitation) {
+      this.templateIdInvitation = templateIdInvitation;
+      return this;
+    }
   }
 
   protected SubscriptionUpdateAttributesCustomEmailUpdateAttributes() { }
@@ -189,6 +215,8 @@ public class SubscriptionUpdateAttributesCustomEmailUpdateAttributes extends Sub
     fromEmail = builder.fromEmail;
     subscribed = builder.subscribed;
     unsubscribed = builder.unsubscribed;
+    templateIdNotification = builder.templateIdNotification;
+    templateIdInvitation = builder.templateIdInvitation;
   }
 
   /**
