@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.1...0.2.2) (2023-08-31)
+
+
+### Bug Fixes
+
+* adds template support ([#37](https://github.com/IBM/event-notifications-java-admin-sdk/issues/37)) ([39106c1](https://github.com/IBM/event-notifications-java-admin-sdk/commit/39106c1297f885ba955914efcad8b240ed867548))
+
 ## [0.2.1](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.0...0.2.1) (2023-08-02)
 
 
