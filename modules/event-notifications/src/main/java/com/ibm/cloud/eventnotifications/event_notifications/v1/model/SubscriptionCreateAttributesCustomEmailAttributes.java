@@ -31,6 +31,8 @@ public class SubscriptionCreateAttributesCustomEmailAttributes extends Subscript
     private String replyToName;
     private String fromName;
     private String fromEmail;
+    private String templateIdNotification;
+    private String templateIdInvitation;
 
     /**
      * Instantiates a new Builder from an existing SubscriptionCreateAttributesCustomEmailAttributes instance.
@@ -44,6 +46,8 @@ public class SubscriptionCreateAttributesCustomEmailAttributes extends Subscript
       this.replyToName = subscriptionCreateAttributesCustomEmailAttributes.replyToName;
       this.fromName = subscriptionCreateAttributesCustomEmailAttributes.fromName;
       this.fromEmail = subscriptionCreateAttributesCustomEmailAttributes.fromEmail;
+      this.templateIdNotification = subscriptionCreateAttributesCustomEmailAttributes.templateIdNotification;
+      this.templateIdInvitation = subscriptionCreateAttributesCustomEmailAttributes.templateIdInvitation;
     }
 
     /**
@@ -162,6 +166,28 @@ public class SubscriptionCreateAttributesCustomEmailAttributes extends Subscript
       this.fromEmail = fromEmail;
       return this;
     }
+
+    /**
+     * Set the templateIdNotification.
+     *
+     * @param templateIdNotification the templateIdNotification
+     * @return the SubscriptionCreateAttributesCustomEmailAttributes builder
+     */
+    public Builder templateIdNotification(String templateIdNotification) {
+      this.templateIdNotification = templateIdNotification;
+      return this;
+    }
+
+    /**
+     * Set the templateIdInvitation.
+     *
+     * @param templateIdInvitation the templateIdInvitation
+     * @return the SubscriptionCreateAttributesCustomEmailAttributes builder
+     */
+    public Builder templateIdInvitation(String templateIdInvitation) {
+      this.templateIdInvitation = templateIdInvitation;
+      return this;
+    }
   }
 
   protected SubscriptionCreateAttributesCustomEmailAttributes() { }
@@ -185,6 +211,8 @@ public class SubscriptionCreateAttributesCustomEmailAttributes extends Subscript
     replyToName = builder.replyToName;
     fromName = builder.fromName;
     fromEmail = builder.fromEmail;
+    templateIdNotification = builder.templateIdNotification;
+    templateIdInvitation = builder.templateIdInvitation;
   }
 
   /**

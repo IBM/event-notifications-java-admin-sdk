@@ -42,6 +42,10 @@ public class SubscriptionCreateAttributes extends GenericModel {
   protected String fromName;
   @SerializedName("from_email")
   protected String fromEmail;
+  @SerializedName("template_id_notification")
+  protected String templateIdNotification;
+  @SerializedName("template_id_invitation")
+  protected String templateIdInvitation;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
@@ -117,6 +121,28 @@ public class SubscriptionCreateAttributes extends GenericModel {
    */
   public String fromEmail() {
     return fromEmail;
+  }
+
+  /**
+   * Gets the templateIdNotification.
+   *
+   * The templete id for notification.
+   *
+   * @return the templateIdNotification
+   */
+  public String templateIdNotification() {
+    return templateIdNotification;
+  }
+
+  /**
+   * Gets the templateIdInvitation.
+   *
+   * The templete id for invitation.
+   *
+   * @return the templateIdInvitation
+   */
+  public String templateIdInvitation() {
+    return templateIdInvitation;
   }
 
   /**

@@ -91,6 +91,8 @@ public class EventNotificationsExamples {
   public static String cosBucketName = "";
   public static String cosInstanceID = "";
   public static String cosEndPoint = "";
+  public static String templateInvitationID = "";
+  public static String templateNotificationID = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -356,7 +358,11 @@ public class EventNotificationsExamples {
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
               .url("https://gcm.com")
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() { { put("gcm_apikey", "testString"); } })
+              .customHeaders(new java.util.HashMap<String, String>() {
+                {
+                  put("gcm_apikey", "testString");
+                }
+              })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("gcm_apikey")))
               .build();
 
@@ -639,7 +645,11 @@ public class EventNotificationsExamples {
       DestinationConfigOneOfWebhookDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
               .url(codeEngineURL)
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
+              .customHeaders(new java.util.HashMap<String, String>() {
+                {
+                  put("authorization", "testString");
+                }
+              })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
               .build();
 
@@ -805,6 +815,25 @@ public class EventNotificationsExamples {
     }
 
     try {
+      System.out.println("getTemplate() result:");
+      // begin-get_template
+      GetTemplateOptions getTemplateOptions = new GetTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(templateInvitationID)
+              .build();
+
+      // Invoke operation
+      Response<Template> response = eventNotificationsService.getTemplate(getTemplateOptions).execute();
+      Template template = response.getResult();
+
+      System.out.println(template);
+      // end-get_template
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       System.out.println("updateDestination() result:");
       // begin-update_destination
 
@@ -836,7 +865,11 @@ public class EventNotificationsExamples {
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
               .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
+              .customHeaders(new java.util.HashMap<String, String>() {
+                {
+                  put("authorization", "testString");
+                }
+              })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
               .build();
 
@@ -1101,7 +1134,11 @@ public class EventNotificationsExamples {
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
               .url(codeEngineURL)
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization1", "testString"); } })
+              .customHeaders(new java.util.HashMap<String, String>() {
+                {
+                  put("authorization1", "testString");
+                }
+              })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization1")))
               .build();
 
@@ -1230,6 +1267,48 @@ public class EventNotificationsExamples {
     }
 
     try {
+      System.out.println("createTemplate() result:");
+      // begin-create_template
+      String name = "template name";
+      String description = "template description";
+
+      TemplateConfig templateConfig = new TemplateConfig.Builder()
+              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .subject("Hi this is invitation for invitation message")
+              .build();
+
+      CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_INVITATION)
+              .params(templateConfig)
+              .build();
+
+      Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
+      TemplateResponse invitationTemplateResult = invitationResponse.getResult();
+
+      templateInvitationID = invitationTemplateResult.getId();
+
+      CreateTemplateOptions createTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_NOTIFICATION)
+              .params(templateConfig)
+              .build();
+
+      Response<TemplateResponse> notificationResponse = eventNotificationsService.createTemplate(createTemplateNotificationOptions).execute();
+      TemplateResponse notificationTemplateResult = notificationResponse.getResult();
+
+      templateNotificationID = notificationTemplateResult.getId();
+      // end-create_template
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       System.out.println("createSubscription() result:");
       // begin-create_subscription
 
@@ -1297,9 +1376,9 @@ public class EventNotificationsExamples {
               .description(emailDescription)
               .build();
 
-     Response<Subscription> emailResponse = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
+      Response<Subscription> emailResponse = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
 
-     Subscription emailSubscription = emailResponse.getResult();
+      Subscription emailSubscription = emailResponse.getResult();
       System.out.println(emailSubscription);
       subscriptionId2 = emailSubscription.getId();
 
@@ -1373,6 +1452,8 @@ public class EventNotificationsExamples {
               .replyToMail("abc@gmail.com")
               .replyToName("abc")
               .fromName("IBM")
+              .templateIdInvitation(templateInvitationID)
+              .templateIdNotification(templateNotificationID)
               .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
               .build();
 
@@ -1392,6 +1473,36 @@ public class EventNotificationsExamples {
       subscriptionId6 = customSubscriptionResult.getId();
       // end-create_subscription
 
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("listTemplates() result:");
+      // begin-list_templates
+      boolean moreResults = true;
+      int limit = 1;
+      int offset = 0;
+      while (moreResults) {
+        // begin-list_templates
+        ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
+                .instanceId(instanceId)
+                .offset(offset)
+                .limit(limit)
+                .search(search)
+                .build();
+
+        // Invoke operation
+        Response<TemplateList> response = eventNotificationsService.listTemplates(listTemplatesOptions).execute();
+        // end-list_templates
+        // Validate response
+        TemplateList templateListResult = response.getResult();
+        if (templateListResult.getTotalCount() <= offset) {
+          moreResults = false;
+        }
+        offset += 1;
+      }
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1427,6 +1538,50 @@ public class EventNotificationsExamples {
 
       System.out.println(subscription);
       // end-get_subscription
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("updateTemplate() result:");
+      // begin-update_template
+      String name = "template name";
+      String description = "template description";
+
+      TemplateConfig templateConfig = new TemplateConfig.Builder()
+              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .subject("Hi this is invitation for invitation message")
+              .build();
+
+      UpdateTemplateOptions updateTemplateInvitationOptions = new UpdateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(templateInvitationID)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_INVITATION)
+              .params(templateConfig)
+              .build();
+
+      Response<Template> invitationResponse = eventNotificationsService.updateTemplate(updateTemplateInvitationOptions).execute();
+
+      Template invitationTemplateResult = invitationResponse.getResult();
+      System.out.println(invitationTemplateResult);
+
+      UpdateTemplateOptions updateTemplateNotificationOptions = new UpdateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(templateNotificationID)
+              .name(name)
+              .description(description)
+              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_NOTIFICATION)
+              .params(templateConfig)
+              .build();
+
+      Response<Template> notificationResponse = eventNotificationsService.updateTemplate(updateTemplateNotificationOptions).execute();
+
+      Template notificationTemplateResult = notificationResponse.getResult();
+      // end-update_template
+      System.out.println(notificationTemplateResult);
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1619,6 +1774,8 @@ public class EventNotificationsExamples {
               .replyToName("US News")
               .fromName("IBM")
               .fromEmail("test@abc.event-notifications.test.cloud.ibm.com")
+              .templateIdInvitation(templateInvitationID)
+              .templateIdNotification(templateNotificationID)
               .subscribed(customSubscribed)
               .unsubscribed(customUnSubscribed)
               .build();
@@ -1855,5 +2012,27 @@ public class EventNotificationsExamples {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
 
+    try {
+      List<String> templates = new ArrayList<>();
+      templates.add(templateInvitationID);
+      templates.add(templateNotificationID);
+
+      for (String template : templates) {
+        // begin-delete_template
+        DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()
+                .instanceId(instanceId)
+                .id(template)
+                .build();
+
+        // Invoke operation
+        Response<Void> response = eventNotificationsService.deleteTemplate(deleteTemplateOptions).execute();
+        // end-delete_template
+        System.out.printf("deleteTemplate() response status code: %d%n", response.getStatusCode());
+      }
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+
+    }
   }
 }

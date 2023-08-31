@@ -47,6 +47,10 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected String fromName;
   @SerializedName("from_email")
   protected String fromEmail;
+  @SerializedName("template_id_notification")
+  protected String templateIdNotification;
+  @SerializedName("template_id_invitation")
+  protected String templateIdInvitation;
   @SerializedName("signing_enabled")
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
@@ -146,6 +150,28 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public String getFromEmail() {
     return this.fromEmail;
+  }
+
+  /**
+   * Gets the templateIdNotification.
+   *
+   * The templete id for notification.
+   *
+   * @return the templateIdNotification
+   */
+  public String getTemplateIdNotification() {
+    return this.templateIdNotification;
+  }
+
+  /**
+   * Gets the templateIdInvitation.
+   *
+   * The templete id for invitation.
+   *
+   * @return the templateIdInvitation
+   */
+  public String getTemplateIdInvitation() {
+    return this.templateIdInvitation;
   }
 
   /**
