@@ -22,16 +22,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class TemplateResponse extends GenericModel {
 
-  /**
-   * Template type.
-   */
-  public interface Type {
-    /** smtp_custom.notification. */
-    String SMTP_CUSTOM_NOTIFICATION = "smtp_custom.notification";
-    /** smtp_custom.invitation. */
-    String SMTP_CUSTOM_INVITATION = "smtp_custom.invitation";
-  }
-
   protected String id;
   protected String name;
   protected String description;
@@ -78,7 +68,7 @@ public class TemplateResponse extends GenericModel {
   /**
    * Gets the type.
    *
-   * Template type.
+   * The type of template.
    *
    * @return the type
    */

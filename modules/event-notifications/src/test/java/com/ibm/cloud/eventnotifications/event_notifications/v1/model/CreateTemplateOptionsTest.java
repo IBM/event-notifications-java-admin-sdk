@@ -42,13 +42,13 @@ public class CreateTemplateOptionsTest {
     CreateTemplateOptions createTemplateOptionsModel = new CreateTemplateOptions.Builder()
       .instanceId("testString")
       .name("testString")
-      .type("smtp_custom.notification")
+      .type("testString")
       .params(templateConfigModel)
       .description("testString")
       .build();
     assertEquals(createTemplateOptionsModel.instanceId(), "testString");
     assertEquals(createTemplateOptionsModel.name(), "testString");
-    assertEquals(createTemplateOptionsModel.type(), "smtp_custom.notification");
+    assertEquals(createTemplateOptionsModel.type(), "testString");
     assertEquals(createTemplateOptionsModel.params(), templateConfigModel);
     assertEquals(createTemplateOptionsModel.description(), "testString");
   }

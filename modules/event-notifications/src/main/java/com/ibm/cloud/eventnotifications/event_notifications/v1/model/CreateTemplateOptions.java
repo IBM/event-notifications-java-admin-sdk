@@ -19,16 +19,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class CreateTemplateOptions extends GenericModel {
 
-  /**
-   * The type of template.
-   */
-  public interface Type {
-    /** smtp_custom.notification. */
-    String SMTP_CUSTOM_NOTIFICATION = "smtp_custom.notification";
-    /** smtp_custom.invitation. */
-    String SMTP_CUSTOM_INVITATION = "smtp_custom.invitation";
-  }
-
   protected String instanceId;
   protected String name;
   protected String type;

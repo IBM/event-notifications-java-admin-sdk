@@ -1804,7 +1804,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .instanceId(instanceId)
               .name(name)
               .description(description)
-              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_INVITATION)
+              .type("smtp_custom.invitation")
               .params(templateConfig)
               .build();
 
@@ -1824,7 +1824,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .instanceId(instanceId)
               .name(name)
               .description(description)
-              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_NOTIFICATION)
+              .type("smtp_custom.notification")
               .params(templateConfig)
               .build();
 
@@ -1883,7 +1883,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .id(templateInvitationID)
               .name(name)
               .description(description)
-              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_INVITATION)
+              .type("smtp_custom.invitation")
               .params(templateConfig)
               .build();
 
@@ -1902,7 +1902,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .id(templateNotificationID)
               .name(name)
               .description(description)
-              .type(CreateTemplateOptions.Type.SMTP_CUSTOM_NOTIFICATION)
+              .type("smtp_custom.notification")
               .params(templateConfig)
               .build();
 
@@ -2935,7 +2935,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .replyToMail("abc@gmail.com")
               .replyToName("US News")
               .fromName("IBM")
-              .fromEmail("test@shwin.event-notifications.test.cloud.ibm.com")
+              .fromEmail("test@test.event-notifications.test.cloud.ibm.com")
               .templateIdInvitation(templateInvitationID)
               .templateIdNotification(templateNotificationID)
               .subscribed(customSubscribed)
@@ -2989,6 +2989,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String apnsJsonString = "{\"aps\":{\"alert\":{\"title\":\"Hello!! GameRequest\",\"body\":\"Bob wants to play poker\",\"action-loc-key\":\"PLAY\"},\"badge\":5}}";
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
       String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
+      String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
+      String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
 
       NotificationCreate body = new NotificationCreate.Builder()
               .id(instanceId)
@@ -2999,6 +3001,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .type("com.acme.offer:new")
               .time(new java.util.Date())
               .ibmenpushto(notificationDevices)
+              .ibmensubject("certificate expire")
+              .ibmenmailto(mailTo)
+              .ibmenhtmlbody(htmlBody)
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
               .ibmenhuaweibody(huaweiJsonString)
