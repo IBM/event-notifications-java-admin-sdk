@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.2...0.2.3) (2023-09-27)
+
+
+### Bug Fixes
+
+* custom email notification payload update ([#38](https://github.com/IBM/event-notifications-java-admin-sdk/issues/38)) ([eef6703](https://github.com/IBM/event-notifications-java-admin-sdk/commit/eef6703d5b8bc92da80051522a3e7ca323261bc5))
+
 ## [0.2.2](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.1...0.2.2) (2023-08-31)
 
 
