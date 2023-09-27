@@ -196,6 +196,9 @@ public class EventNotificationsTest {
       .ibmensourceid("testString")
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
+      .ibmensubject("testString")
+      .ibmenmailto("testString")
+      .ibmenhtmlbody("testString")
       .subject("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
@@ -275,6 +278,9 @@ public class EventNotificationsTest {
       .ibmensourceid("testString")
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
+      .ibmensubject("testString")
+      .ibmenmailto("testString")
+      .ibmenhtmlbody("testString")
       .subject("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
@@ -1034,7 +1040,7 @@ public class EventNotificationsTest {
   @Test
   public void testCreateTemplateWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"params\": {\"body\": \"body\", \"subject\": \"subject\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"params\": {\"body\": \"body\", \"subject\": \"subject\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createTemplatePath = "/v1/instances/testString/templates";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1051,7 +1057,7 @@ public class EventNotificationsTest {
     CreateTemplateOptions createTemplateOptionsModel = new CreateTemplateOptions.Builder()
       .instanceId("testString")
       .name("testString")
-      .type("smtp_custom.notification")
+      .type("testString")
       .params(templateConfigModel)
       .description("testString")
       .build();
@@ -1095,7 +1101,7 @@ public class EventNotificationsTest {
   @Test
   public void testListTemplatesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"templates\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"templates\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listTemplatesPath = "/v1/instances/testString/templates";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1152,8 +1158,8 @@ public class EventNotificationsTest {
   @Test
   public void testListTemplatesWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
-    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1187,8 +1193,8 @@ public class EventNotificationsTest {
   @Test
   public void testListTemplatesWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
-    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"smtp_custom.notification\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1218,7 +1224,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetTemplateWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
     String getTemplatePath = "/v1/instances/testString/templates/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1270,7 +1276,7 @@ public class EventNotificationsTest {
   @Test
   public void testUpdateTemplateWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"smtp_custom.notification\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
     String updateTemplatePath = "/v1/instances/testString/templates/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1289,7 +1295,7 @@ public class EventNotificationsTest {
       .id("testString")
       .name("testString")
       .description("testString")
-      .type("smtp_custom.notification")
+      .type("testString")
       .params(templateConfigModel)
       .build();
 

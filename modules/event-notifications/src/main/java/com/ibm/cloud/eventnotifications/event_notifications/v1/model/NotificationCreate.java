@@ -43,6 +43,12 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmendefaultshort;
   @SerializedName("ibmendefaultlong")
   protected String ibmendefaultlong;
+  @SerializedName("ibmensubject")
+  protected String ibmensubject;
+  @SerializedName("ibmenmailto")
+  protected String ibmenmailto;
+  @SerializedName("ibmenhtmlbody")
+  protected String ibmenhtmlbody;
   @SerializedName("subject")
   protected String subject;
   @SerializedName("data")
@@ -87,6 +93,9 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmensourceid;
     private String ibmendefaultshort;
     private String ibmendefaultlong;
+    private String ibmensubject;
+    private String ibmenmailto;
+    private String ibmenhtmlbody;
     private String subject;
     private Map<String, Object> data;
     private String datacontenttype;
@@ -117,6 +126,9 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmensourceid = notificationCreate.ibmensourceid;
       this.ibmendefaultshort = notificationCreate.ibmendefaultshort;
       this.ibmendefaultlong = notificationCreate.ibmendefaultlong;
+      this.ibmensubject = notificationCreate.ibmensubject;
+      this.ibmenmailto = notificationCreate.ibmenmailto;
+      this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
       this.data = notificationCreate.data;
       this.datacontenttype = notificationCreate.datacontenttype;
@@ -265,6 +277,39 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public Builder ibmendefaultlong(String ibmendefaultlong) {
       this.ibmendefaultlong = ibmendefaultlong;
+      return this;
+    }
+
+    /**
+     * Set the ibmensubject.
+     *
+     * @param ibmensubject the ibmensubject
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmensubject(String ibmensubject) {
+      this.ibmensubject = ibmensubject;
+      return this;
+    }
+
+    /**
+     * Set the ibmenmailto.
+     *
+     * @param ibmenmailto the ibmenmailto
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenmailto(String ibmenmailto) {
+      this.ibmenmailto = ibmenmailto;
+      return this;
+    }
+
+    /**
+     * Set the ibmenhtmlbody.
+     *
+     * @param ibmenhtmlbody the ibmenhtmlbody
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenhtmlbody(String ibmenhtmlbody) {
+      this.ibmenhtmlbody = ibmenhtmlbody;
       return this;
     }
 
@@ -453,6 +498,9 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmensourceid = builder.ibmensourceid;
     ibmendefaultshort = builder.ibmendefaultshort;
     ibmendefaultlong = builder.ibmendefaultlong;
+    ibmensubject = builder.ibmensubject;
+    ibmenmailto = builder.ibmenmailto;
+    ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
     data = builder.data;
     datacontenttype = builder.datacontenttype;
@@ -656,6 +704,66 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmendefaultlong(final String ibmendefaultlong) {
     this.ibmendefaultlong = ibmendefaultlong;
+  }
+
+  /**
+   * Gets the ibmensubject.
+   *
+   * The subject of the notification.
+   *
+   * @return the ibmensubject
+   */
+  public String getIbmensubject() {
+    return this.ibmensubject;
+  }
+
+  /**
+   * Sets the ibmensubject.
+   *
+   * @param ibmensubject the new ibmensubject
+   */
+  public void setIbmensubject(final String ibmensubject) {
+    this.ibmensubject = ibmensubject;
+  }
+
+  /**
+   * Gets the ibmenmailto.
+   *
+   * The email id string.
+   *
+   * @return the ibmenmailto
+   */
+  public String getIbmenmailto() {
+    return this.ibmenmailto;
+  }
+
+  /**
+   * Sets the ibmenmailto.
+   *
+   * @param ibmenmailto the new ibmenmailto
+   */
+  public void setIbmenmailto(final String ibmenmailto) {
+    this.ibmenmailto = ibmenmailto;
+  }
+
+  /**
+   * Gets the ibmenhtmlbody.
+   *
+   * The html body of notification.
+   *
+   * @return the ibmenhtmlbody
+   */
+  public String getIbmenhtmlbody() {
+    return this.ibmenhtmlbody;
+  }
+
+  /**
+   * Sets the ibmenhtmlbody.
+   *
+   * @param ibmenhtmlbody the new ibmenhtmlbody
+   */
+  public void setIbmenhtmlbody(final String ibmenhtmlbody) {
+    this.ibmenhtmlbody = ibmenhtmlbody;
   }
 
   /**

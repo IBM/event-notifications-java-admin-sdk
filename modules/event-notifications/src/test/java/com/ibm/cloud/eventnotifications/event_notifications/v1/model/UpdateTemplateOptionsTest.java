@@ -44,14 +44,14 @@ public class UpdateTemplateOptionsTest {
       .id("testString")
       .name("testString")
       .description("testString")
-      .type("smtp_custom.notification")
+      .type("testString")
       .params(templateConfigModel)
       .build();
     assertEquals(updateTemplateOptionsModel.instanceId(), "testString");
     assertEquals(updateTemplateOptionsModel.id(), "testString");
     assertEquals(updateTemplateOptionsModel.name(), "testString");
     assertEquals(updateTemplateOptionsModel.description(), "testString");
-    assertEquals(updateTemplateOptionsModel.type(), "smtp_custom.notification");
+    assertEquals(updateTemplateOptionsModel.type(), "testString");
     assertEquals(updateTemplateOptionsModel.params(), templateConfigModel);
   }
 

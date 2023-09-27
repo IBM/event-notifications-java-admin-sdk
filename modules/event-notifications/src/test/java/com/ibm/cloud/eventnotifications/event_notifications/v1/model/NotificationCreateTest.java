@@ -42,6 +42,9 @@ public class NotificationCreateTest {
       .ibmensourceid("testString")
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
+      .ibmensubject("testString")
+      .ibmenmailto("testString")
+      .ibmenhtmlbody("testString")
       .subject("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
@@ -66,6 +69,9 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModel.getIbmensourceid(), "testString");
     assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
     assertEquals(notificationCreateModel.getIbmendefaultlong(), "testString");
+    assertEquals(notificationCreateModel.getIbmensubject(), "testString");
+    assertEquals(notificationCreateModel.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
     assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
@@ -94,6 +100,9 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModelNew.getIbmensourceid(), "testString");
     assertEquals(notificationCreateModelNew.getIbmendefaultshort(), "testString");
     assertEquals(notificationCreateModelNew.getIbmendefaultlong(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmensubject(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModelNew.getSubject(), "testString");
     assertEquals(notificationCreateModelNew.getData().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(notificationCreateModelNew.getDatacontenttype(), "application/json");
