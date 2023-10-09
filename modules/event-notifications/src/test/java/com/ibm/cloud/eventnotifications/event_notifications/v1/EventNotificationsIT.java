@@ -101,6 +101,11 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String cosEndPoint = "";
   public static String templateInvitationID = "";
   public static String templateNotificationID = "";
+  public static String slackURL = "";
+  public static String teamsURL = "";
+  public static String pagerDutyApiKey = "";
+  public static String pagerDutyRoutingKey = "";
+
 
 
   /**
@@ -145,6 +150,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     cosBucketName = config.get("COS_BUCKET_NAME");
     cosEndPoint = config.get("COS_ENDPOINT");
     cosInstanceID = config.get("COS_INSTANCE");
+    slackURL = config.get("SLACK_URL");
+    teamsURL = config.get("MS_TEAMS_URL");
+    pagerDutyApiKey = config.get("PD_API_KEY");
+    pagerDutyRoutingKey = config.get("PD_ROUTING_KEY");
 
     service.enableRetries(4, 30);
 
@@ -632,7 +641,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId3 = destinationFCMResponseResult.getId();
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
-              .url("https://api.slack.com/myslack")
+              .url(slackURL)
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -710,7 +719,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinationId5 = safariDestinationResponseResult.getId();
 
       DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
-              .url("https://teams.microsoft.com")
+              .url(teamsURL)
               .build();
 
       DestinationConfig destinationMsTeamsConfigModel = new DestinationConfig.Builder()
@@ -852,8 +861,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinationId9 = destinationFirefoxResponseResult.getId();
 
       DestinationConfigOneOfPagerDutyDestinationConfig pdDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
-              .apiKey("sdzCTz8Bdwc3NcsdcUVs72A")
-              .routingKey("asjweioweioeweioww")
+              .apiKey(pagerDutyApiKey)
+              .routingKey(pagerDutyRoutingKey)
               .build();
 
       DestinationConfig pagerDutyDestinationConfigModel = new DestinationConfig.Builder()
@@ -1303,7 +1312,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
 
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
-              .url("https://api.slack.com/myslack")
+              .url(slackURL)
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -1376,7 +1385,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(safariDestinationResult.getName(), safName);
 
       DestinationConfigOneOfMSTeamsDestinationConfig msTeamsDestinationConfig= new DestinationConfigOneOfMSTeamsDestinationConfig.Builder()
-              .url("https://teams.microsoft.com")
+              .url(teamsURL)
               .build();
 
       DestinationConfig destinationMsTeamsConfigModel = new DestinationConfig.Builder()
@@ -1509,8 +1518,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(firefoxDestinationResult.getName(), firefoxName);
 
       DestinationConfigOneOfPagerDutyDestinationConfig pagerDutyDestinationConfig = new DestinationConfigOneOfPagerDutyDestinationConfig.Builder()
-              .apiKey("erererTz8Bdwc3NcUVs72A")
-              .routingKey("eweewiu329489348934")
+              .apiKey(pagerDutyApiKey)
+              .routingKey(pagerDutyRoutingKey)
               .build();
 
       DestinationConfig destinationPagerDutyConfigModel = new DestinationConfig.Builder()
@@ -3098,7 +3107,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1WDeleteSubscription() throws Exception {
+  public void test1WTestDestination() {
+    try {
+      List<String> destinations = new ArrayList<>();
+      destinations.add(destinationId4);
+      destinations.add(destinationId6);
+      destinations.add(destinationId10);
+      destinations.add(destinationId14);
+
+      for (String destination :
+              destinations) {
+        TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
+                .instanceId(instanceId)
+                .id(destination)
+                .build();
+
+        Response<TestDestinationResponse> response = service.testDestination(testDestinationOptionsModel).execute();
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), 200);
+      }
+    }
+    catch(ServiceResponseException e){
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+                e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      }
+  }
+
+  @Test
+  public void test1XDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -3150,7 +3186,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1XDeleteTopic() throws Exception {
+  public void test1YDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -3188,9 +3224,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1YDeleteDestination() throws Exception {
+  public void test1ZDeleteDestination() throws Exception {
     try {
-
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
       destinations.add(destinationId3);
@@ -3239,7 +3274,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1ZDeleteSource() throws Exception {
+  public void test2ADeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -3269,7 +3304,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2AListIntegrations() throws Exception {
+  public void test2BListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -3296,7 +3331,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2BGetIntegration() throws Exception {
+  public void test2CGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -3316,7 +3351,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2CUpdateIntegration() throws Exception {
+  public void test2DUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint("https://private.us-south.kms.cloud.ibm.com")
@@ -3344,7 +3379,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2DDeleteTemplate() throws Exception {
+  public void test2EDeleteTemplate() throws Exception {
     try {
      List<String> templates = new ArrayList<>();
      templates.add(templateInvitationID);
