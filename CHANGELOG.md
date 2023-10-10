@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.3...0.3.0) (2023-10-10)
+
+
+### Features
+
+* add test http destination support ([#39](https://github.com/IBM/event-notifications-java-admin-sdk/issues/39)) ([c086e82](https://github.com/IBM/event-notifications-java-admin-sdk/commit/c086e82b48c9304b8de48ef3b39c9f53d8c9afd0))
+
 ## [0.2.3](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.2...0.2.3) (2023-09-27)
 
 
