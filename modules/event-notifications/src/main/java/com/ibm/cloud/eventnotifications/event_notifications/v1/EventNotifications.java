@@ -65,6 +65,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Template;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TestDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TestDestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
@@ -645,6 +647,31 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Test a destination.
+   *
+   * Test a destination.
+   *
+   * @param testDestinationOptions the {@link TestDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link TestDestinationResponse}
+   */
+  public ServiceCall<TestDestinationResponse> testDestination(TestDestinationOptions testDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(testDestinationOptions,
+      "testDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", testDestinationOptions.instanceId());
+    pathParamsMap.put("id", testDestinationOptions.id());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/test", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "testDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<TestDestinationResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TestDestinationResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

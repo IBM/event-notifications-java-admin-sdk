@@ -122,6 +122,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateCon
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplatesPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TestDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TestDestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
@@ -1383,6 +1385,58 @@ public class EventNotificationsTest {
   public void testDeleteTemplateNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.deleteTemplate(null).execute();
+  }
+
+  // Test the testDestination operation with a valid options model parameter
+  @Test
+  public void testTestDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"status\": \"status\"}";
+    String testDestinationPath = "/v1/instances/testString/destinations/testString/test";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the TestDestinationOptions model
+    TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke testDestination() with a valid options model and verify the result
+    Response<TestDestinationResponse> response = eventNotificationsService.testDestination(testDestinationOptionsModel).execute();
+    assertNotNull(response);
+    TestDestinationResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, testDestinationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the testDestination operation with and without retries enabled
+  @Test
+  public void testTestDestinationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testTestDestinationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testTestDestinationWOptions();
+  }
+
+  // Test the testDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testTestDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.testDestination(null).execute();
   }
 
   // Test the createDestination operation with a valid options model parameter

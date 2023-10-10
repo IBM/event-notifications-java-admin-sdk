@@ -1849,6 +1849,22 @@ public class EventNotificationsExamples {
     }
 
     try {
+      // begin-test_destination
+      TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId4)
+              .build();
+
+      Response<TestDestinationResponse> response = eventNotificationsService.testDestination(testDestinationOptionsModel).execute();
+      TestDestinationResponse testDestinationResponse = response.getResult();
+      System.out.println(testDestinationResponse);
+      // end-test_destination
+      } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       // begin-delete_subscription
       DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
               .instanceId(instanceId)
