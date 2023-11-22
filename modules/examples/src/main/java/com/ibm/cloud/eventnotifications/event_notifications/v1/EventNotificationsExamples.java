@@ -65,6 +65,7 @@ public class EventNotificationsExamples {
   public static String destinationId14 = "";
   public static String destinationId15 = "";
   public static String destinationId16 = "";
+  public static String destinationId17 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -73,6 +74,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId4 = "";
   public static String subscriptionId5 = "";
   public static String subscriptionId6 = "";
+  public static String subscriptionId7 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -93,6 +95,9 @@ public class EventNotificationsExamples {
   public static String cosEndPoint = "";
   public static String templateInvitationID = "";
   public static String templateNotificationID = "";
+  public static String templateBody = "";
+  public static String cosIntegrationID = "";
+  public static String cosInstanceCRN = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -137,6 +142,8 @@ public class EventNotificationsExamples {
     cosBucketName = config.get("COS_BUCKET_NAME");
     cosEndPoint = config.get("COS_ENDPOINT");
     cosInstanceID = config.get("COS_INSTANCE");
+    templateBody = config.get("TEMPLATE_BODY");
+    cosInstanceCRN = config.get("COS_INSTANCE_CRN");
 
     try {
       System.out.println("createSources() result:");
@@ -755,6 +762,24 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCustomResponseResult = customResponse.getResult();
       System.out.println(destinationCustomResponseResult);
       destinationId16 = destinationCustomResponseResult.getId();
+
+      String customSMSName = "Custom SMS";
+      String customSMSTypeVal = "sms_custom";
+      String customSMSDescription = "Custom SMS Destination";
+
+      CreateDestinationOptions createCustomSMSDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .type(customSMSTypeVal)
+              .collectFailedEvents(false)
+              .description(customSMSDescription)
+              .build();
+
+      Response<DestinationResponse> customSMSResponse = eventNotificationsService.createDestination(createCustomSMSDestinationOptions).execute();
+      DestinationResponse destinationCustomSMSResponseResult = customSMSResponse.getResult();
+      System.out.println(destinationCustomSMSResponseResult);
+      destinationId17 = destinationCustomSMSResponseResult.getId();
+
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -1260,6 +1285,22 @@ public class EventNotificationsExamples {
       Response<VerificationResponse> dkimVerificationResponse = eventNotificationsService.updateVerifyDestination(updateDkimVerifyDestinationOptionsModel).execute();
       VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
       System.out.println(dkimResponseObj);
+
+      String customSMSName = "Custom SMS update";
+      String customSMSDescription = "Custom SMS Destination update";
+
+      UpdateDestinationOptions updateCustomSMSDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .id(destinationId17)
+              .collectFailedEvents(false)
+              .description(customSMSDescription)
+              .build();
+
+      Response<Destination> customSMSResponse = eventNotificationsService.updateDestination(updateCustomSMSDestinationOptions).execute();
+      Destination destinationCustomSMSResponseResult = customSMSResponse.getResult();
+      System.out.println(destinationCustomSMSResponseResult);
+
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1273,7 +1314,7 @@ public class EventNotificationsExamples {
       String description = "template description";
 
       TemplateConfig templateConfig = new TemplateConfig.Builder()
-              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .body(templateBody)
               .subject("Hi this is invitation for invitation message")
               .build();
 
@@ -1471,6 +1512,30 @@ public class EventNotificationsExamples {
       Response<Subscription> customResponse = eventNotificationsService.createSubscription(createCustomSubscriptionOptions).execute();
       Subscription customSubscriptionResult = customResponse.getResult();
       subscriptionId6 = customSubscriptionResult.getId();
+
+      ArrayList<String> customToNumber = new ArrayList<String>();
+      customToNumber.add("+911234567890");
+      customToNumber.add("+12267054625");
+      SubscriptionCreateAttributesCustomSMSAttributes subscriptionCreateCustomSMSAttributesModel = new SubscriptionCreateAttributesCustomSMSAttributes.Builder()
+              .invited(customToNumber)
+              .build();
+
+      String customSMSName = "subscription_custom_sms";
+      String customSMSDescription = "Subscription custom sms";
+
+      CreateSubscriptionOptions createCustomSMSSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .destinationId(destinationId17)
+              .topicId(topicId)
+              .attributes(subscriptionCreateCustomSMSAttributesModel)
+              .description(customSMSDescription)
+              .build();
+
+      Response<Subscription> customSMSResponse = eventNotificationsService.createSubscription(createCustomSMSSubscriptionOptions).execute();
+      Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
+      subscriptionId7 = customSMSSubscriptionResult.getId();
+
       // end-create_subscription
 
     } catch (ServiceResponseException e) {
@@ -1550,11 +1615,11 @@ public class EventNotificationsExamples {
       String description = "template description";
 
       TemplateConfig templateConfig = new TemplateConfig.Builder()
-              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .body(templateBody)
               .subject("Hi this is invitation for invitation message")
               .build();
 
-      UpdateTemplateOptions updateTemplateInvitationOptions = new UpdateTemplateOptions.Builder()
+      ReplaceTemplateOptions updateTemplateInvitationOptions = new ReplaceTemplateOptions.Builder()
               .instanceId(instanceId)
               .id(templateInvitationID)
               .name(name)
@@ -1563,12 +1628,12 @@ public class EventNotificationsExamples {
               .params(templateConfig)
               .build();
 
-      Response<Template> invitationResponse = eventNotificationsService.updateTemplate(updateTemplateInvitationOptions).execute();
+      Response<Template> invitationResponse = eventNotificationsService.replaceTemplate(updateTemplateInvitationOptions).execute();
 
       Template invitationTemplateResult = invitationResponse.getResult();
       System.out.println(invitationTemplateResult);
 
-      UpdateTemplateOptions updateTemplateNotificationOptions = new UpdateTemplateOptions.Builder()
+      ReplaceTemplateOptions updateTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
               .instanceId(instanceId)
               .id(templateNotificationID)
               .name(name)
@@ -1577,7 +1642,7 @@ public class EventNotificationsExamples {
               .params(templateConfig)
               .build();
 
-      Response<Template> notificationResponse = eventNotificationsService.updateTemplate(updateTemplateNotificationOptions).execute();
+      Response<Template> notificationResponse = eventNotificationsService.replaceTemplate(updateTemplateNotificationOptions).execute();
 
       Template notificationTemplateResult = notificationResponse.getResult();
       // end-update_template
@@ -1795,7 +1860,65 @@ public class EventNotificationsExamples {
       Subscription customEmailSubscriptionResult = customEmailResponse.getResult();
       System.out.println(customEmailSubscriptionResult);
 
+      ArrayList<String> toCustomPhRemove = new ArrayList<String>();
+      toCustomPhRemove.add("+12064512559");
+
+      ArrayList<String> toCustomPhInvite = new ArrayList<String>();
+      toCustomPhInvite.add("+12064512559");
+
+      UpdateAttributesSubscribed customPhSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toCustomPhRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed customPhUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toCustomPhRemove)
+              .build();
+
+      UpdateAttributesInvited customPhInvited = new UpdateAttributesInvited.Builder()
+              .add(toCustomPhInvite)
+              .build();
+
+      SubscriptionUpdateAttributesCustomSMSUpdateAttributes subscriptionUpdateCustomSMSAttributesModel = new SubscriptionUpdateAttributesCustomSMSUpdateAttributes.Builder()
+              .invited(customPhInvited)
+              .subscribed(customPhSubscribed)
+              .unsubscribed(customPhUnSubscribed)
+              .build();
+
+      String customSMSName = "custom sms subscription update";
+      String customSMSDescription = "custom subscription_update for sms";
+
+      UpdateSubscriptionOptions customSMSUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .id(subscriptionId7)
+              .attributes(subscriptionUpdateCustomSMSAttributesModel)
+              .description(customSMSDescription)
+              .build();
+
+      Response<Subscription> customSMSResponse = eventNotificationsService.updateSubscription(customSMSUpdateSubscriptionOptions).execute();
+      Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
+      System.out.println(customSMSSubscriptionResult);
+
       // end-update_subscription
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      System.out.println("getEnabledCountries() result:");
+      // begin-enabled_countries
+      GetEnabledCountriesOptions getEnabledCountriesOptions = new GetEnabledCountriesOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId17)
+              .build();
+
+      // Invoke operation
+      Response<EnabledCountriesResponse> response = eventNotificationsService.getEnabledCountries(getEnabledCountriesOptions).execute();
+      EnabledCountriesResponse enabledCountriesResult = response.getResult();
+      System.out.println(enabledCountriesResult);
+
+      // end-enabled_countries
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1810,6 +1933,7 @@ public class EventNotificationsExamples {
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
       String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
       String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
+      String smsTo = "[\"+911234567890\", \"+911224567890\"]";
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
 
       NotificationCreate body = new NotificationCreate.Builder()
@@ -1823,6 +1947,7 @@ public class EventNotificationsExamples {
               .ibmenpushto(notificationDevices)
               .ibmensubject("certificate expires")
               .ibmenmailto(mailTo)
+              .ibmensmsto(smsTo)
               .ibmenhtmlbody(htmlBody)
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
@@ -1882,6 +2007,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId4);
       subscriptions.add(subscriptionId5);
       subscriptions.add(subscriptionId6);
+      subscriptions.add(subscriptionId7);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -1940,6 +2066,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId14);
       destinations.add(destinationId15);
       destinations.add(destinationId16);
+      destinations.add(destinationId17);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
@@ -1967,6 +2094,30 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSource(deleteSourceOptions).execute();
       // end-delete_source
       System.out.printf("deleteSource() response status code: %d%n", response.getStatusCode());
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-create_integrations
+      IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
+              .endpoint(cosEndPoint)
+              .crn(cosInstanceCRN)
+              .bucketName(cosBucketName)
+              .build();
+
+      CreateIntegrationOptions integrationsOptions = new CreateIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .type("collect_failed_events")
+              .metadata(metadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationCreateResponse> response = eventNotificationsService.createIntegration(integrationsOptions).execute();
+      cosIntegrationID = response.getResult().getId();
+      // end-create_integrations
+
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -2026,6 +2177,23 @@ public class EventNotificationsExamples {
 
       // Invoke operation
       Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(integrationsOptions).execute();
+
+      // COS Integration
+      IntegrationMetadata cosMetadata = new IntegrationMetadata.Builder()
+              .endpoint(cosEndPoint)
+              .crn(cosInstanceCRN)
+              .bucketName(cosBucketName)
+              .build();
+
+      ReplaceIntegrationOptions cfeIntegrationsOptions = new ReplaceIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .id(cosIntegrationID)
+              .type("collect_failed_events")
+              .metadata(cosMetadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationGetResponse> cfeResponse = eventNotificationsService.replaceIntegration(cfeIntegrationsOptions).execute();
       // end-replace_integration
       System.out.printf("updateIntegration() response status code: %d%n", response.getStatusCode());
     } catch (ServiceResponseException e) {

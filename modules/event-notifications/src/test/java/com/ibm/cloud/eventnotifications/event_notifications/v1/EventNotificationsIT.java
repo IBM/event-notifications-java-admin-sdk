@@ -65,6 +65,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId14 = "";
   public static String destinationId15 = "";
   public static String destinationId16 = "";
+  public static String destinationId17 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -82,6 +83,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId14 = "";
   public static String subscriptionId15 = "";
   public static String subscriptionId16 = "";
+  public static String subscriptionId17 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -105,6 +107,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String teamsURL = "";
   public static String pagerDutyApiKey = "";
   public static String pagerDutyRoutingKey = "";
+  public static String templateBody = "";
+  public static String cosInstanceCRN = "";
+  public static String cosIntegrationID = "";
+
 
 
 
@@ -150,10 +156,12 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     cosBucketName = config.get("COS_BUCKET_NAME");
     cosEndPoint = config.get("COS_ENDPOINT");
     cosInstanceID = config.get("COS_INSTANCE");
+    cosInstanceCRN = config.get("COS_INSTANCE_CRN");
     slackURL = config.get("SLACK_URL");
     teamsURL = config.get("MS_TEAMS_URL");
     pagerDutyApiKey = config.get("PD_API_KEY");
     pagerDutyRoutingKey = config.get("PD_ROUTING_KEY");
+    templateBody = config.get("TEMPLATE_BODY");
 
     service.enableRetries(4, 30);
 
@@ -1119,6 +1127,25 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId16 = destinationCustomResponseResult.getId();
 
+      String customSMSName = "Custom SMS";
+      String customSMSTypeVal = "sms_custom";
+      String customSMSDescription = "Custom SMS Destination";
+
+      CreateDestinationOptions createCustomSMSDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .type(customSMSTypeVal)
+              .collectFailedEvents(false)
+              .description(customSMSDescription)
+              .build();
+
+      Response<DestinationResponse> customSMSResponse = service.createDestination(createCustomSMSDestinationOptions).execute();
+      // Validate response
+      assertNotNull(customSMSResponse);
+      assertEquals(customSMSResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationCustomSMSResponseResult = customSMSResponse.getResult();
+      destinationId17 = destinationCustomSMSResponseResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -1778,6 +1805,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
       assertNotNull(dkimResponseObj);
 
+      String customSMSName = "Custom SMS update";
+      String customSMSDescription = "Custom SMS Destination update";
+
+      UpdateDestinationOptions updateCustomSMSDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .id(destinationId17)
+              .collectFailedEvents(false)
+              .description(customSMSDescription)
+              .build();
+
+      Response<Destination> customSMSResponse = service.updateDestination(updateCustomSMSDestinationOptions).execute();
+      // Validate response
+      assertNotNull(customSMSResponse);
+      assertEquals(customSMSResponse.getStatusCode(), 200);
+
+      Destination destinationCustomSMSResponseResult = customSMSResponse.getResult();
+
+      assertNotNull(destinationCustomSMSResponseResult);
+
+      assertEquals(destinationCustomSMSResponseResult.getId(), destinationId17);
+      assertEquals(destinationCustomSMSResponseResult.getDescription(), customSMSDescription);
+      assertEquals(destinationCustomSMSResponseResult.getName(), customSMSName);
 
       //
       // The following status codes aren't covered by tests.
@@ -1805,7 +1855,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String description = "template description";
 
       TemplateConfig templateConfig = new TemplateConfig.Builder()
-              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .body(templateBody)
               .subject("Hi this is invitation for invitation message")
               .build();
 
@@ -1883,11 +1933,11 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String description = "template description";
 
       TemplateConfig templateConfig = new TemplateConfig.Builder()
-              .body("<!DOCTYPE html><html><head><title>IBM Event Notifications</title></head><body><p>Hello! Invitation template</p><table><tr><td>Hello invitation link:{{ ibmen_invitation }} </td></tr></table></body></html>")
+              .body(templateBody)
               .subject("Hi this is invitation for invitation message")
               .build();
 
-      UpdateTemplateOptions updateTemplateInvitationOptions = new UpdateTemplateOptions.Builder()
+      ReplaceTemplateOptions updateTemplateInvitationOptions = new ReplaceTemplateOptions.Builder()
               .instanceId(instanceId)
               .id(templateInvitationID)
               .name(name)
@@ -1896,7 +1946,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .params(templateConfig)
               .build();
 
-      Response<Template> invitationResponse = service.updateTemplate(updateTemplateInvitationOptions).execute();
+      Response<Template> invitationResponse = service.replaceTemplate(updateTemplateInvitationOptions).execute();
       assertNotNull(invitationResponse);
       assertEquals(invitationResponse.getStatusCode(), 200);
       Template invitationTemplateResult = invitationResponse.getResult();
@@ -1906,7 +1956,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(invitationTemplateResult.getName(), name);
       assertEquals(invitationTemplateResult.getId(), templateInvitationID);
 
-      UpdateTemplateOptions updateTemplateNotificationOptions = new UpdateTemplateOptions.Builder()
+      ReplaceTemplateOptions updateTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
               .instanceId(instanceId)
               .id(templateNotificationID)
               .name(name)
@@ -1915,7 +1965,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .params(templateConfig)
               .build();
 
-      Response<Template> notificationResponse = service.updateTemplate(updateTemplateNotificationOptions).execute();
+      Response<Template> notificationResponse = service.replaceTemplate(updateTemplateNotificationOptions).execute();
       assertNotNull(notificationResponse);
       assertEquals(notificationResponse.getStatusCode(), 200);
       Template notificationTemplateResult = notificationResponse.getResult();
@@ -2400,6 +2450,36 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(customSubscriptionResult.getName(), customName);
 
       subscriptionId16 = customSubscriptionResult.getId();
+
+      ArrayList<String> customToNumber = new ArrayList<String>();
+      customToNumber.add("+911234567890");
+      customToNumber.add("+122670546254");
+      SubscriptionCreateAttributesCustomSMSAttributes subscriptionCreateCustomSMSAttributesModel = new SubscriptionCreateAttributesCustomSMSAttributes.Builder()
+              .invited(customToNumber)
+              .build();
+
+      String customSMSName = "subscription_custom_sms";
+      String customSMSDescription = "Subscription custom sms";
+
+      CreateSubscriptionOptions createCustomSMSSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .destinationId(destinationId17)
+              .topicId(topicId)
+              .attributes(subscriptionCreateCustomSMSAttributesModel)
+              .description(customSMSDescription)
+              .build();
+
+      Response<Subscription> customSMSResponse = service.createSubscription(createCustomSMSSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(customSMSResponse);
+      assertEquals(customSMSResponse.getStatusCode(), 201);
+      Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
+      assertNotNull(customSMSSubscriptionResult);
+      assertEquals(customSMSSubscriptionResult.getDescription(), customSMSDescription);
+      assertEquals(customSMSSubscriptionResult.getName(), customSMSName);
+
+      subscriptionId17 = customSMSSubscriptionResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -2970,6 +3050,53 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(customEmailSubscriptionResult);
       assertEquals(customEmailSubscriptionResult.getDescription(), customEmailDescription);
       assertEquals(customEmailSubscriptionResult.getName(), customEmailName);
+
+      ArrayList<String> toCustomPhRemove = new ArrayList<String>();
+      toCustomPhRemove.add("+12064512559");
+
+      ArrayList<String> toCustomPhInvite = new ArrayList<String>();
+      toCustomPhInvite.add("+12064512559");
+
+      UpdateAttributesSubscribed customPhSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toCustomPhRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed customPhUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toCustomPhRemove)
+              .build();
+
+      UpdateAttributesInvited customPhInvited = new UpdateAttributesInvited.Builder()
+              .add(toCustomPhInvite)
+              .build();
+
+      SubscriptionUpdateAttributesCustomSMSUpdateAttributes subscriptionUpdateCustomSMSAttributesModel = new SubscriptionUpdateAttributesCustomSMSUpdateAttributes.Builder()
+              .invited(customPhInvited)
+              .subscribed(customPhSubscribed)
+              .unsubscribed(customPhUnSubscribed)
+              .build();
+
+      String customSMSName = "custom sms subscription update";
+      String customSMSDescription = "custom subscription_update for sms";
+
+      UpdateSubscriptionOptions customSMSUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(customSMSName)
+              .id(subscriptionId17)
+              .attributes(subscriptionUpdateCustomSMSAttributesModel)
+              .description(customSMSDescription)
+              .build();
+
+      Response<Subscription> customSMSResponse = service.updateSubscription(customSMSUpdateSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(customSMSResponse);
+      assertEquals(customSMSResponse.getStatusCode(), 200);
+      Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
+      assertNotNull(customSMSSubscriptionResult);
+      assertEquals(customSMSSubscriptionResult.getDescription(), customSMSDescription);
+      assertEquals(customSMSSubscriptionResult.getName(), customSMSName);
+      assertEquals(customSMSSubscriptionResult.getId(), subscriptionId17);
+
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2990,7 +3117,32 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1USendNotifications() throws Exception {
+  public void test1UGetEnabledCountries() throws Exception {
+    try {
+      // begin-enabled_countries
+
+      GetEnabledCountriesOptions getEnabledCountriesOptions = new GetEnabledCountriesOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId17)
+              .build();
+
+      // Invoke operation
+      Response<EnabledCountriesResponse> response = service.getEnabledCountries(getEnabledCountriesOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      EnabledCountriesResponse enabledCountriesResult = response.getResult();
+      assertNotNull(enabledCountriesResult);
+
+      // end-enabled_countries
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+  }
+
+  @Test
+  public void test1VSendNotifications() throws Exception {
     try {
       // begin-send_notifications
       String notificationDevices = "{\"platforms\":[\"push_ios\",\"push_android\",\"push_chrome\",\"push_firefox\", \"push_huawei\"]}";
@@ -2999,6 +3151,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
       String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
       String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
+      String smsTo = "[\"+911234567890\", \"+911224567890\"]";
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
 
       NotificationCreate body = new NotificationCreate.Builder()
@@ -3012,6 +3165,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ibmenpushto(notificationDevices)
               .ibmensubject("certificate expire")
               .ibmenmailto(mailTo)
+              .ibmensmsto(smsTo)
               .ibmenhtmlbody(htmlBody)
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
@@ -3039,7 +3193,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1VSendBulkNotifications() throws Exception {
+  public void test1WSendBulkNotifications() throws Exception {
     try {
       String notificationDevices = "{\"user_ids\": [\"userId\"]}";
       String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
@@ -3107,7 +3261,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1WTestDestination() {
+  public void test1XTestDestination() {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId4);
@@ -3134,7 +3288,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1XDeleteSubscription() throws Exception {
+  public void test1YDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -3155,6 +3309,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId14);
       subscriptions.add(subscriptionId15);
       subscriptions.add(subscriptionId16);
+      subscriptions.add(subscriptionId17);
 
       for (String subscription :
               subscriptions) {
@@ -3186,7 +3341,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1YDeleteTopic() throws Exception {
+  public void test1ZDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -3224,7 +3379,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test1ZDeleteDestination() throws Exception {
+  public void test2ADeleteDestination() throws Exception {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
@@ -3242,6 +3397,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId14);
       destinations.add(destinationId15);
       destinations.add(destinationId16);
+      destinations.add(destinationId17);
 
       for (String destination :
               destinations) {
@@ -3274,7 +3430,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2ADeleteSource() throws Exception {
+  public void test2BDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -3304,7 +3460,35 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2BListIntegrations() throws Exception {
+  public void test2CCreateIntegration() throws Exception {
+    try {
+      IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
+              .endpoint(cosEndPoint)
+              .crn(cosInstanceCRN)
+              .bucketName(cosBucketName)
+              .build();
+
+      CreateIntegrationOptions integrationsOptions = new CreateIntegrationOptions.Builder()
+              .instanceId(instanceId)
+              .type("collect_failed_events")
+              .metadata(metadata)
+              .build();
+
+      // Invoke operation
+      Response<IntegrationCreateResponse> response = service.createIntegration(integrationsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      cosIntegrationID = response.getResult().getId();
+      assertEquals(response.getStatusCode(), 201);
+
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test2CListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -3331,7 +3515,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2CGetIntegration() throws Exception {
+  public void test2DGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -3351,18 +3535,18 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2DUpdateIntegration() throws Exception {
+  public void test2EUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
-              .endpoint("https://private.us-south.kms.cloud.ibm.com")
-              .crn("crn:v1:staging:public:kms:us-south:a/****:****::")
-              .rootKeyId("sddsds-f326-4688-baaf-611750e79b61")
+              .endpoint(cosEndPoint)
+              .crn(cosInstanceCRN)
+              .bucketName(cosBucketName)
               .build();
 
       ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Builder()
               .instanceId(instanceId)
-              .id(integrationId)
-              .type("kms")
+              .id(cosIntegrationID)
+              .type("collect_failed_events")
               .metadata(metadata)
               .build();
 
@@ -3379,7 +3563,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2EDeleteTemplate() throws Exception {
+  public void test2FDeleteTemplate() throws Exception {
     try {
      List<String> templates = new ArrayList<>();
      templates.add(templateInvitationID);

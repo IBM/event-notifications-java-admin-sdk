@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  *
  * Classes which extend this class:
  * - SubscriptionAttributesSMSAttributesResponse
+ * - SubscriptionAttributesCustomSMSAttributesResponse
  * - SubscriptionAttributesEmailAttributesResponse
  * - SubscriptionAttributesCustomEmailAttributesResponse
  * - SubscriptionAttributesWebhookAttributesResponse
@@ -89,7 +90,7 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   /**
    * Gets the invited.
    *
-   * The email id string.
+   * The SMS numder string.
    *
    * @return the invited
    */

@@ -15,9 +15,9 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The updateTemplate options.
+ * The replaceTemplate options.
  */
-public class UpdateTemplateOptions extends GenericModel {
+public class ReplaceTemplateOptions extends GenericModel {
 
   protected String instanceId;
   protected String id;
@@ -38,17 +38,17 @@ public class UpdateTemplateOptions extends GenericModel {
     private TemplateConfig params;
 
     /**
-     * Instantiates a new Builder from an existing UpdateTemplateOptions instance.
+     * Instantiates a new Builder from an existing ReplaceTemplateOptions instance.
      *
-     * @param updateTemplateOptions the instance to initialize the Builder with
+     * @param replaceTemplateOptions the instance to initialize the Builder with
      */
-    private Builder(UpdateTemplateOptions updateTemplateOptions) {
-      this.instanceId = updateTemplateOptions.instanceId;
-      this.id = updateTemplateOptions.id;
-      this.name = updateTemplateOptions.name;
-      this.description = updateTemplateOptions.description;
-      this.type = updateTemplateOptions.type;
-      this.params = updateTemplateOptions.params;
+    private Builder(ReplaceTemplateOptions replaceTemplateOptions) {
+      this.instanceId = replaceTemplateOptions.instanceId;
+      this.id = replaceTemplateOptions.id;
+      this.name = replaceTemplateOptions.name;
+      this.description = replaceTemplateOptions.description;
+      this.type = replaceTemplateOptions.type;
+      this.params = replaceTemplateOptions.params;
     }
 
     /**
@@ -69,19 +69,19 @@ public class UpdateTemplateOptions extends GenericModel {
     }
 
     /**
-     * Builds a UpdateTemplateOptions.
+     * Builds a ReplaceTemplateOptions.
      *
-     * @return the new UpdateTemplateOptions instance
+     * @return the new ReplaceTemplateOptions instance
      */
-    public UpdateTemplateOptions build() {
-      return new UpdateTemplateOptions(this);
+    public ReplaceTemplateOptions build() {
+      return new ReplaceTemplateOptions(this);
     }
 
     /**
      * Set the instanceId.
      *
      * @param instanceId the instanceId
-     * @return the UpdateTemplateOptions builder
+     * @return the ReplaceTemplateOptions builder
      */
     public Builder instanceId(String instanceId) {
       this.instanceId = instanceId;
@@ -92,7 +92,7 @@ public class UpdateTemplateOptions extends GenericModel {
      * Set the id.
      *
      * @param id the id
-     * @return the UpdateTemplateOptions builder
+     * @return the ReplaceTemplateOptions builder
      */
     public Builder id(String id) {
       this.id = id;
@@ -103,7 +103,7 @@ public class UpdateTemplateOptions extends GenericModel {
      * Set the name.
      *
      * @param name the name
-     * @return the UpdateTemplateOptions builder
+     * @return the ReplaceTemplateOptions builder
      */
     public Builder name(String name) {
       this.name = name;
@@ -114,7 +114,7 @@ public class UpdateTemplateOptions extends GenericModel {
      * Set the description.
      *
      * @param description the description
-     * @return the UpdateTemplateOptions builder
+     * @return the ReplaceTemplateOptions builder
      */
     public Builder description(String description) {
       this.description = description;
@@ -125,7 +125,7 @@ public class UpdateTemplateOptions extends GenericModel {
      * Set the type.
      *
      * @param type the type
-     * @return the UpdateTemplateOptions builder
+     * @return the ReplaceTemplateOptions builder
      */
     public Builder type(String type) {
       this.type = type;
@@ -136,7 +136,7 @@ public class UpdateTemplateOptions extends GenericModel {
      * Set the params.
      *
      * @param params the params
-     * @return the UpdateTemplateOptions builder
+     * @return the ReplaceTemplateOptions builder
      */
     public Builder params(TemplateConfig params) {
       this.params = params;
@@ -144,9 +144,9 @@ public class UpdateTemplateOptions extends GenericModel {
     }
   }
 
-  protected UpdateTemplateOptions() { }
+  protected ReplaceTemplateOptions() { }
 
-  protected UpdateTemplateOptions(Builder builder) {
+  protected ReplaceTemplateOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.id,
@@ -162,7 +162,7 @@ public class UpdateTemplateOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a UpdateTemplateOptions builder
+   * @return a ReplaceTemplateOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

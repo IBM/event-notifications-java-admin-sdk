@@ -73,6 +73,7 @@ public class CreateDestinationOptionsTest {
       .name("testString")
       .type("webhook")
       .description("testString")
+      .collectFailedEvents(false)
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
@@ -93,6 +94,7 @@ public class CreateDestinationOptionsTest {
     assertEquals(createDestinationOptionsModel.name(), "testString");
     assertEquals(createDestinationOptionsModel.type(), "webhook");
     assertEquals(createDestinationOptionsModel.description(), "testString");
+    assertEquals(createDestinationOptionsModel.collectFailedEvents(), Boolean.valueOf(false));
     assertEquals(createDestinationOptionsModel.config(), destinationConfigModel);
     assertEquals(IOUtils.toString(createDestinationOptionsModel.certificate()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(createDestinationOptionsModel.certificateContentType(), "testString");

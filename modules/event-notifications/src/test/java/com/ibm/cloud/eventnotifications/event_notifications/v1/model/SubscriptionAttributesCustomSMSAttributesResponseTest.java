@@ -13,11 +13,12 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCustomSMSAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -25,23 +26,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the Destination model.
+ * Unit test class for the SubscriptionAttributesCustomSMSAttributesResponse model.
  */
-public class DestinationTest {
+public class SubscriptionAttributesCustomSMSAttributesResponseTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDestination() throws Throwable {
-    Destination destinationModel = new Destination();
-    assertNull(destinationModel.getId());
-    assertNull(destinationModel.getName());
-    assertNull(destinationModel.getDescription());
-    assertNull(destinationModel.getType());
-    assertNull(destinationModel.isCollectFailedEvents());
-    assertNull(destinationModel.getConfig());
-    assertNull(destinationModel.getUpdatedAt());
-    assertNull(destinationModel.getSubscriptionCount());
-    assertNull(destinationModel.getSubscriptionNames());
+  public void testSubscriptionAttributesCustomSMSAttributesResponse() throws Throwable {
+    SubscriptionAttributesCustomSMSAttributesResponse subscriptionAttributesCustomSmsAttributesResponseModel = new SubscriptionAttributesCustomSMSAttributesResponse();
+    assertNull(subscriptionAttributesCustomSmsAttributesResponseModel.getSubscribed());
+    assertNull(subscriptionAttributesCustomSmsAttributesResponseModel.getUnsubscribed());
+    assertNull(subscriptionAttributesCustomSmsAttributesResponseModel.getInvited());
   }
 }

@@ -38,6 +38,7 @@ public class DestinationResponseTest {
     assertNull(destinationResponseModel.getName());
     assertNull(destinationResponseModel.getDescription());
     assertNull(destinationResponseModel.getType());
+    assertNull(destinationResponseModel.isCollectFailedEvents());
     assertNull(destinationResponseModel.getConfig());
     assertNull(destinationResponseModel.getCreatedAt());
   }

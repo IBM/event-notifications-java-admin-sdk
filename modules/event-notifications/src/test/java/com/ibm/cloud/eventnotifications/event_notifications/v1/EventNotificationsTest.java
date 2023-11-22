@@ -15,6 +15,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BulkNotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
@@ -51,12 +52,16 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCountriesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateMetadata;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationGetResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationListItem;
@@ -73,10 +78,12 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSCountryConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
@@ -91,6 +98,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesPage
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCustomEmailAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCustomSMSAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesServiceNowAttributesResponse;
@@ -98,6 +106,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomEmailAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomSMSAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEmailAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesFCMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSMSAttributes;
@@ -108,6 +117,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomEmailUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesServiceNowAttributes;
@@ -135,7 +145,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -199,6 +208,7 @@ public class EventNotificationsTest {
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
       .ibmensubject("testString")
+      .ibmensmsto("testString")
       .ibmenmailto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
@@ -281,6 +291,7 @@ public class EventNotificationsTest {
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
       .ibmensubject("testString")
+      .ibmensmsto("testString")
       .ibmenmailto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
@@ -1274,12 +1285,12 @@ public class EventNotificationsTest {
     eventNotificationsService.getTemplate(null).execute();
   }
 
-  // Test the updateTemplate operation with a valid options model parameter
+  // Test the replaceTemplate operation with a valid options model parameter
   @Test
-  public void testUpdateTemplateWOptions() throws Throwable {
+  public void testReplaceTemplateWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
-    String updateTemplatePath = "/v1/instances/testString/templates/testString";
+    String replaceTemplatePath = "/v1/instances/testString/templates/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1291,8 +1302,8 @@ public class EventNotificationsTest {
       .subject("testString")
       .build();
 
-    // Construct an instance of the UpdateTemplateOptions model
-    UpdateTemplateOptions updateTemplateOptionsModel = new UpdateTemplateOptions.Builder()
+    // Construct an instance of the ReplaceTemplateOptions model
+    ReplaceTemplateOptions replaceTemplateOptionsModel = new ReplaceTemplateOptions.Builder()
       .instanceId("testString")
       .id("testString")
       .name("testString")
@@ -1301,8 +1312,8 @@ public class EventNotificationsTest {
       .params(templateConfigModel)
       .build();
 
-    // Invoke updateTemplate() with a valid options model and verify the result
-    Response<Template> response = eventNotificationsService.updateTemplate(updateTemplateOptionsModel).execute();
+    // Invoke replaceTemplate() with a valid options model and verify the result
+    Response<Template> response = eventNotificationsService.replaceTemplate(replaceTemplateOptionsModel).execute();
     assertNotNull(response);
     Template responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -1313,27 +1324,27 @@ public class EventNotificationsTest {
     assertEquals(request.getMethod(), "PUT");
     // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, updateTemplatePath);
+    assertEquals(parsedPath, replaceTemplatePath);
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
   }
 
-  // Test the updateTemplate operation with and without retries enabled
+  // Test the replaceTemplate operation with and without retries enabled
   @Test
-  public void testUpdateTemplateWRetries() throws Throwable {
+  public void testReplaceTemplateWRetries() throws Throwable {
     eventNotificationsService.enableRetries(4, 30);
-    testUpdateTemplateWOptions();
+    testReplaceTemplateWOptions();
 
     eventNotificationsService.disableRetries();
-    testUpdateTemplateWOptions();
+    testReplaceTemplateWOptions();
   }
 
-  // Test the updateTemplate operation with a null options model (negative test)
+  // Test the replaceTemplate operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testUpdateTemplateNoOptions() throws Throwable {
+  public void testReplaceTemplateNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
-    eventNotificationsService.updateTemplate(null).execute();
+    eventNotificationsService.replaceTemplate(null).execute();
   }
 
   // Test the deleteTemplate operation with a valid options model parameter
@@ -1387,63 +1398,11 @@ public class EventNotificationsTest {
     eventNotificationsService.deleteTemplate(null).execute();
   }
 
-  // Test the testDestination operation with a valid options model parameter
-  @Test
-  public void testTestDestinationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"status\": \"status\"}";
-    String testDestinationPath = "/v1/instances/testString/destinations/testString/test";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the TestDestinationOptions model
-    TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .build();
-
-    // Invoke testDestination() with a valid options model and verify the result
-    Response<TestDestinationResponse> response = eventNotificationsService.testDestination(testDestinationOptionsModel).execute();
-    assertNotNull(response);
-    TestDestinationResponse responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, testDestinationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the testDestination operation with and without retries enabled
-  @Test
-  public void testTestDestinationWRetries() throws Throwable {
-    eventNotificationsService.enableRetries(4, 30);
-    testTestDestinationWOptions();
-
-    eventNotificationsService.disableRetries();
-    testTestDestinationWOptions();
-  }
-
-  // Test the testDestination operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testTestDestinationNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    eventNotificationsService.testDestination(null).execute();
-  }
-
   // Test the createDestination operation with a valid options model parameter
   @Test
   public void testCreateDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"collect_failed_events\": false, \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createDestinationPath = "/v1/instances/testString/destinations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1482,6 +1441,7 @@ public class EventNotificationsTest {
       .name("testString")
       .type("webhook")
       .description("testString")
+      .collectFailedEvents(false)
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
@@ -1538,7 +1498,7 @@ public class EventNotificationsTest {
   @Test
   public void testListDestinationsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"destinations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"destinations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"collect_failed_events\": false, \"subscription_count\": 17, \"subscription_names\": [\"subscriptionNames\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listDestinationsPath = "/v1/instances/testString/destinations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1595,8 +1555,8 @@ public class EventNotificationsTest {
   @Test
   public void testListDestinationsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
-    String mockResponsePage2 = "{\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"collect_failed_events\":false,\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"collect_failed_events\":false,\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1630,8 +1590,8 @@ public class EventNotificationsTest {
   @Test
   public void testListDestinationsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
-    String mockResponsePage2 = "{\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"collect_failed_events\":false,\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"destinations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"webhook\",\"collect_failed_events\":false,\"subscription_count\":17,\"subscription_names\":[\"subscriptionNames\"],\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -1661,7 +1621,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"collect_failed_events\": false, \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
     String getDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1713,7 +1673,7 @@ public class EventNotificationsTest {
   @Test
   public void testUpdateDestinationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"collect_failed_events\": false, \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"subscription_count\": 0, \"subscription_names\": [\"subscriptionNames\"]}";
     String updateDestinationPath = "/v1/instances/testString/destinations/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1752,6 +1712,7 @@ public class EventNotificationsTest {
       .id("testString")
       .name("testString")
       .description("testString")
+      .collectFailedEvents(false)
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
@@ -1853,6 +1814,110 @@ public class EventNotificationsTest {
   public void testDeleteDestinationNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.deleteDestination(null).execute();
+  }
+
+  // Test the getEnabledCountries operation with a valid options model parameter
+  @Test
+  public void testGetEnabledCountriesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"status\": \"status\", \"enabled_countries\": [{\"number\": \"number\", \"country\": [\"country\"]}]}";
+    String getEnabledCountriesPath = "/v1/instances/testString/destinations/testString/enabled_countries";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetEnabledCountriesOptions model
+    GetEnabledCountriesOptions getEnabledCountriesOptionsModel = new GetEnabledCountriesOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke getEnabledCountries() with a valid options model and verify the result
+    Response<EnabledCountriesResponse> response = eventNotificationsService.getEnabledCountries(getEnabledCountriesOptionsModel).execute();
+    assertNotNull(response);
+    EnabledCountriesResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getEnabledCountriesPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getEnabledCountries operation with and without retries enabled
+  @Test
+  public void testGetEnabledCountriesWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetEnabledCountriesWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetEnabledCountriesWOptions();
+  }
+
+  // Test the getEnabledCountries operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetEnabledCountriesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getEnabledCountries(null).execute();
+  }
+
+  // Test the testDestination operation with a valid options model parameter
+  @Test
+  public void testTestDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"status\": \"status\"}";
+    String testDestinationPath = "/v1/instances/testString/destinations/testString/test";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the TestDestinationOptions model
+    TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke testDestination() with a valid options model and verify the result
+    Response<TestDestinationResponse> response = eventNotificationsService.testDestination(testDestinationOptionsModel).execute();
+    assertNotNull(response);
+    TestDestinationResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, testDestinationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the testDestination operation with and without retries enabled
+  @Test
+  public void testTestDestinationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testTestDestinationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testTestDestinationWOptions();
+  }
+
+  // Test the testDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testTestDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.testDestination(null).execute();
   }
 
   // Test the updateVerifyDestination operation with a valid options model parameter
@@ -2521,11 +2586,71 @@ public class EventNotificationsTest {
     eventNotificationsService.updateSubscription(null).execute();
   }
 
+  // Test the createIntegration operation with a valid options model parameter
+  @Test
+  public void testCreateIntegrationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"bucket_name\": \"bucketName\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String createIntegrationPath = "/v1/instances/testString/integrations";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the IntegrationCreateMetadata model
+    IntegrationCreateMetadata integrationCreateMetadataModel = new IntegrationCreateMetadata.Builder()
+      .endpoint("testString")
+      .crn("testString")
+      .bucketName("testString")
+      .build();
+
+    // Construct an instance of the CreateIntegrationOptions model
+    CreateIntegrationOptions createIntegrationOptionsModel = new CreateIntegrationOptions.Builder()
+      .instanceId("testString")
+      .type("collect_failed_events")
+      .metadata(integrationCreateMetadataModel)
+      .build();
+
+    // Invoke createIntegration() with a valid options model and verify the result
+    Response<IntegrationCreateResponse> response = eventNotificationsService.createIntegration(createIntegrationOptionsModel).execute();
+    assertNotNull(response);
+    IntegrationCreateResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createIntegrationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the createIntegration operation with and without retries enabled
+  @Test
+  public void testCreateIntegrationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testCreateIntegrationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testCreateIntegrationWOptions();
+  }
+
+  // Test the createIntegration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateIntegrationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.createIntegration(null).execute();
+  }
+
   // Test the listIntegrations operation with a valid options model parameter
   @Test
   public void testListIntegrationsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"integrations\": [{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"integrations\": [{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\", \"bucket_name\": \"bucketName\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listIntegrationsPath = "/v1/instances/testString/integrations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2582,8 +2707,8 @@ public class EventNotificationsTest {
   @Test
   public void testListIntegrationsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\",\"bucket_name\":\"bucketName\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\",\"bucket_name\":\"bucketName\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2617,8 +2742,8 @@ public class EventNotificationsTest {
   @Test
   public void testListIntegrationsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\",\"bucket_name\":\"bucketName\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"integrations\":[{\"id\":\"9fab83da-98cb-4f18-a7ba-b6f0435c9673\",\"type\":\"type\",\"metadata\":{\"endpoint\":\"endpoint\",\"crn\":\"crn\",\"root_key_id\":\"rootKeyId\",\"bucket_name\":\"bucketName\"},\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2648,7 +2773,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetIntegrationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\", \"bucket_name\": \"bucketName\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
     String getIntegrationPath = "/v1/instances/testString/integrations/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2700,7 +2825,7 @@ public class EventNotificationsTest {
   @Test
   public void testReplaceIntegrationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"9fab83da-98cb-4f18-a7ba-b6f0435c9673\", \"type\": \"type\", \"metadata\": {\"endpoint\": \"endpoint\", \"crn\": \"crn\", \"root_key_id\": \"rootKeyId\", \"bucket_name\": \"bucketName\"}, \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
     String replaceIntegrationPath = "/v1/instances/testString/integrations/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2712,6 +2837,7 @@ public class EventNotificationsTest {
       .endpoint("testString")
       .crn("testString")
       .rootKeyId("testString")
+      .bucketName("testString")
       .build();
 
     // Construct an instance of the ReplaceIntegrationOptions model

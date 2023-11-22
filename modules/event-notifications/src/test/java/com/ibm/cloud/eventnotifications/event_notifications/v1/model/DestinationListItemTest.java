@@ -36,6 +36,7 @@ public class DestinationListItemTest {
     assertNull(destinationListItemModel.getName());
     assertNull(destinationListItemModel.getDescription());
     assertNull(destinationListItemModel.getType());
+    assertNull(destinationListItemModel.isCollectFailedEvents());
     assertNull(destinationListItemModel.getSubscriptionCount());
     assertNull(destinationListItemModel.getSubscriptionNames());
     assertNull(destinationListItemModel.getUpdatedAt());

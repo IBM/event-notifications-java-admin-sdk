@@ -58,12 +58,15 @@ public class CreateDestinationOptions extends GenericModel {
     String PUSH_HUAWEI = "push_huawei";
     /** smtp_custom. */
     String SMTP_CUSTOM = "smtp_custom";
+    /** sms_custom. */
+    String SMS_CUSTOM = "sms_custom";
   }
 
   protected String instanceId;
   protected String name;
   protected String type;
   protected String description;
+  protected Boolean collectFailedEvents;
   protected DestinationConfig config;
   protected InputStream certificate;
   protected String certificateContentType;
@@ -88,6 +91,7 @@ public class CreateDestinationOptions extends GenericModel {
     private String name;
     private String type;
     private String description;
+    private Boolean collectFailedEvents;
     private DestinationConfig config;
     private InputStream certificate;
     private String certificateContentType;
@@ -114,6 +118,7 @@ public class CreateDestinationOptions extends GenericModel {
       this.name = createDestinationOptions.name;
       this.type = createDestinationOptions.type;
       this.description = createDestinationOptions.description;
+      this.collectFailedEvents = createDestinationOptions.collectFailedEvents;
       this.config = createDestinationOptions.config;
       this.certificate = createDestinationOptions.certificate;
       this.certificateContentType = createDestinationOptions.certificateContentType;
@@ -200,6 +205,17 @@ public class CreateDestinationOptions extends GenericModel {
      */
     public Builder description(String description) {
       this.description = description;
+      return this;
+    }
+
+    /**
+     * Set the collectFailedEvents.
+     *
+     * @param collectFailedEvents the collectFailedEvents
+     * @return the CreateDestinationOptions builder
+     */
+    public Builder collectFailedEvents(Boolean collectFailedEvents) {
+      this.collectFailedEvents = collectFailedEvents;
       return this;
     }
 
@@ -473,6 +489,7 @@ public class CreateDestinationOptions extends GenericModel {
     name = builder.name;
     type = builder.type;
     description = builder.description;
+    collectFailedEvents = builder.collectFailedEvents;
     config = builder.config;
     certificate = builder.certificate;
     certificateContentType = builder.certificateContentType;
@@ -541,6 +558,17 @@ public class CreateDestinationOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the collectFailedEvents.
+   *
+   * Whether to collect the failed event in Cloud Object Storage bucket.
+   *
+   * @return the collectFailedEvents
+   */
+  public Boolean collectFailedEvents() {
+    return collectFailedEvents;
   }
 
   /**

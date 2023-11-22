@@ -28,6 +28,7 @@ public class UpdateDestinationOptions extends GenericModel {
   protected String id;
   protected String name;
   protected String description;
+  protected Boolean collectFailedEvents;
   protected DestinationConfig config;
   protected InputStream certificate;
   protected String certificateContentType;
@@ -52,6 +53,7 @@ public class UpdateDestinationOptions extends GenericModel {
     private String id;
     private String name;
     private String description;
+    private Boolean collectFailedEvents;
     private DestinationConfig config;
     private InputStream certificate;
     private String certificateContentType;
@@ -78,6 +80,7 @@ public class UpdateDestinationOptions extends GenericModel {
       this.id = updateDestinationOptions.id;
       this.name = updateDestinationOptions.name;
       this.description = updateDestinationOptions.description;
+      this.collectFailedEvents = updateDestinationOptions.collectFailedEvents;
       this.config = updateDestinationOptions.config;
       this.certificate = updateDestinationOptions.certificate;
       this.certificateContentType = updateDestinationOptions.certificateContentType;
@@ -162,6 +165,17 @@ public class UpdateDestinationOptions extends GenericModel {
      */
     public Builder description(String description) {
       this.description = description;
+      return this;
+    }
+
+    /**
+     * Set the collectFailedEvents.
+     *
+     * @param collectFailedEvents the collectFailedEvents
+     * @return the UpdateDestinationOptions builder
+     */
+    public Builder collectFailedEvents(Boolean collectFailedEvents) {
+      this.collectFailedEvents = collectFailedEvents;
       return this;
     }
 
@@ -433,6 +447,7 @@ public class UpdateDestinationOptions extends GenericModel {
     id = builder.id;
     name = builder.name;
     description = builder.description;
+    collectFailedEvents = builder.collectFailedEvents;
     config = builder.config;
     certificate = builder.certificate;
     certificateContentType = builder.certificateContentType;
@@ -501,6 +516,17 @@ public class UpdateDestinationOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the collectFailedEvents.
+   *
+   * Whether to collect the failed event in Cloud Object Storage bucket.
+   *
+   * @return the collectFailedEvents
+   */
+  public Boolean collectFailedEvents() {
+    return collectFailedEvents;
   }
 
   /**
