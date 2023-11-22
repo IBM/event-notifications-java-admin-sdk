@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.3.0...0.4.0) (2023-11-22)
+
+
+### Features
+
+* adds custom sms support ([#40](https://github.com/IBM/event-notifications-java-admin-sdk/issues/40)) ([aa19c99](https://github.com/IBM/event-notifications-java-admin-sdk/commit/aa19c99e4ec345d4f564723034025964b4cdca70))
+
 # [0.3.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.2.3...0.3.0) (2023-10-10)
 
 
