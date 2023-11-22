@@ -1619,7 +1619,7 @@ public class EventNotificationsExamples {
               .subject("Hi this is invitation for invitation message")
               .build();
 
-      ReplaceTemplateOptions updateTemplateInvitationOptions = new ReplaceTemplateOptions.Builder()
+      ReplaceTemplateOptions replaceTemplateInvitationOptions = new ReplaceTemplateOptions.Builder()
               .instanceId(instanceId)
               .id(templateInvitationID)
               .name(name)
@@ -1628,12 +1628,12 @@ public class EventNotificationsExamples {
               .params(templateConfig)
               .build();
 
-      Response<Template> invitationResponse = eventNotificationsService.replaceTemplate(updateTemplateInvitationOptions).execute();
+      Response<Template> invitationResponse = eventNotificationsService.replaceTemplate(replaceTemplateInvitationOptions).execute();
 
       Template invitationTemplateResult = invitationResponse.getResult();
       System.out.println(invitationTemplateResult);
 
-      ReplaceTemplateOptions updateTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
+      ReplaceTemplateOptions replaceTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
               .instanceId(instanceId)
               .id(templateNotificationID)
               .name(name)
@@ -1642,7 +1642,7 @@ public class EventNotificationsExamples {
               .params(templateConfig)
               .build();
 
-      Response<Template> notificationResponse = eventNotificationsService.replaceTemplate(updateTemplateNotificationOptions).execute();
+      Response<Template> notificationResponse = eventNotificationsService.replaceTemplate(replaceTemplateNotificationOptions).execute();
 
       Template notificationTemplateResult = notificationResponse.getResult();
       // end-update_template
@@ -1907,7 +1907,7 @@ public class EventNotificationsExamples {
 
     try {
       System.out.println("getEnabledCountries() result:");
-      // begin-enabled_countries
+      // begin-get_enabled_countries
       GetEnabledCountriesOptions getEnabledCountriesOptions = new GetEnabledCountriesOptions.Builder()
               .instanceId(instanceId)
               .id(destinationId17)
@@ -1917,8 +1917,7 @@ public class EventNotificationsExamples {
       Response<EnabledCountriesResponse> response = eventNotificationsService.getEnabledCountries(getEnabledCountriesOptions).execute();
       EnabledCountriesResponse enabledCountriesResult = response.getResult();
       System.out.println(enabledCountriesResult);
-
-      // end-enabled_countries
+      // end-get_enabled_countries
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -2113,11 +2112,9 @@ public class EventNotificationsExamples {
               .metadata(metadata)
               .build();
 
-      // Invoke operation
       Response<IntegrationCreateResponse> response = eventNotificationsService.createIntegration(integrationsOptions).execute();
       cosIntegrationID = response.getResult().getId();
       // end-create_integrations
-
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
