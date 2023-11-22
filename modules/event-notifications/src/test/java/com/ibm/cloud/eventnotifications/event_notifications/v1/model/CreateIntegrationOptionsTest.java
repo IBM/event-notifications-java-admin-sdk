@@ -13,7 +13,8 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationMetadata;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateMetadata;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,38 +24,36 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the IntegrationMetadata model.
+ * Unit test class for the CreateIntegrationOptions model.
  */
-public class IntegrationMetadataTest {
+public class CreateIntegrationOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testIntegrationMetadata() throws Throwable {
-    IntegrationMetadata integrationMetadataModel = new IntegrationMetadata.Builder()
+  public void testCreateIntegrationOptions() throws Throwable {
+    IntegrationCreateMetadata integrationCreateMetadataModel = new IntegrationCreateMetadata.Builder()
       .endpoint("testString")
       .crn("testString")
-      .rootKeyId("testString")
       .bucketName("testString")
       .build();
-    assertEquals(integrationMetadataModel.endpoint(), "testString");
-    assertEquals(integrationMetadataModel.crn(), "testString");
-    assertEquals(integrationMetadataModel.rootKeyId(), "testString");
-    assertEquals(integrationMetadataModel.bucketName(), "testString");
+    assertEquals(integrationCreateMetadataModel.endpoint(), "testString");
+    assertEquals(integrationCreateMetadataModel.crn(), "testString");
+    assertEquals(integrationCreateMetadataModel.bucketName(), "testString");
 
-    String json = TestUtilities.serialize(integrationMetadataModel);
-
-    IntegrationMetadata integrationMetadataModelNew = TestUtilities.deserialize(json, IntegrationMetadata.class);
-    assertTrue(integrationMetadataModelNew instanceof IntegrationMetadata);
-    assertEquals(integrationMetadataModelNew.endpoint(), "testString");
-    assertEquals(integrationMetadataModelNew.crn(), "testString");
-    assertEquals(integrationMetadataModelNew.rootKeyId(), "testString");
-    assertEquals(integrationMetadataModelNew.bucketName(), "testString");
+    CreateIntegrationOptions createIntegrationOptionsModel = new CreateIntegrationOptions.Builder()
+      .instanceId("testString")
+      .type("collect_failed_events")
+      .metadata(integrationCreateMetadataModel)
+      .build();
+    assertEquals(createIntegrationOptionsModel.instanceId(), "testString");
+    assertEquals(createIntegrationOptionsModel.type(), "collect_failed_events");
+    assertEquals(createIntegrationOptionsModel.metadata(), integrationCreateMetadataModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testIntegrationMetadataError() throws Throwable {
-    new IntegrationMetadata.Builder().build();
+  public void testCreateIntegrationOptionsError() throws Throwable {
+    new CreateIntegrationOptions.Builder().build();
   }
 
 }

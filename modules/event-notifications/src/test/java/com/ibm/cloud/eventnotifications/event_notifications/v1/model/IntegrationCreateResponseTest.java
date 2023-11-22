@@ -13,9 +13,8 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateMetadata;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -25,23 +24,18 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the Destination model.
+ * Unit test class for the IntegrationCreateResponse model.
  */
-public class DestinationTest {
+public class IntegrationCreateResponseTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDestination() throws Throwable {
-    Destination destinationModel = new Destination();
-    assertNull(destinationModel.getId());
-    assertNull(destinationModel.getName());
-    assertNull(destinationModel.getDescription());
-    assertNull(destinationModel.getType());
-    assertNull(destinationModel.isCollectFailedEvents());
-    assertNull(destinationModel.getConfig());
-    assertNull(destinationModel.getUpdatedAt());
-    assertNull(destinationModel.getSubscriptionCount());
-    assertNull(destinationModel.getSubscriptionNames());
+  public void testIntegrationCreateResponse() throws Throwable {
+    IntegrationCreateResponse integrationCreateResponseModel = new IntegrationCreateResponse();
+    assertNull(integrationCreateResponseModel.getId());
+    assertNull(integrationCreateResponseModel.getType());
+    assertNull(integrationCreateResponseModel.getMetadata());
+    assertNull(integrationCreateResponseModel.getCreatedAt());
   }
 }

@@ -58,12 +58,16 @@ public class Destination extends GenericModel {
     String PUSH_HUAWEI = "push_huawei";
     /** smtp_custom. */
     String SMTP_CUSTOM = "smtp_custom";
+    /** sms_custom. */
+    String SMS_CUSTOM = "sms_custom";
   }
 
   protected String id;
   protected String name;
   protected String description;
   protected String type;
+  @SerializedName("collect_failed_events")
+  protected Boolean collectFailedEvents;
   protected DestinationConfig config;
   @SerializedName("updated_at")
   protected Date updatedAt;
@@ -117,6 +121,17 @@ public class Destination extends GenericModel {
    */
   public String getType() {
     return type;
+  }
+
+  /**
+   * Gets the collectFailedEvents.
+   *
+   * Whether to collect the failed event in Cloud Object Storage bucket.
+   *
+   * @return the collectFailedEvents
+   */
+  public Boolean isCollectFailedEvents() {
+    return collectFailedEvents;
   }
 
   /**

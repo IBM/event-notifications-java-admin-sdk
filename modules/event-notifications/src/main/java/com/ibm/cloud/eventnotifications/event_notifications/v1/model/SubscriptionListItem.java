@@ -60,6 +60,8 @@ public class SubscriptionListItem extends GenericModel {
     String PUSH_HUAWEI = "push_huawei";
     /** smtp_custom. */
     String SMTP_CUSTOM = "smtp_custom";
+    /** sms_custom. */
+    String SMS_CUSTOM = "sms_custom";
   }
 
   protected String id;

@@ -18,12 +18,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Integration Metadata object.
  */
-public class IntegrationMetadata extends GenericModel {
+public class IntegrationCreateMetadata extends GenericModel {
 
   protected String endpoint;
   protected String crn;
-  @SerializedName("root_key_id")
-  protected String rootKeyId;
   @SerializedName("bucket_name")
   protected String bucketName;
 
@@ -33,19 +31,17 @@ public class IntegrationMetadata extends GenericModel {
   public static class Builder {
     private String endpoint;
     private String crn;
-    private String rootKeyId;
     private String bucketName;
 
     /**
-     * Instantiates a new Builder from an existing IntegrationMetadata instance.
+     * Instantiates a new Builder from an existing IntegrationCreateMetadata instance.
      *
-     * @param integrationMetadata the instance to initialize the Builder with
+     * @param integrationCreateMetadata the instance to initialize the Builder with
      */
-    private Builder(IntegrationMetadata integrationMetadata) {
-      this.endpoint = integrationMetadata.endpoint;
-      this.crn = integrationMetadata.crn;
-      this.rootKeyId = integrationMetadata.rootKeyId;
-      this.bucketName = integrationMetadata.bucketName;
+    private Builder(IntegrationCreateMetadata integrationCreateMetadata) {
+      this.endpoint = integrationCreateMetadata.endpoint;
+      this.crn = integrationCreateMetadata.crn;
+      this.bucketName = integrationCreateMetadata.bucketName;
     }
 
     /**
@@ -59,26 +55,28 @@ public class IntegrationMetadata extends GenericModel {
      *
      * @param endpoint the endpoint
      * @param crn the crn
+     * @param bucketName the bucketName
      */
-    public Builder(String endpoint, String crn) {
+    public Builder(String endpoint, String crn, String bucketName) {
       this.endpoint = endpoint;
       this.crn = crn;
+      this.bucketName = bucketName;
     }
 
     /**
-     * Builds a IntegrationMetadata.
+     * Builds a IntegrationCreateMetadata.
      *
-     * @return the new IntegrationMetadata instance
+     * @return the new IntegrationCreateMetadata instance
      */
-    public IntegrationMetadata build() {
-      return new IntegrationMetadata(this);
+    public IntegrationCreateMetadata build() {
+      return new IntegrationCreateMetadata(this);
     }
 
     /**
      * Set the endpoint.
      *
      * @param endpoint the endpoint
-     * @return the IntegrationMetadata builder
+     * @return the IntegrationCreateMetadata builder
      */
     public Builder endpoint(String endpoint) {
       this.endpoint = endpoint;
@@ -89,7 +87,7 @@ public class IntegrationMetadata extends GenericModel {
      * Set the crn.
      *
      * @param crn the crn
-     * @return the IntegrationMetadata builder
+     * @return the IntegrationCreateMetadata builder
      */
     public Builder crn(String crn) {
       this.crn = crn;
@@ -97,21 +95,10 @@ public class IntegrationMetadata extends GenericModel {
     }
 
     /**
-     * Set the rootKeyId.
-     *
-     * @param rootKeyId the rootKeyId
-     * @return the IntegrationMetadata builder
-     */
-    public Builder rootKeyId(String rootKeyId) {
-      this.rootKeyId = rootKeyId;
-      return this;
-    }
-
-    /**
      * Set the bucketName.
      *
      * @param bucketName the bucketName
-     * @return the IntegrationMetadata builder
+     * @return the IntegrationCreateMetadata builder
      */
     public Builder bucketName(String bucketName) {
       this.bucketName = bucketName;
@@ -119,23 +106,24 @@ public class IntegrationMetadata extends GenericModel {
     }
   }
 
-  protected IntegrationMetadata() { }
+  protected IntegrationCreateMetadata() { }
 
-  protected IntegrationMetadata(Builder builder) {
+  protected IntegrationCreateMetadata(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.endpoint,
       "endpoint cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.crn,
       "crn cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.bucketName,
+      "bucketName cannot be null");
     endpoint = builder.endpoint;
     crn = builder.crn;
-    rootKeyId = builder.rootKeyId;
     bucketName = builder.bucketName;
   }
 
   /**
    * New builder.
    *
-   * @return a IntegrationMetadata builder
+   * @return a IntegrationCreateMetadata builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -144,7 +132,7 @@ public class IntegrationMetadata extends GenericModel {
   /**
    * Gets the endpoint.
    *
-   * KMS url for key management or url for COS bucket.
+   * URL for Cloud Object storage.
    *
    * @return the endpoint
    */
@@ -155,7 +143,7 @@ public class IntegrationMetadata extends GenericModel {
   /**
    * Gets the crn.
    *
-   * CRN of the KMS/COS instance.
+   * CRN of the Cloud Object Storage instance.
    *
    * @return the crn
    */
@@ -164,20 +152,9 @@ public class IntegrationMetadata extends GenericModel {
   }
 
   /**
-   * Gets the rootKeyId.
-   *
-   * Root Key ID of KMS.
-   *
-   * @return the rootKeyId
-   */
-  public String rootKeyId() {
-    return rootKeyId;
-  }
-
-  /**
    * Gets the bucketName.
    *
-   * cloud object storage bucket name.
+   * Cloud Object Storage bucket name.
    *
    * @return the bucketName
    */

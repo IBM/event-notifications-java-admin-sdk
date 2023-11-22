@@ -73,6 +73,7 @@ public class UpdateDestinationOptionsTest {
       .id("testString")
       .name("testString")
       .description("testString")
+      .collectFailedEvents(false)
       .config(destinationConfigModel)
       .certificate(TestUtilities.createMockStream("This is a mock file."))
       .certificateContentType("testString")
@@ -93,6 +94,7 @@ public class UpdateDestinationOptionsTest {
     assertEquals(updateDestinationOptionsModel.id(), "testString");
     assertEquals(updateDestinationOptionsModel.name(), "testString");
     assertEquals(updateDestinationOptionsModel.description(), "testString");
+    assertEquals(updateDestinationOptionsModel.collectFailedEvents(), Boolean.valueOf(false));
     assertEquals(updateDestinationOptionsModel.config(), destinationConfigModel);
     assertEquals(IOUtils.toString(updateDestinationOptionsModel.certificate()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(updateDestinationOptionsModel.certificateContentType(), "testString");

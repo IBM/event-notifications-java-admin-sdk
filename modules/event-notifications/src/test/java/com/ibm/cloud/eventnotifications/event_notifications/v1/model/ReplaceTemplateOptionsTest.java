@@ -13,8 +13,8 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -24,14 +24,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the UpdateTemplateOptions model.
+ * Unit test class for the ReplaceTemplateOptions model.
  */
-public class UpdateTemplateOptionsTest {
+public class ReplaceTemplateOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testUpdateTemplateOptions() throws Throwable {
+  public void testReplaceTemplateOptions() throws Throwable {
     TemplateConfig templateConfigModel = new TemplateConfig.Builder()
       .body("testString")
       .subject("testString")
@@ -39,7 +39,7 @@ public class UpdateTemplateOptionsTest {
     assertEquals(templateConfigModel.body(), "testString");
     assertEquals(templateConfigModel.subject(), "testString");
 
-    UpdateTemplateOptions updateTemplateOptionsModel = new UpdateTemplateOptions.Builder()
+    ReplaceTemplateOptions replaceTemplateOptionsModel = new ReplaceTemplateOptions.Builder()
       .instanceId("testString")
       .id("testString")
       .name("testString")
@@ -47,17 +47,17 @@ public class UpdateTemplateOptionsTest {
       .type("testString")
       .params(templateConfigModel)
       .build();
-    assertEquals(updateTemplateOptionsModel.instanceId(), "testString");
-    assertEquals(updateTemplateOptionsModel.id(), "testString");
-    assertEquals(updateTemplateOptionsModel.name(), "testString");
-    assertEquals(updateTemplateOptionsModel.description(), "testString");
-    assertEquals(updateTemplateOptionsModel.type(), "testString");
-    assertEquals(updateTemplateOptionsModel.params(), templateConfigModel);
+    assertEquals(replaceTemplateOptionsModel.instanceId(), "testString");
+    assertEquals(replaceTemplateOptionsModel.id(), "testString");
+    assertEquals(replaceTemplateOptionsModel.name(), "testString");
+    assertEquals(replaceTemplateOptionsModel.description(), "testString");
+    assertEquals(replaceTemplateOptionsModel.type(), "testString");
+    assertEquals(replaceTemplateOptionsModel.params(), templateConfigModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testUpdateTemplateOptionsError() throws Throwable {
-    new UpdateTemplateOptions.Builder().build();
+  public void testReplaceTemplateOptionsError() throws Throwable {
+    new ReplaceTemplateOptions.Builder().build();
   }
 
 }

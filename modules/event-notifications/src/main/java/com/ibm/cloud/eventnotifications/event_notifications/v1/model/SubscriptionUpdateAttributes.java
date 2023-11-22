@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * Classes which extend this class:
  * - SubscriptionUpdateAttributesSMSUpdateAttributes
  * - SubscriptionUpdateAttributesEmailUpdateAttributes
+ * - SubscriptionUpdateAttributesCustomSMSUpdateAttributes
  * - SubscriptionUpdateAttributesCustomEmailUpdateAttributes
  * - SubscriptionUpdateAttributesWebhookAttributes
  * - SubscriptionUpdateAttributesSlackAttributes

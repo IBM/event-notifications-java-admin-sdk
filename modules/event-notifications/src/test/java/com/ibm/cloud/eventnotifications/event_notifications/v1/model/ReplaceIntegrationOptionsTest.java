@@ -36,10 +36,12 @@ public class ReplaceIntegrationOptionsTest {
       .endpoint("testString")
       .crn("testString")
       .rootKeyId("testString")
+      .bucketName("testString")
       .build();
     assertEquals(integrationMetadataModel.endpoint(), "testString");
     assertEquals(integrationMetadataModel.crn(), "testString");
     assertEquals(integrationMetadataModel.rootKeyId(), "testString");
+    assertEquals(integrationMetadataModel.bucketName(), "testString");
 
     ReplaceIntegrationOptions replaceIntegrationOptionsModel = new ReplaceIntegrationOptions.Builder()
       .instanceId("testString")

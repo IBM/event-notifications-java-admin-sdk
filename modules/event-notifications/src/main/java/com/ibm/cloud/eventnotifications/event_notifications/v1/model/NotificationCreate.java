@@ -45,6 +45,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmendefaultlong;
   @SerializedName("ibmensubject")
   protected String ibmensubject;
+  @SerializedName("ibmensmsto")
+  protected String ibmensmsto;
   @SerializedName("ibmenmailto")
   protected String ibmenmailto;
   @SerializedName("ibmenhtmlbody")
@@ -94,6 +96,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmendefaultshort;
     private String ibmendefaultlong;
     private String ibmensubject;
+    private String ibmensmsto;
     private String ibmenmailto;
     private String ibmenhtmlbody;
     private String subject;
@@ -127,6 +130,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmendefaultshort = notificationCreate.ibmendefaultshort;
       this.ibmendefaultlong = notificationCreate.ibmendefaultlong;
       this.ibmensubject = notificationCreate.ibmensubject;
+      this.ibmensmsto = notificationCreate.ibmensmsto;
       this.ibmenmailto = notificationCreate.ibmenmailto;
       this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
@@ -288,6 +292,17 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public Builder ibmensubject(String ibmensubject) {
       this.ibmensubject = ibmensubject;
+      return this;
+    }
+
+    /**
+     * Set the ibmensmsto.
+     *
+     * @param ibmensmsto the ibmensmsto
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmensmsto(String ibmensmsto) {
+      this.ibmensmsto = ibmensmsto;
       return this;
     }
 
@@ -499,6 +514,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmendefaultshort = builder.ibmendefaultshort;
     ibmendefaultlong = builder.ibmendefaultlong;
     ibmensubject = builder.ibmensubject;
+    ibmensmsto = builder.ibmensmsto;
     ibmenmailto = builder.ibmenmailto;
     ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
@@ -724,6 +740,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmensubject(final String ibmensubject) {
     this.ibmensubject = ibmensubject;
+  }
+
+  /**
+   * Gets the ibmensmsto.
+   *
+   * The SMS number string.
+   *
+   * @return the ibmensmsto
+   */
+  public String getIbmensmsto() {
+    return this.ibmensmsto;
+  }
+
+  /**
+   * Sets the ibmensmsto.
+   *
+   * @param ibmensmsto the new ibmensmsto
+   */
+  public void setIbmensmsto(final String ibmensmsto) {
+    this.ibmensmsto = ibmensmsto;
   }
 
   /**
