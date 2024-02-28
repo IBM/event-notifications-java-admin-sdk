@@ -66,6 +66,7 @@ public class EventNotificationsExamples {
   public static String destinationId15 = "";
   public static String destinationId16 = "";
   public static String destinationId17 = "";
+  public static String destinationId18 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -98,6 +99,7 @@ public class EventNotificationsExamples {
   public static String templateBody = "";
   public static String cosIntegrationID = "";
   public static String cosInstanceCRN = "";
+  public static String codeEngineProjectCRN = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -144,6 +146,7 @@ public class EventNotificationsExamples {
     cosInstanceID = config.get("COS_INSTANCE");
     templateBody = config.get("TEMPLATE_BODY");
     cosInstanceCRN = config.get("COS_INSTANCE_CRN");
+    codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
 
     try {
       System.out.println("createSources() result:");
@@ -649,14 +652,11 @@ public class EventNotificationsExamples {
       DestinationResponse destinationV1Response = fcmV1Response.getResult();
       destinationId12 = destinationV1Response.getId();
 
-      DestinationConfigOneOfWebhookDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
               .url(codeEngineURL)
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() {
-                {
-                  put("authorization", "testString");
-                }
-              })
+              .type("application")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
               .build();
 
@@ -779,6 +779,32 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCustomSMSResponseResult = customSMSResponse.getResult();
       System.out.println(destinationCustomSMSResponseResult);
       destinationId17 = destinationCustomSMSResponseResult.getId();
+
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationCEJobConfigParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
+              .type("job")
+              .projectCrn(codeEngineProjectCRN)
+              .jobName("custom-job")
+              .build();
+
+      DestinationConfig destinationCEJobConfigModel = new DestinationConfig.Builder()
+              .params(destinationCEJobConfigParamsModel)
+              .build();
+
+      codeEngineName = "code-engine_job_destination";
+      codeEngineDescription = "code engine job Destination";
+
+      CreateDestinationOptions createCEJobDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(codeEngineName)
+              .type(codeEngineTypeVal)
+              .description(codeEngineDescription)
+              .config(destinationCEJobConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> ceJobResponse = eventNotificationsService.createDestination(createCEJobDestinationOptions).execute();
+      DestinationResponse destinationCEJobResponseResult = ceJobResponse.getResult();
+      destinationId18 = destinationCEJobResponseResult.getId();
 
       // end-create_destination
 
@@ -1156,14 +1182,11 @@ public class EventNotificationsExamples {
 
       System.out.println(fcmV1destination);
 
-      DestinationConfigOneOfWebhookDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
               .url(codeEngineURL)
               .verb("get")
-              .customHeaders(new java.util.HashMap<String, String>() {
-                {
-                  put("authorization1", "testString");
-                }
-              })
+              .type("application")
+              .customHeaders(new java.util.HashMap<String, String>() { { put("authorization1", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization1")))
               .build();
 
@@ -1300,6 +1323,32 @@ public class EventNotificationsExamples {
       Response<Destination> customSMSResponse = eventNotificationsService.updateDestination(updateCustomSMSDestinationOptions).execute();
       Destination destinationCustomSMSResponseResult = customSMSResponse.getResult();
       System.out.println(destinationCustomSMSResponseResult);
+
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationConfigCEJobParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
+              .type("job")
+              .projectCrn(codeEngineProjectCRN)
+              .jobName("custom-job")
+              .build();
+
+      DestinationConfig destinationCEJobConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfigCEJobParamsModel)
+              .build();
+
+      ceName = "code engine job update";
+      ceDescription = "This destination is for code engine job to receive notifications";
+
+      UpdateDestinationOptions updateCEJobDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId18)
+              .name(ceName)
+              .description(ceDescription)
+              .config(destinationCEJobConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> ceJobResponse = eventNotificationsService.updateDestination(updateCEJobDestinationOptions).execute();
+      Destination destinationCEJobResult = ceJobResponse.getResult();
+      System.out.println(destinationCEJobResult);
 
       // end-update_destination
     } catch (ServiceResponseException e) {
@@ -2066,6 +2115,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId15);
       destinations.add(destinationId16);
       destinations.add(destinationId17);
+      destinations.add(destinationId18);
 
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
