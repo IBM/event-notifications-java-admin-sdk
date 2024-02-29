@@ -3372,8 +3372,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId13);
       subscriptions.add(subscriptionId14);
       subscriptions.add(subscriptionId15);
-//      subscriptions.add(subscriptionId16);
-//      subscriptions.add(subscriptionId17);
+      subscriptions.add(subscriptionId16);
+      subscriptions.add(subscriptionId17);
       subscriptions.add(subscriptionId18);
 
       for (String subscription :
@@ -3461,8 +3461,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId13);
       destinations.add(destinationId14);
       destinations.add(destinationId15);
-//      destinations.add(destinationId16);
-//      destinations.add(destinationId17);
+      destinations.add(destinationId16);
+      destinations.add(destinationId17);
       destinations.add(destinationId18);
 
       for (String destination :
