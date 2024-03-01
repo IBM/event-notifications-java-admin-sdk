@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * Classes which extend this class:
  * - DestinationConfigOneOfCustomDomainEmailDestinationConfig
  * - DestinationConfigOneOfWebhookDestinationConfig
+ * - DestinationConfigOneOfCodeEngineDestinationConfig
  * - DestinationConfigOneOfFCMDestinationConfig
  * - DestinationConfigOneOfIOSDestinationConfig
  * - DestinationConfigOneOfChromeDestinationConfig
@@ -49,6 +50,16 @@ public class DestinationConfigOneOf extends GenericModel {
     String POST = "post";
   }
 
+  /**
+   * The code engine destination type.
+   */
+  public interface Type {
+    /** job. */
+    String JOB = "job";
+    /** application. */
+    String APPLICATION = "application";
+  }
+
   protected String domain;
   protected DKIMAttributes dkim;
   protected SPFAttributes spf;
@@ -58,6 +69,11 @@ public class DestinationConfigOneOf extends GenericModel {
   protected Map<String, String> customHeaders;
   @SerializedName("sensitive_headers")
   protected List<String> sensitiveHeaders;
+  protected String type;
+  @SerializedName("project_crn")
+  protected String projectCrn;
+  @SerializedName("job_name")
+  protected String jobName;
   @SerializedName("server_key")
   protected String serverKey;
   @SerializedName("sender_id")
@@ -185,6 +201,39 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public List<String> sensitiveHeaders() {
     return sensitiveHeaders;
+  }
+
+  /**
+   * Gets the type.
+   *
+   * The code engine destination type.
+   *
+   * @return the type
+   */
+  public String type() {
+    return type;
+  }
+
+  /**
+   * Gets the projectCrn.
+   *
+   * CRN of the code engine project.
+   *
+   * @return the projectCrn
+   */
+  public String projectCrn() {
+    return projectCrn;
+  }
+
+  /**
+   * Gets the jobName.
+   *
+   * name of the code engine job.
+   *
+   * @return the jobName
+   */
+  public String jobName() {
+    return jobName;
   }
 
   /**

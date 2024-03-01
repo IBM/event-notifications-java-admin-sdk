@@ -66,6 +66,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId15 = "";
   public static String destinationId16 = "";
   public static String destinationId17 = "";
+  public static String destinationId18 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -84,6 +85,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId15 = "";
   public static String subscriptionId16 = "";
   public static String subscriptionId17 = "";
+  public static String subscriptionId18 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -110,6 +112,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String templateBody = "";
   public static String cosInstanceCRN = "";
   public static String cosIntegrationID = "";
+  public static String codeEngineProjectCRN = "";
 
 
 
@@ -162,6 +165,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     pagerDutyApiKey = config.get("PD_API_KEY");
     pagerDutyRoutingKey = config.get("PD_ROUTING_KEY");
     templateBody = config.get("TEMPLATE_BODY");
+    codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
 
     service.enableRetries(4, 30);
 
@@ -981,9 +985,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId12 = destinationFCMResponseResult.getId();
 
-      DestinationConfigOneOfWebhookDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationCEConfigParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
               .url(codeEngineURL)
               .verb("get")
+              .type("application")
               .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
               .build();
@@ -1146,6 +1151,42 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       DestinationResponse destinationCustomSMSResponseResult = customSMSResponse.getResult();
       destinationId17 = destinationCustomSMSResponseResult.getId();
+
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationCEJobConfigParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
+              .type("job")
+              .projectCrn(codeEngineProjectCRN)
+              .jobName("custom-job")
+              .build();
+
+      DestinationConfig destinationCEJobConfigModel = new DestinationConfig.Builder()
+              .params(destinationCEJobConfigParamsModel)
+              .build();
+
+      codeEngineName = "code-engine_job_destination";
+      codeEngineDescription = "code engine job Destination";
+
+      CreateDestinationOptions createCEJobDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(codeEngineName)
+              .type(codeEngineTypeVal)
+              .description(codeEngineDescription)
+              .config(destinationCEJobConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> ceJobResponse = service.createDestination(createCEJobDestinationOptions).execute();
+      // Validate response
+      assertNotNull(ceJobResponse);
+      assertEquals(ceJobResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationCEJobResponseResult = ceJobResponse.getResult();
+
+      assertNotNull(destinationCEJobResponseResult);
+      assertEquals(destinationCEJobResponseResult.getDescription(), codeEngineDescription);
+      assertEquals(destinationCEJobResponseResult.getName(), codeEngineName);
+      assertEquals(destinationCEJobResponseResult.getType(), codeEngineTypeVal);
+
+      destinationId18 = destinationCEJobResponseResult.getId();
 
       //
       // The following status codes aren't covered by tests.
@@ -1646,9 +1687,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), fcmDescription);
       assertEquals(destinationResult.getName(), fcmName);
 
-      DestinationConfigOneOfWebhookDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationConfigCEParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
               .url(codeEngineURL)
               .verb("get")
+              .type("application")
               .customHeaders(new java.util.HashMap<String, String>() { { put("authorization1", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization1")))
               .build();
@@ -1828,6 +1870,41 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationCustomSMSResponseResult.getId(), destinationId17);
       assertEquals(destinationCustomSMSResponseResult.getDescription(), customSMSDescription);
       assertEquals(destinationCustomSMSResponseResult.getName(), customSMSName);
+
+      DestinationConfigOneOfCodeEngineDestinationConfig destinationConfigCEJobParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
+              .type("job")
+              .projectCrn(codeEngineProjectCRN)
+              .jobName("custom-job")
+              .build();
+
+      DestinationConfig destinationCEJobConfigModel = new DestinationConfig.Builder()
+              .params(destinationConfigCEJobParamsModel)
+              .build();
+
+      ceName = "code engine job update";
+      ceDescription = "This destination is for code engine job to receive notifications";
+
+      UpdateDestinationOptions updateCEJobDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId18)
+              .name(ceName)
+              .description(ceDescription)
+              .config(destinationCEJobConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> ceJobResponse = service.updateDestination(updateCEJobDestinationOptions).execute();
+      // Validate response
+      assertNotNull(ceJobResponse);
+      assertEquals(ceJobResponse.getStatusCode(), 200);
+
+      Destination destinationCEJobResult = ceJobResponse.getResult();
+
+      assertNotNull(destinationCEJobResult);
+
+      assertEquals(destinationCEJobResult.getId(), destinationId18);
+      assertEquals(destinationCEJobResult.getDescription(), ceDescription);
+      assertEquals(destinationCEJobResult.getName(), ceName);
 
       //
       // The following status codes aren't covered by tests.
@@ -2481,6 +2558,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId17 = customSMSSubscriptionResult.getId();
 
+      SubscriptionCreateAttributesWebhookAttributes subscriptionCreateCEJobAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
+              .signingEnabled(true).build();
+      ceName = "subscription_code_engine_job";
+      ceDescription = "Subscription for code engine job";
+
+      CreateSubscriptionOptions createCEJobSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(ceName)
+              .destinationId(destinationId18)
+              .topicId(topicId)
+              .description(ceDescription)
+              .attributes(subscriptionCreateCEJobAttributesModel)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> ceJobResponse = service.createSubscription(createCEJobSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(ceJobResponse);
+      assertEquals(ceJobResponse.getStatusCode(), 201);
+
+      Subscription subscriptionCEJobResult = ceJobResponse.getResult();
+
+      assertNotNull(subscriptionCEJobResult);
+      assertEquals(subscriptionCEJobResult.getDescription(), ceDescription);
+      assertEquals(subscriptionCEJobResult.getName(), ceName);
+
+      subscriptionId18 = subscriptionCEJobResult.getId();
+
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -3096,6 +3201,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(customSMSSubscriptionResult.getName(), customSMSName);
       assertEquals(customSMSSubscriptionResult.getId(), subscriptionId17);
 
+      SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateCEJobAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
+              .signingEnabled(true)
+              .build();
+
+      ceName = "CE_job_sub_updated";
+      ceDescription = "Update code engine job subscription";
+
+      UpdateSubscriptionOptions updateCEJobSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId18)
+              .name(ceName)
+              .description(ceDescription)
+              .attributes(subscriptionUpdateCEJobAttributesModel)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> ceJobResponse = service.updateSubscription(updateCEJobSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(ceJobResponse);
+      assertEquals(ceJobResponse.getStatusCode(), 200);
+
+      Subscription subscriptionCEJobResult = ceJobResponse.getResult();
+
+      assertNotNull(subscriptionCEJobResult);
+      assertEquals(subscriptionCEJobResult.getName(), ceName);
+      assertEquals(subscriptionCEJobResult.getDescription(), ceDescription);
+      assertEquals(subscriptionCEJobResult.getId(), subscriptionId18);
+
 
       //
       // The following status codes aren't covered by tests.
@@ -3191,75 +3324,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
   }
-
-  @Test
-  public void test1WSendBulkNotifications() throws Exception {
-    try {
-      String notificationDevices = "{\"user_ids\": [\"userId\"]}";
-      String fcmJsonString = "{ \"title\" : \"Portugal vs. Denmark\", \"badge\": \"great match\" }";
-      String apnsJsonString = "{\"alert\": \"Game Request\", \"badge\": 5 }";
-      String safariJsonString = "{\"aps\":{\"alert\":{\"title\":\"FlightA998NowBoarding\",\"body\":\"BoardinghasbegunforFlightA998.\",\"action\":\"View\"},\"url-args\":[\"boarding\",\"A998\"]}}";
-
-      NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
-              .ibmenseverity("MEDIUM")
-              .ibmenfcmbody(fcmJsonString)
-              .ibmenapnsbody(apnsJsonString)
-              .ibmensafaribody(safariJsonString)
-              .ibmenpushto(notificationDevices)
-              .ibmensourceid(sourceId)
-              .id("FCM ID")
-              .source(sourceId)
-              .type("com.acme.offer:new")
-              .specversion("1.0")
-              .time(new Date())
-              .build();
-
-      NotificationCreate notificationCreateModel1 = new NotificationCreate.Builder()
-              .ibmenseverity("LOW")
-              .ibmenfcmbody(fcmJsonString)
-              .ibmenapnsbody(apnsJsonString)
-              .ibmensafaribody(safariJsonString)
-              .ibmenpushto(notificationDevices)
-              .ibmensourceid(sourceId)
-              .id("FCM ID")
-              .source(sourceId)
-              .type("com.ibm.cloud.compliance.certificate_manager:certificate_expired")
-              .specversion("1.0")
-              .time(new Date())
-              .build();
-
-      SendBulkNotificationsOptions sendBulkNotificationsOptions = new SendBulkNotificationsOptions.Builder()
-              .instanceId(instanceId)
-              .bulkMessages(new java.util.ArrayList<NotificationCreate>(java.util.Arrays.asList(notificationCreateModel,notificationCreateModel1)))
-              .build();
-
-      // Invoke operation
-      Response<BulkNotificationResponse> response = service.sendBulkNotifications(sendBulkNotificationsOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 202);
-
-      BulkNotificationResponse bulkNotificationResponseResult = response.getResult();
-
-      assertNotNull(bulkNotificationResponseResult);
-
-      //
-      // The following status codes aren't covered by tests.
-      // Please provide integration tests for these too.
-      //
-      // 400
-      // 401
-      // 415
-      // 500
-      //
-      //
-
-    } catch (ServiceResponseException e) {
-      fail(String.format("Service returned status code %d: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
   @Test
   public void test1XTestDestination() {
     try {
@@ -3310,6 +3374,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId15);
       subscriptions.add(subscriptionId16);
       subscriptions.add(subscriptionId17);
+      subscriptions.add(subscriptionId18);
 
       for (String subscription :
               subscriptions) {
@@ -3398,6 +3463,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId15);
       destinations.add(destinationId16);
       destinations.add(destinationId17);
+      destinations.add(destinationId18);
 
       for (String destination :
               destinations) {

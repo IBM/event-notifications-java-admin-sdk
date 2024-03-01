@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,6 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BulkNotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
@@ -32,6 +31,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfChromeDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCodeEngineDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCustomDomainEmailDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFCMDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFirefoxDestinationConfig;
@@ -86,7 +86,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttribut
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSCountryConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendBulkNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
@@ -266,89 +265,6 @@ public class EventNotificationsTest {
   public void testSendNotificationsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.sendNotifications(null).execute();
-  }
-
-  // Test the sendBulkNotifications operation with a valid options model parameter
-  @Test
-  public void testSendBulkNotificationsWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"bulk_notification_id\": \"bulkNotificationId\", \"bulk_messages\": [\"anyValue\"]}";
-    String sendBulkNotificationsPath = "/v1/instances/testString/notifications/bulk";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(202)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the NotificationCreate model
-    NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
-      .specversion("1.0")
-      .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
-      .id("testString")
-      .source("testString")
-      .type("testString")
-      .ibmenseverity("testString")
-      .ibmensourceid("testString")
-      .ibmendefaultshort("testString")
-      .ibmendefaultlong("testString")
-      .ibmensubject("testString")
-      .ibmensmsto("testString")
-      .ibmenmailto("testString")
-      .ibmenhtmlbody("testString")
-      .subject("testString")
-      .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
-      .datacontenttype("application/json")
-      .ibmenpushto("{\"platforms\":[\"push_android\"]}")
-      .ibmenfcmbody("testString")
-      .ibmenapnsbody("testString")
-      .ibmenapnsheaders("testString")
-      .ibmenchromebody("testString")
-      .ibmenchromeheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
-      .ibmenfirefoxbody("testString")
-      .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
-      .ibmenhuaweibody("testString")
-      .ibmensafaribody("testString")
-      .add("foo", "testString")
-      .build();
-
-    // Construct an instance of the SendBulkNotificationsOptions model
-    SendBulkNotificationsOptions sendBulkNotificationsOptionsModel = new SendBulkNotificationsOptions.Builder()
-      .instanceId("testString")
-      .bulkMessages(java.util.Arrays.asList(notificationCreateModel))
-      .build();
-
-    // Invoke sendBulkNotifications() with a valid options model and verify the result
-    Response<BulkNotificationResponse> response = eventNotificationsService.sendBulkNotifications(sendBulkNotificationsOptionsModel).execute();
-    assertNotNull(response);
-    BulkNotificationResponse responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, sendBulkNotificationsPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the sendBulkNotifications operation with and without retries enabled
-  @Test
-  public void testSendBulkNotificationsWRetries() throws Throwable {
-    eventNotificationsService.enableRetries(4, 30);
-    testSendBulkNotificationsWOptions();
-
-    eventNotificationsService.disableRetries();
-    testSendBulkNotificationsWOptions();
-  }
-
-  // Test the sendBulkNotifications operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testSendBulkNotificationsNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    eventNotificationsService.sendBulkNotifications(null).execute();
   }
 
   // Test the createSources operation with a valid options model parameter
