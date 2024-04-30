@@ -1,4 +1,4 @@
-# [0.5.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.4.0...0.5.0) (2024-03-01)
+[# [0.5.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.4.0...0.5.0) (2024-03-01)
 
 
 ### Features
@@ -167,3 +167,4 @@
 ### Bug Fixes
 
 * **Event Notifications:** release new version ([a138a05](https://github.com/IBM/event-notifications-java-admin-sdk/commit/a138a0565a3bdb06d4ff67461eca363c8e7f58f0))
+]()

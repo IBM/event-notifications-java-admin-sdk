@@ -96,10 +96,14 @@ public class EventNotificationsExamples {
   public static String cosEndPoint = "";
   public static String templateInvitationID = "";
   public static String templateNotificationID = "";
+  public static String slackTemplateID = "";
   public static String templateBody = "";
+  public static String slackTemplateBody = "";
   public static String cosIntegrationID = "";
   public static String cosInstanceCRN = "";
   public static String codeEngineProjectCRN = "";
+  public static String smtpConfigID = "";
+  public static String smtpUserID = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -146,6 +150,7 @@ public class EventNotificationsExamples {
     cosInstanceID = config.get("COS_INSTANCE");
     templateBody = config.get("TEMPLATE_BODY");
     cosInstanceCRN = config.get("COS_INSTANCE_CRN");
+    slackTemplateBody = config.get("SLACK_TEMPLATE_BODY");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
 
     try {
@@ -1362,7 +1367,7 @@ public class EventNotificationsExamples {
       String name = "template name";
       String description = "template description";
 
-      TemplateConfig templateConfig = new TemplateConfig.Builder()
+      TemplateConfigOneOfEmailTemplateConfig templateConfig = new TemplateConfigOneOfEmailTemplateConfig.Builder()
               .body(templateBody)
               .subject("Hi this is invitation for invitation message")
               .build();
@@ -1392,6 +1397,23 @@ public class EventNotificationsExamples {
       TemplateResponse notificationTemplateResult = notificationResponse.getResult();
 
       templateNotificationID = notificationTemplateResult.getId();
+
+      TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
+              .body(slackTemplateBody)
+              .build();
+
+      name = "slack template notification name";
+      CreateTemplateOptions createSlackTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("slack.notification")
+              .params(slackTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> slackTemplatenotificationResponse = eventNotificationsService.createTemplate(createSlackTemplateNotificationOptions).execute();
+      TemplateResponse slackTemplateResult = slackTemplatenotificationResponse.getResult();
+      slackTemplateID = slackTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1517,6 +1539,7 @@ public class EventNotificationsExamples {
 
       SubscriptionCreateAttributesSlackAttributes slackCreateAttributes = new SubscriptionCreateAttributesSlackAttributes.Builder()
               .attachmentColor("#0000FF")
+              .templateIdNotification(slackTemplateID)
               .build();
 
       CreateSubscriptionOptions createSlackSubscriptionOptions = new CreateSubscriptionOptions.Builder()
@@ -1660,10 +1683,10 @@ public class EventNotificationsExamples {
     try {
       System.out.println("updateTemplate() result:");
       // begin-update_template
-      String name = "template name";
-      String description = "template description";
+      String name = "template name update";
+      String description = "template description update";
 
-      TemplateConfig templateConfig = new TemplateConfig.Builder()
+      TemplateConfigOneOfEmailTemplateConfig templateConfig = new TemplateConfigOneOfEmailTemplateConfig.Builder()
               .body(templateBody)
               .subject("Hi this is invitation for invitation message")
               .build();
@@ -1694,8 +1717,25 @@ public class EventNotificationsExamples {
       Response<Template> notificationResponse = eventNotificationsService.replaceTemplate(replaceTemplateNotificationOptions).execute();
 
       Template notificationTemplateResult = notificationResponse.getResult();
-      // end-update_template
       System.out.println(notificationTemplateResult);
+
+      TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
+              .body(slackTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateSlackTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(slackTemplateID)
+              .name(name)
+              .description(description)
+              .type("slack.notification")
+              .params(slackTemplateConfig)
+              .build();
+
+      Response<Template> slackTemplateResponse = eventNotificationsService.replaceTemplate(updateSlackTemplateOptions).execute();
+      Template slackTemplateResult = slackTemplateResponse.getResult();
+      // end-update_template
+      System.out.println(slackTemplateResult);
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -1848,6 +1888,7 @@ public class EventNotificationsExamples {
       String slackDescription = "Subscription slack update";
       SubscriptionUpdateAttributesSlackAttributes slackUpdateAttributes = new SubscriptionUpdateAttributesSlackAttributes.Builder()
               .attachmentColor("#0000FF")
+              .templateIdNotification(slackTemplateID)
               .build();
 
       UpdateSubscriptionOptions updateSlackSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
@@ -1982,6 +2023,7 @@ public class EventNotificationsExamples {
       String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
       String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
       String smsTo = "[\"+911234567890\", \"+911224567890\"]";
+      String templates = "[\"149b0e11-8a7c-4fda-a847-5d79e01b71dc\"]";
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
 
       NotificationCreate body = new NotificationCreate.Builder()
@@ -1996,6 +2038,7 @@ public class EventNotificationsExamples {
               .ibmensubject("certificate expires")
               .ibmenmailto(mailTo)
               .ibmensmsto(smsTo)
+              .ibmentemplates(templates)
               .ibmenhtmlbody(htmlBody)
               .ibmenfcmbody(fcmJsonString)
               .ibmenapnsbody(apnsJsonString)
@@ -2022,6 +2065,230 @@ public class EventNotificationsExamples {
     }
 
     try {
+      // begin-create-smtp-configuration
+      String name = "SMTP Configuration";
+      String description = "description for SMTP Configuration";
+      String domain = "mailx.event-notifications.test.cloud.ibm.com";
+
+      CreateSmtpConfigurationOptions createSMTPConfigurationOptions = new CreateSmtpConfigurationOptions.Builder()
+              .instanceId(instanceId)
+              .domain(domain)
+              .name(name)
+              .description(description)
+              .build();
+
+      Response<SMTPCreateResponse> response = eventNotificationsService.createSmtpConfiguration(createSMTPConfigurationOptions).execute();
+      SMTPCreateResponse smtpCreateResponse = response.getResult();
+      smtpConfigID = smtpCreateResponse.getId();
+      System.out.println(smtpCreateResponse);
+      // end-create-smtp-configuration
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-verify-smtp
+      UpdateVerifySmtpOptions updateVerifySmtpOptions = new UpdateVerifySmtpOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .type("dkim,spf,en_authorization")
+              .build();
+
+      Response<SMTPVerificationUpdateResponse> response = eventNotificationsService.updateVerifySmtp(updateVerifySmtpOptions).execute();
+      SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
+      System.out.println(updateVerifySmtpResponse);
+      // end-verify-smtp
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-update-smtp-allowed-ips
+      UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .subnets(java.util.Arrays.asList("192.168.1.64"))
+              .build();
+
+      Response<SMTPAllowedIPs> response = eventNotificationsService.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
+      SMTPAllowedIPs responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-update-smtp-allowed-ips
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-create-smtp-user
+      String description = "description for SMTP user";
+      CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .description(description)
+              .build();
+
+      Response<SMTPUserResponse> response = eventNotificationsService.createSmtpUser(createSmtpUserOptionsModel).execute();
+      SMTPUserResponse responseObj = response.getResult();
+      smtpUserID = responseObj.getId();
+      System.out.println(responseObj);
+      // end-create-smtp-user
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      boolean moreResults = true;
+      int limit = 1;
+      int offset = 0;
+      while (moreResults) {
+        // begin-list-smtp-configurations
+        ListSmtpConfigurationsOptions listSmtpConfigurationsOptionsModel = new ListSmtpConfigurationsOptions.Builder()
+                .instanceId(instanceId)
+                .limit(limit)
+                .offset(offset)
+                .search(search)
+                .build();
+
+        // Invoke listSmtpConfigurations() with a valid options model and verify the result
+        Response<SMTPConfigurationsList> response = eventNotificationsService.listSmtpConfigurations(listSmtpConfigurationsOptionsModel).execute();
+
+        SMTPConfigurationsList smtpConfigurationList = response.getResult();
+        System.out.println(response);
+        // end-list-smtp-configurations
+        if (smtpConfigurationList.getTotalCount() <= offset) {
+          moreResults = false;
+        }
+        offset += 1;
+      }
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      boolean moreResults = true;
+      int limit = 1;
+      int offset = 0;
+      while (moreResults) {
+        // begin-list-smtp-users
+        ListSmtpUsersOptions listSmtpUsersOptionsModel = new ListSmtpUsersOptions.Builder()
+                .instanceId(instanceId)
+                .id(smtpConfigID)
+                .limit(limit)
+                .offset(offset)
+                .search(search)
+                .build();
+
+        // Invoke listSmtpUsers() with a valid options model and verify the result
+        Response<SMTPUsersList> response = eventNotificationsService.listSmtpUsers(listSmtpUsersOptionsModel).execute();
+        SMTPUsersList smtpUsersList = response.getResult();
+        System.out.println(response);
+        // end-list-smtp-users
+        if (smtpUsersList.getTotalCount() <= offset) {
+          moreResults = false;
+        }
+        offset += 1;
+      }
+    }  catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-get-smtp-configuration
+      GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .build();
+
+      Response<SMTPConfiguration> response = eventNotificationsService.getSmtpConfiguration(getSmtpConfigurationOptionsModel).execute();
+      SMTPConfiguration responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-get-smtp-configuration
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-get-smtp-allowed-ips
+      GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .build();
+
+      Response<SMTPAllowedIPs> response = eventNotificationsService.getSmtpAllowedIps(getSmtpAllowedIpsOptionsModel).execute();
+      SMTPAllowedIPs responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-get-smtp-allowed-ips
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-get-smtp-user
+      GetSmtpUserOptions getSmtpUserOptionsModel = new GetSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .userId(smtpUserID)
+              .build();
+
+      Response<SMTPUser> response = eventNotificationsService.getSmtpUser(getSmtpUserOptionsModel).execute();
+      SMTPUser responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-get-smtp-user
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-update-smtp-configuration
+      String name = "SMTP Configuration update";
+      String description = "description for SMTP Configuration update";
+
+      UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateSmtpConfigurationOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .name(name)
+              .description(description)
+              .build();
+
+      Response<SMTPConfiguration> response = eventNotificationsService.updateSmtpConfiguration(updateSmtpConfigurationOptionsModel).execute();
+      SMTPConfiguration responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-update-smtp-configuration
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-update-smtp-user
+      String description = "description for SMTP user update";
+
+      UpdateSmtpUserOptions updateSmtpUserOptionsModel = new UpdateSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .userId(smtpUserID)
+              .description(description)
+              .build();
+
+      Response<SMTPUser> response = eventNotificationsService.updateSmtpUser(updateSmtpUserOptionsModel).execute();
+      SMTPUser responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-update-smtp-user
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       // begin-test_destination
       TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -2033,6 +2300,37 @@ public class EventNotificationsExamples {
       System.out.println(testDestinationResponse);
       // end-test_destination
       } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_smtp_user
+      DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .userId(smtpUserID)
+              .build();
+
+      Response<Void> response = eventNotificationsService.deleteSmtpUser(deleteSmtpUserOptionsModel).execute();
+      System.out.println(response);
+      // end-delete_smtp_user
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-delete_smtp_configuration
+      DeleteSmtpConfigurationOptions deleteSmtpConfigurationOptionsModel = new DeleteSmtpConfigurationOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .build();
+
+      Response<Void> response = eventNotificationsService.deleteSmtpConfiguration(deleteSmtpConfigurationOptionsModel).execute();
+      System.out.println(response);
+      // end-delete_smtp_configuration
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2252,6 +2550,7 @@ public class EventNotificationsExamples {
       List<String> templates = new ArrayList<>();
       templates.add(templateInvitationID);
       templates.add(templateNotificationID);
+      templates.add(slackTemplateID);
 
       for (String template : templates) {
         // begin-delete_template

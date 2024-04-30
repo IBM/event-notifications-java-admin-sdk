@@ -26,7 +26,7 @@ public class TemplateResponse extends GenericModel {
   protected String name;
   protected String description;
   protected String type;
-  protected TemplateConfig params;
+  protected TemplateConfigOneOf params;
   @SerializedName("created_at")
   protected Date createdAt;
 
@@ -79,11 +79,9 @@ public class TemplateResponse extends GenericModel {
   /**
    * Gets the params.
    *
-   * Payload describing a template configuration.
-   *
    * @return the params
    */
-  public TemplateConfig getParams() {
+  public TemplateConfigOneOf getParams() {
     return params;
   }
 

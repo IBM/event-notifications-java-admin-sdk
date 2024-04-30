@@ -26,7 +26,7 @@
             of the SDK generator used to generate your SDK code.
             See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
         -->
-        <sdk-core-version>9.17.5</sdk-core-version>
+        <sdk-core-version>9.20.0</sdk-core-version>
 
         <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>event-notifications-java-admin-sdk</git-repository-name>

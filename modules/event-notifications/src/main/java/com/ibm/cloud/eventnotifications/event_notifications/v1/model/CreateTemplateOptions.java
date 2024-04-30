@@ -22,7 +22,7 @@ public class CreateTemplateOptions extends GenericModel {
   protected String instanceId;
   protected String name;
   protected String type;
-  protected TemplateConfig params;
+  protected TemplateConfigOneOf params;
   protected String description;
 
   /**
@@ -32,7 +32,7 @@ public class CreateTemplateOptions extends GenericModel {
     private String instanceId;
     private String name;
     private String type;
-    private TemplateConfig params;
+    private TemplateConfigOneOf params;
     private String description;
 
     /**
@@ -62,7 +62,7 @@ public class CreateTemplateOptions extends GenericModel {
      * @param type the type
      * @param params the params
      */
-    public Builder(String instanceId, String name, String type, TemplateConfig params) {
+    public Builder(String instanceId, String name, String type, TemplateConfigOneOf params) {
       this.instanceId = instanceId;
       this.name = name;
       this.type = type;
@@ -117,7 +117,7 @@ public class CreateTemplateOptions extends GenericModel {
      * @param params the params
      * @return the CreateTemplateOptions builder
      */
-    public Builder params(TemplateConfig params) {
+    public Builder params(TemplateConfigOneOf params) {
       this.params = params;
       return this;
     }
@@ -197,11 +197,9 @@ public class CreateTemplateOptions extends GenericModel {
   /**
    * Gets the params.
    *
-   * Payload describing a template configuration.
-   *
    * @return the params
    */
-  public TemplateConfig params() {
+  public TemplateConfigOneOf params() {
     return params;
   }
 

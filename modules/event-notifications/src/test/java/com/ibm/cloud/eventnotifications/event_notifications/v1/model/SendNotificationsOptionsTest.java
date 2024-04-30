@@ -44,8 +44,9 @@ public class SendNotificationsOptionsTest {
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
       .ibmensubject("testString")
-      .ibmensmsto("testString")
+      .ibmentemplates("testString")
       .ibmenmailto("testString")
+      .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
@@ -72,8 +73,9 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
     assertEquals(notificationCreateModel.getIbmendefaultlong(), "testString");
     assertEquals(notificationCreateModel.getIbmensubject(), "testString");
-    assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
+    assertEquals(notificationCreateModel.getIbmentemplates(), "testString");
     assertEquals(notificationCreateModel.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
     assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));

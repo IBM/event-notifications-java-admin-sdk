@@ -23,6 +23,7 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
    */
   public static class Builder {
     private String attachmentColor;
+    private String templateIdNotification;
 
     /**
      * Instantiates a new Builder from an existing SubscriptionUpdateAttributesSlackAttributes instance.
@@ -31,6 +32,7 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
      */
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesSlackAttributes) {
       this.attachmentColor = subscriptionUpdateAttributesSlackAttributes.attachmentColor;
+      this.templateIdNotification = subscriptionUpdateAttributesSlackAttributes.templateIdNotification;
     }
 
     /**
@@ -58,12 +60,24 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
       this.attachmentColor = attachmentColor;
       return this;
     }
+
+    /**
+     * Set the templateIdNotification.
+     *
+     * @param templateIdNotification the templateIdNotification
+     * @return the SubscriptionUpdateAttributesSlackAttributes builder
+     */
+    public Builder templateIdNotification(String templateIdNotification) {
+      this.templateIdNotification = templateIdNotification;
+      return this;
+    }
   }
 
   protected SubscriptionUpdateAttributesSlackAttributes() { }
 
   protected SubscriptionUpdateAttributesSlackAttributes(Builder builder) {
     attachmentColor = builder.attachmentColor;
+    templateIdNotification = builder.templateIdNotification;
   }
 
   /**

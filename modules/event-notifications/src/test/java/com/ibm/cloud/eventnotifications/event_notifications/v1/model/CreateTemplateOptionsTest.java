@@ -14,7 +14,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTemplateOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfEmailTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -32,24 +32,24 @@ public class CreateTemplateOptionsTest {
 
   @Test
   public void testCreateTemplateOptions() throws Throwable {
-    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
+    TemplateConfigOneOfEmailTemplateConfig templateConfigOneOfModel = new TemplateConfigOneOfEmailTemplateConfig.Builder()
       .body("testString")
       .subject("testString")
       .build();
-    assertEquals(templateConfigModel.body(), "testString");
-    assertEquals(templateConfigModel.subject(), "testString");
+    assertEquals(templateConfigOneOfModel.body(), "testString");
+    assertEquals(templateConfigOneOfModel.subject(), "testString");
 
     CreateTemplateOptions createTemplateOptionsModel = new CreateTemplateOptions.Builder()
       .instanceId("testString")
       .name("testString")
       .type("testString")
-      .params(templateConfigModel)
+      .params(templateConfigOneOfModel)
       .description("testString")
       .build();
     assertEquals(createTemplateOptionsModel.instanceId(), "testString");
     assertEquals(createTemplateOptionsModel.name(), "testString");
     assertEquals(createTemplateOptionsModel.type(), "testString");
-    assertEquals(createTemplateOptionsModel.params(), templateConfigModel);
+    assertEquals(createTemplateOptionsModel.params(), templateConfigOneOfModel);
     assertEquals(createTemplateOptionsModel.description(), "testString");
   }
 

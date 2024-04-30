@@ -43,8 +43,9 @@ public class NotificationCreateTest {
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
       .ibmensubject("testString")
-      .ibmensmsto("testString")
+      .ibmentemplates("testString")
       .ibmenmailto("testString")
+      .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
@@ -71,8 +72,9 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModel.getIbmendefaultshort(), "testString");
     assertEquals(notificationCreateModel.getIbmendefaultlong(), "testString");
     assertEquals(notificationCreateModel.getIbmensubject(), "testString");
-    assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
+    assertEquals(notificationCreateModel.getIbmentemplates(), "testString");
     assertEquals(notificationCreateModel.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
     assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));
@@ -103,8 +105,9 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModelNew.getIbmendefaultshort(), "testString");
     assertEquals(notificationCreateModelNew.getIbmendefaultlong(), "testString");
     assertEquals(notificationCreateModelNew.getIbmensubject(), "testString");
-    assertEquals(notificationCreateModelNew.getIbmensmsto(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmentemplates(), "testString");
     assertEquals(notificationCreateModelNew.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModelNew.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModelNew.getSubject(), "testString");
     assertEquals(notificationCreateModelNew.getData().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());

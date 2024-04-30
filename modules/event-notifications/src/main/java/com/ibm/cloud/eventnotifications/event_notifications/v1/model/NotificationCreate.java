@@ -45,10 +45,12 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmendefaultlong;
   @SerializedName("ibmensubject")
   protected String ibmensubject;
-  @SerializedName("ibmensmsto")
-  protected String ibmensmsto;
+  @SerializedName("ibmentemplates")
+  protected String ibmentemplates;
   @SerializedName("ibmenmailto")
   protected String ibmenmailto;
+  @SerializedName("ibmensmsto")
+  protected String ibmensmsto;
   @SerializedName("ibmenhtmlbody")
   protected String ibmenhtmlbody;
   @SerializedName("subject")
@@ -96,8 +98,9 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmendefaultshort;
     private String ibmendefaultlong;
     private String ibmensubject;
-    private String ibmensmsto;
+    private String ibmentemplates;
     private String ibmenmailto;
+    private String ibmensmsto;
     private String ibmenhtmlbody;
     private String subject;
     private Map<String, Object> data;
@@ -130,8 +133,9 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmendefaultshort = notificationCreate.ibmendefaultshort;
       this.ibmendefaultlong = notificationCreate.ibmendefaultlong;
       this.ibmensubject = notificationCreate.ibmensubject;
-      this.ibmensmsto = notificationCreate.ibmensmsto;
+      this.ibmentemplates = notificationCreate.ibmentemplates;
       this.ibmenmailto = notificationCreate.ibmenmailto;
+      this.ibmensmsto = notificationCreate.ibmensmsto;
       this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
       this.data = notificationCreate.data;
@@ -296,13 +300,13 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
-     * Set the ibmensmsto.
+     * Set the ibmentemplates.
      *
-     * @param ibmensmsto the ibmensmsto
+     * @param ibmentemplates the ibmentemplates
      * @return the NotificationCreate builder
      */
-    public Builder ibmensmsto(String ibmensmsto) {
-      this.ibmensmsto = ibmensmsto;
+    public Builder ibmentemplates(String ibmentemplates) {
+      this.ibmentemplates = ibmentemplates;
       return this;
     }
 
@@ -314,6 +318,17 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public Builder ibmenmailto(String ibmenmailto) {
       this.ibmenmailto = ibmenmailto;
+      return this;
+    }
+
+    /**
+     * Set the ibmensmsto.
+     *
+     * @param ibmensmsto the ibmensmsto
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmensmsto(String ibmensmsto) {
+      this.ibmensmsto = ibmensmsto;
       return this;
     }
 
@@ -514,8 +529,9 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmendefaultshort = builder.ibmendefaultshort;
     ibmendefaultlong = builder.ibmendefaultlong;
     ibmensubject = builder.ibmensubject;
-    ibmensmsto = builder.ibmensmsto;
+    ibmentemplates = builder.ibmentemplates;
     ibmenmailto = builder.ibmenmailto;
+    ibmensmsto = builder.ibmensmsto;
     ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
     data = builder.data;
@@ -743,23 +759,23 @@ public class NotificationCreate extends DynamicModel<Object> {
   }
 
   /**
-   * Gets the ibmensmsto.
+   * Gets the ibmentemplates.
    *
-   * The SMS number string.
+   * The template id Array of string.
    *
-   * @return the ibmensmsto
+   * @return the ibmentemplates
    */
-  public String getIbmensmsto() {
-    return this.ibmensmsto;
+  public String getIbmentemplates() {
+    return this.ibmentemplates;
   }
 
   /**
-   * Sets the ibmensmsto.
+   * Sets the ibmentemplates.
    *
-   * @param ibmensmsto the new ibmensmsto
+   * @param ibmentemplates the new ibmentemplates
    */
-  public void setIbmensmsto(final String ibmensmsto) {
-    this.ibmensmsto = ibmensmsto;
+  public void setIbmentemplates(final String ibmentemplates) {
+    this.ibmentemplates = ibmentemplates;
   }
 
   /**
@@ -780,6 +796,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmenmailto(final String ibmenmailto) {
     this.ibmenmailto = ibmenmailto;
+  }
+
+  /**
+   * Gets the ibmensmsto.
+   *
+   * The SMS number string.
+   *
+   * @return the ibmensmsto
+   */
+  public String getIbmensmsto() {
+    return this.ibmensmsto;
+  }
+
+  /**
+   * Sets the ibmensmsto.
+   *
+   * @param ibmensmsto the new ibmensmsto
+   */
+  public void setIbmensmsto(final String ibmensmsto) {
+    this.ibmensmsto = ibmensmsto;
   }
 
   /**

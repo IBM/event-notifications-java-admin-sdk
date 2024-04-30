@@ -143,6 +143,20 @@ SDK Methods to consume
   - [List Integrations](#list-integrations)
   - [Get Integrations](#get-integration)
   - [Update Integration](#update-integration)
+- [SMTP Configurations](#SMTPConfigurations)
+  - [Create SMTP Configuration](#create-smtp-configuration)
+  - [Create SMTP User](#create-smtp-user)
+  - [Get SMTP Configuration](#get-smtp-configuration)
+  - [Get SMTP User](#get-smtp-user)
+  - [Get SMTP Allowed Ips](#get-smtp-allowed-ips)
+  - [List SMTP Configurations](#list-smtp-configurations)
+  - [List SMTP Users](#list-smtp-users)
+  - [Update SMTP Configuration](#update-smtp-configuration)
+  - [Update SMTP User](#update-smtp-user)
+  - [Update SMTP Allowed Ips](#update-smtp-allowed-ips)
+  - [Delete SMTP User](#delete-smtp-user)
+  - [Delete SMTP Configuration](#delete-smtp-user)
+  - [Verify SMTP](#verify-smtp)
 - [Send Notifications](#send-notifications)
 
 ## Source
@@ -456,8 +470,10 @@ supports the following templates:
 - Custom Email invitation
 
 ### Create Template
+
+#### Custom Email Template
 ```java
-TemplateConfig templateConfig = new TemplateConfig.Builder()
+TemplateConfigOneOfEmailTemplateConfig templateConfig = new TemplateConfigOneOfEmailTemplateConfig.Builder()
         .body("base 64 encoded html content")
         .subject("Hi this is invitation for invitation message")
         .build();
@@ -472,6 +488,25 @@ CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOption
 
 Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
 ```
+For custom email supported template type values: smtp_custom.invitation, smtp_custom.notification
+#### Slack Template
+```java
+TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .subject("Hi this is invitation for invitation message")
+        .build();
+
+CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(templateConfig)
+        .build();
+
+Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
+```
+For slack template supported template type value: slack.notification
 ### List Templates
 ```java
 ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
@@ -679,7 +714,6 @@ Response<IntegrationList> response = eventNotificationsService.listIntegrations(
 ```
 ### Update Integration
 
-
 For kms/hs-crypto- 
 ```java        
 IntegrationMetadata metadata = new IntegrationMetadata.Builder()
@@ -716,6 +750,174 @@ ReplaceIntegrationOptions cfeIntegrationsOptions = new ReplaceIntegrationOptions
 // Invoke operation
 Response<IntegrationGetResponse> cfeResponse = eventNotificationsService.replaceIntegration(cfeIntegrationsOptions).execute();
 ```
+
+## SMTPConfigurations
+
+### Create SMTP Configuration
+```java
+
+CreateSmtpConfigurationOptions createSMTPConfigurationOptions = new CreateSmtpConfigurationOptions.Builder()
+        .instanceId(<instanceId>)
+        .domain(<smtpDomain>)
+        .name(<smtpName>)
+        .description(<smtpDescription>)
+        .build();
+
+Response<SMTPCreateResponse> response = eventNotificationsService.createSmtpConfiguration(createSMTPConfigurationOptions).execute();
+SMTPCreateResponse smtpCreateResponse = response.getResult();
+
+```
+
+### Create SMTP User
+```java
+
+CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .description(<smtpDescription>)
+        .build();
+
+Response<SMTPUserResponse> response = eventNotificationsService.createSmtpUser(createSmtpUserOptionsModel).execute();
+SMTPUserResponse responseObj = response.getResult();
+
+```
+
+### Get SMTP Configuration
+```java
+
+GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .build();
+
+Response<SMTPConfiguration> response = eventNotificationsService.getSmtpConfiguration(getSmtpConfigurationOptionsModel).execute();
+SMTPConfiguration responseObj = response.getResult();
+```
+
+### Get SMTP User
+```java
+
+GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .build();
+
+Response<SMTPConfiguration> response = eventNotificationsService.getSmtpConfiguration(getSmtpConfigurationOptionsModel).execute();
+SMTPConfiguration responseObj = response.getResult();
+```
+
+### Get SMTP Allowed Ips
+```java
+
+GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .build();
+
+Response<SMTPAllowedIPs> response = eventNotificationsService.getSmtpAllowedIps(getSmtpAllowedIpsOptionsModel).execute();
+SMTPAllowedIPs responseObj = response.getResult();
+```
+
+### List SMTP Configurations
+```java
+
+GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .build();
+
+Response<SMTPAllowedIPs> response = eventNotificationsService.getSmtpAllowedIps(getSmtpAllowedIpsOptionsModel).execute();
+SMTPAllowedIPs responseObj = response.getResult();
+```
+
+### List SMTP Users
+```java
+ListSmtpUsersOptions listSmtpUsersOptionsModel = new ListSmtpUsersOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .limit(limit)
+        .offset(offset)
+        .search(search)
+        .build();
+
+// Invoke listSmtpUsers() with a valid options model and verify the result
+Response<SMTPUsersList> response = eventNotificationsService.listSmtpUsers(listSmtpUsersOptionsModel).execute();
+SMTPUsersList smtpUsersList = response.getResult();
+```
+
+### Update SMTP Configuration
+```java
+UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateSmtpConfigurationOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .name(<smtpName>)
+        .description(<smtpDescription>)
+        .build();
+
+Response<SMTPConfiguration> response = eventNotificationsService.updateSmtpConfiguration(updateSmtpConfigurationOptionsModel).execute();
+SMTPConfiguration responseObj = response.getResult();
+```
+
+### Update SMTP User
+```java
+UpdateSmtpUserOptions updateSmtpUserOptionsModel = new UpdateSmtpUserOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .userId(<smtpUserID>)
+        .description(<userDescription>)
+        .build();
+
+Response<SMTPUser> response = eventNotificationsService.updateSmtpUser(updateSmtpUserOptionsModel).execute();
+SMTPUser responseObj = response.getResult();
+```
+
+### Update SMTP Allowed IPs
+```java
+UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .subnets(java.util.Arrays.asList("<subnet ips>"))
+        .build();
+
+Response<SMTPAllowedIPs> response = eventNotificationsService.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
+SMTPAllowedIPs responseObj = response.getResult();
+```
+
+### Delete SMTP User
+```java
+DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .userId(<smtpUserID>)
+        .build();
+
+Response<Void> response = eventNotificationsService.deleteSmtpUser(deleteSmtpUserOptionsModel).execute();
+System.out.println(response);
+```
+
+### Delete SMTP Configuration
+```java
+DeleteSmtpConfigurationOptions deleteSmtpConfigurationOptionsModel = new DeleteSmtpConfigurationOptions.Builder()
+        .instanceId(instanceId)
+        .id(smtpConfigID)
+        .build();
+
+Response<Void> response = eventNotificationsService.deleteSmtpConfiguration(deleteSmtpConfigurationOptionsModel).execute();
+System.out.println(response);
+```
+
+### Verify SMTP
+```java
+UpdateVerifySmtpOptions updateVerifySmtpOptions = new UpdateVerifySmtpOptions.Builder()
+        .instanceId(instanceId)
+        .id(smtpConfigID)
+        .type("dkim,spf,en_authorization")
+        .build();
+
+Response<SMTPVerificationUpdateResponse> response = eventNotificationsService.updateVerifySmtp(updateVerifySmtpOptions).execute();
+SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
+```
+
 ### Send Notifications
 ```java
       List<String> fcmDevices = new ArrayList<String>();
@@ -737,6 +939,7 @@ Response<IntegrationGetResponse> cfeResponse = eventNotificationsService.replace
         String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
         String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
         String smsTo = "[\"+911234567890\", \"+911224567890\"]";
+        String templates = "[\"149b0e11-8a7c-4fda-a847-5d79e01b71dc\"]";
         String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
         
         NotificationCreate body = new NotificationCreate.Builder()
@@ -750,6 +953,7 @@ Response<IntegrationGetResponse> cfeResponse = eventNotificationsService.replace
               .ibmensubject("<subject>")
               .ibmenmailto(mailTo)
               .ibmensmsto(smsTo)
+              .ibmentemplates(templates)
               .ibmenhtmlbody(htmlBody)
               .ibmenpushto(notificationDevices)
               .ibmenfcmbody(fcmJsonString)
@@ -812,6 +1016,7 @@ Response<IntegrationGetResponse> cfeResponse = eventNotificationsService.replace
   - **ibmenhtmlbody*** (_string_) - The html body of notification for email.
   - **ibmenmailto*** (_Array of string_) - Array of email ids to which the notification to be sent.
   - **ibmensmsto*** (_Array of string_) - Array of SMS numbers to which the notification to be sent.
+  - **ibmentemplates*** (_Array of string_) - Array of template IDs that needs to be applied while sending notification for custom domain email and slack destination.
 
 Note: variable with * represents the mandatory attribute.
 </details>
@@ -824,10 +1029,37 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_APIKEY` - Add the Event Notifications service instance apikey.
 - `EVENT_NOTIFICATIONS_GUID` - Add the Event Notifications service instance GUID.
 
-Optional
+**Optional**
 - `EVENT_NOTIFICATIONS_AUTH_URL` - Add the IAM url if you are using IBM test cloud.
 - `EVENT_NOTIFICATIONS_FCM_KEY` - Add firebase server key for Android FCM destination.
 - `EVENT_NOTIFICATIONS_FCM_ID` - Add firebase sender Id for Android FCM destination.
+- `EVENT_NOTIFICATIONS_FCM_PROJECT_ID` - fcm project id
+- `EVENT_NOTIFICATIONS_FCM_CLIENT_EMAIL` - fcm client email
+- `EVENT_NOTIFICATIONS_FCM_PRIVATE_KEY` - fcm private key
+- `EVENT_NOTIFICATIONS_SAFARI_CERTIFICATE` - safari certificate path
+
+- `EVENT_NOTIFICATIONS_SNOW_CLIENT_ID` - service now client id
+- `EVENT_NOTIFICATIONS_SNOW_CLIENT_SECRET` - service now client secret
+- `EVENT_NOTIFICATIONS_SNOW_USER_NAME` - service now user name
+- `EVENT_NOTIFICATIONS_SNOW_PASSWORD` - service now password
+- `EVENT_NOTIFICATIONS_SNOW_INSTANCE_NAME` - service now instance name
+
+- `EVENT_NOTIFICATIONS_COS_BUCKET_NAME` - cloud object storage bucket name
+- `EVENT_NOTIFICATIONS_COS_INSTANCE` - cloud object storage instance id
+- `EVENT_NOTIFICATIONS_COS_INSTANCE_CRN` - cloud object storage instance crn
+- `EVENT_NOTIFICATIONS_COS_ENDPOINT` - cloud object storage end point
+
+- `EVENT_NOTIFICATIONS_CODE_ENGINE_URL` - code engine app url
+- `EVENT_NOTIFICATIONS_CODE_ENGINE_PROJECT_CRN` - code engine project crn
+- `EVENT_NOTIFICATIONS_HUAWEI_CLIENT_SECRET` - huawei client secret
+- `EVENT_NOTIFICATIONS_HUAWEI_CLIENT_ID` - huawei client id
+
+- `EVENT_NOTIFICATIONS_SLACK_URL` - slack webhook url
+- `EVENT_NOTIFICATIONS_MS_TEAMS_URL` - msteams webhook url
+- `EVENT_NOTIFICATIONS_PD_ROUTING_KEY` - pagerduty routing key
+- `EVENT_NOTIFICATIONS_PD_API_KEY` - pagerduty api key
+- `EVENT_NOTIFICATIONS_TEMPLATE_BODY` - base 64 encoded html content
+- `EVENT_NOTIFICATIONS_SLACK_TEMPLATE_BODY` - base 64 encoded json body
 
 
 

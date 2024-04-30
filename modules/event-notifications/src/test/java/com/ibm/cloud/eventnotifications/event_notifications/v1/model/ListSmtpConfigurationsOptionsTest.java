@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpConfigurationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,32 +23,29 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the TemplateConfig model.
+ * Unit test class for the ListSmtpConfigurationsOptions model.
  */
-public class TemplateConfigTest {
+public class ListSmtpConfigurationsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testTemplateConfig() throws Throwable {
-    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
-      .body("testString")
-      .subject("testString")
+  public void testListSmtpConfigurationsOptions() throws Throwable {
+    ListSmtpConfigurationsOptions listSmtpConfigurationsOptionsModel = new ListSmtpConfigurationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("1"))
+      .offset(Long.valueOf("0"))
+      .search("testString")
       .build();
-    assertEquals(templateConfigModel.body(), "testString");
-    assertEquals(templateConfigModel.subject(), "testString");
-
-    String json = TestUtilities.serialize(templateConfigModel);
-
-    TemplateConfig templateConfigModelNew = TestUtilities.deserialize(json, TemplateConfig.class);
-    assertTrue(templateConfigModelNew instanceof TemplateConfig);
-    assertEquals(templateConfigModelNew.body(), "testString");
-    assertEquals(templateConfigModelNew.subject(), "testString");
+    assertEquals(listSmtpConfigurationsOptionsModel.instanceId(), "testString");
+    assertEquals(listSmtpConfigurationsOptionsModel.limit(), Long.valueOf("1"));
+    assertEquals(listSmtpConfigurationsOptionsModel.offset(), Long.valueOf("0"));
+    assertEquals(listSmtpConfigurationsOptionsModel.search(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testTemplateConfigError() throws Throwable {
-    new TemplateConfig.Builder().build();
+  public void testListSmtpConfigurationsOptionsError() throws Throwable {
+    new ListSmtpConfigurationsOptions.Builder().build();
   }
 
 }

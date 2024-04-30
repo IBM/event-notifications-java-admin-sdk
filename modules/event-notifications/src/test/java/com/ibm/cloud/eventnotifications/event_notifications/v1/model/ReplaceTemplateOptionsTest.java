@@ -14,7 +14,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTemplateOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfEmailTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -32,12 +32,12 @@ public class ReplaceTemplateOptionsTest {
 
   @Test
   public void testReplaceTemplateOptions() throws Throwable {
-    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
+    TemplateConfigOneOfEmailTemplateConfig templateConfigOneOfModel = new TemplateConfigOneOfEmailTemplateConfig.Builder()
       .body("testString")
       .subject("testString")
       .build();
-    assertEquals(templateConfigModel.body(), "testString");
-    assertEquals(templateConfigModel.subject(), "testString");
+    assertEquals(templateConfigOneOfModel.body(), "testString");
+    assertEquals(templateConfigOneOfModel.subject(), "testString");
 
     ReplaceTemplateOptions replaceTemplateOptionsModel = new ReplaceTemplateOptions.Builder()
       .instanceId("testString")
@@ -45,14 +45,14 @@ public class ReplaceTemplateOptionsTest {
       .name("testString")
       .description("testString")
       .type("testString")
-      .params(templateConfigModel)
+      .params(templateConfigOneOfModel)
       .build();
     assertEquals(replaceTemplateOptionsModel.instanceId(), "testString");
     assertEquals(replaceTemplateOptionsModel.id(), "testString");
     assertEquals(replaceTemplateOptionsModel.name(), "testString");
     assertEquals(replaceTemplateOptionsModel.description(), "testString");
     assertEquals(replaceTemplateOptionsModel.type(), "testString");
-    assertEquals(replaceTemplateOptionsModel.params(), templateConfigModel);
+    assertEquals(replaceTemplateOptionsModel.params(), templateConfigOneOfModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

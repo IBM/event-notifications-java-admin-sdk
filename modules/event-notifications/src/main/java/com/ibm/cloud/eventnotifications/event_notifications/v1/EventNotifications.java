@@ -21,12 +21,16 @@ import com.google.gson.JsonObject;
 import com.ibm.cloud.event_notifications.common.SdkCommon;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
@@ -40,6 +44,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCoun
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpAllowedIpsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTemplateOptions;
@@ -49,6 +56,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Integration
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegrationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpConfigurationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpUsersOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
@@ -58,6 +67,14 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Notificatio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPAllowedIPs;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfiguration;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfigurationsList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPCreateResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUser;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUserResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUsersList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPVerificationUpdateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
@@ -74,9 +91,13 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpAllowedIpsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifySmtpOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
@@ -1283,6 +1304,375 @@ public class EventNotifications extends BaseService {
     builder.bodyJson(contentJson);
     ResponseConverter<IntegrationGetResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<IntegrationGetResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a new SMTP Configuration.
+   *
+   * Create a new SMTP Configuration.
+   *
+   * @param createSmtpConfigurationOptions the {@link CreateSmtpConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPCreateResponse}
+   */
+  public ServiceCall<SMTPCreateResponse> createSmtpConfiguration(CreateSmtpConfigurationOptions createSmtpConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createSmtpConfigurationOptions,
+      "createSmtpConfigurationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", createSmtpConfigurationOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "createSmtpConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createSmtpConfigurationOptions.name());
+    contentJson.addProperty("domain", createSmtpConfigurationOptions.domain());
+    if (createSmtpConfigurationOptions.description() != null) {
+      contentJson.addProperty("description", createSmtpConfigurationOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<SMTPCreateResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPCreateResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List all SMTP Configurations.
+   *
+   * List all SMTP Configurations.
+   *
+   * @param listSmtpConfigurationsOptions the {@link ListSmtpConfigurationsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPConfigurationsList}
+   */
+  public ServiceCall<SMTPConfigurationsList> listSmtpConfigurations(ListSmtpConfigurationsOptions listSmtpConfigurationsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listSmtpConfigurationsOptions,
+      "listSmtpConfigurationsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", listSmtpConfigurationsOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listSmtpConfigurations");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listSmtpConfigurationsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listSmtpConfigurationsOptions.limit()));
+    }
+    if (listSmtpConfigurationsOptions.offset() != null) {
+      builder.query("offset", String.valueOf(listSmtpConfigurationsOptions.offset()));
+    }
+    if (listSmtpConfigurationsOptions.search() != null) {
+      builder.query("search", String.valueOf(listSmtpConfigurationsOptions.search()));
+    }
+    ResponseConverter<SMTPConfigurationsList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPConfigurationsList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a new SMTP User.
+   *
+   * Create a new SMTP User.
+   *
+   * @param createSmtpUserOptions the {@link CreateSmtpUserOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPUserResponse}
+   */
+  public ServiceCall<SMTPUserResponse> createSmtpUser(CreateSmtpUserOptions createSmtpUserOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(createSmtpUserOptions,
+      "createSmtpUserOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", createSmtpUserOptions.instanceId());
+    pathParamsMap.put("id", createSmtpUserOptions.id());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/users", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "createSmtpUser");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (createSmtpUserOptions.description() != null) {
+      contentJson.addProperty("description", createSmtpUserOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<SMTPUserResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPUserResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List all SMTP users.
+   *
+   * List all SMTP users.
+   *
+   * @param listSmtpUsersOptions the {@link ListSmtpUsersOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPUsersList}
+   */
+  public ServiceCall<SMTPUsersList> listSmtpUsers(ListSmtpUsersOptions listSmtpUsersOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listSmtpUsersOptions,
+      "listSmtpUsersOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", listSmtpUsersOptions.instanceId());
+    pathParamsMap.put("id", listSmtpUsersOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/users", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listSmtpUsers");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (listSmtpUsersOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listSmtpUsersOptions.limit()));
+    }
+    if (listSmtpUsersOptions.offset() != null) {
+      builder.query("offset", String.valueOf(listSmtpUsersOptions.offset()));
+    }
+    if (listSmtpUsersOptions.search() != null) {
+      builder.query("search", String.valueOf(listSmtpUsersOptions.search()));
+    }
+    ResponseConverter<SMTPUsersList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPUsersList>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get details of a SMTP Configuration.
+   *
+   * Get details of a SMTP Configuration.
+   *
+   * @param getSmtpConfigurationOptions the {@link GetSmtpConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPConfiguration}
+   */
+  public ServiceCall<SMTPConfiguration> getSmtpConfiguration(GetSmtpConfigurationOptions getSmtpConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getSmtpConfigurationOptions,
+      "getSmtpConfigurationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getSmtpConfigurationOptions.instanceId());
+    pathParamsMap.put("id", getSmtpConfigurationOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getSmtpConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<SMTPConfiguration> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPConfiguration>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update details of SMTP.
+   *
+   * Update details of SMTP.
+   *
+   * @param updateSmtpConfigurationOptions the {@link UpdateSmtpConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPConfiguration}
+   */
+  public ServiceCall<SMTPConfiguration> updateSmtpConfiguration(UpdateSmtpConfigurationOptions updateSmtpConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateSmtpConfigurationOptions,
+      "updateSmtpConfigurationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateSmtpConfigurationOptions.instanceId());
+    pathParamsMap.put("id", updateSmtpConfigurationOptions.id());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateSmtpConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateSmtpConfigurationOptions.name() != null) {
+      contentJson.addProperty("name", updateSmtpConfigurationOptions.name());
+    }
+    if (updateSmtpConfigurationOptions.description() != null) {
+      contentJson.addProperty("description", updateSmtpConfigurationOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<SMTPConfiguration> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPConfiguration>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a SMTP Configuration.
+   *
+   * Delete a SMTP Configuration.
+   *
+   * @param deleteSmtpConfigurationOptions the {@link DeleteSmtpConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteSmtpConfiguration(DeleteSmtpConfigurationOptions deleteSmtpConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSmtpConfigurationOptions,
+      "deleteSmtpConfigurationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", deleteSmtpConfigurationOptions.instanceId());
+    pathParamsMap.put("id", deleteSmtpConfigurationOptions.id());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "deleteSmtpConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get details of a SMTP User.
+   *
+   * Get details of a SMTP User.
+   *
+   * @param getSmtpUserOptions the {@link GetSmtpUserOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPUser}
+   */
+  public ServiceCall<SMTPUser> getSmtpUser(GetSmtpUserOptions getSmtpUserOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getSmtpUserOptions,
+      "getSmtpUserOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getSmtpUserOptions.instanceId());
+    pathParamsMap.put("id", getSmtpUserOptions.id());
+    pathParamsMap.put("user_id", getSmtpUserOptions.userId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/users/{user_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getSmtpUser");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<SMTPUser> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPUser>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update details of SMTP User.
+   *
+   * Update details of SMTP User.
+   *
+   * @param updateSmtpUserOptions the {@link UpdateSmtpUserOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPUser}
+   */
+  public ServiceCall<SMTPUser> updateSmtpUser(UpdateSmtpUserOptions updateSmtpUserOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateSmtpUserOptions,
+      "updateSmtpUserOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateSmtpUserOptions.instanceId());
+    pathParamsMap.put("id", updateSmtpUserOptions.id());
+    pathParamsMap.put("user_id", updateSmtpUserOptions.userId());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/users/{user_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateSmtpUser");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (updateSmtpUserOptions.description() != null) {
+      contentJson.addProperty("description", updateSmtpUserOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<SMTPUser> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPUser>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a SMTP user.
+   *
+   * Delete a SMTP user.
+   *
+   * @param deleteSmtpUserOptions the {@link DeleteSmtpUserOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteSmtpUser(DeleteSmtpUserOptions deleteSmtpUserOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(deleteSmtpUserOptions,
+      "deleteSmtpUserOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", deleteSmtpUserOptions.instanceId());
+    pathParamsMap.put("id", deleteSmtpUserOptions.id());
+    pathParamsMap.put("user_id", deleteSmtpUserOptions.userId());
+    RequestBuilder builder = RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/users/{user_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "deleteSmtpUser");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get details of a SMTP allowed IPs.
+   *
+   * Get details of a SMTP allowed IPs.
+   *
+   * @param getSmtpAllowedIpsOptions the {@link GetSmtpAllowedIpsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPAllowedIPs}
+   */
+  public ServiceCall<SMTPAllowedIPs> getSmtpAllowedIps(GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getSmtpAllowedIpsOptions,
+      "getSmtpAllowedIpsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getSmtpAllowedIpsOptions.instanceId());
+    pathParamsMap.put("id", getSmtpAllowedIpsOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/allowed_ips", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getSmtpAllowedIps");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<SMTPAllowedIPs> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPAllowedIPs>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update details of SMTP allowed IP.
+   *
+   * Update details of SMTP.
+   *
+   * @param updateSmtpAllowedIpsOptions the {@link UpdateSmtpAllowedIpsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPAllowedIPs}
+   */
+  public ServiceCall<SMTPAllowedIPs> updateSmtpAllowedIps(UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateSmtpAllowedIpsOptions,
+      "updateSmtpAllowedIpsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateSmtpAllowedIpsOptions.instanceId());
+    pathParamsMap.put("id", updateSmtpAllowedIpsOptions.id());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/allowed_ips", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateSmtpAllowedIps");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("subnets", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateSmtpAllowedIpsOptions.subnets()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<SMTPAllowedIPs> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPAllowedIPs>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Verify SPF and DKIM records of SMTP.
+   *
+   * Verify SPF and DKIM records of SMTP.
+   *
+   * @param updateVerifySmtpOptions the {@link UpdateVerifySmtpOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SMTPVerificationUpdateResponse}
+   */
+  public ServiceCall<SMTPVerificationUpdateResponse> updateVerifySmtp(UpdateVerifySmtpOptions updateVerifySmtpOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateVerifySmtpOptions,
+      "updateVerifySmtpOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateVerifySmtpOptions.instanceId());
+    pathParamsMap.put("id", updateVerifySmtpOptions.id());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/verify", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateVerifySmtp");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("type", String.valueOf(updateVerifySmtpOptions.type()));
+    ResponseConverter<SMTPVerificationUpdateResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPVerificationUpdateResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
