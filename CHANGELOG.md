@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.5.0...0.6.0) (2024-04-30)
+
+
+### Features
+
+* smtp and slack template ([#42](https://github.com/IBM/event-notifications-java-admin-sdk/issues/42)) ([f4ae3e6](https://github.com/IBM/event-notifications-java-admin-sdk/commit/f4ae3e61aa26480f3126ab37a42414aaa1955d97))
+
 [# [0.5.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.4.0...0.5.0) (2024-03-01)
 
 
