@@ -15,6 +15,8 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTagsSubscriptionOptions;
@@ -22,6 +24,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTempl
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateTopicOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DKIMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTagsSubscriptionOptions;
@@ -50,12 +54,16 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationsPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ENAuthAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCountriesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpAllowedIpsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTemplateOptions;
@@ -69,6 +77,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Integration
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegrationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpConfigurationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpUsersOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscriptionsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
@@ -85,8 +95,20 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSAttributesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSCountryConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMSInviteAttributesItems;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPAllowedIPs;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfiguration;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfigurationsList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPCreateResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUser;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUserResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUsersList;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPVerificationResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPVerificationUpdateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SPFAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SmtpConfigurationsPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SmtpUsersPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Source;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
@@ -127,7 +149,9 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Template;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOf;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfEmailTemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfSlackTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplatesPager;
@@ -142,9 +166,13 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesSubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpAllowedIpsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpConfigurationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifyDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateVerifySmtpOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.VerificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.http.Response;
@@ -207,8 +235,9 @@ public class EventNotificationsTest {
       .ibmendefaultshort("testString")
       .ibmendefaultlong("testString")
       .ibmensubject("testString")
-      .ibmensmsto("testString")
+      .ibmentemplates("testString")
       .ibmenmailto("testString")
+      .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
@@ -976,8 +1005,8 @@ public class EventNotificationsTest {
       .setResponseCode(201)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the TemplateConfig model
-    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
+    // Construct an instance of the TemplateConfigOneOfEmailTemplateConfig model
+    TemplateConfigOneOfEmailTemplateConfig templateConfigOneOfModel = new TemplateConfigOneOfEmailTemplateConfig.Builder()
       .body("testString")
       .subject("testString")
       .build();
@@ -987,7 +1016,7 @@ public class EventNotificationsTest {
       .instanceId("testString")
       .name("testString")
       .type("testString")
-      .params(templateConfigModel)
+      .params(templateConfigOneOfModel)
       .description("testString")
       .build();
 
@@ -1212,8 +1241,8 @@ public class EventNotificationsTest {
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
-    // Construct an instance of the TemplateConfig model
-    TemplateConfig templateConfigModel = new TemplateConfig.Builder()
+    // Construct an instance of the TemplateConfigOneOfEmailTemplateConfig model
+    TemplateConfigOneOfEmailTemplateConfig templateConfigOneOfModel = new TemplateConfigOneOfEmailTemplateConfig.Builder()
       .body("testString")
       .subject("testString")
       .build();
@@ -1225,7 +1254,7 @@ public class EventNotificationsTest {
       .name("testString")
       .description("testString")
       .type("testString")
-      .params(templateConfigModel)
+      .params(templateConfigOneOfModel)
       .build();
 
     // Invoke replaceTemplate() with a valid options model and verify the result
@@ -2510,7 +2539,7 @@ public class EventNotificationsTest {
     String createIntegrationPath = "/v1/instances/testString/integrations";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
+      .setResponseCode(201)
       .setBody(mockResponseBody));
 
     // Construct an instance of the IntegrationCreateMetadata model
@@ -2797,6 +2826,837 @@ public class EventNotificationsTest {
   public void testReplaceIntegrationNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.replaceIntegration(null).execute();
+  }
+
+  // Test the createSmtpConfiguration operation with a valid options model parameter
+  @Test
+  public void testCreateSmtpConfigurationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String createSmtpConfigurationPath = "/v1/instances/testString/smtp/config";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the CreateSmtpConfigurationOptions model
+    CreateSmtpConfigurationOptions createSmtpConfigurationOptionsModel = new CreateSmtpConfigurationOptions.Builder()
+      .instanceId("testString")
+      .name("testString")
+      .domain("testString")
+      .description("testString")
+      .build();
+
+    // Invoke createSmtpConfiguration() with a valid options model and verify the result
+    Response<SMTPCreateResponse> response = eventNotificationsService.createSmtpConfiguration(createSmtpConfigurationOptionsModel).execute();
+    assertNotNull(response);
+    SMTPCreateResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createSmtpConfigurationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the createSmtpConfiguration operation with and without retries enabled
+  @Test
+  public void testCreateSmtpConfigurationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testCreateSmtpConfigurationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testCreateSmtpConfigurationWOptions();
+  }
+
+  // Test the createSmtpConfiguration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateSmtpConfigurationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.createSmtpConfiguration(null).execute();
+  }
+
+  // Test the listSmtpConfigurations operation with a valid options model parameter
+  @Test
+  public void testListSmtpConfigurationsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"smtp_configurations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String listSmtpConfigurationsPath = "/v1/instances/testString/smtp/config";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the ListSmtpConfigurationsOptions model
+    ListSmtpConfigurationsOptions listSmtpConfigurationsOptionsModel = new ListSmtpConfigurationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .offset(Long.valueOf("0"))
+      .search("testString")
+      .build();
+
+    // Invoke listSmtpConfigurations() with a valid options model and verify the result
+    Response<SMTPConfigurationsList> response = eventNotificationsService.listSmtpConfigurations(listSmtpConfigurationsOptionsModel).execute();
+    assertNotNull(response);
+    SMTPConfigurationsList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listSmtpConfigurationsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
+    assertEquals(query.get("search"), "testString");
+  }
+
+  // Test the listSmtpConfigurations operation with and without retries enabled
+  @Test
+  public void testListSmtpConfigurationsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testListSmtpConfigurationsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testListSmtpConfigurationsWOptions();
+  }
+
+  // Test the listSmtpConfigurations operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListSmtpConfigurationsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.listSmtpConfigurations(null).execute();
+  }
+
+  // Test the listSmtpConfigurations operation using the SmtpConfigurationsPager.getNext() method
+  @Test
+  public void testListSmtpConfigurationsWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSmtpConfigurationsOptions listSmtpConfigurationsOptions = new ListSmtpConfigurationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<SMTPConfiguration> allResults = new ArrayList<>();
+    SmtpConfigurationsPager pager = new SmtpConfigurationsPager(eventNotificationsService, listSmtpConfigurationsOptions);
+    while (pager.hasNext()) {
+      List<SMTPConfiguration> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listSmtpConfigurations operation using the SmtpConfigurationsPager.getAll() method
+  @Test
+  public void testListSmtpConfigurationsWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSmtpConfigurationsOptions listSmtpConfigurationsOptions = new ListSmtpConfigurationsOptions.Builder()
+      .instanceId("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    SmtpConfigurationsPager pager = new SmtpConfigurationsPager(eventNotificationsService, listSmtpConfigurationsOptions);
+    List<SMTPConfiguration> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the createSmtpUser operation with a valid options model parameter
+  @Test
+  public void testCreateSmtpUserWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"domain\": \"domain\", \"smtp_config_id\": \"smtpConfigId\", \"username\": \"username\", \"password\": \"password\", \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String createSmtpUserPath = "/v1/instances/testString/smtp/config/testString/users";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the CreateSmtpUserOptions model
+    CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .description("testString")
+      .build();
+
+    // Invoke createSmtpUser() with a valid options model and verify the result
+    Response<SMTPUserResponse> response = eventNotificationsService.createSmtpUser(createSmtpUserOptionsModel).execute();
+    assertNotNull(response);
+    SMTPUserResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createSmtpUserPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the createSmtpUser operation with and without retries enabled
+  @Test
+  public void testCreateSmtpUserWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testCreateSmtpUserWOptions();
+
+    eventNotificationsService.disableRetries();
+    testCreateSmtpUserWOptions();
+  }
+
+  // Test the createSmtpUser operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateSmtpUserNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.createSmtpUser(null).execute();
+  }
+
+  // Test the listSmtpUsers operation with a valid options model parameter
+  @Test
+  public void testListSmtpUsersWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"users\": [{\"id\": \"id\", \"smtp_config_id\": \"smtpConfigId\", \"description\": \"description\", \"domain\": \"domain\", \"username\": \"username\", \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String listSmtpUsersPath = "/v1/instances/testString/smtp/config/testString/users";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the ListSmtpUsersOptions model
+    ListSmtpUsersOptions listSmtpUsersOptionsModel = new ListSmtpUsersOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .limit(Long.valueOf("10"))
+      .offset(Long.valueOf("0"))
+      .search("testString")
+      .build();
+
+    // Invoke listSmtpUsers() with a valid options model and verify the result
+    Response<SMTPUsersList> response = eventNotificationsService.listSmtpUsers(listSmtpUsersOptionsModel).execute();
+    assertNotNull(response);
+    SMTPUsersList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listSmtpUsersPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
+    assertEquals(query.get("search"), "testString");
+  }
+
+  // Test the listSmtpUsers operation with and without retries enabled
+  @Test
+  public void testListSmtpUsersWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testListSmtpUsersWOptions();
+
+    eventNotificationsService.disableRetries();
+    testListSmtpUsersWOptions();
+  }
+
+  // Test the listSmtpUsers operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListSmtpUsersNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.listSmtpUsers(null).execute();
+  }
+
+  // Test the listSmtpUsers operation using the SmtpUsersPager.getNext() method
+  @Test
+  public void testListSmtpUsersWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"users\":[{\"id\":\"id\",\"smtp_config_id\":\"smtpConfigId\",\"description\":\"description\",\"domain\":\"domain\",\"username\":\"username\",\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"users\":[{\"id\":\"id\",\"smtp_config_id\":\"smtpConfigId\",\"description\":\"description\",\"domain\":\"domain\",\"username\":\"username\",\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSmtpUsersOptions listSmtpUsersOptions = new ListSmtpUsersOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<SMTPUser> allResults = new ArrayList<>();
+    SmtpUsersPager pager = new SmtpUsersPager(eventNotificationsService, listSmtpUsersOptions);
+    while (pager.hasNext()) {
+      List<SMTPUser> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listSmtpUsers operation using the SmtpUsersPager.getAll() method
+  @Test
+  public void testListSmtpUsersWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"users\":[{\"id\":\"id\",\"smtp_config_id\":\"smtpConfigId\",\"description\":\"description\",\"domain\":\"domain\",\"username\":\"username\",\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"users\":[{\"id\":\"id\",\"smtp_config_id\":\"smtpConfigId\",\"description\":\"description\",\"domain\":\"domain\",\"username\":\"username\",\"created_at\":\"2019-01-01T12:00:00.000Z\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListSmtpUsersOptions listSmtpUsersOptions = new ListSmtpUsersOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    SmtpUsersPager pager = new SmtpUsersPager(eventNotificationsService, listSmtpUsersOptions);
+    List<SMTPUser> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the getSmtpConfiguration operation with a valid options model parameter
+  @Test
+  public void testGetSmtpConfigurationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String getSmtpConfigurationPath = "/v1/instances/testString/smtp/config/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetSmtpConfigurationOptions model
+    GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke getSmtpConfiguration() with a valid options model and verify the result
+    Response<SMTPConfiguration> response = eventNotificationsService.getSmtpConfiguration(getSmtpConfigurationOptionsModel).execute();
+    assertNotNull(response);
+    SMTPConfiguration responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getSmtpConfigurationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getSmtpConfiguration operation with and without retries enabled
+  @Test
+  public void testGetSmtpConfigurationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetSmtpConfigurationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetSmtpConfigurationWOptions();
+  }
+
+  // Test the getSmtpConfiguration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetSmtpConfigurationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getSmtpConfiguration(null).execute();
+  }
+
+  // Test the updateSmtpConfiguration operation with a valid options model parameter
+  @Test
+  public void testUpdateSmtpConfigurationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String updateSmtpConfigurationPath = "/v1/instances/testString/smtp/config/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateSmtpConfigurationOptions model
+    UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateSmtpConfigurationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .name("testString")
+      .description("testString")
+      .build();
+
+    // Invoke updateSmtpConfiguration() with a valid options model and verify the result
+    Response<SMTPConfiguration> response = eventNotificationsService.updateSmtpConfiguration(updateSmtpConfigurationOptionsModel).execute();
+    assertNotNull(response);
+    SMTPConfiguration responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateSmtpConfigurationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateSmtpConfiguration operation with and without retries enabled
+  @Test
+  public void testUpdateSmtpConfigurationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateSmtpConfigurationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateSmtpConfigurationWOptions();
+  }
+
+  // Test the updateSmtpConfiguration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateSmtpConfigurationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateSmtpConfiguration(null).execute();
+  }
+
+  // Test the deleteSmtpConfiguration operation with a valid options model parameter
+  @Test
+  public void testDeleteSmtpConfigurationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String deleteSmtpConfigurationPath = "/v1/instances/testString/smtp/config/testString";
+    server.enqueue(new MockResponse()
+      .setResponseCode(204)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the DeleteSmtpConfigurationOptions model
+    DeleteSmtpConfigurationOptions deleteSmtpConfigurationOptionsModel = new DeleteSmtpConfigurationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke deleteSmtpConfiguration() with a valid options model and verify the result
+    Response<Void> response = eventNotificationsService.deleteSmtpConfiguration(deleteSmtpConfigurationOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteSmtpConfigurationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the deleteSmtpConfiguration operation with and without retries enabled
+  @Test
+  public void testDeleteSmtpConfigurationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testDeleteSmtpConfigurationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testDeleteSmtpConfigurationWOptions();
+  }
+
+  // Test the deleteSmtpConfiguration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteSmtpConfigurationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.deleteSmtpConfiguration(null).execute();
+  }
+
+  // Test the getSmtpUser operation with a valid options model parameter
+  @Test
+  public void testGetSmtpUserWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"smtp_config_id\": \"smtpConfigId\", \"description\": \"description\", \"domain\": \"domain\", \"username\": \"username\", \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String getSmtpUserPath = "/v1/instances/testString/smtp/config/testString/users/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetSmtpUserOptions model
+    GetSmtpUserOptions getSmtpUserOptionsModel = new GetSmtpUserOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .userId("testString")
+      .build();
+
+    // Invoke getSmtpUser() with a valid options model and verify the result
+    Response<SMTPUser> response = eventNotificationsService.getSmtpUser(getSmtpUserOptionsModel).execute();
+    assertNotNull(response);
+    SMTPUser responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getSmtpUserPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getSmtpUser operation with and without retries enabled
+  @Test
+  public void testGetSmtpUserWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetSmtpUserWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetSmtpUserWOptions();
+  }
+
+  // Test the getSmtpUser operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetSmtpUserNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getSmtpUser(null).execute();
+  }
+
+  // Test the updateSmtpUser operation with a valid options model parameter
+  @Test
+  public void testUpdateSmtpUserWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"smtp_config_id\": \"smtpConfigId\", \"description\": \"description\", \"domain\": \"domain\", \"username\": \"username\", \"created_at\": \"2019-01-01T12:00:00.000Z\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String updateSmtpUserPath = "/v1/instances/testString/smtp/config/testString/users/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateSmtpUserOptions model
+    UpdateSmtpUserOptions updateSmtpUserOptionsModel = new UpdateSmtpUserOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .userId("testString")
+      .description("testString")
+      .build();
+
+    // Invoke updateSmtpUser() with a valid options model and verify the result
+    Response<SMTPUser> response = eventNotificationsService.updateSmtpUser(updateSmtpUserOptionsModel).execute();
+    assertNotNull(response);
+    SMTPUser responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateSmtpUserPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateSmtpUser operation with and without retries enabled
+  @Test
+  public void testUpdateSmtpUserWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateSmtpUserWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateSmtpUserWOptions();
+  }
+
+  // Test the updateSmtpUser operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateSmtpUserNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateSmtpUser(null).execute();
+  }
+
+  // Test the deleteSmtpUser operation with a valid options model parameter
+  @Test
+  public void testDeleteSmtpUserWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String deleteSmtpUserPath = "/v1/instances/testString/smtp/config/testString/users/testString";
+    server.enqueue(new MockResponse()
+      .setResponseCode(204)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the DeleteSmtpUserOptions model
+    DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .userId("testString")
+      .build();
+
+    // Invoke deleteSmtpUser() with a valid options model and verify the result
+    Response<Void> response = eventNotificationsService.deleteSmtpUser(deleteSmtpUserOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteSmtpUserPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the deleteSmtpUser operation with and without retries enabled
+  @Test
+  public void testDeleteSmtpUserWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testDeleteSmtpUserWOptions();
+
+    eventNotificationsService.disableRetries();
+    testDeleteSmtpUserWOptions();
+  }
+
+  // Test the deleteSmtpUser operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteSmtpUserNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.deleteSmtpUser(null).execute();
+  }
+
+  // Test the getSmtpAllowedIps operation with a valid options model parameter
+  @Test
+  public void testGetSmtpAllowedIpsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"subnets\": [\"subnets\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String getSmtpAllowedIpsPath = "/v1/instances/testString/smtp/config/testString/allowed_ips";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetSmtpAllowedIpsOptions model
+    GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke getSmtpAllowedIps() with a valid options model and verify the result
+    Response<SMTPAllowedIPs> response = eventNotificationsService.getSmtpAllowedIps(getSmtpAllowedIpsOptionsModel).execute();
+    assertNotNull(response);
+    SMTPAllowedIPs responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getSmtpAllowedIpsPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getSmtpAllowedIps operation with and without retries enabled
+  @Test
+  public void testGetSmtpAllowedIpsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetSmtpAllowedIpsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetSmtpAllowedIpsWOptions();
+  }
+
+  // Test the getSmtpAllowedIps operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetSmtpAllowedIpsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getSmtpAllowedIps(null).execute();
+  }
+
+  // Test the updateSmtpAllowedIps operation with a valid options model parameter
+  @Test
+  public void testUpdateSmtpAllowedIpsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"subnets\": [\"subnets\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String updateSmtpAllowedIpsPath = "/v1/instances/testString/smtp/config/testString/allowed_ips";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateSmtpAllowedIpsOptions model
+    UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .subnets(java.util.Arrays.asList("testString"))
+      .build();
+
+    // Invoke updateSmtpAllowedIps() with a valid options model and verify the result
+    Response<SMTPAllowedIPs> response = eventNotificationsService.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
+    assertNotNull(response);
+    SMTPAllowedIPs responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateSmtpAllowedIpsPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateSmtpAllowedIps operation with and without retries enabled
+  @Test
+  public void testUpdateSmtpAllowedIpsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateSmtpAllowedIpsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateSmtpAllowedIpsWOptions();
+  }
+
+  // Test the updateSmtpAllowedIps operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateSmtpAllowedIpsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateSmtpAllowedIps(null).execute();
+  }
+
+  // Test the updateVerifySmtp operation with a valid options model parameter
+  @Test
+  public void testUpdateVerifySmtpWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"status\": [{\"type\": \"type\", \"verification\": \"verification\"}]}";
+    String updateVerifySmtpPath = "/v1/instances/testString/smtp/config/testString/verify";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateVerifySmtpOptions model
+    UpdateVerifySmtpOptions updateVerifySmtpOptionsModel = new UpdateVerifySmtpOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .type("testString")
+      .build();
+
+    // Invoke updateVerifySmtp() with a valid options model and verify the result
+    Response<SMTPVerificationUpdateResponse> response = eventNotificationsService.updateVerifySmtp(updateVerifySmtpOptionsModel).execute();
+    assertNotNull(response);
+    SMTPVerificationUpdateResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateVerifySmtpPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("type"), "testString");
+  }
+
+  // Test the updateVerifySmtp operation with and without retries enabled
+  @Test
+  public void testUpdateVerifySmtpWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateVerifySmtpWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateVerifySmtpWOptions();
+  }
+
+  // Test the updateVerifySmtp operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateVerifySmtpNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateVerifySmtp(null).execute();
   }
 
   // Perform setup needed before each test method

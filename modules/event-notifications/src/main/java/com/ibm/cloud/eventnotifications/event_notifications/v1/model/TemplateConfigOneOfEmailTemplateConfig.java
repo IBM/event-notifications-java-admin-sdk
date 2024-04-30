@@ -12,15 +12,11 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 /**
- * Payload describing a template configuration.
+ * Payload describing an email template configuration.
  */
-public class TemplateConfig extends GenericModel {
+public class TemplateConfigOneOfEmailTemplateConfig extends TemplateConfigOneOf {
 
-  protected String body;
-  protected String subject;
 
   /**
    * Builder.
@@ -30,13 +26,13 @@ public class TemplateConfig extends GenericModel {
     private String subject;
 
     /**
-     * Instantiates a new Builder from an existing TemplateConfig instance.
+     * Instantiates a new Builder from an existing TemplateConfigOneOfEmailTemplateConfig instance.
      *
-     * @param templateConfig the instance to initialize the Builder with
+     * @param templateConfigOneOfEmailTemplateConfig the instance to initialize the Builder with
      */
-    private Builder(TemplateConfig templateConfig) {
-      this.body = templateConfig.body;
-      this.subject = templateConfig.subject;
+    public Builder(TemplateConfigOneOf templateConfigOneOfEmailTemplateConfig) {
+      this.body = templateConfigOneOfEmailTemplateConfig.body;
+      this.subject = templateConfigOneOfEmailTemplateConfig.subject;
     }
 
     /**
@@ -49,27 +45,25 @@ public class TemplateConfig extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param body the body
-     * @param subject the subject
      */
-    public Builder(String body, String subject) {
+    public Builder(String body) {
       this.body = body;
-      this.subject = subject;
     }
 
     /**
-     * Builds a TemplateConfig.
+     * Builds a TemplateConfigOneOfEmailTemplateConfig.
      *
-     * @return the new TemplateConfig instance
+     * @return the new TemplateConfigOneOfEmailTemplateConfig instance
      */
-    public TemplateConfig build() {
-      return new TemplateConfig(this);
+    public TemplateConfigOneOfEmailTemplateConfig build() {
+      return new TemplateConfigOneOfEmailTemplateConfig(this);
     }
 
     /**
      * Set the body.
      *
      * @param body the body
-     * @return the TemplateConfig builder
+     * @return the TemplateConfigOneOfEmailTemplateConfig builder
      */
     public Builder body(String body) {
       this.body = body;
@@ -80,7 +74,7 @@ public class TemplateConfig extends GenericModel {
      * Set the subject.
      *
      * @param subject the subject
-     * @return the TemplateConfig builder
+     * @return the TemplateConfigOneOfEmailTemplateConfig builder
      */
     public Builder subject(String subject) {
       this.subject = subject;
@@ -88,13 +82,11 @@ public class TemplateConfig extends GenericModel {
     }
   }
 
-  protected TemplateConfig() { }
+  protected TemplateConfigOneOfEmailTemplateConfig() { }
 
-  protected TemplateConfig(Builder builder) {
+  protected TemplateConfigOneOfEmailTemplateConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.body,
       "body cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.subject,
-      "subject cannot be null");
     body = builder.body;
     subject = builder.subject;
   }
@@ -102,32 +94,10 @@ public class TemplateConfig extends GenericModel {
   /**
    * New builder.
    *
-   * @return a TemplateConfig builder
+   * @return a TemplateConfigOneOfEmailTemplateConfig builder
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the body.
-   *
-   * Template body.
-   *
-   * @return the body
-   */
-  public String body() {
-    return body;
-  }
-
-  /**
-   * Gets the subject.
-   *
-   * The template subject.
-   *
-   * @return the subject
-   */
-  public String subject() {
-    return subject;
   }
 }
 

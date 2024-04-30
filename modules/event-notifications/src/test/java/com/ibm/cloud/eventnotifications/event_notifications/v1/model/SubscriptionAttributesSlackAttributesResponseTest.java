@@ -33,5 +33,6 @@ public class SubscriptionAttributesSlackAttributesResponseTest {
   public void testSubscriptionAttributesSlackAttributesResponse() throws Throwable {
     SubscriptionAttributesSlackAttributesResponse subscriptionAttributesSlackAttributesResponseModel = new SubscriptionAttributesSlackAttributesResponse();
     assertNull(subscriptionAttributesSlackAttributesResponseModel.getAttachmentColor());
+    assertNull(subscriptionAttributesSlackAttributesResponseModel.getTemplateIdNotification());
   }
 }

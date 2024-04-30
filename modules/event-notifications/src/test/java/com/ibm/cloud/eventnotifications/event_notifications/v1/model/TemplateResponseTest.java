@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfEmailTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;

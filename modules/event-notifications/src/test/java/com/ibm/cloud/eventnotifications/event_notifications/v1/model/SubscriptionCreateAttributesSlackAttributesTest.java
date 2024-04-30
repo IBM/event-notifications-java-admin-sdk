@@ -33,13 +33,16 @@ public class SubscriptionCreateAttributesSlackAttributesTest {
   public void testSubscriptionCreateAttributesSlackAttributes() throws Throwable {
     SubscriptionCreateAttributesSlackAttributes subscriptionCreateAttributesSlackAttributesModel = new SubscriptionCreateAttributesSlackAttributes.Builder()
       .attachmentColor("testString")
+      .templateIdNotification("testString")
       .build();
     assertEquals(subscriptionCreateAttributesSlackAttributesModel.attachmentColor(), "testString");
+    assertEquals(subscriptionCreateAttributesSlackAttributesModel.templateIdNotification(), "testString");
 
     String json = TestUtilities.serialize(subscriptionCreateAttributesSlackAttributesModel);
 
     SubscriptionCreateAttributesSlackAttributes subscriptionCreateAttributesSlackAttributesModelNew = TestUtilities.deserialize(json, SubscriptionCreateAttributesSlackAttributes.class);
     assertTrue(subscriptionCreateAttributesSlackAttributesModelNew instanceof SubscriptionCreateAttributesSlackAttributes);
     assertEquals(subscriptionCreateAttributesSlackAttributesModelNew.attachmentColor(), "testString");
+    assertEquals(subscriptionCreateAttributesSlackAttributesModelNew.templateIdNotification(), "testString");
   }
 }

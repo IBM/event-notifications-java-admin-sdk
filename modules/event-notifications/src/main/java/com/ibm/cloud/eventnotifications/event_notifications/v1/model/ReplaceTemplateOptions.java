@@ -24,7 +24,7 @@ public class ReplaceTemplateOptions extends GenericModel {
   protected String name;
   protected String description;
   protected String type;
-  protected TemplateConfig params;
+  protected TemplateConfigOneOf params;
 
   /**
    * Builder.
@@ -35,7 +35,7 @@ public class ReplaceTemplateOptions extends GenericModel {
     private String name;
     private String description;
     private String type;
-    private TemplateConfig params;
+    private TemplateConfigOneOf params;
 
     /**
      * Instantiates a new Builder from an existing ReplaceTemplateOptions instance.
@@ -138,7 +138,7 @@ public class ReplaceTemplateOptions extends GenericModel {
      * @param params the params
      * @return the ReplaceTemplateOptions builder
      */
-    public Builder params(TemplateConfig params) {
+    public Builder params(TemplateConfigOneOf params) {
       this.params = params;
       return this;
     }
@@ -226,11 +226,9 @@ public class ReplaceTemplateOptions extends GenericModel {
   /**
    * Gets the params.
    *
-   * Payload describing a template configuration.
-   *
    * @return the params
    */
-  public TemplateConfig params() {
+  public TemplateConfigOneOf params() {
     return params;
   }
 }
