@@ -1412,8 +1412,8 @@ public class EventNotificationsExamples {
               .build();
 
       Response<TemplateResponse> slackTemplatenotificationResponse = eventNotificationsService.createTemplate(createSlackTemplateNotificationOptions).execute();
-      TemplateResponse SlackTemplateResult = slackTemplatenotificationResponse.getResult();
-      slackTemplateID= SlackTemplateResult.getId();
+      TemplateResponse slackTemplateResult = slackTemplatenotificationResponse.getResult();
+      slackTemplateID = slackTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -2135,7 +2135,7 @@ public class EventNotificationsExamples {
       smtpUserID = responseObj.getId();
       System.out.println(responseObj);
       // end-create-smtp-user
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2164,7 +2164,7 @@ public class EventNotificationsExamples {
         }
         offset += 1;
       }
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2193,7 +2193,7 @@ public class EventNotificationsExamples {
         }
         offset += 1;
       }
-    }catch (ServiceResponseException e) {
+    }  catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2209,7 +2209,7 @@ public class EventNotificationsExamples {
       SMTPConfiguration responseObj = response.getResult();
       System.out.println(responseObj);
       // end-get-smtp-configuration
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2225,7 +2225,7 @@ public class EventNotificationsExamples {
       SMTPAllowedIPs responseObj = response.getResult();
       System.out.println(responseObj);
       // end-get-smtp-allowed-ips
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2242,7 +2242,7 @@ public class EventNotificationsExamples {
       SMTPUser responseObj = response.getResult();
       System.out.println(responseObj);
       // end-get-smtp-user
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2263,7 +2263,7 @@ public class EventNotificationsExamples {
       SMTPConfiguration responseObj = response.getResult();
       System.out.println(responseObj);
       // end-update-smtp-configuration
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2283,7 +2283,7 @@ public class EventNotificationsExamples {
       SMTPUser responseObj = response.getResult();
       System.out.println(responseObj);
       // end-update-smtp-user
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2315,7 +2315,7 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSmtpUser(deleteSmtpUserOptionsModel).execute();
       System.out.println(response);
       // end-delete_smtp_user
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
@@ -2330,7 +2330,7 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSmtpConfiguration(deleteSmtpConfigurationOptionsModel).execute();
       System.out.println(response);
       // end-delete_smtp_configuration
-    }catch (ServiceResponseException e) {
+    } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
