@@ -100,6 +100,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfiguration;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPConfigurationsList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPCreateResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPDKIMAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUser;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUserResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SMTPUsersList;
@@ -2832,7 +2833,7 @@ public class EventNotificationsTest {
   @Test
   public void testCreateSmtpConfigurationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createSmtpConfigurationPath = "/v1/instances/testString/smtp/config";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2886,7 +2887,7 @@ public class EventNotificationsTest {
   @Test
   public void testListSmtpConfigurationsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"smtp_configurations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"smtp_configurations\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listSmtpConfigurationsPath = "/v1/instances/testString/smtp/config";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2943,8 +2944,8 @@ public class EventNotificationsTest {
   @Test
   public void testListSmtpConfigurationsWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -2978,8 +2979,8 @@ public class EventNotificationsTest {
   @Test
   public void testListSmtpConfigurationsWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
-    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"public_key\":\"publicKey\",\"selector\":\"selector\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponsePage2 = "{\"total_count\":2,\"limit\":1,\"smtp_configurations\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"domain\":\"domain\",\"config\":{\"dkim\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"},\"en_authorization\":{\"verification\":\"verification\"},\"spf\":{\"txt_name\":\"txtName\",\"txt_value\":\"txtValue\",\"verification\":\"verification\"}},\"updated_at\":\"2019-01-01T12:00:00.000Z\"}]}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -3188,7 +3189,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetSmtpConfigurationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
     String getSmtpConfigurationPath = "/v1/instances/testString/smtp/config/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3240,7 +3241,7 @@ public class EventNotificationsTest {
   @Test
   public void testUpdateSmtpConfigurationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"domain\": \"domain\", \"config\": {\"dkim\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}, \"en_authorization\": {\"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}, \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
     String updateSmtpConfigurationPath = "/v1/instances/testString/smtp/config/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
