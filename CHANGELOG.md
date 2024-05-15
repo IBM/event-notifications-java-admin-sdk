@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.6.0...0.6.1) (2024-05-15)
+
+
+### Bug Fixes
+
+* smtp response DKIM attribute fix ([#43](https://github.com/IBM/event-notifications-java-admin-sdk/issues/43)) ([0a115cf](https://github.com/IBM/event-notifications-java-admin-sdk/commit/0a115cfe5a44bfd4445867b07772f43f60d9ca05))
+
 # [0.6.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.5.0...0.6.0) (2024-04-30)
 
 
