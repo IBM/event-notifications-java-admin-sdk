@@ -16,48 +16,49 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Payload describing a SMTP configuration.
+ * The SMTP DKIM attributes.
  */
-public class SMTPConfig extends GenericModel {
+public class SMTPDKIMAttributes extends GenericModel {
 
-  protected SMTPDKIMAttributes dkim;
-  @SerializedName("en_authorization")
-  protected ENAuthAttributes enAuthorization;
-  protected SPFAttributes spf;
+  @SerializedName("txt_name")
+  protected String txtName;
+  @SerializedName("txt_value")
+  protected String txtValue;
+  protected String verification;
 
-  protected SMTPConfig() { }
+  protected SMTPDKIMAttributes() { }
 
   /**
-   * Gets the dkim.
+   * Gets the txtName.
    *
-   * The SMTP DKIM attributes.
+   * DMIM text name.
    *
-   * @return the dkim
+   * @return the txtName
    */
-  public SMTPDKIMAttributes getDkim() {
-    return dkim;
+  public String getTxtName() {
+    return txtName;
   }
 
   /**
-   * Gets the enAuthorization.
+   * Gets the txtValue.
    *
-   * The en_authorization attributes.
+   * DMIM text value.
    *
-   * @return the enAuthorization
+   * @return the txtValue
    */
-  public ENAuthAttributes getEnAuthorization() {
-    return enAuthorization;
+  public String getTxtValue() {
+    return txtValue;
   }
 
   /**
-   * Gets the spf.
+   * Gets the verification.
    *
-   * The SPF attributes.
+   * DKIM verification.
    *
-   * @return the spf
+   * @return the verification
    */
-  public SPFAttributes getSpf() {
-    return spf;
+  public String getVerification() {
+    return verification;
   }
 }
 

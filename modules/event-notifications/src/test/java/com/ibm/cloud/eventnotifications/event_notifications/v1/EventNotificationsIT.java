@@ -3507,6 +3507,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Response<SMTPConfiguration> response = service.getSmtpConfiguration(getSmtpConfigurationOptionsModel).execute();
       assertNotNull(response);
       SMTPConfiguration responseObj = response.getResult();
+      assertNotNull(responseObj.getConfig().getDkim());
+      assertNotNull(responseObj.getConfig().getSpf());
+      assertNotNull(responseObj.getConfig().getEnAuthorization());
       assertNotNull(responseObj);
       // end-get-smtp-configuration
     } catch (ServiceResponseException e) {
