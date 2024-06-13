@@ -1461,9 +1461,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update details of SMTP.
+   * Update details of SMTP Configuration.
    *
-   * Update details of SMTP.
+   * Update details of SMTP Configuration.
    *
    * @param updateSmtpConfigurationOptions the {@link UpdateSmtpConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPConfiguration}
@@ -1543,9 +1543,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update details of SMTP User.
+   * Update details of a SMTP User.
    *
-   * Update details of SMTP User.
+   * Update details of a SMTP User.
    *
    * @param updateSmtpUserOptions the {@link UpdateSmtpUserOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPUser}
@@ -1598,9 +1598,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Get details of a SMTP allowed IPs.
+   * Get details of SMTP configuration allowed IPs.
    *
-   * Get details of a SMTP allowed IPs.
+   * Get details of SMTP configuration allowed IPs.
    *
    * @param getSmtpAllowedIpsOptions the {@link GetSmtpAllowedIpsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPAllowedIPs}
@@ -1623,9 +1623,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update details of SMTP allowed IP.
+   * Update SMTP configuration allowed IPs.
    *
-   * Update details of SMTP.
+   * Update SMTP configuration allowed IPs.
    *
    * @param updateSmtpAllowedIpsOptions the {@link UpdateSmtpAllowedIpsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPAllowedIPs}
@@ -1651,9 +1651,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Verify SPF and DKIM records of SMTP.
+   * Verify SMTP configuration domain.
    *
-   * Verify SPF and DKIM records of SMTP.
+   * Verify SMTP configuration domain.
    *
    * @param updateVerifySmtpOptions the {@link UpdateVerifySmtpOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPVerificationUpdateResponse}

@@ -51,6 +51,7 @@ public class SubscriptionCreateAttributes extends GenericModel {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  protected List<String> to;
   @SerializedName("assigned_to")
   protected String assignedTo;
   @SerializedName("assignment_group")
@@ -166,6 +167,17 @@ public class SubscriptionCreateAttributes extends GenericModel {
    */
   public String attachmentColor() {
     return attachmentColor;
+  }
+
+  /**
+   * Gets the to.
+   *
+   * Array of Slack Member ID or Channel ID.
+   *
+   * @return the to
+   */
+  public List<String> to() {
+    return to;
   }
 
   /**

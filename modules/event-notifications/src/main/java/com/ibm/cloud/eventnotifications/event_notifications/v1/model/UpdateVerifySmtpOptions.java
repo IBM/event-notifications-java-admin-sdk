@@ -152,7 +152,7 @@ public class UpdateVerifySmtpOptions extends GenericModel {
   /**
    * Gets the type.
    *
-   * SMTP Verification type.
+   * SMTP verification type.
    *
    * @return the type
    */

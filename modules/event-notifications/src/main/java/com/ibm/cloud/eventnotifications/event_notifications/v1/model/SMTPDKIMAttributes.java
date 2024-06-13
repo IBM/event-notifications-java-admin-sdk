@@ -31,7 +31,7 @@ public class SMTPDKIMAttributes extends GenericModel {
   /**
    * Gets the txtName.
    *
-   * DMIM text name.
+   * DKIM text name.
    *
    * @return the txtName
    */
@@ -42,7 +42,7 @@ public class SMTPDKIMAttributes extends GenericModel {
   /**
    * Gets the txtValue.
    *
-   * DMIM text value.
+   * DKIM text value.
    *
    * @return the txtValue
    */

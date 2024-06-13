@@ -34,9 +34,11 @@ public class SubscriptionUpdateAttributesSlackAttributesTest {
     SubscriptionUpdateAttributesSlackAttributes subscriptionUpdateAttributesSlackAttributesModel = new SubscriptionUpdateAttributesSlackAttributes.Builder()
       .attachmentColor("testString")
       .templateIdNotification("testString")
+      .to(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(subscriptionUpdateAttributesSlackAttributesModel.attachmentColor(), "testString");
     assertEquals(subscriptionUpdateAttributesSlackAttributesModel.templateIdNotification(), "testString");
+    assertEquals(subscriptionUpdateAttributesSlackAttributesModel.to(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(subscriptionUpdateAttributesSlackAttributesModel);
 

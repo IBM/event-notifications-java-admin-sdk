@@ -117,6 +117,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String codeEngineProjectCRN = "";
   public static String smtpConfigID = "";
   public static String smtpUserID = "";
+  public static String slackToken = "";
 
 
 
@@ -171,6 +172,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     templateBody = config.get("TEMPLATE_BODY");
     slackTemplateBody = config.get("SLACK_TEMPLATE_BODY");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
+    slackToken = config.get("SLACK_TOKEN");
 
     service.enableRetries(4, 30);
 
@@ -659,6 +661,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinationId3 = destinationFCMResponseResult.getId();
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url(slackURL)
+              .token(slackToken)
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -1386,6 +1389,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url(slackURL)
+              .token(slackToken)
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -2265,9 +2269,13 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String slackName = "subscription_slack";
       String slackDescription = "Subscription for slack";
 
+      ArrayList<String> to = new ArrayList<String>();
+      to.add("");
+
       SubscriptionCreateAttributesSlackAttributes slackCreateAttributes = new SubscriptionCreateAttributesSlackAttributes.Builder()
               .attachmentColor("#0000FF")
               .templateIdNotification(slackTemplateID)
+              .to(to)
               .build();
 
       CreateSubscriptionOptions createSlackSubscriptionOptions = new CreateSubscriptionOptions.Builder()
@@ -2971,9 +2979,12 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       String slackName = "subscription_slack_update";
       String slackDescription = "Subscription slack update";
+      ArrayList<String> to = new ArrayList<String>();
+      to.add("");
 
       SubscriptionUpdateAttributesSlackAttributes slackUpdateAttributes = new SubscriptionUpdateAttributesSlackAttributes.Builder()
               .attachmentColor("#0000FF")
+              .to(to)
               .templateIdNotification(slackTemplateID)
               .build();
 

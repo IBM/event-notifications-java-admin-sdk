@@ -23,6 +23,7 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
    */
   public static class Builder {
     private String url;
+    private String token;
 
     /**
      * Instantiates a new Builder from an existing DestinationConfigOneOfSlackDestinationConfig instance.
@@ -31,6 +32,7 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
      */
     public Builder(DestinationConfigOneOf destinationConfigOneOfSlackDestinationConfig) {
       this.url = destinationConfigOneOfSlackDestinationConfig.url;
+      this.token = destinationConfigOneOfSlackDestinationConfig.token;
     }
 
     /**
@@ -67,6 +69,17 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
       this.url = url;
       return this;
     }
+
+    /**
+     * Set the token.
+     *
+     * @param token the token
+     * @return the DestinationConfigOneOfSlackDestinationConfig builder
+     */
+    public Builder token(String token) {
+      this.token = token;
+      return this;
+    }
   }
 
   protected DestinationConfigOneOfSlackDestinationConfig() { }
@@ -75,6 +88,7 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
       "url cannot be null");
     url = builder.url;
+    token = builder.token;
   }
 
   /**

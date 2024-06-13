@@ -56,6 +56,8 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  @SerializedName("to")
+  protected List<String> to;
   @SerializedName("assigned_to")
   protected String assignedTo;
   @SerializedName("assignment_group")
@@ -195,6 +197,17 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public String getAttachmentColor() {
     return this.attachmentColor;
+  }
+
+  /**
+   * Gets the to.
+   *
+   * Slack Member ID and Channel ID.
+   *
+   * @return the to
+   */
+  public List<String> getTo() {
+    return this.to;
   }
 
   /**

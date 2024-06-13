@@ -103,6 +103,7 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String websiteUrl;
   @SerializedName("public_key")
   protected String publicKey;
+  protected String token;
   @SerializedName("website_name")
   protected String websiteName;
   @SerializedName("url_format_string")
@@ -403,6 +404,17 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public String publicKey() {
     return publicKey;
+  }
+
+  /**
+   * Gets the token.
+   *
+   * Token of slack application.
+   *
+   * @return the token
+   */
+  public String token() {
+    return token;
   }
 
   /**

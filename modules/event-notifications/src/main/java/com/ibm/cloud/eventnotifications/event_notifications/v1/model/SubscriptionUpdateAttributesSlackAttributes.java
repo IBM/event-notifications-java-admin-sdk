@@ -12,6 +12,9 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The attributes for a slack notification.
  */
@@ -24,6 +27,7 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
   public static class Builder {
     private String attachmentColor;
     private String templateIdNotification;
+    private List<String> to;
 
     /**
      * Instantiates a new Builder from an existing SubscriptionUpdateAttributesSlackAttributes instance.
@@ -33,6 +37,7 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
     public Builder(SubscriptionUpdateAttributes subscriptionUpdateAttributesSlackAttributes) {
       this.attachmentColor = subscriptionUpdateAttributesSlackAttributes.attachmentColor;
       this.templateIdNotification = subscriptionUpdateAttributesSlackAttributes.templateIdNotification;
+      this.to = subscriptionUpdateAttributesSlackAttributes.to;
     }
 
     /**
@@ -48,6 +53,22 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
      */
     public SubscriptionUpdateAttributesSlackAttributes build() {
       return new SubscriptionUpdateAttributesSlackAttributes(this);
+    }
+
+    /**
+     * Adds an to to to.
+     *
+     * @param to the new to
+     * @return the SubscriptionUpdateAttributesSlackAttributes builder
+     */
+    public Builder addTo(String to) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(to,
+        "to cannot be null");
+      if (this.to == null) {
+        this.to = new ArrayList<String>();
+      }
+      this.to.add(to);
+      return this;
     }
 
     /**
@@ -71,6 +92,18 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
       this.templateIdNotification = templateIdNotification;
       return this;
     }
+
+    /**
+     * Set the to.
+     * Existing to will be replaced.
+     *
+     * @param to the to
+     * @return the SubscriptionUpdateAttributesSlackAttributes builder
+     */
+    public Builder to(List<String> to) {
+      this.to = to;
+      return this;
+    }
   }
 
   protected SubscriptionUpdateAttributesSlackAttributes() { }
@@ -78,6 +111,7 @@ public class SubscriptionUpdateAttributesSlackAttributes extends SubscriptionUpd
   protected SubscriptionUpdateAttributesSlackAttributes(Builder builder) {
     attachmentColor = builder.attachmentColor;
     templateIdNotification = builder.templateIdNotification;
+    to = builder.to;
   }
 
   /**

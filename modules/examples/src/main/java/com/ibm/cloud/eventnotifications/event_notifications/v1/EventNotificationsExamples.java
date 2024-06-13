@@ -104,6 +104,7 @@ public class EventNotificationsExamples {
   public static String codeEngineProjectCRN = "";
   public static String smtpConfigID = "";
   public static String smtpUserID = "";
+  public static String slackToken = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -406,6 +407,7 @@ public class EventNotificationsExamples {
 
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig = new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
+              .token(slackToken)
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -954,6 +956,7 @@ public class EventNotificationsExamples {
 
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig = new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
+              .token(slackToken)
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -1536,9 +1539,12 @@ public class EventNotificationsExamples {
 
       String slackName = "subscription_slack";
       String slackDescription = "Subscription for slack";
+      ArrayList<String> to = new ArrayList<String>();
+      to.add("");
 
       SubscriptionCreateAttributesSlackAttributes slackCreateAttributes = new SubscriptionCreateAttributesSlackAttributes.Builder()
               .attachmentColor("#0000FF")
+              .to(to)
               .templateIdNotification(slackTemplateID)
               .build();
 
@@ -1886,8 +1892,11 @@ public class EventNotificationsExamples {
 
       String slackName = "subscription_slack_update";
       String slackDescription = "Subscription slack update";
+      ArrayList<String> to = new ArrayList<String>();
+      to.add("");
       SubscriptionUpdateAttributesSlackAttributes slackUpdateAttributes = new SubscriptionUpdateAttributesSlackAttributes.Builder()
               .attachmentColor("#0000FF")
+              .to(to)
               .templateIdNotification(slackTemplateID)
               .build();
 

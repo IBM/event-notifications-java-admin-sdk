@@ -33,14 +33,17 @@ public class DestinationConfigOneOfSlackDestinationConfigTest {
   public void testDestinationConfigOneOfSlackDestinationConfig() throws Throwable {
     DestinationConfigOneOfSlackDestinationConfig destinationConfigOneOfSlackDestinationConfigModel = new DestinationConfigOneOfSlackDestinationConfig.Builder()
       .url("testString")
+      .token("testString")
       .build();
     assertEquals(destinationConfigOneOfSlackDestinationConfigModel.url(), "testString");
+    assertEquals(destinationConfigOneOfSlackDestinationConfigModel.token(), "testString");
 
     String json = TestUtilities.serialize(destinationConfigOneOfSlackDestinationConfigModel);
 
     DestinationConfigOneOfSlackDestinationConfig destinationConfigOneOfSlackDestinationConfigModelNew = TestUtilities.deserialize(json, DestinationConfigOneOfSlackDestinationConfig.class);
     assertTrue(destinationConfigOneOfSlackDestinationConfigModelNew instanceof DestinationConfigOneOfSlackDestinationConfig);
     assertEquals(destinationConfigOneOfSlackDestinationConfigModelNew.url(), "testString");
+    assertEquals(destinationConfigOneOfSlackDestinationConfigModelNew.token(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
