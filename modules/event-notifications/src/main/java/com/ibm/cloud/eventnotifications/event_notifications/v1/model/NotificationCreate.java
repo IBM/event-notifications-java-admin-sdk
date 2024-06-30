@@ -55,6 +55,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmenhtmlbody;
   @SerializedName("subject")
   protected String subject;
+  @SerializedName("ibmenmms")
+  protected String ibmenmms;
   @SerializedName("data")
   protected Map<String, Object> data;
   @SerializedName("datacontenttype")
@@ -103,6 +105,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmensmsto;
     private String ibmenhtmlbody;
     private String subject;
+    private String ibmenmms;
     private Map<String, Object> data;
     private String datacontenttype;
     private String ibmenpushto;
@@ -138,6 +141,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmensmsto = notificationCreate.ibmensmsto;
       this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
+      this.ibmenmms = notificationCreate.ibmenmms;
       this.data = notificationCreate.data;
       this.datacontenttype = notificationCreate.datacontenttype;
       this.ibmenpushto = notificationCreate.ibmenpushto;
@@ -355,6 +359,17 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
+     * Set the ibmenmms.
+     *
+     * @param ibmenmms the ibmenmms
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenmms(String ibmenmms) {
+      this.ibmenmms = ibmenmms;
+      return this;
+    }
+
+    /**
      * Set the data.
      *
      * @param data the data
@@ -534,6 +549,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmensmsto = builder.ibmensmsto;
     ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
+    ibmenmms = builder.ibmenmms;
     data = builder.data;
     datacontenttype = builder.datacontenttype;
     ibmenpushto = builder.ibmenpushto;
@@ -856,6 +872,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setSubject(final String subject) {
     this.subject = subject;
+  }
+
+  /**
+   * Gets the ibmenmms.
+   *
+   * Stringified MMS Attachment JSON.
+   *
+   * @return the ibmenmms
+   */
+  public String getIbmenmms() {
+    return this.ibmenmms;
+  }
+
+  /**
+   * Sets the ibmenmms.
+   *
+   * @param ibmenmms the new ibmenmms
+   */
+  public void setIbmenmms(final String ibmenmms) {
+    this.ibmenmms = ibmenmms;
   }
 
   /**

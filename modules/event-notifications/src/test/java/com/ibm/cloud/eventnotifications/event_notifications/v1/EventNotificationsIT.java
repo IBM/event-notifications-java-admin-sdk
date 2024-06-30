@@ -55,7 +55,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String safariCertificatePath = "";
   public static String destinationId5 = "";
   public static String destinationId6 = "";
-  public static String destinationId7 = "";
   public static String destinationId8 = "";
   public static String destinationId9 = "";
   public static String destinationId10 = "";
@@ -72,7 +71,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId2 = "";
   public static String subscriptionId3 = "";
   public static String subscriptionId4 = "";
-  public static String subscriptionId5 = "";
   public static String subscriptionId6 = "";
   public static String subscriptionId7 = "";
   public static String subscriptionId8 = "";
@@ -795,16 +793,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Response<DestinationResponse> cloudFunctionsResponse = service.createDestination(createCloudFunctionsDestinationOptions).execute();
       // Validate response
       assertNotNull(cloudFunctionsResponse);
-      assertEquals(cloudFunctionsResponse.getStatusCode(), 201);
-
-      DestinationResponse cloudfunctionsDestinationResponseResult = cloudFunctionsResponse.getResult();
-
-      assertNotNull(cloudfunctionsDestinationResponseResult);
-      assertEquals(cloudfunctionsDestinationResponseResult.getDescription(), cloudFunctionsDescription);
-      assertEquals(cloudfunctionsDestinationResponseResult.getName(), cloudFunctionName);
-      assertEquals(cloudfunctionsDestinationResponseResult.getType(), cloudfunctionTypeVal);
-
-      destinationId7 = cloudfunctionsDestinationResponseResult.getId();
+      assertEquals(cloudFunctionsResponse.getStatusCode(), 410);
 
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
@@ -1488,40 +1477,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(msTeamsDestinationResponseResult.getDescription(), msTeamsDescription);
       assertEquals(msTeamsDestinationResponseResult.getName(), msTeamsName);
       assertEquals(msTeamsDestinationResponseResult.getId(), destinationId6);
-
-      DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig= new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
-              .url("https://www.ibmcfendpoint.com/")
-              .apiKey("apikey")
-              .build();
-
-      DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
-              .params(cloudFunctionsDestinationConfig)
-              .build();
-
-      String cfName = "Cloud_Function_destination";
-      String cfDescription = "Cloud Fun. Destination";
-      String cfTypeval= "ibmcf";
-
-      UpdateDestinationOptions updateCFDestinationOptions = new UpdateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId7)
-              .name(cfName)
-              .description(cfDescription)
-              .config(destinationCFConfigModel)
-              .build();
-
-      // Invoke operation
-      Response<Destination> cloudFunctionsResponse = service.updateDestination(updateCFDestinationOptions).execute();
-      // Validate response
-      assertNotNull(cloudFunctionsResponse);
-      assertEquals(cloudFunctionsResponse.getStatusCode(), 200);
-
-      Destination cloudFunctionsDestinationResponseResult = cloudFunctionsResponse.getResult();
-
-      assertNotNull(cloudFunctionsDestinationResponseResult);
-      assertEquals(cloudFunctionsDestinationResponseResult.getDescription(), cfDescription);
-      assertEquals(cloudFunctionsDestinationResponseResult.getName(), cfName);
-      assertEquals(cloudFunctionsDestinationResponseResult.getType(), cfTypeval);
 
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
@@ -2337,28 +2292,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId4 = msTeamsSubscriptionResult.getId();
 
-      String cfName = "subscription_cf";
-      String cfDescription = "Subscription for cf";
-
-      CreateSubscriptionOptions createCFSubscriptionOptions = new CreateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .name(cfName)
-              .destinationId(destinationId7)
-              .topicId(topicId)
-              .description(cfDescription)
-              .build();
-
-      Response<Subscription> cfResponse = service.createSubscription(createCFSubscriptionOptions).execute();
-      // Validate response
-      assertNotNull(cfResponse);
-      assertEquals(cfResponse.getStatusCode(), 201);
-      Subscription cfSubscriptionResult = cfResponse.getResult();
-      assertNotNull(cfSubscriptionResult);
-      assertEquals(cfSubscriptionResult.getDescription(), cfDescription);
-      assertEquals(cfSubscriptionResult.getName(), cfName);
-
-      subscriptionId5 = cfSubscriptionResult.getId();
-
       String chromeName = "subscription_chrome";
       String chromeDescription = "Subscription for chrome";
 
@@ -2905,27 +2838,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(msSubscriptionResult.getName(), msName);
       assertEquals(msSubscriptionResult.getDescription(), msDescription);
       assertEquals(msSubscriptionResult.getId(), subscriptionId4);
-
-      String cfName = "subscription_cf";
-      String cfDescription = "Subscription for cf";
-
-      UpdateSubscriptionOptions updateCFSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .id(subscriptionId5)
-              .name(cfName)
-              .description(cfDescription)
-              .build();
-
-      // Invoke operation
-      Response<Subscription> cfResponse = service.updateSubscription(updateCFSubscriptionOptions).execute();
-      // Validate response
-      assertNotNull(cfResponse);
-      assertEquals(cfResponse.getStatusCode(), 200);
-      Subscription cfSubscriptionResult = cfResponse.getResult();
-      assertNotNull(cfSubscriptionResult);
-      assertEquals(cfSubscriptionResult.getDescription(), cfDescription);
-      assertEquals(cfSubscriptionResult.getName(), cfName);
-      assertEquals(cfSubscriptionResult.getId(), subscriptionId5);
 
       String chromeName = "subscription_chrome_update";
       String chromeDescription = "Subscription chrome update";
@@ -3621,6 +3533,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
       String templates = String.format("[\"%s\"]", slackTemplateID);
       String smsTo = "[\"+911234567890\", \"+911224567890\"]";
+      String mms = "{\"content\": \"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\", \"content_type\": \"image/png\"}";
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
 
       NotificationCreate body = new NotificationCreate.Builder()
@@ -3635,6 +3548,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ibmensubject("certificate expire")
               .ibmenmailto(mailTo)
               .ibmensmsto(smsTo)
+              .ibmenmms(mms)
               .ibmenhtmlbody(htmlBody)
               .ibmentemplates(templates)
               .ibmenfcmbody(fcmJsonString)
@@ -3698,7 +3612,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId2);
       subscriptions.add(subscriptionId3);
       subscriptions.add(subscriptionId4);
-      subscriptions.add(subscriptionId5);
       subscriptions.add(subscriptionId6);
       subscriptions.add(subscriptionId7);
       subscriptions.add(subscriptionId8);
@@ -3789,7 +3702,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId4);
       destinations.add(destinationId5);
       destinations.add(destinationId6);
-      destinations.add(destinationId7);
       destinations.add(destinationId8);
       destinations.add(destinationId9);
       destinations.add(destinationId10);

@@ -241,6 +241,7 @@ public class EventNotificationsTest {
       .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
+      .ibmenmms("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
       .ibmenpushto("{\"platforms\":[\"push_android\"]}")
