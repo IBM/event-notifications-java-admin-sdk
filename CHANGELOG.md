@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.6.1...0.7.0) (2024-07-29)
+
+
+### Features
+
+* mms support and cf disable ([#44](https://github.com/IBM/event-notifications-java-admin-sdk/issues/44)) ([03b5ed7](https://github.com/IBM/event-notifications-java-admin-sdk/commit/03b5ed7f6ec16cb38c9c80e917d6f4746df3d563))
+
 ## [0.6.1](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.6.0...0.6.1) (2024-05-15)
 
 
