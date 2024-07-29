@@ -49,6 +49,7 @@ public class SendNotificationsOptionsTest {
       .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
+      .ibmenmms("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
       .ibmenpushto("{\"platforms\":[\"push_android\"]}")
@@ -78,6 +79,7 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
+    assertEquals(notificationCreateModel.getIbmenmms(), "testString");
     assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
     assertEquals(notificationCreateModel.getIbmenpushto(), "{\"platforms\":[\"push_android\"]}");

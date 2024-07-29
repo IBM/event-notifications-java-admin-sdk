@@ -490,33 +490,6 @@ public class EventNotificationsExamples {
       System.out.println(msTeamsDestinationResponseResult);
       destinationId6 = msTeamsDestinationResponseResult.getId();
 
-      DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cfConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
-              .url("https://www.ibmcfendpoint.com/")
-              .apiKey("adhakjsdasdoioweqiowe9")
-              .build();
-
-      DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
-              .params(cfConfig)
-              .build();
-
-      String cfName = "Cloud_Function_destination";
-      String cfDescription = "Cloud Fun. Destination";
-      String cfTypeval = "ibmcf";
-
-      CreateDestinationOptions createCFDestinationOptions = new CreateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .name(cfName)
-              .type(cfTypeval)
-              .description(cfDescription)
-              .config(destinationCFConfigModel)
-              .build();
-
-      // Invoke operation
-      Response<DestinationResponse> cfResponse = eventNotificationsService.createDestination(createCFDestinationOptions).execute();
-      DestinationResponse cfDestinationResponse = cfResponse.getResult();
-      System.out.println(cfDestinationResponse);
-      destinationId7 = cfDestinationResponse.getId();
-
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
               .apiKey("aksndkasdnkasd")
@@ -1036,31 +1009,6 @@ public class EventNotificationsExamples {
 
       Destination msTeamsDestinationResponseResult = teamsResponse.getResult();
       System.out.println(msTeamsDestinationResponseResult);
-
-      DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
-              .url("https://www.ibmcfendpoint.com/")
-              .apiKey("asdasldjdksdaowidjoaisjd8o9")
-              .build();
-
-      DestinationConfig destinationCFConfigModel = new DestinationConfig.Builder()
-              .params(cloudFunctionsDestinationConfig)
-              .build();
-
-      String cfName = "Cloud_Function_destination";
-      String cfDescription = "Cloud Fun. Destination";
-
-      UpdateDestinationOptions updateCFDestinationOptions = new UpdateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId7)
-              .name(cfName)
-              .description(cfDescription)
-              .config(destinationCFConfigModel)
-              .build();
-
-      // Invoke operation
-      Response<Destination> cloudFunctionsResponse = eventNotificationsService.updateDestination(updateCFDestinationOptions).execute();
-      Destination cfDestination = cloudFunctionsResponse.getResult();
-      System.out.println(cfDestination);
 
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
@@ -2023,6 +1971,7 @@ public class EventNotificationsExamples {
       String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
       String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
       String smsTo = "[\"+911234567890\", \"+911224567890\"]";
+      String mms = "{\"url\": \"https://cloud.ibm.com/avatar/v1/avatar/migrationsegment/logo_ibm.png\"}";
       String templates = "[\"149b0e11-8a7c-4fda-a847-5d79e01b71dc\"]";
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
 
@@ -2038,6 +1987,7 @@ public class EventNotificationsExamples {
               .ibmensubject("certificate expires")
               .ibmenmailto(mailTo)
               .ibmensmsto(smsTo)
+              .ibmenmms(mms)
               .ibmentemplates(templates)
               .ibmenhtmlbody(htmlBody)
               .ibmenfcmbody(fcmJsonString)
@@ -2402,7 +2352,6 @@ public class EventNotificationsExamples {
       destinations.add(destinationId4);
       destinations.add(destinationId5);
       destinations.add(destinationId6);
-      destinations.add(destinationId7);
       destinations.add(destinationId8);
       destinations.add(destinationId9);
       destinations.add(destinationId10);
