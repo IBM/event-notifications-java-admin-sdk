@@ -20,8 +20,6 @@ import com.ibm.cloud.sdk.core.util.CredentialUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -2009,7 +2007,7 @@ public class EventNotificationsExamples {
 
       Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
-      notificationID=notificationResponse.getNotificationId();
+      notificationID = notificationResponse.getNotificationId();
 
       System.out.println(notificationResponse);
       // end-send_notifications
@@ -2018,7 +2016,7 @@ public class EventNotificationsExamples {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
 
-    try{
+    try {
       // begin-metrics
       GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
                 .instanceId(instanceId)
@@ -2037,12 +2035,11 @@ public class EventNotificationsExamples {
       Metrics responseObj = response.getResult();
       System.out.println(responseObj);
       // end-metrics
-      }
-      catch(ServiceResponseException e){
-        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-                e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
-
+    
     try {
       // begin-create_smtp_configuration
       String name = "SMTP Configuration";
