@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpAllowedIpsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Buckets;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,27 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the UpdateSmtpAllowedIpsOptions model.
+ * Unit test class for the Buckets model.
  */
-public class UpdateSmtpAllowedIpsOptionsTest {
+public class BucketsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testUpdateSmtpAllowedIpsOptions() throws Throwable {
-    UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .subnets(java.util.Arrays.asList("testString"))
-      .build();
-    assertEquals(updateSmtpAllowedIpsOptionsModel.instanceId(), "testString");
-    assertEquals(updateSmtpAllowedIpsOptionsModel.id(), "testString");
-    assertEquals(updateSmtpAllowedIpsOptionsModel.subnets(), java.util.Arrays.asList("testString"));
+  public void testBuckets() throws Throwable {
+    Buckets bucketsModel = new Buckets();
+    assertNull(bucketsModel.getDocCount());
+    assertNull(bucketsModel.getKeyAsString());
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testUpdateSmtpAllowedIpsOptionsError() throws Throwable {
-    new UpdateSmtpAllowedIpsOptions.Builder().build();
-  }
-
 }

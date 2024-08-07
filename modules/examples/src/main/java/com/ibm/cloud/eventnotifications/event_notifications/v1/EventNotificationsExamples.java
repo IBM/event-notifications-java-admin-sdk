@@ -20,6 +20,8 @@ import com.ibm.cloud.sdk.core.util.CredentialUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +106,7 @@ public class EventNotificationsExamples {
   public static String codeEngineProjectCRN = "";
   public static String smtpConfigID = "";
   public static String smtpUserID = "";
+  public static String notificationID = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -2006,12 +2009,38 @@ public class EventNotificationsExamples {
 
       Response<NotificationResponse> response = eventNotificationsService.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
+      notificationID=notificationResponse.getNotificationId();
 
       System.out.println(notificationResponse);
       // end-send_notifications
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try{
+      // begin-metrics
+      GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+                .instanceId(instanceId)
+                .destinationType("smtp_custom")
+                .gte("2024-08-01T17:18:43Z")
+                .lte("2024-08-02T11:55:22Z")
+                .id(destinationId16)
+                .emailTo("mobileb@us.ibm.com")
+                .notificationId(notificationID)
+                .subject("Metric Test")
+                .build();
+
+        // Invoke getMetrics() with a valid options model and verify the result
+      Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOptionsModel).execute();
+
+      Metrics responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-metrics
+      }
+      catch(ServiceResponseException e){
+        logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+                e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
 
     try {
@@ -2049,23 +2078,6 @@ public class EventNotificationsExamples {
       SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
       System.out.println(updateVerifySmtpResponse);
       // end-update_verify_smtp
-    } catch (ServiceResponseException e) {
-      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-
-    try {
-      // begin-update_smtp_allowed_ips
-      UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
-              .instanceId(instanceId)
-              .id(smtpConfigID)
-              .subnets(java.util.Arrays.asList("192.168.1.64"))
-              .build();
-
-      Response<SMTPAllowedIPs> response = eventNotificationsService.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
-      SMTPAllowedIPs responseObj = response.getResult();
-      System.out.println(responseObj);
-      // end-update_smtp_allowed_ips
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

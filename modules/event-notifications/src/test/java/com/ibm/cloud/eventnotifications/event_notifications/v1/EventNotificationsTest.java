@@ -13,6 +13,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Buckets;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpConfigurationOptions;
@@ -61,6 +62,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCoun
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetMetricsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpAllowedIpsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpUserOptions;
@@ -68,6 +70,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSourceOp
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetTopicOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Histrogram;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateMetadata;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationCreateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationGetResponse;
@@ -84,6 +87,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTemplatesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Metric;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Metrics;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
@@ -167,7 +172,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesSubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpAllowedIpsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
@@ -211,6 +215,71 @@ public class EventNotificationsTest {
   public void testConstructorWithNullAuthenticator() throws Throwable {
     final String serviceName = "testService";
     new EventNotifications(serviceName, null);
+  }
+
+  // Test the getMetrics operation with a valid options model parameter
+  @Test
+  public void testGetMetricsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"metrics\": [{\"key\": \"bounced\", \"doc_count\": 8, \"histogram\": {\"buckets\": [{\"doc_count\": 8, \"key_as_string\": \"2019-01-01T12:00:00.000Z\"}]}}]}";
+    String getMetricsPath = "/v1/instances/testString/metrics";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetMetricsOptions model
+    GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+      .instanceId("testString")
+      .destinationType("smtp_custom")
+      .gte("testString")
+      .lte("testString")
+      .id("testString")
+      .emailTo("testString")
+      .notificationId("testString")
+      .subject("testString")
+      .build();
+
+    // Invoke getMetrics() with a valid options model and verify the result
+    Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOptionsModel).execute();
+    assertNotNull(response);
+    Metrics responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getMetricsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("destination_type"), "smtp_custom");
+    assertEquals(query.get("gte"), "testString");
+    assertEquals(query.get("lte"), "testString");
+    assertEquals(query.get("id"), "testString");
+    assertEquals(query.get("email_to"), "testString");
+    assertEquals(query.get("notification_id"), "testString");
+    assertEquals(query.get("subject"), "testString");
+  }
+
+  // Test the getMetrics operation with and without retries enabled
+  @Test
+  public void testGetMetricsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetMetricsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetMetricsWOptions();
+  }
+
+  // Test the getMetrics operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetMetricsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getMetrics(null).execute();
   }
 
   // Test the sendNotifications operation with a valid options model parameter
@@ -3552,59 +3621,6 @@ public class EventNotificationsTest {
   public void testGetSmtpAllowedIpsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.getSmtpAllowedIps(null).execute();
-  }
-
-  // Test the updateSmtpAllowedIps operation with a valid options model parameter
-  @Test
-  public void testUpdateSmtpAllowedIpsWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"subnets\": [\"subnets\"], \"updated_at\": \"2019-01-01T12:00:00.000Z\"}";
-    String updateSmtpAllowedIpsPath = "/v1/instances/testString/smtp/config/testString/allowed_ips";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the UpdateSmtpAllowedIpsOptions model
-    UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
-      .instanceId("testString")
-      .id("testString")
-      .subnets(java.util.Arrays.asList("testString"))
-      .build();
-
-    // Invoke updateSmtpAllowedIps() with a valid options model and verify the result
-    Response<SMTPAllowedIPs> response = eventNotificationsService.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
-    assertNotNull(response);
-    SMTPAllowedIPs responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "PATCH");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, updateSmtpAllowedIpsPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the updateSmtpAllowedIps operation with and without retries enabled
-  @Test
-  public void testUpdateSmtpAllowedIpsWRetries() throws Throwable {
-    eventNotificationsService.enableRetries(4, 30);
-    testUpdateSmtpAllowedIpsWOptions();
-
-    eventNotificationsService.disableRetries();
-    testUpdateSmtpAllowedIpsWOptions();
-  }
-
-  // Test the updateSmtpAllowedIps operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testUpdateSmtpAllowedIpsNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    eventNotificationsService.updateSmtpAllowedIps(null).execute();
   }
 
   // Test the updateVerifySmtp operation with a valid options model parameter

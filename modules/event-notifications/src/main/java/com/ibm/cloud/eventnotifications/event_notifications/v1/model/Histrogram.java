@@ -10,7 +10,30 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
+
+import java.util.List;
+
+import com.ibm.cloud.sdk.core.service.model.GenericModel;
+
 /**
- * Event Notifications API v1.
+ * Payload describing histogram.
  */
-package com.ibm.cloud.eventnotifications.event_notifications.v1;
+public class Histrogram extends GenericModel {
+
+  protected List<Buckets> buckets;
+
+  protected Histrogram() { }
+
+  /**
+   * Gets the buckets.
+   *
+   * List of buckets.
+   *
+   * @return the buckets
+   */
+  public List<Buckets> getBuckets() {
+    return buckets;
+  }
+}
+

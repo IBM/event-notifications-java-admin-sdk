@@ -20,6 +20,8 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
+import java.time.Instant;
+import java.time.Duration;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -115,7 +117,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String codeEngineProjectCRN = "";
   public static String smtpConfigID = "";
   public static String smtpUserID = "";
-
+  public static String notificationID = "";
 
 
 
@@ -768,33 +770,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId6 = msTeamsDestinationResponseResult.getId();
 
-      DestinationConfigOneOfIBMCloudFunctionsDestinationConfig cloudFunctionsDestinationConfig = new DestinationConfigOneOfIBMCloudFunctionsDestinationConfig.Builder()
-              .url("https://www.ibmcfendpoint.com/")
-              .apiKey("qwellqwlaskasddasdla")
-              .build();
-
-      DestinationConfig cloudDestinationConfigModel = new DestinationConfig.Builder()
-              .params(cloudFunctionsDestinationConfig)
-              .build();
-
-      String cloudFunctionName = "Cloud_Functions_destination";
-      String cloudfunctionTypeVal = "ibmcf";
-      String cloudFunctionsDescription = "Cloud Functions Destination";
-
-      CreateDestinationOptions createCloudFunctionsDestinationOptions = new CreateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .name(cloudFunctionName)
-              .type(cloudfunctionTypeVal)
-              .description(cloudFunctionsDescription)
-              .config(cloudDestinationConfigModel)
-              .build();
-
-      // Invoke operation
-      Response<DestinationResponse> cloudFunctionsResponse = service.createDestination(createCloudFunctionsDestinationOptions).execute();
-      // Validate response
-      assertNotNull(cloudFunctionsResponse);
-      assertEquals(cloudFunctionsResponse.getStatusCode(), 410);
-
       DestinationConfigOneOfChromeDestinationConfig chromeDestinationConfig = new DestinationConfigOneOfChromeDestinationConfig.Builder()
               .websiteUrl("https://cloud.ibm.com")
               .apiKey("aksndkasdnkasd")
@@ -1139,7 +1114,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .build();
 
       Response<DestinationResponse> customSMSResponse = service.createDestination(createCustomSMSDestinationOptions).execute();
-      // Validate response
+     // Validate response
       assertNotNull(customSMSResponse);
       assertEquals(customSMSResponse.getStatusCode(), 201);
 
@@ -1819,7 +1794,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .build();
 
       Response<Destination> customSMSResponse = service.updateDestination(updateCustomSMSDestinationOptions).execute();
-      // Validate response
+     // Validate response
       assertNotNull(customSMSResponse);
       assertEquals(customSMSResponse.getStatusCode(), 200);
 
@@ -3091,7 +3066,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       SubscriptionUpdateAttributesCustomEmailUpdateAttributes subscriptionUpdateCustomEmailAttributesModel = new SubscriptionUpdateAttributesCustomEmailUpdateAttributes.Builder()
               .addNotificationPayload(true)
               .invited(customInvited)
-              .replyToMail("abc@gmail.com")
+              .replyToMail("mobileb@us.ibm.com")
               .replyToName("US News")
               .fromName("IBM")
               .fromEmail("test@test.event-notifications.test.cloud.ibm.com")
@@ -3289,27 +3264,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
       assertNotNull(updateVerifySmtpResponse);
       // end-verify-smtp
-    } catch (ServiceResponseException e) {
-      fail(String.format("Service returned status code %s: %s%nError details: %s",
-              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
-    }
-  }
-  @Test
-  public void test1XUpdateSmtpAllowedIps() throws Exception {
-    try {
-      // begin-update-smtp-allowed-ips
-      UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
-              .instanceId(instanceId)
-              .id(smtpConfigID)
-              .subnets(java.util.Arrays.asList("192.168.1.64"))
-              .build();
-
-      Response<SMTPAllowedIPs> response = service.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-      SMTPAllowedIPs responseObj = response.getResult();
-      assertNotNull(responseObj);
-      // end-update-smtp-allowed-ips
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -3567,6 +3521,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
       NotificationResponse notificationResponse = response.getResult();
+      notificationID = notificationResponse.getNotificationId();
 
       System.out.println(notificationResponse);
       // end-send_notifications
@@ -3603,7 +3558,39 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2IDeleteSubscription() throws Exception {
+  public void test2ITestMetrics(){
+
+    try{
+      Instant instant = Instant.now();
+      String d1 = instant.toString();
+
+      GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+      .instanceId(instanceId)
+      .destinationType("smtp_custom")
+      .gte(instant.minus(Duration.ofDays(1)).toString())
+      .lte(d1)
+      .id(destinationId16)
+      .emailTo("mobileb@us.ibm.com")
+      .notificationId(notificationID)
+      .subject("Metric Test")
+      .build();
+
+    // Invoke getMetrics() with a valid options model and verify the result
+    Response<Metrics> response = service.getMetrics(getMetricsOptionsModel).execute();
+    assertNotNull(response);
+    assertEquals(response.getStatusCode(), 200);
+    Metrics responseObj = response.getResult();
+    assertNotNull(responseObj);
+        }
+        catch(ServiceResponseException e){
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+                e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+      }
+
+  }
+
+  @Test
+  public void test2JDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -3656,7 +3643,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2JDeleteTopic() throws Exception {
+  public void test2KDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -3694,7 +3681,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2KDeleteDestination() throws Exception {
+  public void test2LDeleteDestination() throws Exception {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
@@ -3745,7 +3732,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2LDeleteSource() throws Exception {
+  public void test2MDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -3775,7 +3762,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2MCreateIntegration() throws Exception {
+  public void test2NCreateIntegration() throws Exception {
     try {
       IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -3803,7 +3790,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2NListIntegrations() throws Exception {
+  public void test2OListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -3830,7 +3817,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2OGetIntegration() throws Exception {
+  public void test2PGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -3850,7 +3837,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2PUpdateIntegration() throws Exception {
+  public void test2QUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -3878,7 +3865,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2QDeleteTemplate() throws Exception {
+  public void test2RDeleteTemplate() throws Exception {
     try {
      List<String> templates = new ArrayList<>();
      templates.add(templateInvitationID);
@@ -3903,7 +3890,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2RDeleteSMTPUser() throws Exception {
+  public void test2SDeleteSMTPUser() throws Exception {
     try {
       List<String> users = new ArrayList<>();
       users.add(smtpUserID);
@@ -3925,7 +3912,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2SDeleteSMTPConfiguration() throws Exception {
+  public void test2TDeleteSMTPConfiguration() throws Exception {
     try {
       List<String> smtpConfigIDs = new ArrayList<>();
       smtpConfigIDs.add(smtpConfigID);
@@ -3945,6 +3932,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
     }
   }
+
 
 
   @AfterClass
