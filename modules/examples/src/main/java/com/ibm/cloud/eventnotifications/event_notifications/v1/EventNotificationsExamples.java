@@ -2039,7 +2039,7 @@ public class EventNotificationsExamples {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
-    
+
     try {
       // begin-create_smtp_configuration
       String name = "SMTP Configuration";
