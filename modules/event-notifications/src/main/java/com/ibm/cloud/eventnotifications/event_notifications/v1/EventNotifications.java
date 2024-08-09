@@ -44,6 +44,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCoun
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetMetricsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpAllowedIpsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpUserOptions;
@@ -63,6 +64,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTagsSubscriptionOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTemplatesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListTopicsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Metrics;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTemplateOptions;
@@ -91,7 +93,6 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpAllowedIpsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
@@ -163,6 +164,48 @@ public class EventNotifications extends BaseService {
   public EventNotifications(String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
+  }
+
+  /**
+   * Get metrics.
+   *
+   * Get metrics.
+   *
+   * @param getMetricsOptions the {@link GetMetricsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Metrics}
+   */
+  public ServiceCall<Metrics> getMetrics(GetMetricsOptions getMetricsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getMetricsOptions,
+      "getMetricsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getMetricsOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/metrics", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getMetrics");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("destination_type", String.valueOf(getMetricsOptions.destinationType()));
+    builder.query("gte", String.valueOf(getMetricsOptions.gte()));
+    builder.query("lte", String.valueOf(getMetricsOptions.lte()));
+    if (getMetricsOptions.destinationId() != null) {
+      builder.query("destination_id", String.valueOf(getMetricsOptions.destinationId()));
+    }
+    if (getMetricsOptions.sourceId() != null) {
+      builder.query("source_id", String.valueOf(getMetricsOptions.sourceId()));
+    }
+    if (getMetricsOptions.emailTo() != null) {
+      builder.query("email_to", String.valueOf(getMetricsOptions.emailTo()));
+    }
+    if (getMetricsOptions.notificationId() != null) {
+      builder.query("notification_id", String.valueOf(getMetricsOptions.notificationId()));
+    }
+    if (getMetricsOptions.subject() != null) {
+      builder.query("subject", String.valueOf(getMetricsOptions.subject()));
+    }
+    ResponseConverter<Metrics> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Metrics>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -1461,9 +1504,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update details of SMTP.
+   * Update details of SMTP Configuration.
    *
-   * Update details of SMTP.
+   * Update details of SMTP Configuration.
    *
    * @param updateSmtpConfigurationOptions the {@link UpdateSmtpConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPConfiguration}
@@ -1543,9 +1586,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update details of SMTP User.
+   * Update details of a SMTP User.
    *
-   * Update details of SMTP User.
+   * Update details of a SMTP User.
    *
    * @param updateSmtpUserOptions the {@link UpdateSmtpUserOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPUser}
@@ -1598,9 +1641,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Get details of a SMTP allowed IPs.
+   * Get details of SMTP configuration allowed IPs.
    *
-   * Get details of a SMTP allowed IPs.
+   * Get details of SMTP configuration allowed IPs.
    *
    * @param getSmtpAllowedIpsOptions the {@link GetSmtpAllowedIpsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPAllowedIPs}
@@ -1623,37 +1666,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Update details of SMTP allowed IP.
+   * Verify SMTP configuration domain.
    *
-   * Update details of SMTP.
-   *
-   * @param updateSmtpAllowedIpsOptions the {@link UpdateSmtpAllowedIpsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link SMTPAllowedIPs}
-   */
-  public ServiceCall<SMTPAllowedIPs> updateSmtpAllowedIps(UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(updateSmtpAllowedIpsOptions,
-      "updateSmtpAllowedIpsOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", updateSmtpAllowedIpsOptions.instanceId());
-    pathParamsMap.put("id", updateSmtpAllowedIpsOptions.id());
-    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/smtp/config/{id}/allowed_ips", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateSmtpAllowedIps");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.add("subnets", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateSmtpAllowedIpsOptions.subnets()));
-    builder.bodyJson(contentJson);
-    ResponseConverter<SMTPAllowedIPs> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPAllowedIPs>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Verify SPF and DKIM records of SMTP.
-   *
-   * Verify SPF and DKIM records of SMTP.
+   * Verify SMTP configuration domain.
    *
    * @param updateVerifySmtpOptions the {@link UpdateVerifySmtpOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SMTPVerificationUpdateResponse}

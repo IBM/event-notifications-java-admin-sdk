@@ -12,53 +12,43 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The SMTP DKIM attributes.
+ * Bucket object.
  */
-public class SMTPDKIMAttributes extends GenericModel {
+public class Buckets extends GenericModel {
 
-  @SerializedName("txt_name")
-  protected String txtName;
-  @SerializedName("txt_value")
-  protected String txtValue;
-  protected String verification;
+  @SerializedName("doc_count")
+  protected Long docCount;
+  @SerializedName("key_as_string")
+  protected Date keyAsString;
 
-  protected SMTPDKIMAttributes() { }
+  protected Buckets() { }
 
   /**
-   * Gets the txtName.
+   * Gets the docCount.
    *
-   * DKIM text name.
+   * Total count.
    *
-   * @return the txtName
+   * @return the docCount
    */
-  public String getTxtName() {
-    return txtName;
+  public Long getDocCount() {
+    return docCount;
   }
 
   /**
-   * Gets the txtValue.
+   * Gets the keyAsString.
    *
-   * DKIM text value.
+   * Timestamp.
    *
-   * @return the txtValue
+   * @return the keyAsString
    */
-  public String getTxtValue() {
-    return txtValue;
-  }
-
-  /**
-   * Gets the verification.
-   *
-   * DKIM verification.
-   *
-   * @return the verification
-   */
-  public String getVerification() {
-    return verification;
+  public Date getKeyAsString() {
+    return keyAsString;
   }
 }
 

@@ -153,10 +153,11 @@ SDK Methods to consume
   - [List SMTP Users](#list-smtp-users)
   - [Update SMTP Configuration](#update-smtp-configuration)
   - [Update SMTP User](#update-smtp-user)
-  - [Update SMTP Allowed Ips](#update-smtp-allowed-ips)
   - [Delete SMTP User](#delete-smtp-user)
   - [Delete SMTP Configuration](#delete-smtp-user)
   - [Verify SMTP](#verify-smtp)
+- [Metrics](#Metrics) 
+  - [Get Metrics](#get-metrics)  
 - [Send Notifications](#send-notifications)
 
 ## Source
@@ -871,18 +872,6 @@ Response<SMTPUser> response = eventNotificationsService.updateSmtpUser(updateSmt
 SMTPUser responseObj = response.getResult();
 ```
 
-### Update SMTP Allowed IPs
-```java
-UpdateSmtpAllowedIpsOptions updateSmtpAllowedIpsOptionsModel = new UpdateSmtpAllowedIpsOptions.Builder()
-        .instanceId(<instanceId>)
-        .id(<smtpConfigID>)
-        .subnets(java.util.Arrays.asList("<subnet ips>"))
-        .build();
-
-Response<SMTPAllowedIPs> response = eventNotificationsService.updateSmtpAllowedIps(updateSmtpAllowedIpsOptionsModel).execute();
-SMTPAllowedIPs responseObj = response.getResult();
-```
-
 ### Delete SMTP User
 ```java
 DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
@@ -916,6 +905,25 @@ UpdateVerifySmtpOptions updateVerifySmtpOptions = new UpdateVerifySmtpOptions.Bu
 
 Response<SMTPVerificationUpdateResponse> response = eventNotificationsService.updateVerifySmtp(updateVerifySmtpOptions).execute();
 SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
+```
+## Metrics
+
+### Get Metrics
+```java
+GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+        .instanceId(instanceId)
+        .destinationType("smtp_custom")
+        .gte(<gte-timestamp>)
+        .lte(<lte-timestamp>)
+        .destinationId(<destination-id>)
+        .emailTo(<email-to>)
+        .notificationId(<notification-id>)
+        .subject(<subject>)
+        .build();
+
+        // Invoke getMetrics() with a valid options model and verify the result
+Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOptionsModel).execute();
+Metrics responseObj = response.getResult();
 ```
 
 ### Send Notifications
