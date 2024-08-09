@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.7.0...0.8.0) (2024-08-09)
+
+
+### Features
+
+* SMTP allowed IP Update unsupported, Metrics Feature enabled ([#45](https://github.com/IBM/event-notifications-java-admin-sdk/issues/45)) ([f3a9de2](https://github.com/IBM/event-notifications-java-admin-sdk/commit/f3a9de235b4e39f4a1543e72f83a58e4572c4dff))
+
 # [0.7.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.6.1...0.7.0) (2024-07-29)
 
 
