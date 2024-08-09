@@ -234,7 +234,8 @@ public class EventNotificationsTest {
       .destinationType("smtp_custom")
       .gte("testString")
       .lte("testString")
-      .id("testString")
+      .destinationId("testString")
+      .sourceId("testString")
       .emailTo("testString")
       .notificationId("testString")
       .subject("testString")
@@ -259,7 +260,8 @@ public class EventNotificationsTest {
     assertEquals(query.get("destination_type"), "smtp_custom");
     assertEquals(query.get("gte"), "testString");
     assertEquals(query.get("lte"), "testString");
-    assertEquals(query.get("id"), "testString");
+    assertEquals(query.get("destination_id"), "testString");
+    assertEquals(query.get("source_id"), "testString");
     assertEquals(query.get("email_to"), "testString");
     assertEquals(query.get("notification_id"), "testString");
     assertEquals(query.get("subject"), "testString");

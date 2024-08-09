@@ -3569,7 +3569,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       .destinationType("smtp_custom")
       .gte(instant.minus(Duration.ofDays(1)).toString())
       .lte(d1)
-      .id(destinationId16)
+      .destinationId(destinationId16)
       .emailTo("mobileb@us.ibm.com")
       .notificationId(notificationID)
       .subject("Metric Test")

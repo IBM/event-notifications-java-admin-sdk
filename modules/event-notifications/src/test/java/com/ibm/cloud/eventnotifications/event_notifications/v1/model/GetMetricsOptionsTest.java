@@ -36,7 +36,8 @@ public class GetMetricsOptionsTest {
       .destinationType("smtp_custom")
       .gte("testString")
       .lte("testString")
-      .id("testString")
+      .destinationId("testString")
+      .sourceId("testString")
       .emailTo("testString")
       .notificationId("testString")
       .subject("testString")
@@ -45,7 +46,8 @@ public class GetMetricsOptionsTest {
     assertEquals(getMetricsOptionsModel.destinationType(), "smtp_custom");
     assertEquals(getMetricsOptionsModel.gte(), "testString");
     assertEquals(getMetricsOptionsModel.lte(), "testString");
-    assertEquals(getMetricsOptionsModel.id(), "testString");
+    assertEquals(getMetricsOptionsModel.destinationId(), "testString");
+    assertEquals(getMetricsOptionsModel.sourceId(), "testString");
     assertEquals(getMetricsOptionsModel.emailTo(), "testString");
     assertEquals(getMetricsOptionsModel.notificationId(), "testString");
     assertEquals(getMetricsOptionsModel.subject(), "testString");

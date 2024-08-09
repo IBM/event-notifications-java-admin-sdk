@@ -188,8 +188,11 @@ public class EventNotifications extends BaseService {
     builder.query("destination_type", String.valueOf(getMetricsOptions.destinationType()));
     builder.query("gte", String.valueOf(getMetricsOptions.gte()));
     builder.query("lte", String.valueOf(getMetricsOptions.lte()));
-    if (getMetricsOptions.id() != null) {
-      builder.query("id", String.valueOf(getMetricsOptions.id()));
+    if (getMetricsOptions.destinationId() != null) {
+      builder.query("destination_id", String.valueOf(getMetricsOptions.destinationId()));
+    }
+    if (getMetricsOptions.sourceId() != null) {
+      builder.query("source_id", String.valueOf(getMetricsOptions.sourceId()));
     }
     if (getMetricsOptions.emailTo() != null) {
       builder.query("email_to", String.valueOf(getMetricsOptions.emailTo()));

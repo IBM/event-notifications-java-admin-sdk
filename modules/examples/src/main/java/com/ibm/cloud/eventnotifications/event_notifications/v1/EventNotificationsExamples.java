@@ -2023,7 +2023,7 @@ public class EventNotificationsExamples {
                 .destinationType("smtp_custom")
                 .gte("2024-08-01T17:18:43Z")
                 .lte("2024-08-02T11:55:22Z")
-                .id(destinationId16)
+                .destinationId(destinationId16)
                 .emailTo("mobileb@us.ibm.com")
                 .notificationId(notificationID)
                 .subject("Metric Test")

@@ -31,7 +31,8 @@ public class GetMetricsOptions extends GenericModel {
   protected String destinationType;
   protected String gte;
   protected String lte;
-  protected String id;
+  protected String destinationId;
+  protected String sourceId;
   protected String emailTo;
   protected String notificationId;
   protected String subject;
@@ -44,7 +45,8 @@ public class GetMetricsOptions extends GenericModel {
     private String destinationType;
     private String gte;
     private String lte;
-    private String id;
+    private String destinationId;
+    private String sourceId;
     private String emailTo;
     private String notificationId;
     private String subject;
@@ -59,7 +61,8 @@ public class GetMetricsOptions extends GenericModel {
       this.destinationType = getMetricsOptions.destinationType;
       this.gte = getMetricsOptions.gte;
       this.lte = getMetricsOptions.lte;
-      this.id = getMetricsOptions.id;
+      this.destinationId = getMetricsOptions.destinationId;
+      this.sourceId = getMetricsOptions.sourceId;
       this.emailTo = getMetricsOptions.emailTo;
       this.notificationId = getMetricsOptions.notificationId;
       this.subject = getMetricsOptions.subject;
@@ -140,13 +143,24 @@ public class GetMetricsOptions extends GenericModel {
     }
 
     /**
-     * Set the id.
+     * Set the destinationId.
      *
-     * @param id the id
+     * @param destinationId the destinationId
      * @return the GetMetricsOptions builder
      */
-    public Builder id(String id) {
-      this.id = id;
+    public Builder destinationId(String destinationId) {
+      this.destinationId = destinationId;
+      return this;
+    }
+
+    /**
+     * Set the sourceId.
+     *
+     * @param sourceId the sourceId
+     * @return the GetMetricsOptions builder
+     */
+    public Builder sourceId(String sourceId) {
+      this.sourceId = sourceId;
       return this;
     }
 
@@ -199,7 +213,8 @@ public class GetMetricsOptions extends GenericModel {
     destinationType = builder.destinationType;
     gte = builder.gte;
     lte = builder.lte;
-    id = builder.id;
+    destinationId = builder.destinationId;
+    sourceId = builder.sourceId;
     emailTo = builder.emailTo;
     notificationId = builder.notificationId;
     subject = builder.subject;
@@ -259,14 +274,25 @@ public class GetMetricsOptions extends GenericModel {
   }
 
   /**
-   * Gets the id.
+   * Gets the destinationId.
+   *
+   * Unique identifier for Destination.
+   *
+   * @return the destinationId
+   */
+  public String destinationId() {
+    return destinationId;
+  }
+
+  /**
+   * Gets the sourceId.
    *
    * Unique identifier for Source.
    *
-   * @return the id
+   * @return the sourceId
    */
-  public String id() {
-    return id;
+  public String sourceId() {
+    return sourceId;
   }
 
   /**
