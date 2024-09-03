@@ -792,7 +792,7 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCEJobResponseResult = ceJobResponse.getResult();
       destinationId18 = destinationCEJobResponseResult.getId();
 
-      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig= new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
+      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig = new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
               .token(slackDMToken)
               .type("direct_message")
               .build();
@@ -1338,7 +1338,7 @@ public class EventNotificationsExamples {
       Destination destinationCEJobResult = ceJobResponse.getResult();
       System.out.println(destinationCEJobResult);
 
-      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig= new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
+      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig = new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
               .token(slackDMToken)
               .type("direct_message")
               .build();
