@@ -45,6 +45,7 @@ public class NotificationCreateTest {
       .ibmensubject("testString")
       .ibmentemplates("testString")
       .ibmenmailto("testString")
+      .ibmenslackto("testString")
       .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
@@ -75,6 +76,7 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModel.getIbmensubject(), "testString");
     assertEquals(notificationCreateModel.getIbmentemplates(), "testString");
     assertEquals(notificationCreateModel.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModel.getIbmenslackto(), "testString");
     assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
@@ -109,6 +111,7 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModelNew.getIbmensubject(), "testString");
     assertEquals(notificationCreateModelNew.getIbmentemplates(), "testString");
     assertEquals(notificationCreateModelNew.getIbmenmailto(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenslackto(), "testString");
     assertEquals(notificationCreateModelNew.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModelNew.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModelNew.getSubject(), "testString");

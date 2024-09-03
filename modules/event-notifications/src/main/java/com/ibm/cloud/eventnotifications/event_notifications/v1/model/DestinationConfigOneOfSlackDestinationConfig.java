@@ -13,9 +13,17 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 /**
- * Payload describing a Slack destination configuration.
+ * Payload describing a Slack webhook destination configuration.
  */
 public class DestinationConfigOneOfSlackDestinationConfig extends DestinationConfigOneOf {
+
+  /**
+   * The Slack Destination type.
+   */
+  public interface Type {
+    /** incoming_webhook. */
+    String INCOMING_WEBHOOK = "incoming_webhook";
+  }
 
 
   /**
@@ -23,6 +31,7 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
    */
   public static class Builder {
     private String url;
+    private String type;
 
     /**
      * Instantiates a new Builder from an existing DestinationConfigOneOfSlackDestinationConfig instance.
@@ -31,6 +40,7 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
      */
     public Builder(DestinationConfigOneOf destinationConfigOneOfSlackDestinationConfig) {
       this.url = destinationConfigOneOfSlackDestinationConfig.url;
+      this.type = destinationConfigOneOfSlackDestinationConfig.type;
     }
 
     /**
@@ -43,9 +53,11 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
      * Instantiates a new builder with required properties.
      *
      * @param url the url
+     * @param type the type
      */
-    public Builder(String url) {
+    public Builder(String url, String type) {
       this.url = url;
+      this.type = type;
     }
 
     /**
@@ -67,6 +79,17 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
       this.url = url;
       return this;
     }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the DestinationConfigOneOfSlackDestinationConfig builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
   }
 
   protected DestinationConfigOneOfSlackDestinationConfig() { }
@@ -74,7 +97,10 @@ public class DestinationConfigOneOfSlackDestinationConfig extends DestinationCon
   protected DestinationConfigOneOfSlackDestinationConfig(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url,
       "url cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
+      "type cannot be null");
     url = builder.url;
+    type = builder.type;
   }
 
   /**

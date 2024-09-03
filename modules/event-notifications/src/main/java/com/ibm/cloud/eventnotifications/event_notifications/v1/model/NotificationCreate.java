@@ -49,6 +49,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmentemplates;
   @SerializedName("ibmenmailto")
   protected String ibmenmailto;
+  @SerializedName("ibmenslackto")
+  protected String ibmenslackto;
   @SerializedName("ibmensmsto")
   protected String ibmensmsto;
   @SerializedName("ibmenhtmlbody")
@@ -102,6 +104,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmensubject;
     private String ibmentemplates;
     private String ibmenmailto;
+    private String ibmenslackto;
     private String ibmensmsto;
     private String ibmenhtmlbody;
     private String subject;
@@ -138,6 +141,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmensubject = notificationCreate.ibmensubject;
       this.ibmentemplates = notificationCreate.ibmentemplates;
       this.ibmenmailto = notificationCreate.ibmenmailto;
+      this.ibmenslackto = notificationCreate.ibmenslackto;
       this.ibmensmsto = notificationCreate.ibmensmsto;
       this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
@@ -322,6 +326,17 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public Builder ibmenmailto(String ibmenmailto) {
       this.ibmenmailto = ibmenmailto;
+      return this;
+    }
+
+    /**
+     * Set the ibmenslackto.
+     *
+     * @param ibmenslackto the ibmenslackto
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenslackto(String ibmenslackto) {
+      this.ibmenslackto = ibmenslackto;
       return this;
     }
 
@@ -546,6 +561,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmensubject = builder.ibmensubject;
     ibmentemplates = builder.ibmentemplates;
     ibmenmailto = builder.ibmenmailto;
+    ibmenslackto = builder.ibmenslackto;
     ibmensmsto = builder.ibmensmsto;
     ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
@@ -812,6 +828,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmenmailto(final String ibmenmailto) {
     this.ibmenmailto = ibmenmailto;
+  }
+
+  /**
+   * Gets the ibmenslackto.
+   *
+   * The slack channel id/member id stringified array.
+   *
+   * @return the ibmenslackto
+   */
+  public String getIbmenslackto() {
+    return this.ibmenslackto;
+  }
+
+  /**
+   * Sets the ibmenslackto.
+   *
+   * @param ibmenslackto the new ibmenslackto
+   */
+  public void setIbmenslackto(final String ibmenslackto) {
+    this.ibmenslackto = ibmenslackto;
   }
 
   /**

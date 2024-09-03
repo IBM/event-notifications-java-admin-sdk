@@ -28,6 +28,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionCreateAttributesWebhookAttributes
  * - SubscriptionCreateAttributesFCMAttributes
  * - SubscriptionCreateAttributesSlackAttributes
+ * - SubscriptionCreateAttributesSlackDirectMessageAttributes
  * - SubscriptionCreateAttributesServiceNowAttributes
  */
 public class SubscriptionCreateAttributes extends GenericModel {
@@ -51,6 +52,7 @@ public class SubscriptionCreateAttributes extends GenericModel {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  protected List<ChannelCreateAttributes> channels;
   @SerializedName("assigned_to")
   protected String assignedTo;
   @SerializedName("assignment_group")
@@ -166,6 +168,17 @@ public class SubscriptionCreateAttributes extends GenericModel {
    */
   public String attachmentColor() {
     return attachmentColor;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * List of channels.
+   *
+   * @return the channels
+   */
+  public List<ChannelCreateAttributes> channels() {
+    return channels;
   }
 
   /**
