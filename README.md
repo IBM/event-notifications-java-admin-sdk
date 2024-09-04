@@ -1,7 +1,7 @@
 [![Build Status](https://app.travis-ci.com/IBM/event-notifications-java-admin-sdk.svg?branch=main)](https://travis-ci.com/IBM/event-notifications-java-admin-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# Java server SDK for IBM Cloud Event Notifications service Version 0.8.0
+# Java server SDK for IBM Cloud Event Notifications service Version 0.9.0
 Java client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
 ## Table of Contents
@@ -26,7 +26,7 @@ The IBM Cloud Event Notifications Service Java SDK allows developers to programm
 
 Service Name | Artifact Coordinates
 --- | ---
-[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.8.0
+[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.9.0
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ Service Name | Artifact Coordinates
 * Java 11 or above.
 
 ## Installation
-The current version of this SDK is: 0.8.0
+The current version of this SDK is: 0.9.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -56,13 +56,13 @@ To use the Event Notifications Java SDK, define a dependency that contains the a
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>event-notifications</artifactId>
-    <version>0.8.0</version>
+    <version>0.9.0</version>
 </dependency>
 ```
 
 ### Gradle
 ```gradle
-compile 'com.ibm.cloud:event-notifications:0.8.0'
+compile 'com.ibm.cloud:event-notifications:0.9.0'
 ```
 
 ## Using the SDK
