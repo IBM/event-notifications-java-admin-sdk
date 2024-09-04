@@ -1,3 +1,10 @@
+# [0.9.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.8.0...0.9.0) (2024-09-04)
+
+
+### Features
+
+* Slack Direct Message Support ([#46](https://github.com/IBM/event-notifications-java-admin-sdk/issues/46)) ([4fa7b7b](https://github.com/IBM/event-notifications-java-admin-sdk/commit/4fa7b7bd1348d505711330bc319ca9f650ffd171))
+
 # [0.8.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.7.0...0.8.0) (2024-08-09)
 
 
