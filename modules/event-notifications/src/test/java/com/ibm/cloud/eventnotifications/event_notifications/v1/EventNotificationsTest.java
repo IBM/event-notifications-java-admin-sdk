@@ -14,6 +14,8 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Buckets;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ChannelCreateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ChannelUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpConfigurationOptions;
@@ -49,6 +51,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSafariDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfServiceNowDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSlackDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfSlackDirectMessageDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfWebhookDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationListItem;
@@ -130,6 +133,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSMSAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesServiceNowAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSlackAttributesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSlackDirectMessageAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomEmailAttributes;
@@ -139,6 +143,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSMSAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesServiceNowAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSlackAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesSlackDirectMessageAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
@@ -149,6 +154,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesServiceNowAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSlackAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesSlackDirectMessageUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesWebhookAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionList;
@@ -309,6 +315,7 @@ public class EventNotificationsTest {
       .ibmensubject("testString")
       .ibmentemplates("testString")
       .ibmenmailto("testString")
+      .ibmenslackto("testString")
       .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")

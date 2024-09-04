@@ -67,6 +67,7 @@ public class EventNotificationsExamples {
   public static String destinationId16 = "";
   public static String destinationId17 = "";
   public static String destinationId18 = "";
+  public static String destinationId19 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -76,6 +77,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId5 = "";
   public static String subscriptionId6 = "";
   public static String subscriptionId7 = "";
+  public static String subscriptionId8 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -105,6 +107,8 @@ public class EventNotificationsExamples {
   public static String smtpConfigID = "";
   public static String smtpUserID = "";
   public static String notificationID = "";
+  public static String slackDMToken = "";
+  public static String slackChannelID = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -152,6 +156,8 @@ public class EventNotificationsExamples {
     templateBody = config.get("TEMPLATE_BODY");
     cosInstanceCRN = config.get("COS_INSTANCE_CRN");
     slackTemplateBody = config.get("SLACK_TEMPLATE_BODY");
+    slackDMToken = config.get("SLACK_DM_TOKEN");
+    slackChannelID = config.get("SLACK_CHANNEL_ID");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
 
     try {
@@ -407,6 +413,7 @@ public class EventNotificationsExamples {
 
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig = new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
+              .type("incoming_webhook")
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -785,6 +792,32 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCEJobResponseResult = ceJobResponse.getResult();
       destinationId18 = destinationCEJobResponseResult.getId();
 
+      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig = new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
+              .token(slackDMToken)
+              .type("direct_message")
+              .build();
+
+      DestinationConfig destinationSlackDMConfigModel = new DestinationConfig.Builder()
+              .params(slackDMDestinationConfig)
+              .build();
+
+      String slackDMName = "Slack_DM_destination";
+      String slackDMTypeVal = "slack";
+      String slackDMDescription = "Slack DM Destination";
+
+      CreateDestinationOptions createSlackDMDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackDMName)
+              .type(slackDMTypeVal)
+              .description(slackDMDescription)
+              .config(destinationSlackDMConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> slackDMResponse = eventNotificationsService.createDestination(createSlackDMDestinationOptions).execute();
+      DestinationResponse slackDMDestinationResponseResult = slackDMResponse.getResult();
+      destinationId19 = slackDMDestinationResponseResult.getId();
+
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -928,6 +961,7 @@ public class EventNotificationsExamples {
 
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig = new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url("https://api.slack.com/myslack")
+              .type("incoming_webhook")
               .build();
 
       DestinationConfig destinationSlackConfigModel = new DestinationConfig.Builder()
@@ -1304,6 +1338,30 @@ public class EventNotificationsExamples {
       Destination destinationCEJobResult = ceJobResponse.getResult();
       System.out.println(destinationCEJobResult);
 
+      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig = new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
+              .token(slackDMToken)
+              .type("direct_message")
+              .build();
+
+      DestinationConfig destinationSlackDMConfigModel = new DestinationConfig.Builder()
+              .params(slackDMDestinationConfig)
+              .build();
+
+      String slackDMName = "Slack_DM_destination";
+      String slackDMDescription = "Slack DM Destination";
+
+      UpdateDestinationOptions updateSlackDMDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId19)
+              .name(slackDMName)
+              .description(slackDMDescription)
+              .config(destinationSlackDMConfigModel)
+              .build();
+
+      Response<Destination> slackDMResponse = eventNotificationsService.updateDestination(updateSlackDMDestinationOptions).execute();
+      Destination slackDMDestinationResponseResult = slackDMResponse.getResult();
+      System.out.println(slackDMDestinationResponseResult);
+
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1556,6 +1614,34 @@ public class EventNotificationsExamples {
       Response<Subscription> customSMSResponse = eventNotificationsService.createSubscription(createCustomSMSSubscriptionOptions).execute();
       Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
       subscriptionId7 = customSMSSubscriptionResult.getId();
+
+      String slackDMName = "subscription_slack DM";
+      String slackDMDescription = "Subscription for slack DM";
+
+      ChannelCreateAttributes channel = new ChannelCreateAttributes.Builder()
+              .id(slackChannelID)
+              .build();
+
+      List<ChannelCreateAttributes> channels = new ArrayList<>();
+      channels.add(channel);
+
+      SubscriptionCreateAttributesSlackDirectMessageAttributes slackDMCreateAttributes = new SubscriptionCreateAttributesSlackDirectMessageAttributes.Builder()
+              .channels(channels)
+              .templateIdNotification(slackTemplateID)
+              .build();
+
+      CreateSubscriptionOptions createSlackDMSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackDMName)
+              .destinationId(destinationId19)
+              .topicId(topicId)
+              .description(slackDMDescription)
+              .attributes(slackDMCreateAttributes)
+              .build();
+
+      Response<Subscription> slackDMResponse = eventNotificationsService.createSubscription(createSlackDMSubscriptionOptions).execute();
+      Subscription slackDMSubscriptionResult = slackDMResponse.getResult();
+      subscriptionId8 = slackDMSubscriptionResult.getId();
 
       // end-create_subscription
 
@@ -1938,6 +2024,34 @@ public class EventNotificationsExamples {
       Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
       System.out.println(customSMSSubscriptionResult);
 
+      String slackDMName = "subscription_slack DM";
+      String slackDMDescription = "Subscription for slack DM";
+
+      ChannelUpdateAttributes channel = new ChannelUpdateAttributes.Builder()
+              .id(slackChannelID)
+              .operation("add")
+              .build();
+
+      List<ChannelUpdateAttributes> channels = new ArrayList<>();
+      channels.add(channel);
+
+      SubscriptionUpdateAttributesSlackDirectMessageUpdateAttributes slackDMUpdateAttributes = new SubscriptionUpdateAttributesSlackDirectMessageUpdateAttributes.Builder()
+              .channels(channels)
+              .templateIdNotification(slackTemplateID)
+              .build();
+
+      UpdateSubscriptionOptions updateSlackDMSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(slackDMName)
+              .id(subscriptionId8)
+              .description(slackDMDescription)
+              .attributes(slackDMUpdateAttributes)
+              .build();
+
+      Response<Subscription> slackDMResponse = eventNotificationsService.updateSubscription(updateSlackDMSubscriptionOptions).execute();
+      Subscription slackDMSubscriptionResult = slackDMResponse.getResult();
+      System.out.println(slackDMSubscriptionResult);
+
       // end-update_subscription
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1972,6 +2086,7 @@ public class EventNotificationsExamples {
       String huaweiJsonString = "{\"message\":{\"android\":{\"notification\":{\"title\":\"New Message\",\"body\":\"Hello World\",\"click_action\":{\"type\":3}}}}}";
       String mailTo = "[\"abc@ibm.com\", \"def@us.ibm.com\"]";
       String smsTo = "[\"+911234567890\", \"+911224567890\"]";
+      String slackTo = "[\"C07FALXBH4G\"]";
       String mms = "{\"url\": \"https://cloud.ibm.com/avatar/v1/avatar/migrationsegment/logo_ibm.png\"}";
       String templates = "[\"149b0e11-8a7c-4fda-a847-5d79e01b71dc\"]";
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
@@ -1988,6 +2103,7 @@ public class EventNotificationsExamples {
               .ibmensubject("certificate expires")
               .ibmenmailto(mailTo)
               .ibmensmsto(smsTo)
+              .ibmenslackto(slackTo)
               .ibmenmms(mms)
               .ibmentemplates(templates)
               .ibmenhtmlbody(htmlBody)
@@ -2313,6 +2429,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId5);
       subscriptions.add(subscriptionId6);
       subscriptions.add(subscriptionId7);
+      subscriptions.add(subscriptionId8);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -2372,7 +2489,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId16);
       destinations.add(destinationId17);
       destinations.add(destinationId18);
-
+      destinations.add(destinationId19);
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
                 .instanceId(instanceId)

@@ -33,14 +33,17 @@ public class DestinationConfigOneOfSlackDestinationConfigTest {
   public void testDestinationConfigOneOfSlackDestinationConfig() throws Throwable {
     DestinationConfigOneOfSlackDestinationConfig destinationConfigOneOfSlackDestinationConfigModel = new DestinationConfigOneOfSlackDestinationConfig.Builder()
       .url("testString")
+      .type("incoming_webhook")
       .build();
     assertEquals(destinationConfigOneOfSlackDestinationConfigModel.url(), "testString");
+    assertEquals(destinationConfigOneOfSlackDestinationConfigModel.type(), "incoming_webhook");
 
     String json = TestUtilities.serialize(destinationConfigOneOfSlackDestinationConfigModel);
 
     DestinationConfigOneOfSlackDestinationConfig destinationConfigOneOfSlackDestinationConfigModelNew = TestUtilities.deserialize(json, DestinationConfigOneOfSlackDestinationConfig.class);
     assertTrue(destinationConfigOneOfSlackDestinationConfigModelNew instanceof DestinationConfigOneOfSlackDestinationConfig);
     assertEquals(destinationConfigOneOfSlackDestinationConfigModelNew.url(), "testString");
+    assertEquals(destinationConfigOneOfSlackDestinationConfigModelNew.type(), "incoming_webhook");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

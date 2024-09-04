@@ -12,6 +12,8 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -25,6 +27,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionUpdateAttributesCustomEmailUpdateAttributes
  * - SubscriptionUpdateAttributesWebhookAttributes
  * - SubscriptionUpdateAttributesSlackAttributes
+ * - SubscriptionUpdateAttributesSlackDirectMessageUpdateAttributes
  * - SubscriptionUpdateAttributesServiceNowAttributes
  */
 public class SubscriptionUpdateAttributes extends GenericModel {
@@ -50,6 +53,7 @@ public class SubscriptionUpdateAttributes extends GenericModel {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  protected List<ChannelUpdateAttributes> channels;
   @SerializedName("assigned_to")
   protected String assignedTo;
   @SerializedName("assignment_group")
@@ -187,6 +191,17 @@ public class SubscriptionUpdateAttributes extends GenericModel {
    */
   public String attachmentColor() {
     return attachmentColor;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * List of channels.
+   *
+   * @return the channels
+   */
+  public List<ChannelUpdateAttributes> channels() {
+    return channels;
   }
 
   /**

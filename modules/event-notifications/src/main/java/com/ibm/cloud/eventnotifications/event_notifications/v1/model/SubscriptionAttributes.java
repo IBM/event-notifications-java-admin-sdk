@@ -28,6 +28,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SubscriptionAttributesCustomEmailAttributesResponse
  * - SubscriptionAttributesWebhookAttributesResponse
  * - SubscriptionAttributesSlackAttributesResponse
+ * - SubscriptionAttributesSlackDirectMessageAttributesResponse
  * - SubscriptionAttributesServiceNowAttributesResponse
  */
 public class SubscriptionAttributes extends DynamicModel<Object> {
@@ -56,6 +57,8 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected Boolean signingEnabled;
   @SerializedName("attachment_color")
   protected String attachmentColor;
+  @SerializedName("channels")
+  protected List<ChannelCreateAttributes> channels;
   @SerializedName("assigned_to")
   protected String assignedTo;
   @SerializedName("assignment_group")
@@ -195,6 +198,17 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public String getAttachmentColor() {
     return this.attachmentColor;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * List of channels.
+   *
+   * @return the channels
+   */
+  public List<ChannelCreateAttributes> getChannels() {
+    return this.channels;
   }
 
   /**
