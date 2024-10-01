@@ -1132,6 +1132,7 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_PD_API_KEY` - pagerduty api key
 - `EVENT_NOTIFICATIONS_TEMPLATE_BODY` - base 64 encoded html content
 - `EVENT_NOTIFICATIONS_SLACK_TEMPLATE_BODY` - base 64 encoded json body
+- `EVENT_NOTIFICATIONS_WEBHOOK_TEMPLATE_BODY` - base 64 encoded json body
 
 
 
