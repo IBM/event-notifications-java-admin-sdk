@@ -1440,7 +1440,7 @@ public class EventNotificationsExamples {
 
       Response<TemplateResponse> webhookTemplatenotificationResponse = eventNotificationsService.createTemplate(createWebhookTemplateNotificationOptions).execute();
       TemplateResponse webhookTemplateResult = webhookTemplatenotificationResponse .getResult();
-      webhookTemplateID= webhookTemplateResult.getId();
+      webhookTemplateID = webhookTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
