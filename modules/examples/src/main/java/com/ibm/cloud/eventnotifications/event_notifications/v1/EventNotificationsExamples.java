@@ -109,6 +109,8 @@ public class EventNotificationsExamples {
   public static String notificationID = "";
   public static String slackDMToken = "";
   public static String slackChannelID = "";
+  public static String webhookTemplateID = "";
+  public static String webhookTemplateBody = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -159,6 +161,7 @@ public class EventNotificationsExamples {
     slackDMToken = config.get("SLACK_DM_TOKEN");
     slackChannelID = config.get("SLACK_CHANNEL_ID");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
+    webhookTemplateBody = config.get("WEBHOOK_TEMPLATE_BODY");
 
     try {
       System.out.println("createSources() result:");
@@ -1421,6 +1424,23 @@ public class EventNotificationsExamples {
       Response<TemplateResponse> slackTemplatenotificationResponse = eventNotificationsService.createTemplate(createSlackTemplateNotificationOptions).execute();
       TemplateResponse slackTemplateResult = slackTemplatenotificationResponse.getResult();
       slackTemplateID = slackTemplateResult.getId();
+
+      TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
+              .body(slackTemplateBody)
+              .build();
+
+      name = "webhook template notification";
+      CreateTemplateOptions createWebhookTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("webhook.notification")
+              .params(webhookTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> webhookTemplatenotificationResponse = eventNotificationsService.createTemplate(createWebhookTemplateNotificationOptions).execute();
+      TemplateResponse webhookTemplateResult = webhookTemplatenotificationResponse .getResult();
+      webhookTemplateID= webhookTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1502,7 +1522,9 @@ public class EventNotificationsExamples {
       subscriptionId2 = emailSubscription.getId();
 
       SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
-              .signingEnabled(true).build();
+              .signingEnabled(true)
+              .templateIdNotification(webhookTemplateID)
+              .build();
       String webName = "subscription_web";
       String webDescription = "Subscription for web";
 
@@ -1769,6 +1791,23 @@ public class EventNotificationsExamples {
 
       Response<Template> slackTemplateResponse = eventNotificationsService.replaceTemplate(updateSlackTemplateOptions).execute();
       Template slackTemplateResult = slackTemplateResponse.getResult();
+
+      TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
+              .body(webhookTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateWebhookTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(webhookTemplateID)
+              .name(name)
+              .description(description)
+              .type("webhook.notification")
+              .params(webhookTemplateConfig)
+              .build();
+
+      Response<Template> webhookTemplateResponse = eventNotificationsService.replaceTemplate(updateWebhookTemplateOptions).execute();
+      Template webhookTemplateResult = webhookTemplateResponse.getResult();
+      System.out.println(webhookTemplateResult);
       // end-replace_template
       System.out.println(slackTemplateResult);
     } catch (ServiceResponseException e) {
@@ -1880,6 +1919,7 @@ public class EventNotificationsExamples {
 
       SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
               .signingEnabled(true)
+              .templateIdNotification(webhookTemplateID)
               .build();
 
       String webName = "web_sub_updated";
@@ -2626,6 +2666,7 @@ public class EventNotificationsExamples {
       templates.add(templateInvitationID);
       templates.add(templateNotificationID);
       templates.add(slackTemplateID);
+      templates.add(webhookTemplateID);
 
       for (String template : templates) {
         // begin-delete_template

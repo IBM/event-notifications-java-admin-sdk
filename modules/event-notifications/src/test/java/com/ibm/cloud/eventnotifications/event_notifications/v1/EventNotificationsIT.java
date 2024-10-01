@@ -108,12 +108,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String templateInvitationID = "";
   public static String templateNotificationID = "";
   public static String slackTemplateID = "";
+  public static String webhookTemplateID = "";
   public static String slackURL = "";
   public static String teamsURL = "";
   public static String pagerDutyApiKey = "";
   public static String pagerDutyRoutingKey = "";
   public static String templateBody = "";
   public static String slackTemplateBody = "";
+  public static String webhookTemplateBody = "";
   public static String cosInstanceCRN = "";
   public static String cosIntegrationID = "";
   public static String codeEngineProjectCRN = "";
@@ -174,6 +176,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     pagerDutyRoutingKey = config.get("PD_ROUTING_KEY");
     templateBody = config.get("TEMPLATE_BODY");
     slackTemplateBody = config.get("SLACK_TEMPLATE_BODY");
+    webhookTemplateBody = config.get("WEBHOOK_TEMPLATE_BODY");
     slackDMToken = config.get("SLACK_DM_TOKEN");
     slackChannelID = config.get("SLACK_CHANNEL_ID");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
@@ -588,8 +591,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public void test1ICreateDestination() throws Exception {
     try {
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
-              .url("https://gcm.com")
-              .verb("get")
+              .url(codeEngineURL)
+              .verb("post")
               .customHeaders(new java.util.HashMap<String, String>() { { put("gcm_apikey", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("gcm_apikey")))
               .build();
@@ -1317,8 +1320,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public void test1LUpdateDestination() throws Exception {
     try {
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
-              .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
-              .verb("get")
+              .url(codeEngineURL)
+              .verb("post")
               .customHeaders(new java.util.HashMap<String, String>() { { put("authorization", "testString"); } })
               .sensitiveHeaders(new java.util.ArrayList<String>(java.util.Arrays.asList("authorization")))
               .build();
@@ -2007,6 +2010,28 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(SlackTemplateResult .getName(), name);
       slackTemplateID= SlackTemplateResult.getId();
 
+      TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
+              .body(slackTemplateBody)
+              .build();
+
+      name = "webhook template notification";
+      CreateTemplateOptions createWebhookTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("webhook.notification")
+              .params(webhookTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> webhookTemplatenotificationResponse = service.createTemplate(createWebhookTemplateNotificationOptions).execute();
+      assertNotNull(webhookTemplatenotificationResponse );
+      assertEquals(webhookTemplatenotificationResponse .getStatusCode(), 201);
+      TemplateResponse webhookTemplateResult = webhookTemplatenotificationResponse .getResult();
+
+      assertNotNull(webhookTemplateResult);
+      assertEquals(webhookTemplateResult.getDescription(), description);
+      assertEquals(webhookTemplateResult .getName(), name);
+      webhookTemplateID= webhookTemplateResult.getId();
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2108,6 +2133,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackTemplateResult.getName(), name);
       assertEquals(slackTemplateResult.getId(), slackTemplateID);
 
+      TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
+              .body(webhookTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateWebhookTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(webhookTemplateID)
+              .name(name)
+              .description(description)
+              .type("webhook.notification")
+              .params(webhookTemplateConfig)
+              .build();
+
+      Response<Template> webhookTemplateResponse = service.replaceTemplate(updateWebhookTemplateOptions).execute();
+      assertNotNull(webhookTemplateResponse);
+      assertEquals(webhookTemplateResponse.getStatusCode(), 200);
+      Template webhookTemplateResult = webhookTemplateResponse.getResult();
+
+      assertNotNull(webhookTemplateResult);
+      assertEquals(webhookTemplateResult.getDescription(), description);
+      assertEquals(webhookTemplateResult.getName(), name);
+      assertEquals(webhookTemplateResult.getId(), webhookTemplateID);
+
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2153,7 +2201,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public void test1QCreateSubscription() throws Exception {
     try {
       SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
-              .signingEnabled(true).build();
+              .signingEnabled(true)
+              .templateIdNotification(webhookTemplateID)
+              .build();
       String name = "subscription_web";
       String description = "Subscription for web";
 
@@ -2756,6 +2806,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     try {
       SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
               .signingEnabled(true)
+              .templateIdNotification(webhookTemplateID)
               .build();
 
       String name = "GCM_sub_updated";
@@ -4017,6 +4068,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
      templates.add(templateInvitationID);
      templates.add(templateNotificationID);
      templates.add(slackTemplateID);
+     templates.add(webhookTemplateID);
 
       for (String template : templates) {
         DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()
