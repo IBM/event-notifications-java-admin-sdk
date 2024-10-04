@@ -1,3 +1,10 @@
+# [0.10.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.9.0...0.10.0) (2024-10-04)
+
+
+### Features
+
+* Webhook template support ([#47](https://github.com/IBM/event-notifications-java-admin-sdk/issues/47)) ([273a3b2](https://github.com/IBM/event-notifications-java-admin-sdk/commit/273a3b28d8ecc64b2eabc31536f5e61d9ac33387))
+
 # [0.9.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.8.0...0.9.0) (2024-09-04)
 
 
