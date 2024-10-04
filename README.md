@@ -469,6 +469,8 @@ supports the following templates:
 
 - Custom Email notification
 - Custom Email invitation
+- slack template
+- webhook template
 
 ### Create Template
 
@@ -494,7 +496,6 @@ For custom email supported template type values: smtp_custom.invitation, smtp_cu
 ```java
 TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
         .body("base 64 encoded html content")
-        .subject("Hi this is invitation for invitation message")
         .build();
 
 CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOptions.Builder()
@@ -502,12 +503,29 @@ CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOption
         .name(<name>)
         .description(<description>)
         .type(<template-type>)
-        .params(templateConfig)
+        .params(slackTemplateConfig)
         .build();
 
 Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
 ```
-For slack template supported template type value: slack.notification
+For slack supported template type values: slack.notification
+#### Webhook Template
+```java
+TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .build();
+
+CreateTemplateOptions createWebhookTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(webhookTemplateConfig)
+        .build();
+
+Response<TemplateResponse> webhookTemplateResponse = eventNotificationsService.createTemplate(createWebhookTemplateNotificationOptions).execute();
+```
+For Webhook template supported template type value: webhook.notification
 ### List Templates
 ```java
 ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
@@ -531,13 +549,14 @@ Response<Template> response = eventNotificationsService.getTemplate(getTemplateO
 ```
 
 ### Update Template
+#### Custom Email Template
 ```java
 TemplateConfig templateConfig = new TemplateConfig.Builder()
-              .body("base 64 encoded html content")
-              .subject("Hi this is invitation for invitation message")
-              .build();
+        .body("base 64 encoded html content")
+        .subject("Hi this is invitation for invitation message")
+        .build();
 
-ReplaceTemplateOptions updateTemplateInvitationOptions = new ReplaceTemplateOptions.Builder()
+        ReplaceTemplateOptions updateTemplateInvitationOptions = new ReplaceTemplateOptions.Builder()
         .instanceId(<instanceId>)
         .id(<templateId>)
         .name(<name>)
@@ -546,8 +565,45 @@ ReplaceTemplateOptions updateTemplateInvitationOptions = new ReplaceTemplateOpti
         .params(templateConfig)
         .build();
 
-Response<Template> invitationResponse = eventNotificationsService.replaceTemplate(replaceTemplateInvitationOptions).execute();
+        Response<Template> invitationResponse = eventNotificationsService.replaceTemplate(replaceTemplateInvitationOptions).execute();
 ```
+For custom email supported template type values: smtp_custom.invitation, smtp_custom.notification
+#### Slack Template
+```java
+TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .build();
+
+ReplaceTemplateOptions updateSlackTemplateOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<slackTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(slackTemplateConfig)
+        .build();
+
+Response<Template> slackTemplateResponse = eventNotificationsService.replaceTemplate(updateSlackTemplateOptions).execute();
+```
+For slack supported template type values: slack.notification
+#### Webhook Template
+```java
+TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .build();
+
+ReplaceTemplateOptions updateWebhookTemplateOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<webhookTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(webhookTemplateConfig)
+        .build();
+
+Response<Template> webhookTemplateResponse = service.replaceTemplate(updateWebhookTemplateOptions).execute();
+```
+For webhook supported template type values: webhook.notification
 
 ### Delete Template
 ```java
@@ -606,7 +662,9 @@ System.out.println(response);
 
 ```java
 SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
-    .signingEnabled(false).build();
+    .signingEnabled(false)
+    .templateIdNotification(<webhookTemplateID>)   
+    .build();
 
 CreateSubscriptionOptions createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
     .instanceId(<instanceId>)
@@ -652,6 +710,7 @@ System.out.println(subscription);
 ```java
 SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
         .signingEnabled(true)
+        .templateIdNotification(<webhookTemplateID>)
         .build();
 
 UpdateSubscriptionOptions updateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
@@ -1073,6 +1132,7 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_PD_API_KEY` - pagerduty api key
 - `EVENT_NOTIFICATIONS_TEMPLATE_BODY` - base 64 encoded html content
 - `EVENT_NOTIFICATIONS_SLACK_TEMPLATE_BODY` - base 64 encoded json body
+- `EVENT_NOTIFICATIONS_WEBHOOK_TEMPLATE_BODY` - base 64 encoded json body
 
 
 

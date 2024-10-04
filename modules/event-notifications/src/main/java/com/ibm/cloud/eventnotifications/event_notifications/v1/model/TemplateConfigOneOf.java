@@ -20,6 +20,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * Classes which extend this class:
  * - TemplateConfigOneOfEmailTemplateConfig
  * - TemplateConfigOneOfSlackTemplateConfig
+ * - TemplateConfigOneOfWebhookTemplateConfig
  */
 public class TemplateConfigOneOf extends GenericModel {
 
@@ -31,7 +32,7 @@ public class TemplateConfigOneOf extends GenericModel {
   /**
    * Gets the body.
    *
-   * Template body.
+   * Template body(Base64 encoded).
    *
    * @return the body
    */

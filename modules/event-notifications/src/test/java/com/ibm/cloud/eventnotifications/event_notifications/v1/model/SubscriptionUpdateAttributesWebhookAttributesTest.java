@@ -33,19 +33,16 @@ public class SubscriptionUpdateAttributesWebhookAttributesTest {
   public void testSubscriptionUpdateAttributesWebhookAttributes() throws Throwable {
     SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateAttributesWebhookAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
       .signingEnabled(true)
+      .templateIdNotification("testString")
       .build();
     assertEquals(subscriptionUpdateAttributesWebhookAttributesModel.signingEnabled(), Boolean.valueOf(true));
+    assertEquals(subscriptionUpdateAttributesWebhookAttributesModel.templateIdNotification(), "testString");
 
     String json = TestUtilities.serialize(subscriptionUpdateAttributesWebhookAttributesModel);
 
     SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateAttributesWebhookAttributesModelNew = TestUtilities.deserialize(json, SubscriptionUpdateAttributesWebhookAttributes.class);
     assertTrue(subscriptionUpdateAttributesWebhookAttributesModelNew instanceof SubscriptionUpdateAttributesWebhookAttributes);
     assertEquals(subscriptionUpdateAttributesWebhookAttributesModelNew.signingEnabled(), Boolean.valueOf(true));
+    assertEquals(subscriptionUpdateAttributesWebhookAttributesModelNew.templateIdNotification(), "testString");
   }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testSubscriptionUpdateAttributesWebhookAttributesError() throws Throwable {
-    new SubscriptionUpdateAttributesWebhookAttributes.Builder().build();
-  }
-
 }

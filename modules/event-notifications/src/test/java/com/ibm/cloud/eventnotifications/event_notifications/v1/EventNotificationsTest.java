@@ -164,6 +164,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Template;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOf;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfEmailTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfSlackTemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfWebhookTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplatesPager;

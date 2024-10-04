@@ -23,6 +23,7 @@ public class SubscriptionCreateAttributesWebhookAttributes extends SubscriptionC
    */
   public static class Builder {
     private Boolean signingEnabled;
+    private String templateIdNotification;
 
     /**
      * Instantiates a new Builder from an existing SubscriptionCreateAttributesWebhookAttributes instance.
@@ -31,21 +32,13 @@ public class SubscriptionCreateAttributesWebhookAttributes extends SubscriptionC
      */
     public Builder(SubscriptionCreateAttributes subscriptionCreateAttributesWebhookAttributes) {
       this.signingEnabled = subscriptionCreateAttributesWebhookAttributes.signingEnabled;
+      this.templateIdNotification = subscriptionCreateAttributesWebhookAttributes.templateIdNotification;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param signingEnabled the signingEnabled
-     */
-    public Builder(Boolean signingEnabled) {
-      this.signingEnabled = signingEnabled;
     }
 
     /**
@@ -67,14 +60,24 @@ public class SubscriptionCreateAttributesWebhookAttributes extends SubscriptionC
       this.signingEnabled = signingEnabled;
       return this;
     }
+
+    /**
+     * Set the templateIdNotification.
+     *
+     * @param templateIdNotification the templateIdNotification
+     * @return the SubscriptionCreateAttributesWebhookAttributes builder
+     */
+    public Builder templateIdNotification(String templateIdNotification) {
+      this.templateIdNotification = templateIdNotification;
+      return this;
+    }
   }
 
   protected SubscriptionCreateAttributesWebhookAttributes() { }
 
   protected SubscriptionCreateAttributesWebhookAttributes(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.signingEnabled,
-      "signingEnabled cannot be null");
     signingEnabled = builder.signingEnabled;
+    templateIdNotification = builder.templateIdNotification;
   }
 
   /**
