@@ -38,8 +38,6 @@ public class DestinationResponse extends GenericModel {
     String PUSH_FIREFOX = "push_firefox";
     /** slack. */
     String SLACK = "slack";
-    /** ibmcf. */
-    String IBMCF = "ibmcf";
     /** ibmce. */
     String IBMCE = "ibmce";
     /** pagerduty. */

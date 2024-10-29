@@ -25,7 +25,7 @@ public class Destination extends GenericModel {
 
   /**
    * Destination type
-   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
    */
   public interface Type {
     /** webhook. */
@@ -40,8 +40,6 @@ public class Destination extends GenericModel {
     String PUSH_IOS = "push_ios";
     /** slack. */
     String SLACK = "slack";
-    /** ibmcf. */
-    String IBMCF = "ibmcf";
     /** ibmce. */
     String IBMCE = "ibmce";
     /** pagerduty. */
@@ -115,7 +113,7 @@ public class Destination extends GenericModel {
    * Gets the type.
    *
    * Destination type
-   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCloudFunctions/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
    *
    * @return the type
    */
