@@ -39,8 +39,6 @@ public class DestinationListItem extends GenericModel {
     String PUSH_IOS = "push_ios";
     /** slack. */
     String SLACK = "slack";
-    /** ibmcf. */
-    String IBMCF = "ibmcf";
     /** ibmce. */
     String IBMCE = "ibmce";
     /** pagerduty. */

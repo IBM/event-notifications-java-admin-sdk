@@ -33,7 +33,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfSlackDirectMessageDestinationConfig
  * - DestinationConfigOneOfSafariDestinationConfig
  * - DestinationConfigOneOfMSTeamsDestinationConfig
- * - DestinationConfigOneOfIBMCloudFunctionsDestinationConfig
  * - DestinationConfigOneOfPagerDutyDestinationConfig
  * - DestinationConfigOneOfServiceNowDestinationConfig
  * - DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig
