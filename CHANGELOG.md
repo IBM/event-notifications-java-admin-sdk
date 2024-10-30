@@ -1,3 +1,10 @@
+# [0.11.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.10.0...0.11.0) (2024-10-30)
+
+
+### Features
+
+* removed cloud functions support ([#49](https://github.com/IBM/event-notifications-java-admin-sdk/issues/49)) ([0847c6d](https://github.com/IBM/event-notifications-java-admin-sdk/commit/0847c6df1093dfda121ae4bfb750d91f125a0a7a))
+
 # [0.10.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.9.0...0.10.0) (2024-10-04)
 
 
