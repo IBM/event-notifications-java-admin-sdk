@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EventScheduleFilterAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.RulesGet;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesListItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;

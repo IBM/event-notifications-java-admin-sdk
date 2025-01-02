@@ -351,35 +351,6 @@ public class EventNotificationsExamples {
       System.out.println("createDestination() result:");
       // begin-create_destination
 
-      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
-              .senderId(fcmSenderId)
-              .serverKey(fcmServerKey)
-              .build();
-
-      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
-              .params(fcmConfig)
-              .build();
-
-      String fcmName = "FCM_destination";
-      String fcmTypeVal = "push_android";
-      String fcmDescription = "Fcm Destination";
-
-      CreateDestinationOptions createFCMDestinationOptions = new CreateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .name(fcmName)
-              .type(fcmTypeVal)
-              .description(fcmDescription)
-              .config(destinationFcmConfigModel)
-              .build();
-
-      // Invoke operation
-      Response<DestinationResponse> fcmResponse = eventNotificationsService.createDestination(createFCMDestinationOptions).execute();
-
-      DestinationResponse destinationResponse = fcmResponse.getResult();
-
-      System.out.println(destinationResponse);
-      destinationId = destinationResponse.getId();
-
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
               .url("https://gcm.com")
               .verb("get")
@@ -620,7 +591,7 @@ public class EventNotificationsExamples {
               .build();
 
       DestinationConfig destinationFCMV1ConfigModel = new DestinationConfig.Builder()
-              .params(fcmConfig)
+              .params(fcmV1Config)
               .build();
 
       String fcmV1Name = "FCM_destination_v1";
@@ -902,31 +873,6 @@ public class EventNotificationsExamples {
     try {
       System.out.println("updateDestination() result:");
       // begin-update_destination
-
-      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
-              .senderId(fcmSenderId)
-              .serverKey(fcmServerKey)
-              .build();
-
-      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
-              .params(fcmConfig)
-              .build();
-
-      String fcmName = "FCM_Admin Compliance";
-      String fcmDescription = "This is a Destination for FCM compliance";
-
-      UpdateDestinationOptions updateDestinationOptions = new UpdateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId)
-              .name(fcmName)
-              .description(fcmDescription)
-              .config(destinationFcmConfigModel)
-              .build();
-
-      Response<Destination> response = eventNotificationsService.updateDestination(updateDestinationOptions).execute();
-      Destination destination = response.getResult();
-
-      System.out.println(destination);
 
       DestinationConfigOneOfWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigOneOfWebhookDestinationConfig.Builder()
               .url("https://cloud.ibm.com/nhwebhook/sendwebhook")
@@ -1457,7 +1403,7 @@ public class EventNotificationsExamples {
       CreateSubscriptionOptions createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .name(name)
-              .destinationId(destinationId)
+              .destinationId(destinationId12)
               .topicId(topicId)
               .description(description)
               .build();

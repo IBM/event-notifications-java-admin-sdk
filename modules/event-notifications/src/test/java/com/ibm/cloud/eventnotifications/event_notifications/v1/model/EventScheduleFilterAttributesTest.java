@@ -14,7 +14,6 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EventScheduleFilterAttributes;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.cloud.sdk.core.util.DateUtils;
@@ -25,14 +24,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the Rules model.
+ * Unit test class for the EventScheduleFilterAttributes model.
  */
-public class RulesTest {
+public class EventScheduleFilterAttributesTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testRules() throws Throwable {
+  public void testEventScheduleFilterAttributes() throws Throwable {
     EventScheduleFilterAttributes eventScheduleFilterAttributesModel = new EventScheduleFilterAttributes.Builder()
       .startsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
       .endsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
@@ -42,24 +41,12 @@ public class RulesTest {
     assertEquals(eventScheduleFilterAttributesModel.endsAt(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
     assertEquals(eventScheduleFilterAttributesModel.expression(), "testString");
 
-    Rules rulesModel = new Rules.Builder()
-      .enabled(true)
-      .eventTypeFilter("$.*")
-      .notificationFilter("testString")
-      .eventScheduleFilter(eventScheduleFilterAttributesModel)
-      .build();
-    assertEquals(rulesModel.enabled(), Boolean.valueOf(true));
-    assertEquals(rulesModel.eventTypeFilter(), "$.*");
-    assertEquals(rulesModel.notificationFilter(), "testString");
-    assertEquals(rulesModel.eventScheduleFilter(), eventScheduleFilterAttributesModel);
+    String json = TestUtilities.serialize(eventScheduleFilterAttributesModel);
 
-    String json = TestUtilities.serialize(rulesModel);
-
-    Rules rulesModelNew = TestUtilities.deserialize(json, Rules.class);
-    assertTrue(rulesModelNew instanceof Rules);
-    assertEquals(rulesModelNew.enabled(), Boolean.valueOf(true));
-    assertEquals(rulesModelNew.eventTypeFilter(), "$.*");
-    assertEquals(rulesModelNew.notificationFilter(), "testString");
-    assertEquals(rulesModelNew.eventScheduleFilter().toString(), eventScheduleFilterAttributesModel.toString());
+    EventScheduleFilterAttributes eventScheduleFilterAttributesModelNew = TestUtilities.deserialize(json, EventScheduleFilterAttributes.class);
+    assertTrue(eventScheduleFilterAttributesModelNew instanceof EventScheduleFilterAttributes);
+    assertEquals(eventScheduleFilterAttributesModelNew.startsAt(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    assertEquals(eventScheduleFilterAttributesModelNew.endsAt(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    assertEquals(eventScheduleFilterAttributesModelNew.expression(), "testString");
   }
 }

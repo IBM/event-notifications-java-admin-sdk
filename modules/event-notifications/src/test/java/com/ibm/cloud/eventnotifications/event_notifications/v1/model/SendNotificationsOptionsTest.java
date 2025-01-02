@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,13 +47,14 @@ public class SendNotificationsOptionsTest {
       .ibmentemplates("testString")
       .ibmenmailto("testString")
       .ibmenslackto("testString")
+      .ibmensmstext("testString")
       .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
       .ibmenmms("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
-      .ibmenpushto("{\"platforms\":[\"push_android\"]}")
+      .ibmenpushto("{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}")
       .ibmenfcmbody("testString")
       .ibmenapnsbody("testString")
       .ibmenapnsheaders("testString")
@@ -78,13 +79,14 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmentemplates(), "testString");
     assertEquals(notificationCreateModel.getIbmenmailto(), "testString");
     assertEquals(notificationCreateModel.getIbmenslackto(), "testString");
+    assertEquals(notificationCreateModel.getIbmensmstext(), "testString");
     assertEquals(notificationCreateModel.getIbmensmsto(), "testString");
     assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
     assertEquals(notificationCreateModel.getIbmenmms(), "testString");
     assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
-    assertEquals(notificationCreateModel.getIbmenpushto(), "{\"platforms\":[\"push_android\"]}");
+    assertEquals(notificationCreateModel.getIbmenpushto(), "{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}");
     assertEquals(notificationCreateModel.getIbmenfcmbody(), "testString");
     assertEquals(notificationCreateModel.getIbmenapnsbody(), "testString");
     assertEquals(notificationCreateModel.getIbmenapnsheaders(), "testString");

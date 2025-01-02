@@ -49,6 +49,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String topicId = "";
   public static String topicId2 = "";
   public static String topicId3 = "";
+  public static String topicId4 = "";
   public static String destinationId = "";
   public static String destinationId1 = "";
   public static String destinationId2 = "";
@@ -88,6 +89,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId17 = "";
   public static String subscriptionId18 = "";
   public static String subscriptionId19 = "";
+  public static String subscriptionId20 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -124,6 +126,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String notificationID = "";
   public static String slackDMToken = "";
   public static String slackChannelID = "";
+  public static String schedulerSourceID = "";
 
 
 
@@ -180,6 +183,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     slackDMToken = config.get("SLACK_DM_TOKEN");
     slackChannelID = config.get("SLACK_CHANNEL_ID");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
+    schedulerSourceID = config.get("SCHEDULER_SOURCE_ID");
 
     service.enableRetries(4, 30);
 
@@ -193,7 +197,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .instanceId(instanceId)
               .name("Event Notification Create Source Acme")
               .description("This source is used for Acme Bank")
-              .enabled(false)
+              .enabled(true)
               .build();
 
       // Invoke operation
@@ -428,11 +432,56 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       topicId3 = topicResponseResult2.getId();
 
+      Instant currentInstant = Instant.now();
+      Date startDate = Date.from(currentInstant);
 
+      Instant endInstant= currentInstant.plus(Duration.ofMinutes(1));
+      Date endDate = Date.from(endInstant);
+
+      EventScheduleFilterAttributes eventScheduleFilterAttributes = new EventScheduleFilterAttributes.Builder()
+              .startsAt(startDate)
+              .endsAt(endDate)
+              .expression("* * * * *")
+              .build();
+
+      Rules rulesCronModel = new Rules.Builder()
+              .enabled(true)
+              .eventScheduleFilter(eventScheduleFilterAttributes)
+              .build();
+
+      SourcesItems topicSourcesItemModel = new SourcesItems.Builder()
+              .id(schedulerSourceID)
+              .rules(new java.util.ArrayList<Rules>(java.util.Arrays.asList(rulesCronModel)))
+              .build();
+
+      description = "Topic 4 for cron scheduler";
+      name = "topic4";
+
+      createTopicOptions = new CreateTopicOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .sources(new java.util.ArrayList<SourcesItems>(java.util.Arrays.asList(topicSourcesItemModel)))
+              .build();
+
+      // Invoke operation
+      Response<TopicResponse> response3 = service.createTopic(createTopicOptions).execute();
+      // Validate response
+      assertNotNull(response3);
+      assertEquals(response3.getStatusCode(), 201);
+
+      TopicResponse topicResponseResult3 = response3.getResult();
+
+      assertNotNull(topicResponseResult3);
+      assertEquals(topicResponseResult3.getName(), name);
+      assertEquals(topicResponseResult3.getDescription(), description);
+
+      topicId4 = topicResponseResult3.getId();
 
       assertNotEquals(topicId, "");
       assertNotEquals(topicId2, "");
       assertNotEquals(topicId3, "");
+      assertNotEquals(topicId4, "");
 
       //
       // The following status codes aren't covered by tests.
@@ -459,7 +508,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       boolean moreResults = true;
       int limit = 1;
       int offset = 0;
-      while (moreResults) {
         ListTopicsOptions listTopicsOptions = new ListTopicsOptions.Builder()
                 .instanceId(instanceId)
                 .limit(limit)
@@ -475,13 +523,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
         TopicList topicListResult = response.getResult();
         assertNotNull(topicListResult);
-
-        if (topicListResult.getTotalCount() <= offset) {
-          moreResults = false;
-        }
-
-        offset += 1;
-      }
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -630,42 +671,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId = destinationResponseResult.getId();
 
-      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
-              .senderId(fcmSenderId)
-              .serverKey(fcmServerKey)
-              .preProd(false)
-              .build();
-
-      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
-              .params(fcmConfig)
-              .build();
-
-      String fcmName = "FCM_destination";
-      String fcmTypeVal = "push_android";
-      String fcmDescription = "Fcm Destination";
-
-      CreateDestinationOptions createFCMDestinationOptions = new CreateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .name(fcmName)
-              .type(fcmTypeVal)
-              .description(fcmDescription)
-              .config(destinationFcmConfigModel)
-              .build();
-
-      // Invoke operation
-      Response<DestinationResponse> fcmResponse = service.createDestination(createFCMDestinationOptions).execute();
-      // Validate response
-      assertNotNull(fcmResponse);
-      assertEquals(fcmResponse.getStatusCode(), 201);
-
-      DestinationResponse destinationFCMResponseResult = fcmResponse.getResult();
-
-      assertNotNull(destinationFCMResponseResult);
-      assertEquals(destinationFCMResponseResult.getDescription(), fcmDescription);
-      assertEquals(destinationFCMResponseResult.getName(), fcmName);
-      assertEquals(destinationFCMResponseResult.getType(), fcmTypeVal);
-
-      destinationId3 = destinationFCMResponseResult.getId();
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url(slackURL)
               .type("incoming_webhook")
@@ -926,22 +931,22 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId11 = destinationServiceNowResponseResult.getId();
 
-      fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
+      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
               .clientEmail(fcmClientEmail)
               .privateKey(fcmPrivateKey)
               .projectId(fcmProjectID)
               .preProd(false)
               .build();
 
-      destinationFcmConfigModel = new DestinationConfig.Builder()
+      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
               .params(fcmConfig)
               .build();
 
-      fcmName = "FCM_destination_v1";
-      fcmTypeVal = "push_android";
-      fcmDescription = "Fcm Destination_v1";
+     String fcmName = "FCM_destination_v1";
+     String fcmTypeVal = "push_android";
+     String fcmDescription = "Fcm Destination_v1";
 
-      createFCMDestinationOptions = new CreateDestinationOptions.Builder()
+      CreateDestinationOptions createFCMDestinationOptions = new CreateDestinationOptions.Builder()
               .instanceId(instanceId)
               .name(fcmName)
               .type(fcmTypeVal)
@@ -950,12 +955,12 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .build();
 
       // Invoke operation
-      fcmResponse = service.createDestination(createFCMDestinationOptions).execute();
+      Response<DestinationResponse> fcmResponse = service.createDestination(createFCMDestinationOptions).execute();
       // Validate response
       assertNotNull(fcmResponse);
       assertEquals(fcmResponse.getStatusCode(), 201);
 
-      destinationFCMResponseResult = fcmResponse.getResult();
+      DestinationResponse destinationFCMResponseResult = fcmResponse.getResult();
 
       assertNotNull(destinationFCMResponseResult);
       assertEquals(destinationFCMResponseResult.getDescription(), fcmDescription);
@@ -1357,41 +1362,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationResult.getDescription(), description);
       assertEquals(destinationResult.getName(), name);
 
-      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
-              .senderId(fcmSenderId)
-              .serverKey(fcmServerKey)
-              .build();
-
-
-      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
-              .params(fcmConfig)
-              .build();
-
-      String fcmName = "FCM_Admin Compliance";
-      String fcmDescription = "This is a Destination for FCM compliance";
-
-      updateDestinationOptions = new UpdateDestinationOptions.Builder()
-              .instanceId(instanceId)
-              .id(destinationId3)
-              .name(fcmName)
-              .description(fcmDescription)
-              .config(destinationFcmConfigModel)
-              .build();
-
-      response = service.updateDestination(updateDestinationOptions).execute();
-
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-
-      destinationResult = response.getResult();
-
-      assertNotNull(destinationResult);
-
-      assertEquals(destinationResult.getId(), destinationId3);
-      assertEquals(destinationResult.getDescription(), fcmDescription);
-      assertEquals(destinationResult.getName(), fcmName);
-
       DestinationConfigOneOfSlackDestinationConfig slackDestinationConfig= new DestinationConfigOneOfSlackDestinationConfig.Builder()
               .url(slackURL)
               .type("incoming_webhook")
@@ -1636,19 +1606,19 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(sNowDestinationResult.getDescription(), serviceNowDescription);
       assertEquals(sNowDestinationResult.getName(), serviceNowName);
 
-      fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
+      DestinationConfigOneOfFCMDestinationConfig fcmConfig = new DestinationConfigOneOfFCMDestinationConfig.Builder()
               .clientEmail(fcmClientEmail)
               .privateKey(fcmPrivateKey)
               .projectId(fcmProjectID)
               .build();
 
 
-      destinationFcmConfigModel = new DestinationConfig.Builder()
+      DestinationConfig destinationFcmConfigModel = new DestinationConfig.Builder()
               .params(fcmConfig)
               .build();
 
-      fcmName = "FCM destination v1 update";
-      fcmDescription = "This is a Destination for FCM V1 update";
+      String fcmName = "FCM destination v1 update";
+      String fcmDescription = "This is a Destination for FCM V1 update";
 
       updateDestinationOptions = new UpdateDestinationOptions.Builder()
               .instanceId(instanceId)
@@ -2295,28 +2265,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId2 = emailSubscriptionResult.getId();
 
-      String fcmName = "subscription_FCM";
-      String fcmDescription = "Subscription FCM";
-
-      createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .name(fcmName)
-              .destinationId(destinationId3)
-              .topicId(topicId3)
-              .description(fcmDescription)
-              .build();
-
-      Response<Subscription> fcmResponse = service.createSubscription(createSubscriptionOptions).execute();
-      // Validate response
-      assertNotNull(fcmResponse);
-      assertEquals(fcmResponse.getStatusCode(), 201);
-      Subscription fcmSubscriptionResult = fcmResponse.getResult();
-      assertNotNull(fcmSubscriptionResult);
-      assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
-      assertEquals(fcmSubscriptionResult.getName(), fcmName);
-
-      subscriptionId3 = fcmSubscriptionResult.getId();
-
       String slackName = "subscription_slack";
       String slackDescription = "Subscription for slack";
 
@@ -2486,8 +2434,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId11 = sNowSubscriptionResult.getId();
 
-      fcmName = "subscription_V1_FCM";
-      fcmDescription = "Subscription V1 FCM";
+      String fcmName = "subscription_V1_FCM";
+      String fcmDescription = "Subscription V1 FCM";
 
       createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
@@ -2497,11 +2445,11 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .description(fcmDescription)
               .build();
 
-      fcmResponse = service.createSubscription(createSubscriptionOptions).execute();
+      Response<Subscription> fcmResponse = service.createSubscription(createSubscriptionOptions).execute();
       // Validate response
       assertNotNull(fcmResponse);
       assertEquals(fcmResponse.getStatusCode(), 201);
-      fcmSubscriptionResult = fcmResponse.getResult();
+      Subscription fcmSubscriptionResult = fcmResponse.getResult();
       assertNotNull(fcmSubscriptionResult);
       assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
       assertEquals(fcmSubscriptionResult.getName(), fcmName);
@@ -2705,6 +2653,23 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDMSubscriptionResult.getName(), slackDMName);
 
       subscriptionId19 = slackDMSubscriptionResult.getId();
+
+      CreateSubscriptionOptions createSchedulerSubscription = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name("Scheduler subscription")
+              .destinationId(destinationId4)
+              .topicId(topicId4)
+              .description("Subscription for the Scheduler as a source")
+              .attributes(slackCreateAttributes)
+              .build();
+
+      Response<Subscription> schedulerResponse = service.createSubscription(createSchedulerSubscription).execute();
+
+      assertNotNull(schedulerResponse);
+      assertEquals(schedulerResponse.getStatusCode(), 201);
+      Subscription schedulerSubscriptionResult = schedulerResponse.getResult();
+      assertNotNull(schedulerSubscriptionResult);
+      subscriptionId20 = schedulerSubscriptionResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2928,29 +2893,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId2 = emailSubscriptionResult.getId();
 
-      String fcmName = "FCM_sub_updated";
-      String fcmDescription = "Update FCM subscription";
-
-      UpdateSubscriptionOptions updateFCMSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
-              .instanceId(instanceId)
-              .id(subscriptionId3)
-              .name(fcmName)
-              .description(fcmDescription)
-              .build();
-
-      // Invoke operation
-      Response<Subscription> fcmResponse = service.updateSubscription(updateFCMSubscriptionOptions).execute();
-      // Validate response
-      assertNotNull(fcmResponse);
-      assertEquals(fcmResponse.getStatusCode(), 200);
-
-      Subscription fcmSubscriptionResult = fcmResponse.getResult();
-
-      assertNotNull(fcmSubscriptionResult);
-      assertEquals(fcmSubscriptionResult.getName(), fcmName);
-      assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
-      assertEquals(fcmSubscriptionResult.getId(), subscriptionId3);
-
       String msName = "MSTeams_sub_updated";
       String msDescription = "Update MSTeams subscription";
 
@@ -3112,10 +3054,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(sNowSubscriptionResult.getName(), sNowName);
       assertEquals(sNowSubscriptionResult.getId(), subscriptionId11);
 
-      fcmName = "FCM_sub_V1_updated";
-      fcmDescription = "Update FCM V1 subscription";
+      String fcmName = "FCM_sub_V1_updated";
+      String fcmDescription = "Update FCM V1 subscription";
 
-      updateFCMSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+      UpdateSubscriptionOptions updateFCMSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .id(subscriptionId12)
               .name(fcmName)
@@ -3123,12 +3065,12 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .build();
 
       // Invoke operation
-      fcmResponse = service.updateSubscription(updateFCMSubscriptionOptions).execute();
+      Response<Subscription> fcmResponse = service.updateSubscription(updateFCMSubscriptionOptions).execute();
       // Validate response
       assertNotNull(fcmResponse);
       assertEquals(fcmResponse.getStatusCode(), 200);
 
-      fcmSubscriptionResult = fcmResponse.getResult();
+      Subscription fcmSubscriptionResult = fcmResponse.getResult();
 
       assertNotNull(fcmSubscriptionResult);
       assertEquals(fcmSubscriptionResult.getName(), fcmName);
@@ -3362,6 +3304,24 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDMSubscriptionResult.getDescription(), slackDMDescription);
       assertEquals(slackDMSubscriptionResult.getName(), slackDMName);
       assertEquals(slackDMSubscriptionResult.getId(), subscriptionId19);
+
+      UpdateSubscriptionOptions updateSchedulerSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId20)
+              .name("subscription_Scheduler_update")
+              .description("Subscription update Scheduler")
+              .build();
+
+      // Invoke operation
+      Response<Subscription> schedulerResponse = service.updateSubscription(updateSchedulerSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(schedulerResponse);
+      assertEquals(schedulerResponse.getStatusCode(), 200);
+
+      Subscription schedulerSubscriptionResult = schedulerResponse.getResult();
+
+      assertNotNull(schedulerSubscriptionResult);
+      assertEquals(schedulerSubscriptionResult.getId(), subscriptionId20);
 
       //
       // The following status codes aren't covered by tests.
@@ -3696,6 +3656,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ibmensubject("certificate expire")
               .ibmenmailto(mailTo)
               .ibmensmsto(smsTo)
+              .ibmensmstext("this is a sample text message")
               .ibmenslackto(slackTo)
               .ibmenmms(mms)
               .ibmenhtmlbody(htmlBody)
@@ -3792,7 +3753,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId);
       subscriptions.add(subscriptionId1);
       subscriptions.add(subscriptionId2);
-      subscriptions.add(subscriptionId3);
       subscriptions.add(subscriptionId4);
       subscriptions.add(subscriptionId6);
       subscriptions.add(subscriptionId7);
@@ -3808,6 +3768,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId17);
       subscriptions.add(subscriptionId18);
       subscriptions.add(subscriptionId19);
+      subscriptions.add(subscriptionId20);
 
       for (String subscription :
               subscriptions) {
@@ -3846,6 +3807,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       topics.add(topicId);
       topics.add(topicId2);
       topics.add(topicId3);
+      topics.add(topicId4);
 
       for (String topic :
               topics) {
@@ -3881,7 +3843,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
-      destinations.add(destinationId3);
       destinations.add(destinationId4);
       destinations.add(destinationId5);
       destinations.add(destinationId6);

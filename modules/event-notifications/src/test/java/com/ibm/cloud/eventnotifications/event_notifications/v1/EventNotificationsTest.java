@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -61,6 +61,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ENAuthAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCountriesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EventScheduleFilterAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
@@ -316,13 +317,14 @@ public class EventNotificationsTest {
       .ibmentemplates("testString")
       .ibmenmailto("testString")
       .ibmenslackto("testString")
+      .ibmensmstext("testString")
       .ibmensmsto("testString")
       .ibmenhtmlbody("testString")
       .subject("testString")
       .ibmenmms("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
-      .ibmenpushto("{\"platforms\":[\"push_android\"]}")
+      .ibmenpushto("{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}")
       .ibmenfcmbody("testString")
       .ibmenapnsbody("testString")
       .ibmenapnsheaders("testString")
@@ -722,11 +724,19 @@ public class EventNotificationsTest {
       .setResponseCode(201)
       .setBody(mockResponseBody));
 
+    // Construct an instance of the EventScheduleFilterAttributes model
+    EventScheduleFilterAttributes eventScheduleFilterAttributesModel = new EventScheduleFilterAttributes.Builder()
+      .startsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+      .endsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+      .expression("testString")
+      .build();
+
     // Construct an instance of the Rules model
     Rules rulesModel = new Rules.Builder()
       .enabled(true)
       .eventTypeFilter("$.notification_event_info.event_type == 'cert_manager'")
       .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
+      .eventScheduleFilter(eventScheduleFilterAttributesModel)
       .build();
 
     // Construct an instance of the SourcesItems model
@@ -905,7 +915,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetTopicWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"name\": \"name\", \"updated_at\": \"updatedAt\", \"source_count\": 11, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"rules\": [{\"enabled\": false, \"event_type_filter\": \"$.*\", \"notification_filter\": \"notificationFilter\", \"updated_at\": \"updatedAt\", \"id\": \"id\"}]}], \"subscription_count\": 17, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"name\": \"name\", \"updated_at\": \"updatedAt\", \"source_count\": 11, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"rules\": [{\"enabled\": false, \"event_type_filter\": \"$.*\", \"notification_filter\": \"notificationFilter\", \"event_schedule_filter\": {\"starts_at\": \"2019-01-01T12:00:00.000Z\", \"ends_at\": \"2019-01-01T12:00:00.000Z\", \"expression\": \"expression\"}, \"updated_at\": \"updatedAt\", \"id\": \"id\"}]}], \"subscription_count\": 17, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String getTopicPath = "/v1/instances/testString/topics/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -959,18 +969,26 @@ public class EventNotificationsTest {
   @Test
   public void testReplaceTopicWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"name\": \"name\", \"updated_at\": \"updatedAt\", \"source_count\": 11, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"rules\": [{\"enabled\": false, \"event_type_filter\": \"$.*\", \"notification_filter\": \"notificationFilter\", \"updated_at\": \"updatedAt\", \"id\": \"id\"}]}], \"subscription_count\": 17, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
+    String mockResponseBody = "{\"id\": \"id\", \"description\": \"description\", \"name\": \"name\", \"updated_at\": \"updatedAt\", \"source_count\": 11, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"rules\": [{\"enabled\": false, \"event_type_filter\": \"$.*\", \"notification_filter\": \"notificationFilter\", \"event_schedule_filter\": {\"starts_at\": \"2019-01-01T12:00:00.000Z\", \"ends_at\": \"2019-01-01T12:00:00.000Z\", \"expression\": \"expression\"}, \"updated_at\": \"updatedAt\", \"id\": \"id\"}]}], \"subscription_count\": 17, \"subscriptions\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"destination_id\": \"destinationId\", \"destination_name\": \"destinationName\", \"destination_type\": \"sms_ibm\", \"topic_id\": \"topicId\", \"topic_name\": \"topicName\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}]}";
     String replaceTopicPath = "/v1/instances/testString/topics/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
       .setBody(mockResponseBody));
 
+    // Construct an instance of the EventScheduleFilterAttributes model
+    EventScheduleFilterAttributes eventScheduleFilterAttributesModel = new EventScheduleFilterAttributes.Builder()
+      .startsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+      .endsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+      .expression("testString")
+      .build();
+
     // Construct an instance of the Rules model
     Rules rulesModel = new Rules.Builder()
       .enabled(true)
       .eventTypeFilter("$.notification_event_info.event_type == 'cert_manager'")
       .notificationFilter("$.notification.findings[0].severity == 'MODERATE'")
+      .eventScheduleFilter(eventScheduleFilterAttributesModel)
       .build();
 
     // Construct an instance of the SourcesItems model

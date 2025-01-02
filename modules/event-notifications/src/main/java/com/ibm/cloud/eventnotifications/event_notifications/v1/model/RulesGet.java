@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,8 @@ public class RulesGet extends GenericModel {
   protected String eventTypeFilter;
   @SerializedName("notification_filter")
   protected String notificationFilter;
+  @SerializedName("event_schedule_filter")
+  protected EventScheduleFilterAttributes eventScheduleFilter;
   @SerializedName("updated_at")
   protected String updatedAt;
   protected String id;
@@ -62,6 +64,17 @@ public class RulesGet extends GenericModel {
    */
   public String getNotificationFilter() {
     return notificationFilter;
+  }
+
+  /**
+   * Gets the eventScheduleFilter.
+   *
+   * Event schedule filter attributes.
+   *
+   * @return the eventScheduleFilter
+   */
+  public EventScheduleFilterAttributes getEventScheduleFilter() {
+    return eventScheduleFilter;
   }
 
   /**
