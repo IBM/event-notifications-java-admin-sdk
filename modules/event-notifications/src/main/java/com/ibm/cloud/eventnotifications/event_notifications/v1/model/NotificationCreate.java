@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -51,6 +51,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmenmailto;
   @SerializedName("ibmenslackto")
   protected String ibmenslackto;
+  @SerializedName("ibmensmstext")
+  protected String ibmensmstext;
   @SerializedName("ibmensmsto")
   protected String ibmensmsto;
   @SerializedName("ibmenhtmlbody")
@@ -105,6 +107,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmentemplates;
     private String ibmenmailto;
     private String ibmenslackto;
+    private String ibmensmstext;
     private String ibmensmsto;
     private String ibmenhtmlbody;
     private String subject;
@@ -142,6 +145,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmentemplates = notificationCreate.ibmentemplates;
       this.ibmenmailto = notificationCreate.ibmenmailto;
       this.ibmenslackto = notificationCreate.ibmenslackto;
+      this.ibmensmstext = notificationCreate.ibmensmstext;
       this.ibmensmsto = notificationCreate.ibmensmsto;
       this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
@@ -337,6 +341,17 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public Builder ibmenslackto(String ibmenslackto) {
       this.ibmenslackto = ibmenslackto;
+      return this;
+    }
+
+    /**
+     * Set the ibmensmstext.
+     *
+     * @param ibmensmstext the ibmensmstext
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmensmstext(String ibmensmstext) {
+      this.ibmensmstext = ibmensmstext;
       return this;
     }
 
@@ -562,6 +577,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmentemplates = builder.ibmentemplates;
     ibmenmailto = builder.ibmenmailto;
     ibmenslackto = builder.ibmenslackto;
+    ibmensmstext = builder.ibmensmstext;
     ibmensmsto = builder.ibmensmsto;
     ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
@@ -848,6 +864,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmenslackto(final String ibmenslackto) {
     this.ibmenslackto = ibmenslackto;
+  }
+
+  /**
+   * Gets the ibmensmstext.
+   *
+   * The SMS text.
+   *
+   * @return the ibmensmstext
+   */
+  public String getIbmensmstext() {
+    return this.ibmensmstext;
+  }
+
+  /**
+   * Sets the ibmensmstext.
+   *
+   * @param ibmensmstext the new ibmensmstext
+   */
+  public void setIbmensmstext(final String ibmensmstext) {
+    this.ibmensmstext = ibmensmstext;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,10 +13,12 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EventScheduleFilterAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Rules;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -32,14 +34,25 @@ public class SourcesItemsTest {
 
   @Test
   public void testSourcesItems() throws Throwable {
+    EventScheduleFilterAttributes eventScheduleFilterAttributesModel = new EventScheduleFilterAttributes.Builder()
+      .startsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+      .endsAt(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+      .expression("testString")
+      .build();
+    assertEquals(eventScheduleFilterAttributesModel.startsAt(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    assertEquals(eventScheduleFilterAttributesModel.endsAt(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
+    assertEquals(eventScheduleFilterAttributesModel.expression(), "testString");
+
     Rules rulesModel = new Rules.Builder()
       .enabled(true)
       .eventTypeFilter("$.*")
       .notificationFilter("testString")
+      .eventScheduleFilter(eventScheduleFilterAttributesModel)
       .build();
     assertEquals(rulesModel.enabled(), Boolean.valueOf(true));
     assertEquals(rulesModel.eventTypeFilter(), "$.*");
     assertEquals(rulesModel.notificationFilter(), "testString");
+    assertEquals(rulesModel.eventScheduleFilter(), eventScheduleFilterAttributesModel);
 
     SourcesItems sourcesItemsModel = new SourcesItems.Builder()
       .id("testString")

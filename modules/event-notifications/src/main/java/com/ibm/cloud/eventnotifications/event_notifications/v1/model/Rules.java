@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,8 @@ public class Rules extends GenericModel {
   protected String eventTypeFilter;
   @SerializedName("notification_filter")
   protected String notificationFilter;
+  @SerializedName("event_schedule_filter")
+  protected EventScheduleFilterAttributes eventScheduleFilter;
 
   /**
    * Builder.
@@ -33,6 +35,7 @@ public class Rules extends GenericModel {
     private Boolean enabled;
     private String eventTypeFilter;
     private String notificationFilter;
+    private EventScheduleFilterAttributes eventScheduleFilter;
 
     /**
      * Instantiates a new Builder from an existing Rules instance.
@@ -43,21 +46,13 @@ public class Rules extends GenericModel {
       this.enabled = rules.enabled;
       this.eventTypeFilter = rules.eventTypeFilter;
       this.notificationFilter = rules.notificationFilter;
+      this.eventScheduleFilter = rules.eventScheduleFilter;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param eventTypeFilter the eventTypeFilter
-     */
-    public Builder(String eventTypeFilter) {
-      this.eventTypeFilter = eventTypeFilter;
     }
 
     /**
@@ -101,16 +96,26 @@ public class Rules extends GenericModel {
       this.notificationFilter = notificationFilter;
       return this;
     }
+
+    /**
+     * Set the eventScheduleFilter.
+     *
+     * @param eventScheduleFilter the eventScheduleFilter
+     * @return the Rules builder
+     */
+    public Builder eventScheduleFilter(EventScheduleFilterAttributes eventScheduleFilter) {
+      this.eventScheduleFilter = eventScheduleFilter;
+      return this;
+    }
   }
 
   protected Rules() { }
 
   protected Rules(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.eventTypeFilter,
-      "eventTypeFilter cannot be null");
     enabled = builder.enabled;
     eventTypeFilter = builder.eventTypeFilter;
     notificationFilter = builder.notificationFilter;
+    eventScheduleFilter = builder.eventScheduleFilter;
   }
 
   /**
@@ -153,6 +158,17 @@ public class Rules extends GenericModel {
    */
   public String notificationFilter() {
     return notificationFilter;
+  }
+
+  /**
+   * Gets the eventScheduleFilter.
+   *
+   * Event schedule filter attributes.
+   *
+   * @return the eventScheduleFilter
+   */
+  public EventScheduleFilterAttributes eventScheduleFilter() {
+    return eventScheduleFilter;
   }
 }
 
