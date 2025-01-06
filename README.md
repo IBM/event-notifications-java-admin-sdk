@@ -1058,7 +1058,6 @@ Metrics responseObj = response.getResult();
 
         Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
         NotificationResponse notificationResponse = response.getResult();
-      
 ```
 <details open>
 <summary>Send Notifications Variables</summary>
