@@ -1,3 +1,11 @@
+# [0.12.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.11.0...0.12.0) (2025-01-06)
+
+
+### Features
+
+* cron scheduler support ([a92d4fa](https://github.com/IBM/event-notifications-java-admin-sdk/commit/a92d4fa8046995ca3978ce53d6b914cf53a2d186))
+* cron scheduler support ([#50](https://github.com/IBM/event-notifications-java-admin-sdk/issues/50)) ([ca6d487](https://github.com/IBM/event-notifications-java-admin-sdk/commit/ca6d487b10cee2aca61d9a1b12ca97abb4e96ed6))
+
 # [0.11.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.10.0...0.11.0) (2024-10-30)
 
 
