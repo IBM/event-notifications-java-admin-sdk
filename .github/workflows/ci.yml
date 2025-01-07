@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    tags: ['*']
+  pull_request:
+    branches: [ main ]
+
+env:
+  MVN_ARGS: "--settings .github/maven-settings.xml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      matrix:
+        java: [11, 17]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Set Maven Version
+        if: matrix.java == '11'
+        run: ./build/setMavenVersion.sh
+
+      - name: Build and Test
+        run: mvn verify -fae -DskipITs ${{ env.MVN_ARGS }}
+
+      # Run semantic-release only on Java 11
+      - name: Setup Node.js
+        if: github.ref == 'refs/heads/main' && matrix.java == '11' && github.event_name == 'push'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Setup Python
+        if: github.ref == 'refs/heads/main' && matrix.java == '11' && github.event_name == 'push'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Release Dependencies
+        if: github.ref == 'refs/heads/main' && matrix.java == '11' && github.event_name == 'push'
+        run: |
+          npm install
+          pip install bump2version
+
+      - name: Semantic Release and Publish
+        if: github.ref == 'refs/heads/main' && matrix.java == '11' && github.event_name == 'push'
+        run: |
+          npm run semantic-release
+          
+          # Store semantic-release status
+          RELEASE_STATUS=$?
+          echo "Semantic release exit status: $RELEASE_STATUS"
+          
+          # If semantic-release successful, do Maven publish
+          if [ $RELEASE_STATUS -eq 0 ]; then
+            echo "Semantic release successful, publishing..."
+            # Setup signing
+            ./build/setupSigning.sh
+            ./build/setMavenVersion.sh
+          
+            # Publish Javadoc
+            mvn clean javadoc:aggregate ${{ env.MVN_ARGS }}
+            ./build/publishJavadoc.sh
+          
+            # Publish to Maven Central
+            mvn deploy ${{ env.MVN_ARGS }} -DskipTests -P central
+          else
+            echo "Semantic release did not create a new version, skipping publish"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
