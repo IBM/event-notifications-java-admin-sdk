@@ -1,0 +1,114 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ '*' ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  MVN_ARGS: "--settings .github/maven-settings.xml"
+
+jobs:
+  build-test:
+    strategy:
+      matrix:
+        java: [ 11, 17 ]
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Set Maven version
+        run: ./build/setMavenVersion.sh
+
+      - name: Build and test
+        run: mvn verify -fae -DskipITs ${{ env.MVN_ARGS }}
+
+      - name: Echo success
+        run: echo "Build is successful"
+
+  release-and-publish:
+    needs: build-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: ci
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          npm install
+          pip install bump2version
+
+      - name: Release and Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
+        run: |
+          # Setup GPG first
+          ./build/setupSigning.sh
+          
+          # Run semantic-release to tag
+          npx semantic-release
+          if [ $? -eq 0 ]; then
+            echo "Semantic release has successfully created a new tagged-release"
+          
+            # Fetch the new tag
+            git fetch --tags
+          
+            # Get latest tag
+            TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+            echo "Latest tag is: $TAG"
+          
+            # Set version using tag directly
+            mvn versions:set -DnewVersion=${TAG} -DgenerateBackupPoms=false
+          
+            # Now deploy with the release version
+            if mvn deploy -X ${{ env.MVN_ARGS }} -DskipTests -P central; then
+              echo "Maven artifacts successfully published to Maven Central!"
+              echo "Publishing javadoc..."
+              mvn clean javadoc:aggregate ${{ env.MVN_ARGS }}
+          
+              # Set environment variables needed for publishJavadoc.sh
+              export GITHUB_EVENT_TYPE="push"
+              export GITHUB_REF_NAME=$TAG
+              ./build/publishJavadoc.sh
+              echo "Javadocs successfully published to gh-pages!"
+            else
+              echo "Maven deployment failed"
+              exit 1
+            fi
+          else
+            echo "Semantic release failed"
+            exit 1
+          fi
