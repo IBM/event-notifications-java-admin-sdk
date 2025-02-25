@@ -28,6 +28,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SubscriptionAttributesCustomEmailAttributesResponse
  * - SubscriptionAttributesWebhookAttributesResponse
  * - SubscriptionAttributesSlackAttributesResponse
+ * - SubscriptionAttributesPagerDutyAttributesResponse
  * - SubscriptionAttributesSlackDirectMessageAttributesResponse
  * - SubscriptionAttributesServiceNowAttributesResponse
  */
