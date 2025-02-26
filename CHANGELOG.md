@@ -1,3 +1,10 @@
+# [0.13.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.12.0...0.13.0) (2025-02-26)
+
+
+### Features
+
+* pagerduty template support ([c3a8f42](https://github.com/IBM/event-notifications-java-admin-sdk/commit/c3a8f428b704bf6b9a298ebaece45775af1e62ac))
+
 # [0.12.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.11.0...0.12.0) (2025-01-06)
 
 
