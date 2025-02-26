@@ -111,6 +111,8 @@ public class EventNotificationsExamples {
   public static String slackChannelID = "";
   public static String webhookTemplateID = "";
   public static String webhookTemplateBody = "";
+  public static String pagerdutyTemplateBody = "";
+  public static String pagerdutyTemplateID = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -162,6 +164,7 @@ public class EventNotificationsExamples {
     slackChannelID = config.get("SLACK_CHANNEL_ID");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
     webhookTemplateBody = config.get("WEBHOOK_TEMPLATE_BODY");
+    pagerdutyTemplateBody = config.get("PAGERDUTY_TEMPLATE_BODY");
 
     try {
       System.out.println("createSources() result:");
@@ -1387,6 +1390,23 @@ public class EventNotificationsExamples {
       Response<TemplateResponse> webhookTemplatenotificationResponse = eventNotificationsService.createTemplate(createWebhookTemplateNotificationOptions).execute();
       TemplateResponse webhookTemplateResult = webhookTemplatenotificationResponse .getResult();
       webhookTemplateID = webhookTemplateResult.getId();
+
+      TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
+              .body(pagerdutyTemplateBody)
+              .build();
+
+      name = "pagerduty template notification";
+      CreateTemplateOptions createPagerDutyTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("pagerduty.notification")
+              .params(pagerdutyTemplateConfig)
+              .build();
+      
+      Response<TemplateResponse> pagerdutyTemplatenotificationResponse = service.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
+      TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse .getResult();
+      pagerdutyTemplateID= pagerdutyTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1611,6 +1631,25 @@ public class EventNotificationsExamples {
       Subscription slackDMSubscriptionResult = slackDMResponse.getResult();
       subscriptionId8 = slackDMSubscriptionResult.getId();
 
+      String pdName = "subscription_pager_duty";
+      String pdDescription = "Subscription for pager duty";
+
+      SubscriptionCreateAttributesPagerDutyAttributes pagerdutyCreateAttributes = new SubscriptionCreateAttributesPagerDutyAttributes.Builder()
+              .templateIdNotification(pagerdutyTemplateID)
+              .build();
+
+      CreateSubscriptionOptions createPDSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(pdName)
+              .destinationId(destinationId10)
+              .topicId(topicId)
+              .description(pdDescription)
+              .attributes(pagerdutyCreateAttributes)
+              .build();
+
+      Response<Subscription> pdResponse = service.createSubscription(createPDSubscriptionOptions).execute();
+      Subscription pdSubscriptionResult = pdResponse.getResult();
+      subscriptionId9 = pdSubscriptionResult.getId();
       // end-create_subscription
 
     } catch (ServiceResponseException e) {
@@ -1737,6 +1776,7 @@ public class EventNotificationsExamples {
 
       Response<Template> slackTemplateResponse = eventNotificationsService.replaceTemplate(updateSlackTemplateOptions).execute();
       Template slackTemplateResult = slackTemplateResponse.getResult();
+      System.out.println(slackTemplateResult);
 
       TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
               .body(webhookTemplateBody)
@@ -1754,8 +1794,24 @@ public class EventNotificationsExamples {
       Response<Template> webhookTemplateResponse = eventNotificationsService.replaceTemplate(updateWebhookTemplateOptions).execute();
       Template webhookTemplateResult = webhookTemplateResponse.getResult();
       System.out.println(webhookTemplateResult);
+
+      TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
+              .body(pagerdutyTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updatePagerDutyTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(pagerdutyTemplateID)
+              .name(name)
+              .description(description)
+              .type("pagerduty.notification")
+              .params(pagerdutyTemplateConfig)
+              .build();
+
+      Response<Template> pagerdutyTemplateResponse = service.replaceTemplate(updatePagerDutyTemplateOptions).execute();
+      Template pagerdutyTemplateResult = pagerdutyTemplateResponse.getResult();
+      System.out.println(pagerdutyTemplateResult);
       // end-replace_template
-      System.out.println(slackTemplateResult);
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
@@ -2037,6 +2093,25 @@ public class EventNotificationsExamples {
       Response<Subscription> slackDMResponse = eventNotificationsService.updateSubscription(updateSlackDMSubscriptionOptions).execute();
       Subscription slackDMSubscriptionResult = slackDMResponse.getResult();
       System.out.println(slackDMSubscriptionResult);
+
+      String pdName = "subscription_PD_update";
+      String pdDescription = "Subscription Pager Duty update";
+
+      SubscriptionUpdateAttributesPagerDutyAttributes pagerdutyUpdateAttributes = new SubscriptionUpdateAttributesPagerDutyAttributes.Builder()
+              .templateIdNotification(pagerdutyTemplateID)
+              .build();
+
+      UpdateSubscriptionOptions updatePDSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId10)
+              .name(pdName)
+              .description(pdDescription)
+              .attributes(pagerdutyUpdateAttributes)
+              .build();
+
+      Response<Subscription> pdResponse = service.updateSubscription(updatePDSubscriptionOptions).execute();
+      Subscription pdSubscriptionResult = pdResponse.getResult();
+      System.out.println(pdSubscriptionResult);
 
       // end-update_subscription
     } catch (ServiceResponseException e) {
