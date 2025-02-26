@@ -1404,10 +1404,10 @@ public class EventNotificationsExamples {
               .type("pagerduty.notification")
               .params(pagerdutyTemplateConfig)
               .build();
-      
+
       Response<TemplateResponse> pagerdutyTemplatenotificationResponse = eventNotificationsService.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
       TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse.getResult();
-      pagerdutyTemplateID= pagerdutyTemplateResult.getId();
+      pagerdutyTemplateID = pagerdutyTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
