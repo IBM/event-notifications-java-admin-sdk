@@ -78,7 +78,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId6 = "";
   public static String subscriptionId7 = "";
   public static String subscriptionId8 = "";
-  public static string subscriptionId9 = "";
+  public static String subscriptionId9 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
