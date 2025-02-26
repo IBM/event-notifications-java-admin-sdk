@@ -1389,7 +1389,7 @@ public class EventNotificationsExamples {
               .build();
 
       Response<TemplateResponse> webhookTemplatenotificationResponse = eventNotificationsService.createTemplate(createWebhookTemplateNotificationOptions).execute();
-      TemplateResponse webhookTemplateResult = webhookTemplatenotificationResponse .getResult();
+      TemplateResponse webhookTemplateResult = webhookTemplatenotificationResponse.getResult();
       webhookTemplateID = webhookTemplateResult.getId();
 
       TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
@@ -1406,7 +1406,7 @@ public class EventNotificationsExamples {
               .build();
       
       Response<TemplateResponse> pagerdutyTemplatenotificationResponse = eventNotificationsService.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
-      TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse .getResult();
+      TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse.getResult();
       pagerdutyTemplateID= pagerdutyTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
