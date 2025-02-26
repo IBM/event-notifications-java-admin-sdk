@@ -1405,7 +1405,7 @@ public class EventNotificationsExamples {
               .params(pagerdutyTemplateConfig)
               .build();
       
-      Response<TemplateResponse> pagerdutyTemplatenotificationResponse = service.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
+      Response<TemplateResponse> pagerdutyTemplatenotificationResponse = eventNotificationsService.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
       TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse .getResult();
       pagerdutyTemplateID= pagerdutyTemplateResult.getId();
       // end-create_template
@@ -1648,7 +1648,7 @@ public class EventNotificationsExamples {
               .attributes(pagerdutyCreateAttributes)
               .build();
 
-      Response<Subscription> pdResponse = service.createSubscription(createPDSubscriptionOptions).execute();
+      Response<Subscription> pdResponse = eventNotificationsService.createSubscription(createPDSubscriptionOptions).execute();
       Subscription pdSubscriptionResult = pdResponse.getResult();
       subscriptionId9 = pdSubscriptionResult.getId();
       // end-create_subscription
@@ -1809,7 +1809,7 @@ public class EventNotificationsExamples {
               .params(pagerdutyTemplateConfig)
               .build();
 
-      Response<Template> pagerdutyTemplateResponse = service.replaceTemplate(updatePagerDutyTemplateOptions).execute();
+      Response<Template> pagerdutyTemplateResponse = eventNotificationsService.replaceTemplate(updatePagerDutyTemplateOptions).execute();
       Template pagerdutyTemplateResult = pagerdutyTemplateResponse.getResult();
       System.out.println(pagerdutyTemplateResult);
       // end-replace_template
@@ -2110,7 +2110,7 @@ public class EventNotificationsExamples {
               .attributes(pagerdutyUpdateAttributes)
               .build();
 
-      Response<Subscription> pdResponse = service.updateSubscription(updatePDSubscriptionOptions).execute();
+      Response<Subscription> pdResponse = eventNotificationsService.updateSubscription(updatePDSubscriptionOptions).execute();
       Subscription pdSubscriptionResult = pdResponse.getResult();
       System.out.println(pdSubscriptionResult);
 
