@@ -78,6 +78,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId6 = "";
   public static String subscriptionId7 = "";
   public static String subscriptionId8 = "";
+  public static string subscriptionId9 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -2103,7 +2104,7 @@ public class EventNotificationsExamples {
 
       UpdateSubscriptionOptions updatePDSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
-              .id(subscriptionId10)
+              .id(subscriptionId9)
               .name(pdName)
               .description(pdDescription)
               .attributes(pagerdutyUpdateAttributes)
