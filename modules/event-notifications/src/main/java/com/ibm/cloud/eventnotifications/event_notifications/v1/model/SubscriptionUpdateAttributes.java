@@ -27,6 +27,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionUpdateAttributesCustomEmailUpdateAttributes
  * - SubscriptionUpdateAttributesWebhookAttributes
  * - SubscriptionUpdateAttributesSlackAttributes
+ * - SubscriptionUpdateAttributesPagerDutyAttributes
  * - SubscriptionUpdateAttributesSlackDirectMessageUpdateAttributes
  * - SubscriptionUpdateAttributesServiceNowAttributes
  */

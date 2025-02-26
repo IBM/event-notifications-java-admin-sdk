@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - TemplateConfigOneOfEmailTemplateConfig
  * - TemplateConfigOneOfSlackTemplateConfig
  * - TemplateConfigOneOfWebhookTemplateConfig
+ * - TemplateConfigOneOfPagerdutyTemplateConfig
  */
 public class TemplateConfigOneOf extends GenericModel {
 

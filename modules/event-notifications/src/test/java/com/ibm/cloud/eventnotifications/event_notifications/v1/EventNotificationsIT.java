@@ -118,6 +118,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String templateBody = "";
   public static String slackTemplateBody = "";
   public static String webhookTemplateBody = "";
+  public static String pagerdutyTemplateBody = "";
+  public static String pagerdutyTemplateID = "";
   public static String cosInstanceCRN = "";
   public static String cosIntegrationID = "";
   public static String codeEngineProjectCRN = "";
@@ -184,6 +186,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     slackChannelID = config.get("SLACK_CHANNEL_ID");
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
     schedulerSourceID = config.get("SCHEDULER_SOURCE_ID");
+    pagerdutyTemplateBody = config.get("PAGERDUTY_TEMPLATE_BODY");
 
     service.enableRetries(4, 30);
 
@@ -2002,6 +2005,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(webhookTemplateResult.getDescription(), description);
       assertEquals(webhookTemplateResult .getName(), name);
       webhookTemplateID= webhookTemplateResult.getId();
+
+    TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
+              .body(pagerdutyTemplateBody)
+              .build();
+
+      name = "pagerduty template notification";
+      CreateTemplateOptions createPagerDutyTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("pagerduty.notification")
+              .params(pagerdutyTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> pagerdutyTemplatenotificationResponse = service.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
+      assertNotNull(pagerdutyTemplatenotificationResponse );
+      assertEquals(pagerdutyTemplatenotificationResponse .getStatusCode(), 201);
+      TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse .getResult();
+
+      assertNotNull(pagerdutyTemplateResult);
+      assertEquals(pagerdutyTemplateResult.getDescription(), description);
+      assertEquals(pagerdutyTemplateResult .getName(), name);
+      pagerdutyTemplateID= pagerdutyTemplateResult.getId();
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2125,6 +2151,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(webhookTemplateResult.getDescription(), description);
       assertEquals(webhookTemplateResult.getName(), name);
       assertEquals(webhookTemplateResult.getId(), webhookTemplateID);
+
+    TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
+              .body(pagerdutyTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updatePagerDutyTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(pagerdutyTemplateID)
+              .name(name)
+              .description(description)
+              .type("pagerduty.notification")
+              .params(pagerdutyTemplateConfig)
+              .build();
+
+      Response<Template> pagerdutyTemplateResponse = service.replaceTemplate(updatePagerDutyTemplateOptions).execute();
+      assertNotNull(pagerdutyTemplateResponse);
+      assertEquals(pagerdutyTemplateResponse.getStatusCode(), 200);
+      Template pagerdutyTemplateResult = pagerdutyTemplateResponse.getResult();
+
+      assertNotNull(pagerdutyTemplateResult);
+      assertEquals(pagerdutyTemplateResult.getDescription(), description);
+      assertEquals(pagerdutyTemplateResult.getName(), name);
+      assertEquals(pagerdutyTemplateResult.getId(), pagerdutyTemplateID);
 
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
@@ -2387,12 +2436,17 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String pdName = "subscription_pager_duty";
       String pdDescription = "Subscription for pager duty";
 
+      SubscriptionCreateAttributesPagerDutyAttributes pagerdutyCreateAttributes = new SubscriptionCreateAttributesPagerDutyAttributes.Builder()
+              .templateIdNotification(pagerdutyTemplateID)
+              .build();
+
       CreateSubscriptionOptions createPDSubscriptionOptions = new CreateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .name(pdName)
               .destinationId(destinationId10)
               .topicId(topicId)
               .description(pdDescription)
+              .attributes(pagerdutyCreateAttributes)
               .build();
 
       Response<Subscription> pdResponse = service.createSubscription(createPDSubscriptionOptions).execute();
@@ -3009,11 +3063,16 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String pdName = "subscription_PD_update";
       String pdDescription = "Subscription Pager Duty update";
 
+      SubscriptionUpdateAttributesPagerDutyAttributes pagerdutyUpdateAttributes = new SubscriptionUpdateAttributesPagerDutyAttributes.Builder()
+              .templateIdNotification(pagerdutyTemplateID)
+              .build();
+
       UpdateSubscriptionOptions updatePDSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .id(subscriptionId10)
               .name(pdName)
               .description(pdDescription)
+              .attributes(pagerdutyUpdateAttributes)
               .build();
 
       // Invoke operation
@@ -4030,6 +4089,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
      templates.add(templateNotificationID);
      templates.add(slackTemplateID);
      templates.add(webhookTemplateID);
+     templates.add(pagerdutyTemplateID);
 
       for (String template : templates) {
         DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()

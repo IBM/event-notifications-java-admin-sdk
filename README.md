@@ -2,6 +2,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 # Java server SDK for IBM Cloud Event Notifications service Version 0.12.0
+
 Java client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
 ## Table of Contents
@@ -9,8 +10,8 @@ Java client library to interact with various [IBM Cloud Event Notifications Serv
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-  * [Maven](#maven)
-  * [Gradle](#gradle)
+  - [Maven](#maven)
+  - [Gradle](#gradle)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -24,31 +25,31 @@ Java client library to interact with various [IBM Cloud Event Notifications Serv
 
 The IBM Cloud Event Notifications Service Java SDK allows developers to programmatically interact with Event Notifications service in IBM cloud.
 
-Service Name | Artifact Coordinates
---- | ---
-[Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.12.0
+| Service Name                                                                     | Artifact Coordinates                     |
+| -------------------------------------------------------------------------------- | ---------------------------------------- |
+| [Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.12.0 |
 
 ## Prerequisites
 
 [ibm-cloud-onboarding]: https://cloud.ibm.com/registration
 
-* An [IBM Cloud][ibm-cloud-onboarding] account.
-* An Event Notifications Instance
-* An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Java 11 or above.
+- An [IBM Cloud][ibm-cloud-onboarding] account.
+- An Event Notifications Instance
+- An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
+- Java 11 or above.
 
 ## Installation
+
 The current version of this SDK is: 0.12.0
 
 Each service's artifact coordinates are listed in the table above.
 
 The project artifacts are published on the public [Maven Central](https://repo1.maven.org/maven2/)
-artifact repository.  This is the default public repository used by maven when searching for dependencies.
+artifact repository. This is the default public repository used by maven when searching for dependencies.
 To use this repository within a gradle build, please see
 [this link](https://docs.gradle.org/current/userguide/declaring_repositories.html).
 
 To use the Event Notifications Java SDK, define a dependency that contains the artifact coordinates (group id, artifact id and version) for the service, like this:
-
 
 ### Maven
 
@@ -61,15 +62,17 @@ To use the Event Notifications Java SDK, define a dependency that contains the a
 ```
 
 ### Gradle
+
 ```gradle
 compile 'com.ibm.cloud:event-notifications:0.12.0'
 ```
 
 ## Using the SDK
+
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md)
 
-
 ## Initialize SDK
+
 Initialize the sdk to connect with your Event Notifications service instance.
 
 ```java
@@ -79,10 +82,13 @@ EventNotifications eventNotificationsService = EventNotifications.newInstance();
 eventNotificationsService.setServiceUrl("https://" + region + ".event-notifications.cloud.ibm.com/event-notifications");
 
 ```
+
 **To configure service URL for Private Endpoint**
 
 If you enabled service endpoints in your account, you can send API requests over the IBM Cloud private network. In the initialisation, the base endpoint URLs of the IAM(authenticator) & Event Notification(service) should be modified to point to private endpoints.
-1) Setting client options programmatically
+
+1. Setting client options programmatically
+
 ```java
 Authenticator authenticator = new IamAuthenticator.Builder()
         .apikey("<iam-api-key>")
@@ -92,10 +98,13 @@ Authenticator authenticator = new IamAuthenticator.Builder()
 EventNotifications eventNotificationsService = EventNotifications.newInstance();
 eventNotificationsService.setServiceUrl("https://private." + region + ".event-notifications.cloud.ibm.com/event-notifications");
 ```
-2) Using external configuration properties
+
+2. Using external configuration properties
+
 ```java
    EVENT_NOTIFICATIONS_AUTH_URL = https://private.iam.cloud.ibm.com/identity/token
-```        
+```
+
 - region : Region of the Event Notifications Instance
 
 ## Using the SDK
@@ -156,8 +165,8 @@ SDK Methods to consume
   - [Delete SMTP User](#delete-smtp-user)
   - [Delete SMTP Configuration](#delete-smtp-user)
   - [Verify SMTP](#verify-smtp)
-- [Metrics](#Metrics) 
-  - [Get Metrics](#get-metrics)  
+- [Metrics](#Metrics)
+  - [Get Metrics](#get-metrics)
 - [Send Notifications](#send-notifications)
 
 ## Source
@@ -300,6 +309,7 @@ System.out.println(topic);
 ```
 
 ### Update Topic
+
 ```java
 
 Rules rulesModel = new Rules.Builder()
@@ -328,7 +338,9 @@ Response<Topic> response = eventNotificationsService.replaceTopic(replaceTopicOp
 Topic topic = response.getResult();
 System.out.println(topic);
 ```
+
 ### Delete Topic
+
 ```java
 DeleteTopicOptions deleteTopicOptions = new DeleteTopicOptions.Builder()
         .instanceId(<instanceId>)
@@ -338,6 +350,7 @@ DeleteTopicOptions deleteTopicOptions = new DeleteTopicOptions.Builder()
 Response<Void> response = eventNotificationsService.deleteTopic(deleteTopicOptions).execute();
 
 ```
+
 ## Destinations
 
 ### Create Destination
@@ -369,7 +382,7 @@ System.out.println(destinationResponse);
 ```
 
 Among the supported destinations, if you need to create Push Notification destinations, you have the additional option of choosing a destination of production type or pre-production type.
-Set `pre_prod` boolean parameter to *true* to configure destination as pre-production destination else set the value as *false*.
+Set `pre_prod` boolean parameter to _true_ to configure destination as pre-production destination else set the value as _false_.
 Supported destinations are Android, iOS, Chrome, Firefox and Safari.
 
 ### List Destinations
@@ -398,6 +411,7 @@ System.out.println(destination);
 ```
 
 ### Update Destination
+
 ```java
 DestinationConfigParamsWebhookDestinationConfig destinationConfigParamsModel = new DestinationConfigParamsWebhookDestinationConfig.Builder()
         .url(<destination-config-update-url>)
@@ -422,6 +436,7 @@ Destination destination = response.getResult();
 System.out.println(destination);
 
 ```
+
 ### Delete Destination
 
 ```java
@@ -432,10 +447,12 @@ DeleteDestinationOptions deleteDestinationOptions = new DeleteDestinationOptions
 
 Response<Void> response = eventNotificationsService.deleteDestination(deleteDestinationOptions).execute();
 ```
+
 ### Test Destination
 
-This functionality allows you to test a destination. The feature simplifies the process of verifying whether a destination is functioning correctly. 
+This functionality allows you to test a destination. The feature simplifies the process of verifying whether a destination is functioning correctly.
 Currently, this functionality supports following destinations:
+
 1. Slack
 2. PagerDuty
 3. ServiceNow
@@ -451,6 +468,7 @@ TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.
 
 Response<TestDestinationResponse> response = eventNotificationsService.testDestination(testDestinationOptionsModel).execute();
 ```
+
 Once the test is completed, you will be presented with the results. These results will typically include:
 
 - **Status**: Whether the test is successful or failed
@@ -461,8 +479,9 @@ Once the test is completed, you will be presented with the results. These result
 
 After creation of the custom email destination with your domain name, make sure its validated for the right ownership.
 This can be done with SPF and DKIM verification.
-* Sender Policy Framework (SPF), which is used to authenticate the sender of an email. SPF specifies the mail servers that are allowed to send email for your domain.
-* DomainKeys Identified Mail (DKIM), which allows an organization to take responsibility for transmitting a message by signing it. DKIM allows
+
+- Sender Policy Framework (SPF), which is used to authenticate the sender of an email. SPF specifies the mail servers that are allowed to send email for your domain.
+- DomainKeys Identified Mail (DKIM), which allows an organization to take responsibility for transmitting a message by signing it. DKIM allows
   the receiver to check the email that claimed to have come from a specific domain, is authorized by the owner of that domain.
 
 ```java
@@ -479,7 +498,7 @@ VerificationResponse responseObj = verificationResponse.getResult();
 
 ## Templates
 
-Template is a pre-defined layout, that may include content like images, text and dynamic content based on event. Rather than creating a new content from scratch each time, you can use a template as a base and configure them in subscription. 
+Template is a pre-defined layout, that may include content like images, text and dynamic content based on event. Rather than creating a new content from scratch each time, you can use a template as a base and configure them in subscription.
 supports the following templates:
 
 - Custom Email notification
@@ -490,6 +509,7 @@ supports the following templates:
 ### Create Template
 
 #### Custom Email Template
+
 ```java
 TemplateConfigOneOfEmailTemplateConfig templateConfig = new TemplateConfigOneOfEmailTemplateConfig.Builder()
         .body("base 64 encoded html content")
@@ -506,8 +526,11 @@ CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOption
 
 Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
 ```
+
 For custom email supported template type values: smtp_custom.invitation, smtp_custom.notification
+
 #### Slack Template
+
 ```java
 TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
         .body("base 64 encoded html content")
@@ -523,8 +546,11 @@ CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOption
 
 Response<TemplateResponse> invitationResponse = eventNotificationsService.createTemplate(createTemplateInvitationOptions).execute();
 ```
+
 For slack supported template type values: slack.notification
+
 #### Webhook Template
+
 ```java
 TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
         .body("base 64 encoded html content")
@@ -540,8 +566,31 @@ CreateTemplateOptions createWebhookTemplateNotificationOptions = new CreateTempl
 
 Response<TemplateResponse> webhookTemplateResponse = eventNotificationsService.createTemplate(createWebhookTemplateNotificationOptions).execute();
 ```
+
 For Webhook template supported template type value: webhook.notification
+
+#### PagerDuty Template
+
+```java
+TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .build();
+
+CreateTemplateOptions createPagerDutyTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(pagerdutyTemplateConfig)
+        .build();
+
+Response<TemplateResponse> pagerdutyTemplateResponse = eventNotificationsService.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
+```
+
+For PagerDuty template supported template type value: pagerduty.notification
+
 ### List Templates
+
 ```java
 ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
         .instanceId(<instanceId>)
@@ -554,6 +603,7 @@ Response<TemplateList> response = eventNotificationsService.listTemplates(listTe
 ```
 
 ### Get Template
+
 ```java
 GetTemplateOptions getTemplateOptions = new GetTemplateOptions.Builder()
         .instanceId(<instanceId>)
@@ -564,7 +614,9 @@ Response<Template> response = eventNotificationsService.getTemplate(getTemplateO
 ```
 
 ### Update Template
+
 #### Custom Email Template
+
 ```java
 TemplateConfig templateConfig = new TemplateConfig.Builder()
         .body("base 64 encoded html content")
@@ -582,8 +634,11 @@ TemplateConfig templateConfig = new TemplateConfig.Builder()
 
         Response<Template> invitationResponse = eventNotificationsService.replaceTemplate(replaceTemplateInvitationOptions).execute();
 ```
+
 For custom email supported template type values: smtp_custom.invitation, smtp_custom.notification
+
 #### Slack Template
+
 ```java
 TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
         .body("base 64 encoded html content")
@@ -600,8 +655,11 @@ ReplaceTemplateOptions updateSlackTemplateOptions = new ReplaceTemplateOptions.B
 
 Response<Template> slackTemplateResponse = eventNotificationsService.replaceTemplate(updateSlackTemplateOptions).execute();
 ```
+
 For slack supported template type values: slack.notification
+
 #### Webhook Template
+
 ```java
 TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
         .body("base 64 encoded html content")
@@ -618,9 +676,32 @@ ReplaceTemplateOptions updateWebhookTemplateOptions = new ReplaceTemplateOptions
 
 Response<Template> webhookTemplateResponse = service.replaceTemplate(updateWebhookTemplateOptions).execute();
 ```
+
 For webhook supported template type values: webhook.notification
 
+#### PagerDuty Template
+
+```java
+TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .build();
+
+ReplaceTemplateOptions updatePagerDutyTemplateOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<pagerdutyTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(pagerdutyTemplateConfig)
+        .build();
+
+Response<Template> pagerdutyTemplateResponse = service.replaceTemplate(updatePagerDutyTemplateOptions).execute();
+```
+
+For pagerduty supported template type values: pagerduty.notification
+
 ### Delete Template
+
 ```java
 DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()
                 .instanceId(<instanceId>)
@@ -633,6 +714,7 @@ Response<Void> response = eventNotificationsService.deleteTemplate(deleteTemplat
 ## Push Destination APIs
 
 ### Create Destination tag subscription
+
 ```java
 CreateTagsSubscriptionOptions createTagsSubscriptionOptionsModel = new CreateTagsSubscriptionOptions.Builder()
         .instanceId(<instanceId>) // Event notifications service instance GUID
@@ -646,7 +728,9 @@ Response<DestinationTagsSubscriptionResponse> response = eventNotificationsServi
 DestinationTagsSubscriptionResponse destinationTagsSubscription = response.getResult();
 System.out.println(destinationTagsSubscription);
 ```
+
 ### List Destination tag subscription
+
 ```java
 ListTagsSubscriptionOptions listTagsSubscriptionOptionsModel = new ListTagsSubscriptionOptions.Builder()
         .instanceId(<instanceId>)  // Event notifications service instance GUID
@@ -658,7 +742,9 @@ Response<TagsSubscriptionList> response = eventNotificationsService.listTagsSubs
 TagsSubscriptionList tagsSubscriptionList = response.getResult();
 System.out.println(tagsSubscriptionList);
 ```
+
 ### Delete Destination device tag subscription
+
 ```java
 DeleteTagsSubscriptionOptions deleteTagsSubscriptionOptionsModel = new DeleteTagsSubscriptionOptions.Builder()
         .instanceId(<instanceId>)  // Event notifications service instance GUID
@@ -671,6 +757,7 @@ DeleteTagsSubscriptionOptions deleteTagsSubscriptionOptionsModel = new DeleteTag
 Response<Void> response = eventNotificationsService.deleteTagsSubscription(deleteTagsSubscriptionOptionsModel).execute();
 System.out.println(response);
 ```
+
 ## Subscriptions
 
 ### Create Subscription
@@ -678,7 +765,7 @@ System.out.println(response);
 ```java
 SubscriptionCreateAttributesWebhookAttributes subscriptionCreateWebAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
     .signingEnabled(false)
-    .templateIdNotification(<webhookTemplateID>)   
+    .templateIdNotification(<webhookTemplateID>)
     .build();
 
 CreateSubscriptionOptions createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
@@ -722,6 +809,7 @@ System.out.println(subscription);
 ```
 
 ### Update Subscription
+
 ```java
 SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateWebAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
         .signingEnabled(true)
@@ -740,7 +828,9 @@ Response<Subscription> response = eventNotificationsService.updateSubscription(u
 Subscription subscription = response.getResult();
 System.out.println(subscription);
 ```
+
 ### Delete Subscription
+
 ```java
 DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
     .instanceId(<instanceId>)
@@ -749,9 +839,11 @@ DeleteSubscriptionOptions deleteSubscriptionOptions = new DeleteSubscriptionOpti
 
 Response<Void> response = eventNotificationsService.deleteSubscription(deleteSubscriptionOptions).execute();
 ```
+
 ## Integration
 
 ### Create Integration
+
 ```java
 IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
         .endpoint(cosEndPoint)
@@ -768,6 +860,7 @@ Response<IntegrationCreateResponse> response = service.createIntegration(integra
 ```
 
 ### Get Integration
+
 ```java
 GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
         .instanceId(<instanceId>)
@@ -776,7 +869,9 @@ GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
 
 Response<IntegrationGetResponse> response = eventNotificationsService.getIntegration(integrationsOptions).execute();
 ```
+
 ### List Integrations
+
 ```java
 ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builder()
         .instanceId(<instanceId>)
@@ -787,10 +882,12 @@ ListIntegrationsOptions integrationsOptions = new ListIntegrationsOptions.Builde
 
 Response<IntegrationList> response = eventNotificationsService.listIntegrations(integrationsOptions).execute();
 ```
+
 ### Update Integration
 
-For kms/hs-crypto- 
-```java        
+For kms/hs-crypto-
+
+```java
 IntegrationMetadata metadata = new IntegrationMetadata.Builder()
         .endpoint("<end-point>")
         .crn("<crn>")
@@ -803,12 +900,13 @@ ReplaceIntegrationOptions integrationsOptions = new ReplaceIntegrationOptions.Bu
         .type(<integrationType>)
         .metadata(metadata)
         .build();
-        
+
 Response<IntegrationGetResponse> response = eventNotificationsService.replaceIntegration(integrationsOptions).execute();
 ```
 
 For Cloud Object Storage-
-```java        
+
+```java
 IntegrationMetadata cosMetadata = new IntegrationMetadata.Builder()
         .endpoint(cosEndPoint)
         .crn(cosInstanceCRN)
@@ -829,6 +927,7 @@ Response<IntegrationGetResponse> cfeResponse = eventNotificationsService.replace
 ## SMTPConfigurations
 
 ### Create SMTP Configuration
+
 ```java
 
 CreateSmtpConfigurationOptions createSMTPConfigurationOptions = new CreateSmtpConfigurationOptions.Builder()
@@ -844,6 +943,7 @@ SMTPCreateResponse smtpCreateResponse = response.getResult();
 ```
 
 ### Create SMTP User
+
 ```java
 
 CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
@@ -858,6 +958,7 @@ SMTPUserResponse responseObj = response.getResult();
 ```
 
 ### Get SMTP Configuration
+
 ```java
 
 GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
@@ -870,6 +971,7 @@ SMTPConfiguration responseObj = response.getResult();
 ```
 
 ### Get SMTP User
+
 ```java
 
 GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
@@ -882,6 +984,7 @@ SMTPConfiguration responseObj = response.getResult();
 ```
 
 ### Get SMTP Allowed Ips
+
 ```java
 
 GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
@@ -894,6 +997,7 @@ SMTPAllowedIPs responseObj = response.getResult();
 ```
 
 ### List SMTP Configurations
+
 ```java
 
 GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
@@ -906,6 +1010,7 @@ SMTPAllowedIPs responseObj = response.getResult();
 ```
 
 ### List SMTP Users
+
 ```java
 ListSmtpUsersOptions listSmtpUsersOptionsModel = new ListSmtpUsersOptions.Builder()
         .instanceId(<instanceId>)
@@ -921,6 +1026,7 @@ SMTPUsersList smtpUsersList = response.getResult();
 ```
 
 ### Update SMTP Configuration
+
 ```java
 UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateSmtpConfigurationOptions.Builder()
         .instanceId(<instanceId>)
@@ -934,6 +1040,7 @@ SMTPConfiguration responseObj = response.getResult();
 ```
 
 ### Update SMTP User
+
 ```java
 UpdateSmtpUserOptions updateSmtpUserOptionsModel = new UpdateSmtpUserOptions.Builder()
         .instanceId(<instanceId>)
@@ -947,6 +1054,7 @@ SMTPUser responseObj = response.getResult();
 ```
 
 ### Delete SMTP User
+
 ```java
 DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
         .instanceId(<instanceId>)
@@ -959,6 +1067,7 @@ System.out.println(response);
 ```
 
 ### Delete SMTP Configuration
+
 ```java
 DeleteSmtpConfigurationOptions deleteSmtpConfigurationOptionsModel = new DeleteSmtpConfigurationOptions.Builder()
         .instanceId(instanceId)
@@ -970,6 +1079,7 @@ System.out.println(response);
 ```
 
 ### Verify SMTP
+
 ```java
 UpdateVerifySmtpOptions updateVerifySmtpOptions = new UpdateVerifySmtpOptions.Builder()
         .instanceId(instanceId)
@@ -980,9 +1090,11 @@ UpdateVerifySmtpOptions updateVerifySmtpOptions = new UpdateVerifySmtpOptions.Bu
 Response<SMTPVerificationUpdateResponse> response = eventNotificationsService.updateVerifySmtp(updateVerifySmtpOptions).execute();
 SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
 ```
+
 ## Metrics
 
 ### Get Metrics
+
 ```java
 GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
         .instanceId(instanceId)
@@ -1001,6 +1113,7 @@ Metrics responseObj = response.getResult();
 ```
 
 ### Send Notifications
+
 ```java
       List<String> fcmDevices = new ArrayList<String>();
       fcmDevices.add(<fcm-device-ids>);
@@ -1025,7 +1138,7 @@ Metrics responseObj = response.getResult();
         String mms = "{\"content\": \"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\", \"content_type\": \"image/png\"}";
         String templates = "[\"149b0e11-8a7c-4fda-a847-5d79e01b71dc\"]";
         String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
-        
+
         NotificationCreate body = new NotificationCreate.Builder()
               .id(InstanceID)
               .ibmenseverity("<notification-severity>")
@@ -1059,6 +1172,7 @@ Metrics responseObj = response.getResult();
         Response<NotificationResponse> response = service.sendNotifications(sendNotificationsOptions).execute();
         NotificationResponse notificationResponse = response.getResult();
 ```
+
 <details open>
 <summary>Send Notifications Variables</summary>
 <br>
@@ -1078,10 +1192,10 @@ Metrics responseObj = response.getResult();
 - **Event Notifications SendNotificationsOptions** - Event Notifications Send Notifications method.
   - **instance_id** (_string_) - Unique identifier for IBM Cloud Event Notifications instance.
   - **ibmenseverity** (_string_) - Severity for the notifications. Some sources can have the concept of an Event severity. Hence a handy way is provided to specify a severity of the event. example: LOW, HIGH, MEDIUM
-  - **id*** (_string_) - A unique identifier that identifies each event. source+id must be unique. The backend should be able to uniquely track this id in logs and other records. Send unique ID for each send notification. Same ID can be sent in case of failure of send notification. source+id will be logged in IBM Cloud Logging service. Using this combination we will be able to trace the event movement from one system to another and will aid in debugging and tracing.
-  - **source*** (_string_) - Source of the notifications. This is the identifier of the event producer. A way to uniquely identify the source of the event. For IBM Cloud services this is the crn of the service instance producing the events. For API sources this can be something the event producer backend can uniquely identify itself with.
-  - **ibmensourceid*** (_string_) - This is the ID of the source created in EN. This is available in the EN UI in the "Sources" section.
-  - **type** (_string_) - This describes the type of event. It is of the form <event-type-name>:<sub-type> This type is defined by the producer. The event type name has to be prefixed with the reverse DNS names so the event type is uniquely identified. The same event type can be produced by 2 different sources. It is highly recommended to use hyphen - as a separator instead of _.
+  - **id\*** (_string_) - A unique identifier that identifies each event. source+id must be unique. The backend should be able to uniquely track this id in logs and other records. Send unique ID for each send notification. Same ID can be sent in case of failure of send notification. source+id will be logged in IBM Cloud Logging service. Using this combination we will be able to trace the event movement from one system to another and will aid in debugging and tracing.
+  - **source\*** (_string_) - Source of the notifications. This is the identifier of the event producer. A way to uniquely identify the source of the event. For IBM Cloud services this is the crn of the service instance producing the events. For API sources this can be something the event producer backend can uniquely identify itself with.
+  - **ibmensourceid\*** (_string_) - This is the ID of the source created in EN. This is available in the EN UI in the "Sources" section.
+  - **type** (_string_) - This describes the type of event. It is of the form <event-type-name>:<sub-type> This type is defined by the producer. The event type name has to be prefixed with the reverse DNS names so the event type is uniquely identified. The same event type can be produced by 2 different sources. It is highly recommended to use hyphen - as a separator instead of \_.
   - **data** (_string_) - The payload for webhook notification. If data is added as part of payload then its mandatory to add **datacontenttype**.
   - **datacontenttype** - The notification content type. example: application/json
   - **time** (_string_) - Time of the notifications. UTC time stamp when the event occurred. Must be in the RFC 3339 format.
@@ -1095,17 +1209,18 @@ Metrics responseObj = response.getResult();
   - **ibmenfirefoxbody** (_string_) - Message body for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - **ibmenchromeheaders** (_string_) - Headers for the Chrome notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
   - **ibmenfirefoxheaders** (_string_) - Headers for the Firefox notifications. Refer [this official documentation](https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification) for more.
-  - **ibmendefaultshort*** (_string_) - Default short text for the message.
-  - **ibmendefaultlong*** (_string_) - Default long text for the message.
-  - **specversion*** (_string_) - Spec version of the Event Notifications. Default value is `1.0`.
-  - **ibmenhtmlbody*** (_string_) - The html body of notification for email.
-  - **ibmenmailto*** (_Array of string_) - Array of email ids to which the notification to be sent.
-  - **ibmensmsto*** (_Array of string_) - Array of SMS numbers to which the notification to be sent.
-  - **ibmensmstext*** (_string_) - SMS text to be sent.
-  - **ibmenslackto*** (_Array of string_) - Array of Slack channel/member ids to which the notification to be sent.
-  - **ibmentemplates*** (_Array of string_) - Array of template IDs that needs to be applied while sending notification for custom domain email and slack destination.
+  - **ibmendefaultshort\*** (_string_) - Default short text for the message.
+  - **ibmendefaultlong\*** (_string_) - Default long text for the message.
+  - **specversion\*** (_string_) - Spec version of the Event Notifications. Default value is `1.0`.
+  - **ibmenhtmlbody\*** (_string_) - The html body of notification for email.
+  - **ibmenmailto\*** (_Array of string_) - Array of email ids to which the notification to be sent.
+  - **ibmensmsto\*** (_Array of string_) - Array of SMS numbers to which the notification to be sent.
+  - **ibmensmstext\*** (_string_) - SMS text to be sent.
+  - **ibmenslackto\*** (_Array of string_) - Array of Slack channel/member ids to which the notification to be sent.
+  - **ibmentemplates\*** (_Array of string_) - Array of template IDs that needs to be applied while sending notification for custom domain email and slack destination.
 
-Note: variable with * represents the mandatory attribute.
+Note: variable with \* represents the mandatory attribute.
+
 </details>
 
 ## Set Environment
@@ -1117,6 +1232,7 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_GUID` - Add the Event Notifications service instance GUID.
 
 **Optional**
+
 - `EVENT_NOTIFICATIONS_AUTH_URL` - Add the IAM url if you are using IBM test cloud.
 - `EVENT_NOTIFICATIONS_FCM_KEY` - Add firebase server key for Android FCM destination.
 - `EVENT_NOTIFICATIONS_FCM_ID` - Add firebase sender Id for Android FCM destination.
@@ -1157,14 +1273,17 @@ please ask a question at
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 ## Issues
+
 If you encounter an issue with the project, you are welcome to submit a
 [bug report](https://github.com/IBM/event-notifications-java-admin-sdk/issues).
 Before that, please search for similar issues. It's possible that someone has already reported the problem.
 
 ## Open source @ IBM
+
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
 ## Contributing
+
 See [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
