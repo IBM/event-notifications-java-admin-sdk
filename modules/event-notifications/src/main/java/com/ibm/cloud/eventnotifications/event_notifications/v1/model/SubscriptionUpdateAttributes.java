@@ -30,6 +30,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionUpdateAttributesPagerDutyAttributes
  * - SubscriptionUpdateAttributesSlackDirectMessageUpdateAttributes
  * - SubscriptionUpdateAttributesServiceNowAttributes
+ * - SubscriptionUpdateAttributesEventstreamsAttributes
  */
 public class SubscriptionUpdateAttributes extends GenericModel {
 

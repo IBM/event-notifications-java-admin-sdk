@@ -68,6 +68,7 @@ public class EventNotificationsExamples {
   public static String destinationId17 = "";
   public static String destinationId18 = "";
   public static String destinationId19 = "";
+  public static String destinationId20 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -79,6 +80,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId7 = "";
   public static String subscriptionId8 = "";
   public static String subscriptionId9 = "";
+  public static String subscriptionId10 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -114,6 +116,11 @@ public class EventNotificationsExamples {
   public static String webhookTemplateBody = "";
   public static String pagerdutyTemplateBody = "";
   public static String pagerdutyTemplateID = "";
+  public static String eventStreamsTemplateBody = "";
+  public static String eventStreamsTemplateID = "";
+  public static String eventStreamsCRN = "";
+  public static String eventStreamsTopic = "";
+  public static String eventStreamsEndPoint = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -166,6 +173,10 @@ public class EventNotificationsExamples {
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
     webhookTemplateBody = config.get("WEBHOOK_TEMPLATE_BODY");
     pagerdutyTemplateBody = config.get("PAGERDUTY_TEMPLATE_BODY");
+    eventStreamsTemplateBody = config.get("EVENT_STREAMS_TEMPLATE_BODY");
+    eventStreamsCRN = config.get("EVENT_STREAMS_CRN");
+    eventStreamsEndPoint = config.get("EVENT_STREAMS_ENDPOINT");
+    eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
 
     try {
       System.out.println("createSources() result:");
@@ -796,6 +807,32 @@ public class EventNotificationsExamples {
       DestinationResponse slackDMDestinationResponseResult = slackDMResponse.getResult();
       destinationId19 = slackDMDestinationResponseResult.getId();
 
+      DestinationConfigOneOfEventStreamsDestinationConfig eventStreamsDestinationConfig = new DestinationConfigOneOfEventStreamsDestinationConfig.Builder()
+              .crn(eventStreamsCRN)
+              .endpoint(eventStreamsEndPoint)
+              .topic(eventStreamsTopic)
+              .build();
+
+      DestinationConfig destinationEventStreamsConfigModel = new DestinationConfig.Builder()
+              .params(eventStreamsDestinationConfig)
+              .build();
+
+      String eventStreamsName = "Event Streams destination";
+      String eventStreamsTypeVal = "event_streams";
+      String eventStreamsDescription = "Event Streams Destination description";
+
+      CreateDestinationOptions createEventStreamsDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(eventStreamsName)
+              .type(eventStreamsTypeVal)
+              .description(eventStreamsDescription)
+              .config(destinationEventStreamsConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> eventStreamsResponse = eventNotificationsService.createDestination(createEventStreamsDestinationOptions).execute();
+      DestinationResponse eventStreamsDestinationResponseResult = eventStreamsResponse.getResult();
+      destinationId20 = eventStreamsDestinationResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -1315,6 +1352,31 @@ public class EventNotificationsExamples {
       Destination slackDMDestinationResponseResult = slackDMResponse.getResult();
       System.out.println(slackDMDestinationResponseResult);
 
+      DestinationConfigOneOfEventStreamsDestinationConfig eventStreamsDestinationConfig = new DestinationConfigOneOfEventStreamsDestinationConfig.Builder()
+              .crn(eventStreamsCRN)
+              .endpoint(eventStreamsEndPoint)
+              .topic(eventStreamsTopic)
+              .build();
+
+      DestinationConfig destinationEventStreamsConfigModel = new DestinationConfig.Builder()
+              .params(eventStreamsDestinationConfig)
+              .build();
+
+      String eventStreamsName = "Event Streams destination";
+      String eventStreamsDescription = "Event Streams Destination description";
+
+      UpdateDestinationOptions updateEventStreamsDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId20)
+              .name(eventStreamsName)
+              .description(eventStreamsDescription)
+              .config(destinationEventStreamsConfigModel)
+              .build();
+
+      Response<Destination> eventstreamsResponse = eventNotificationsService.updateDestination(updateEventStreamsDestinationOptions).execute();
+      Destination eventStreamsDestinationResponseResult = eventstreamsResponse.getResult();
+      System.out.println(eventStreamsDestinationResponseResult);
+
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1397,6 +1459,7 @@ public class EventNotificationsExamples {
               .build();
 
       name = "pagerduty template notification";
+      description = "pagerduty template description";
       CreateTemplateOptions createPagerDutyTemplateNotificationOptions = new CreateTemplateOptions.Builder()
               .instanceId(instanceId)
               .name(name)
@@ -1408,6 +1471,24 @@ public class EventNotificationsExamples {
       Response<TemplateResponse> pagerdutyTemplatenotificationResponse = eventNotificationsService.createTemplate(createPagerDutyTemplateNotificationOptions).execute();
       TemplateResponse pagerdutyTemplateResult = pagerdutyTemplatenotificationResponse.getResult();
       pagerdutyTemplateID = pagerdutyTemplateResult.getId();
+
+      TemplateConfigOneOfEventStreamsTemplateConfig eventStreamsTemplateConfig = new TemplateConfigOneOfEventStreamsTemplateConfig.Builder()
+              .body(eventStreamsTemplateBody)
+              .build();
+
+      name = "event streams template notification";
+      description = "event streams template description";
+      CreateTemplateOptions createEventStreamsTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("event_streams.notification")
+              .params(eventStreamsTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> eventStreamsTemplatenotificationResponse = eventNotificationsService.createTemplate(createEventStreamsTemplateNotificationOptions).execute();
+      TemplateResponse eventStreamsTemplateResult = eventStreamsTemplatenotificationResponse .getResult();
+      eventStreamsTemplateID= eventStreamsTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1651,6 +1732,23 @@ public class EventNotificationsExamples {
       Response<Subscription> pdResponse = eventNotificationsService.createSubscription(createPDSubscriptionOptions).execute();
       Subscription pdSubscriptionResult = pdResponse.getResult();
       subscriptionId9 = pdSubscriptionResult.getId();
+
+      SubscriptionCreateAttributesEventstreamsAttributes eventStreamsCreateAttributes = new SubscriptionCreateAttributesEventstreamsAttributes.Builder()
+              .templateIdNotification(eventStreamsTemplateID)
+              .build();
+
+      CreateSubscriptionOptions createEventStreamsSubscription = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name("Event Streams Subscription")
+              .destinationId(destinationId20)
+              .topicId(topicId)
+              .description("Subscription for the Event Streams")
+              .attributes(eventStreamsCreateAttributes)
+              .build();
+
+      Response<Subscription> eventStreamsResponse = eventNotificationsService.createSubscription(createEventStreamsSubscription).execute();
+      Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
+      subscriptionId10 = eventStreamsSubscriptionResult.getId();
       // end-create_subscription
 
     } catch (ServiceResponseException e) {
@@ -1812,6 +1910,23 @@ public class EventNotificationsExamples {
       Response<Template> pagerdutyTemplateResponse = eventNotificationsService.replaceTemplate(updatePagerDutyTemplateOptions).execute();
       Template pagerdutyTemplateResult = pagerdutyTemplateResponse.getResult();
       System.out.println(pagerdutyTemplateResult);
+
+      TemplateConfigOneOfEventStreamsTemplateConfig eventStreamsTemplateConfig = new TemplateConfigOneOfEventStreamsTemplateConfig.Builder()
+              .body(eventStreamsTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateEventStreamsTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(eventStreamsTemplateID)
+              .name(name)
+              .description(description)
+              .type("event_streams.notification")
+              .params(eventStreamsTemplateConfig)
+              .build();
+
+      Response<Template> eventStreamsTemplateResponse = eventNotificationsService.replaceTemplate(updateEventStreamsTemplateOptions).execute();
+      Template eventStreamsTemplateResult = eventStreamsTemplateResponse.getResult();
+      System.out.println(eventStreamsTemplateResult);
       // end-replace_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -2113,6 +2228,26 @@ public class EventNotificationsExamples {
       Response<Subscription> pdResponse = eventNotificationsService.updateSubscription(updatePDSubscriptionOptions).execute();
       Subscription pdSubscriptionResult = pdResponse.getResult();
       System.out.println(pdSubscriptionResult);
+
+      SubscriptionUpdateAttributesEventstreamsAttributes eventStreamsUpdateAttributes = new SubscriptionUpdateAttributesEventstreamsAttributes.Builder()
+              .templateIdNotification(eventStreamsTemplateID)
+              .build();
+
+      String eventStreamsName = "Event streams subscription name update";
+      String eventStreamsDescription = "Event streams subscription description update";
+
+      UpdateSubscriptionOptions updateEventStreamsSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId10)
+              .name(eventStreamsName)
+              .description(eventStreamsDescription)
+              .attributes(eventStreamsUpdateAttributes)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> eventStreamsResponse = eventNotificationsService.updateSubscription(updateEventStreamsSubscriptionOptions).execute();
+      Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
+     System.out.println(eventStreamsSubscriptionResult);
 
       // end-update_subscription
     } catch (ServiceResponseException e) {
@@ -2492,6 +2627,8 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId6);
       subscriptions.add(subscriptionId7);
       subscriptions.add(subscriptionId8);
+      subscriptions.add(subscriptionId9);
+      subscriptions.add(subscriptionId10);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -2552,6 +2689,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId17);
       destinations.add(destinationId18);
       destinations.add(destinationId19);
+      destinations.add(destinationId20);
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
                 .instanceId(instanceId)
@@ -2689,6 +2827,7 @@ public class EventNotificationsExamples {
       templates.add(templateNotificationID);
       templates.add(slackTemplateID);
       templates.add(webhookTemplateID);
+      templates.add(eventStreamsTemplateID);
 
       for (String template : templates) {
         // begin-delete_template

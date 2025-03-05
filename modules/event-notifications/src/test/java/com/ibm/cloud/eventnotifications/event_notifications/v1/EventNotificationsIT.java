@@ -70,6 +70,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId17 = "";
   public static String destinationId18 = "";
   public static String destinationId19 = "";
+  public static String destinationId21 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -90,6 +91,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId18 = "";
   public static String subscriptionId19 = "";
   public static String subscriptionId20 = "";
+  public static String subscriptionId21 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -120,6 +122,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String webhookTemplateBody = "";
   public static String pagerdutyTemplateBody = "";
   public static String pagerdutyTemplateID = "";
+  public static String eventStreamsTemplateBody = "";
+  public static String eventStreamsTemplateID = "";
   public static String cosInstanceCRN = "";
   public static String cosIntegrationID = "";
   public static String codeEngineProjectCRN = "";
@@ -129,6 +133,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String slackDMToken = "";
   public static String slackChannelID = "";
   public static String schedulerSourceID = "";
+  public static String eventStreamsCRN = "";
+  public static String eventStreamsTopic = "";
+  public static String eventStreamsEndPoint = "";
 
 
 
@@ -187,6 +194,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     codeEngineProjectCRN = config.get("CODE_ENGINE_PROJECT_CRN");
     schedulerSourceID = config.get("SCHEDULER_SOURCE_ID");
     pagerdutyTemplateBody = config.get("PAGERDUTY_TEMPLATE_BODY");
+    eventStreamsTemplateBody = config.get("EVENT_STREAMS_TEMPLATE_BODY");
+    eventStreamsCRN = config.get("EVENT_STREAMS_CRN");
+    eventStreamsEndPoint = config.get("EVENT_STREAMS_ENDPOINT");
+    eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
 
     service.enableRetries(4, 30);
 
@@ -1210,6 +1221,43 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDMDestinationResponseResult.getType(), slackDMTypeVal);
 
       destinationId19 = slackDMDestinationResponseResult.getId();
+
+      DestinationConfigOneOfEventStreamsDestinationConfig eventStreamsDestinationConfig = new DestinationConfigOneOfEventStreamsDestinationConfig.Builder()
+              .crn(eventStreamsCRN)
+              .endpoint(eventStreamsEndPoint)
+              .topic(eventStreamsTopic)
+              .build();
+
+      DestinationConfig destinationEventStreamsConfigModel = new DestinationConfig.Builder()
+              .params(eventStreamsDestinationConfig)
+              .build();
+
+      String eventStreamsName = "Event Streams destination";
+      String eventStreamsTypeVal = "event_streams";
+      String eventStreamsDescription = "Event Streams Destination description";
+
+      CreateDestinationOptions createEventStreamsDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(eventStreamsName)
+              .type(eventStreamsTypeVal)
+              .description(eventStreamsDescription)
+              .config(destinationEventStreamsConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> eventStreamsResponse = service.createDestination(createEventStreamsDestinationOptions).execute();
+      // Validate response
+      assertNotNull(eventStreamsResponse);
+      assertEquals(eventStreamsResponse.getStatusCode(), 201);
+
+      DestinationResponse eventStreamsDestinationResponseResult = eventStreamsResponse.getResult();
+
+      assertNotNull(eventStreamsDestinationResponseResult);
+      assertEquals(eventStreamsDestinationResponseResult.getDescription(), eventStreamsDescription);
+      assertEquals(eventStreamsDestinationResponseResult.getName(), eventStreamsName);
+      assertEquals(eventStreamsDestinationResponseResult.getType(), eventStreamsTypeVal);
+
+      destinationId21 = eventStreamsDestinationResponseResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1859,7 +1907,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(destinationCEJobResult.getDescription(), ceDescription);
       assertEquals(destinationCEJobResult.getName(), ceName);
 
-      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig= new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
+      DestinationConfigOneOfSlackDirectMessageDestinationConfig slackDMDestinationConfig = new DestinationConfigOneOfSlackDirectMessageDestinationConfig.Builder()
               .token(slackDMToken)
               .type("direct_message")
               .build();
@@ -1892,6 +1940,39 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDMDestinationResponseResult.getDescription(), slackDMDescription);
       assertEquals(slackDMDestinationResponseResult.getName(), slackDMName);
       assertEquals(slackDMDestinationResponseResult.getType(), slackDMTypeVal);
+
+      DestinationConfigOneOfEventStreamsDestinationConfig eventStreamsDestinationConfig = new DestinationConfigOneOfEventStreamsDestinationConfig.Builder()
+              .crn(eventStreamsCRN)
+              .endpoint(eventStreamsEndPoint)
+              .topic(eventStreamsTopic)
+              .build();
+
+      DestinationConfig destinationEventStreamsConfigModel = new DestinationConfig.Builder()
+              .params(eventStreamsDestinationConfig)
+              .build();
+
+      String eventStreamsName = "Event Streams destination";
+      String eventStreamsDescription = "Event Streams Destination description";
+
+      UpdateDestinationOptions updateEventStreamsDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId21)
+              .name(eventStreamsName)
+              .description(eventStreamsDescription)
+              .config(destinationEventStreamsConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> eventstreamsResponse = service.updateDestination(updateEventStreamsDestinationOptions).execute();
+      // Validate response
+      assertNotNull(eventstreamsResponse);
+      assertEquals(eventstreamsResponse.getStatusCode(), 200);
+
+      Destination eventStreamsDestinationResponseResult = eventstreamsResponse.getResult();
+
+      assertNotNull(eventStreamsDestinationResponseResult);
+      assertEquals(eventStreamsDestinationResponseResult.getDescription(), eventStreamsDescription);
+      assertEquals(eventStreamsDestinationResponseResult.getName(), eventStreamsName);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2028,6 +2109,30 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(pagerdutyTemplateResult.getDescription(), description);
       assertEquals(pagerdutyTemplateResult .getName(), name);
       pagerdutyTemplateID= pagerdutyTemplateResult.getId();
+
+      TemplateConfigOneOfEventStreamsTemplateConfig eventStreamsTemplateConfig = new TemplateConfigOneOfEventStreamsTemplateConfig.Builder()
+              .body(eventStreamsTemplateBody)
+              .build();
+
+      name = "event streams template notification";
+      description = "event streams template description";
+      CreateTemplateOptions createEventStreamsTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("event_streams.notification")
+              .params(eventStreamsTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> eventStreamsTemplatenotificationResponse = service.createTemplate(createEventStreamsTemplateNotificationOptions).execute();
+      assertNotNull(eventStreamsTemplatenotificationResponse);
+      assertEquals(eventStreamsTemplatenotificationResponse .getStatusCode(), 201);
+      TemplateResponse eventStreamsTemplateResult = eventStreamsTemplatenotificationResponse .getResult();
+
+      assertNotNull(eventStreamsTemplateResult);
+      assertEquals(eventStreamsTemplateResult.getDescription(), description);
+      assertEquals(eventStreamsTemplateResult.getName(), name);
+      eventStreamsTemplateID= eventStreamsTemplateResult.getId();
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2175,6 +2280,28 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(pagerdutyTemplateResult.getName(), name);
       assertEquals(pagerdutyTemplateResult.getId(), pagerdutyTemplateID);
 
+      TemplateConfigOneOfEventStreamsTemplateConfig eventStreamsTemplateConfig = new TemplateConfigOneOfEventStreamsTemplateConfig.Builder()
+              .body(eventStreamsTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateEventStreamsTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(eventStreamsTemplateID)
+              .name(name)
+              .description(description)
+              .type("event_streams.notification")
+              .params(eventStreamsTemplateConfig)
+              .build();
+
+      Response<Template> eventStreamsTemplateResponse = service.replaceTemplate(updateEventStreamsTemplateOptions).execute();
+      assertNotNull(eventStreamsTemplateResponse);
+      assertEquals(eventStreamsTemplateResponse.getStatusCode(), 200);
+      Template eventStreamsTemplateResult = eventStreamsTemplateResponse.getResult();
+
+      assertNotNull(eventStreamsTemplateResult);
+      assertEquals(eventStreamsTemplateResult.getDescription(), description);
+      assertEquals(eventStreamsTemplateResult.getName(), name);
+      assertEquals(eventStreamsTemplateResult.getId(), eventStreamsTemplateID);
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2724,6 +2851,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Subscription schedulerSubscriptionResult = schedulerResponse.getResult();
       assertNotNull(schedulerSubscriptionResult);
       subscriptionId20 = schedulerSubscriptionResult.getId();
+
+      SubscriptionCreateAttributesEventstreamsAttributes eventStreamsCreateAttributes = new SubscriptionCreateAttributesEventstreamsAttributes.Builder()
+              .templateIdNotification(eventStreamsTemplateID)
+              .build();
+
+      CreateSubscriptionOptions createEventStreamsSubscription = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name("Event Streams Subscription")
+              .destinationId(destinationId21)
+              .topicId(topicId)
+              .description("Subscription for the Event Streams")
+              .attributes(eventStreamsCreateAttributes)
+              .build();
+
+      Response<Subscription> eventStreamsResponse = service.createSubscription(createEventStreamsSubscription).execute();
+
+      assertNotNull(eventStreamsResponse);
+      assertEquals(eventStreamsResponse.getStatusCode(), 201);
+      Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
+      assertNotNull(eventStreamsSubscriptionResult);
+      subscriptionId21 = eventStreamsSubscriptionResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -3364,11 +3512,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(slackDMSubscriptionResult.getName(), slackDMName);
       assertEquals(slackDMSubscriptionResult.getId(), subscriptionId19);
 
+      String schedulerSubscriptionName = "subscription_Scheduler_update";
+      String schedulerDescription = "Subscription update Scheduler";
       UpdateSubscriptionOptions updateSchedulerSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
               .instanceId(instanceId)
               .id(subscriptionId20)
-              .name("subscription_Scheduler_update")
-              .description("Subscription update Scheduler")
+              .name(schedulerSubscriptionName)
+              .description(schedulerDescription)
+              .attributes(slackUpdateAttributes)
               .build();
 
       // Invoke operation
@@ -3381,6 +3532,32 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       assertNotNull(schedulerSubscriptionResult);
       assertEquals(schedulerSubscriptionResult.getId(), subscriptionId20);
+
+      SubscriptionUpdateAttributesEventstreamsAttributes eventStreamsUpdateAttributes = new SubscriptionUpdateAttributesEventstreamsAttributes.Builder()
+              .templateIdNotification(eventStreamsTemplateID)
+              .build();
+
+      String eventStreamsName = "Event streams subscription name update";
+      String eventStreamsDescription = "Event streams subscription description update";
+
+      UpdateSubscriptionOptions updateEventStreamsSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId21)
+              .name(eventStreamsName)
+              .description(eventStreamsDescription)
+              .attributes(eventStreamsUpdateAttributes)
+              .build();
+
+      // Invoke operation
+      Response<Subscription> eventStreamsResponse = service.updateSubscription(updateEventStreamsSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(eventStreamsResponse);
+      assertEquals(eventStreamsResponse.getStatusCode(), 200);
+      Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
+      assertNotNull(eventStreamsSubscriptionResult);
+      assertEquals(eventStreamsSubscriptionResult.getDescription(), eventStreamsDescription);
+      assertEquals(eventStreamsSubscriptionResult.getName(), eventStreamsName);
+      assertEquals(eventStreamsSubscriptionResult.getId(), subscriptionId21);
 
       //
       // The following status codes aren't covered by tests.
@@ -3828,6 +4005,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId18);
       subscriptions.add(subscriptionId19);
       subscriptions.add(subscriptionId20);
+      subscriptions.add(subscriptionId21);
 
       for (String subscription :
               subscriptions) {
@@ -3917,6 +4095,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId17);
       destinations.add(destinationId18);
       destinations.add(destinationId19);
+      destinations.add(destinationId21);
 
       for (String destination :
               destinations) {
@@ -4090,6 +4269,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
      templates.add(slackTemplateID);
      templates.add(webhookTemplateID);
      templates.add(pagerdutyTemplateID);
+     templates.add(eventStreamsTemplateID);
 
       for (String template : templates) {
         DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()

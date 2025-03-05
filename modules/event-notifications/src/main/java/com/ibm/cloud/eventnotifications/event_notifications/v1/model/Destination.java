@@ -25,7 +25,7 @@ public class Destination extends GenericModel {
 
   /**
    * Destination type
-   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei/CustomEmail/CustomSMS/EventStreams.
    */
   public interface Type {
     /** webhook. */
@@ -58,6 +58,8 @@ public class Destination extends GenericModel {
     String SMTP_CUSTOM = "smtp_custom";
     /** sms_custom. */
     String SMS_CUSTOM = "sms_custom";
+    /** event_streams. */
+    String EVENT_STREAMS = "event_streams";
   }
 
   protected String id;
@@ -113,7 +115,7 @@ public class Destination extends GenericModel {
    * Gets the type.
    *
    * Destination type
-   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei.
+   * Email/SMS/Webhook/FCM/Slack/MSTeams/PagerDuty/IBMCodeEngine/ServiceNow/IBMCloudObjectStorage/Huawei/CustomEmail/CustomSMS/EventStreams.
    *
    * @return the type
    */
