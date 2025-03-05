@@ -1488,7 +1488,7 @@ public class EventNotificationsExamples {
 
       Response<TemplateResponse> eventStreamsTemplatenotificationResponse = eventNotificationsService.createTemplate(createEventStreamsTemplateNotificationOptions).execute();
       TemplateResponse eventStreamsTemplateResult = eventStreamsTemplatenotificationResponse .getResult();
-      eventStreamsTemplateID= eventStreamsTemplateResult.getId();
+      eventStreamsTemplateID = eventStreamsTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
