@@ -1,3 +1,10 @@
+# [0.14.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.13.0...0.14.0) (2025-03-06)
+
+
+### Features
+
+* event streams destination and template support ([#54](https://github.com/IBM/event-notifications-java-admin-sdk/issues/54)) ([3646cfd](https://github.com/IBM/event-notifications-java-admin-sdk/commit/3646cfde599f085fa449a2f7f153e02b92d9260e))
+
 # [0.13.0](https://github.com/IBM/event-notifications-java-admin-sdk/compare/0.12.0...0.13.0) (2025-02-26)
 
 
