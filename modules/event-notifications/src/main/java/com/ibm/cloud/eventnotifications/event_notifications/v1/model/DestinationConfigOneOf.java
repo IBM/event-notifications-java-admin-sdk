@@ -37,6 +37,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfServiceNowDestinationConfig
  * - DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig
  * - DestinationConfigOneOfHuaweiDestinationConfig
+ * - DestinationConfigOneOfEventStreamsDestinationConfig
  */
 public class DestinationConfigOneOf extends GenericModel {
 
@@ -124,6 +125,8 @@ public class DestinationConfigOneOf extends GenericModel {
   @SerializedName("instance_id")
   protected String instanceId;
   protected String endpoint;
+  protected String crn;
+  protected String topic;
 
   protected DestinationConfigOneOf() { }
 
@@ -536,6 +539,28 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public String endpoint() {
     return endpoint;
+  }
+
+  /**
+   * Gets the crn.
+   *
+   * CRN of the Event Streans instance.
+   *
+   * @return the crn
+   */
+  public String crn() {
+    return crn;
+  }
+
+  /**
+   * Gets the topic.
+   *
+   * Topic of Event Streams.
+   *
+   * @return the topic
+   */
+  public String topic() {
+    return topic;
   }
 }
 

@@ -59,6 +59,8 @@ public class Subscription extends DynamicModel<Object> {
     String SMTP_CUSTOM = "smtp_custom";
     /** sms_custom. */
     String SMS_CUSTOM = "sms_custom";
+    /** event_streams. */
+    String EVENT_STREAMS = "event_streams";
   }
 
   @SerializedName("id")

@@ -57,6 +57,8 @@ public class DestinationListItem extends GenericModel {
     String SMTP_CUSTOM = "smtp_custom";
     /** sms_custom. */
     String SMS_CUSTOM = "sms_custom";
+    /** event_streams. */
+    String EVENT_STREAMS = "event_streams";
   }
 
   protected String id;

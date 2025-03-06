@@ -533,7 +533,7 @@ For custom email supported template type values: smtp_custom.invitation, smtp_cu
 
 ```java
 TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
-        .body("base 64 encoded html content")
+        .body("base 64 encoded json content")
         .build();
 
 CreateTemplateOptions createTemplateInvitationOptions = new CreateTemplateOptions.Builder()
@@ -553,7 +553,7 @@ For slack supported template type values: slack.notification
 
 ```java
 TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
-        .body("base 64 encoded html content")
+        .body("base 64 encoded json content")
         .build();
 
 CreateTemplateOptions createWebhookTemplateNotificationOptions = new CreateTemplateOptions.Builder()
@@ -573,7 +573,7 @@ For Webhook template supported template type value: webhook.notification
 
 ```java
 TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
-        .body("base 64 encoded html content")
+        .body("base 64 encoded json content")
         .build();
 
 CreateTemplateOptions createPagerDutyTemplateNotificationOptions = new CreateTemplateOptions.Builder()
@@ -588,6 +588,26 @@ Response<TemplateResponse> pagerdutyTemplateResponse = eventNotificationsService
 ```
 
 For PagerDuty template supported template type value: pagerduty.notification
+
+#### EventStreams Template
+
+```java
+TemplateConfigOneOfEventStreamsTemplateConfig eventStreamsTemplateConfig = new TemplateConfigOneOfEventStreamsTemplateConfig.Builder()
+        .body("base 64 encoded html content")
+        .build();
+
+CreateTemplateOptions createEventStreamsTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(eventStreamsTemplateConfig)
+        .build();
+
+Response<TemplateResponse> eventStreamsTemplateResponse = eventNotificationsService.createTemplate(createEventStreamsTemplateNotificationOptions).execute();
+```
+
+For EventStreams template supported template type value: event_streams.notification
 
 ### List Templates
 
@@ -641,7 +661,7 @@ For custom email supported template type values: smtp_custom.invitation, smtp_cu
 
 ```java
 TemplateConfigOneOfSlackTemplateConfig slackTemplateConfig = new TemplateConfigOneOfSlackTemplateConfig.Builder()
-        .body("base 64 encoded html content")
+        .body("base 64 encoded json content")
         .build();
 
 ReplaceTemplateOptions updateSlackTemplateOptions = new ReplaceTemplateOptions.Builder()
@@ -662,7 +682,7 @@ For slack supported template type values: slack.notification
 
 ```java
 TemplateConfigOneOfWebhookTemplateConfig webhookTemplateConfig = new TemplateConfigOneOfWebhookTemplateConfig.Builder()
-        .body("base 64 encoded html content")
+        .body("base 64 encoded json content")
         .build();
 
 ReplaceTemplateOptions updateWebhookTemplateOptions = new ReplaceTemplateOptions.Builder()
@@ -683,7 +703,7 @@ For webhook supported template type values: webhook.notification
 
 ```java
 TemplateConfigOneOfPagerdutyTemplateConfig pagerdutyTemplateConfig = new TemplateConfigOneOfPagerdutyTemplateConfig.Builder()
-        .body("base 64 encoded html content")
+        .body("base 64 encoded json content")
         .build();
 
 ReplaceTemplateOptions updatePagerDutyTemplateOptions = new ReplaceTemplateOptions.Builder()
@@ -699,6 +719,27 @@ Response<Template> pagerdutyTemplateResponse = service.replaceTemplate(updatePag
 ```
 
 For pagerduty supported template type values: pagerduty.notification
+
+#### EventStreams Template
+
+```java
+TemplateConfigOneOfEventStreamsTemplateConfig eventStreamsTemplateConfig = new TemplateConfigOneOfEventStreamsTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+ReplaceTemplateOptions updateEventStreamsTemplateOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<pagerdutyTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(eventStreamsTemplateConfig)
+        .build();
+
+Response<Template> eventStreamsTemplateResponse = service.replaceTemplate(updateEventStreamsTemplateOptions).execute();
+```
+
+For EventStreams supported template type values: event_streams.notification
 
 ### Delete Template
 
@@ -1261,10 +1302,15 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_MS_TEAMS_URL` - msteams webhook url
 - `EVENT_NOTIFICATIONS_PD_ROUTING_KEY` - pagerduty routing key
 - `EVENT_NOTIFICATIONS_PD_API_KEY` - pagerduty api key
-- `EVENT_NOTIFICATIONS_TEMPLATE_BODY` - base 64 encoded html content
-- `EVENT_NOTIFICATIONS_SLACK_TEMPLATE_BODY` - base 64 encoded json body
-- `EVENT_NOTIFICATIONS_WEBHOOK_TEMPLATE_BODY` - base 64 encoded json body
+- `EVENT_NOTIFICATIONS_TEMPLATE_BODY` - base 64 encoded html content for Email
+- `EVENT_NOTIFICATIONS_SLACK_TEMPLATE_BODY` - base 64 encoded json body for slack destination
+- `EVENT_NOTIFICATIONS_WEBHOOK_TEMPLATE_BODY` - base 64 encoded json body for webhook destination
 - `EVENT_NOTIFICATIONS_SCHEDULER_SOURCE_ID` - periodic timer source id
+- `EVENT_NOTIFICATIONS_PAGERDUTY_TEMPLATE_BODY` - base 64 encoded json body for pagerduty destination
+- `EVENT_NOTIFICATIONS_EVENT_STREAMS_TEMPLATE_BODY` - base 64 encoded json body for event streams destination
+- `EVENT_NOTIFICATIONS_EVENT_STREAMS_CRN` - Event Streams instance CRN
+- `EVENT_NOTIFICATIONS_EVENT_STREAMS_TOPIC` - Event Streams instance Topic name
+- `EVENT_NOTIFICATIONS_EVENT_STREAMS_ENDPOINT` - Event streams end point
 
 ## Questions
 
