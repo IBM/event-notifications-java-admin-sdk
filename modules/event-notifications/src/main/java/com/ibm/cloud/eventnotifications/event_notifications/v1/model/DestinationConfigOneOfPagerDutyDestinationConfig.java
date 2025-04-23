@@ -44,11 +44,9 @@ public class DestinationConfigOneOfPagerDutyDestinationConfig extends Destinatio
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param apiKey the apiKey
      * @param routingKey the routingKey
      */
-    public Builder(String apiKey, String routingKey) {
-      this.apiKey = apiKey;
+    public Builder(String routingKey) {
       this.routingKey = routingKey;
     }
 
@@ -66,7 +64,9 @@ public class DestinationConfigOneOfPagerDutyDestinationConfig extends Destinatio
      *
      * @param apiKey the apiKey
      * @return the DestinationConfigOneOfPagerDutyDestinationConfig builder
+     * @deprecated this method is deprecated and may be removed in a future release
      */
+    @Deprecated
     public Builder apiKey(String apiKey) {
       this.apiKey = apiKey;
       return this;
@@ -87,8 +87,6 @@ public class DestinationConfigOneOfPagerDutyDestinationConfig extends Destinatio
   protected DestinationConfigOneOfPagerDutyDestinationConfig() { }
 
   protected DestinationConfigOneOfPagerDutyDestinationConfig(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.apiKey,
-      "apiKey cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.routingKey,
       "routingKey cannot be null");
     apiKey = builder.apiKey;

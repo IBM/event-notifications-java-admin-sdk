@@ -533,7 +533,7 @@ public class DestinationConfigOneOf extends GenericModel {
   /**
    * Gets the endpoint.
    *
-   * End Point of Cloud Object Storage.
+   * Endpoint of Cloud Object Storage.
    *
    * @return the endpoint
    */
