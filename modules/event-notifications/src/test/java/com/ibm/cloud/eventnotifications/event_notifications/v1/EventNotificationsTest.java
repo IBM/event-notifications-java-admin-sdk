@@ -331,6 +331,7 @@ public class EventNotificationsTest {
       .ibmenhtmlbody("testString")
       .subject("testString")
       .ibmenmms("testString")
+      .ibmenmarkdown("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
       .ibmenpushto("{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}")

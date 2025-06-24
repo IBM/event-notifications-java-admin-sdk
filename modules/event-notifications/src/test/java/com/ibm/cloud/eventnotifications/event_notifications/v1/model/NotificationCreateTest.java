@@ -51,6 +51,7 @@ public class NotificationCreateTest {
       .ibmenhtmlbody("testString")
       .subject("testString")
       .ibmenmms("testString")
+      .ibmenmarkdown("testString")
       .data(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .datacontenttype("application/json")
       .ibmenpushto("{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}")
@@ -83,6 +84,7 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModel.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModel.getSubject(), "testString");
     assertEquals(notificationCreateModel.getIbmenmms(), "testString");
+    assertEquals(notificationCreateModel.getIbmenmarkdown(), "testString");
     assertEquals(notificationCreateModel.getData(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(notificationCreateModel.getDatacontenttype(), "application/json");
     assertEquals(notificationCreateModel.getIbmenpushto(), "{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}");
@@ -119,6 +121,7 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModelNew.getIbmenhtmlbody(), "testString");
     assertEquals(notificationCreateModelNew.getSubject(), "testString");
     assertEquals(notificationCreateModelNew.getIbmenmms(), "testString");
+    assertEquals(notificationCreateModelNew.getIbmenmarkdown(), "testString");
     assertEquals(notificationCreateModelNew.getData().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(notificationCreateModelNew.getDatacontenttype(), "application/json");
     assertEquals(notificationCreateModelNew.getIbmenpushto(), "{\"platforms\":[\"push_android\", \"push_ios\", \"push_firefox\", \"push_chrome\", \"push_safari\", \"push_huawei\"]}");
