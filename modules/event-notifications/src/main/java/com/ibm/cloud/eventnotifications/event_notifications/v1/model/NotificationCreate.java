@@ -61,6 +61,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String subject;
   @SerializedName("ibmenmms")
   protected String ibmenmms;
+  @SerializedName("ibmenmarkdown")
+  protected String ibmenmarkdown;
   @SerializedName("data")
   protected Map<String, Object> data;
   @SerializedName("datacontenttype")
@@ -112,6 +114,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmenhtmlbody;
     private String subject;
     private String ibmenmms;
+    private String ibmenmarkdown;
     private Map<String, Object> data;
     private String datacontenttype;
     private String ibmenpushto;
@@ -150,6 +153,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmenhtmlbody = notificationCreate.ibmenhtmlbody;
       this.subject = notificationCreate.subject;
       this.ibmenmms = notificationCreate.ibmenmms;
+      this.ibmenmarkdown = notificationCreate.ibmenmarkdown;
       this.data = notificationCreate.data;
       this.datacontenttype = notificationCreate.datacontenttype;
       this.ibmenpushto = notificationCreate.ibmenpushto;
@@ -400,6 +404,17 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
+     * Set the ibmenmarkdown.
+     *
+     * @param ibmenmarkdown the ibmenmarkdown
+     * @return the NotificationCreate builder
+     */
+    public Builder ibmenmarkdown(String ibmenmarkdown) {
+      this.ibmenmarkdown = ibmenmarkdown;
+      return this;
+    }
+
+    /**
      * Set the data.
      *
      * @param data the data
@@ -582,6 +597,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmenhtmlbody = builder.ibmenhtmlbody;
     subject = builder.subject;
     ibmenmms = builder.ibmenmms;
+    ibmenmarkdown = builder.ibmenmarkdown;
     data = builder.data;
     datacontenttype = builder.datacontenttype;
     ibmenpushto = builder.ibmenpushto;
@@ -964,6 +980,26 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmenmms(final String ibmenmms) {
     this.ibmenmms = ibmenmms;
+  }
+
+  /**
+   * Gets the ibmenmarkdown.
+   *
+   * The markdown content for notification.
+   *
+   * @return the ibmenmarkdown
+   */
+  public String getIbmenmarkdown() {
+    return this.ibmenmarkdown;
+  }
+
+  /**
+   * Sets the ibmenmarkdown.
+   *
+   * @param ibmenmarkdown the new ibmenmarkdown
+   */
+  public void setIbmenmarkdown(final String ibmenmarkdown) {
+    this.ibmenmarkdown = ibmenmarkdown;
   }
 
   /**
