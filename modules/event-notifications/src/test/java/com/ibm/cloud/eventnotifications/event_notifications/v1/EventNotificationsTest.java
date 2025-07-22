@@ -67,6 +67,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinat
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetMetricsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetPreDefinedTemplateOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetPredefinedTemplate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpAllowedIpsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpUserOptions;
@@ -84,6 +86,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Integration
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.IntegrationsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListDestinationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListIntegrationsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListPreDefinedTemplatesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpConfigurationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSmtpUsersOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListSourcesOptions;
@@ -96,6 +99,10 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Metrics;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PageHrefResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PreDefinedTemplatesPager;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PredefinedTemplate;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PredefinedTemplateConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.PredefinedTemplatesList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ReplaceTopicOptions;
@@ -1286,6 +1293,137 @@ public class EventNotificationsTest {
     assertEquals(allResults.size(), 2);
   }
   
+  // Test the listPreDefinedTemplates operation with a valid options model parameter
+  @Test
+  public void testListPreDefinedTemplatesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"total_count\": 10, \"offset\": 6, \"limit\": 5, \"templates\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"source\": \"source\", \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\"}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String listPreDefinedTemplatesPath = "/v1/instances/testString/pre_defined_templates";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the ListPreDefinedTemplatesOptions model
+    ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
+      .instanceId("testString")
+      .source("testString")
+      .type("testString")
+      .limit(Long.valueOf("10"))
+      .offset(Long.valueOf("0"))
+      .search("testString")
+      .build();
+
+    // Invoke listPreDefinedTemplates() with a valid options model and verify the result
+    Response<PredefinedTemplatesList> response = eventNotificationsService.listPreDefinedTemplates(listPreDefinedTemplatesOptionsModel).execute();
+    assertNotNull(response);
+    PredefinedTemplatesList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listPreDefinedTemplatesPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("source"), "testString");
+    assertEquals(query.get("type"), "testString");
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
+    assertEquals(query.get("search"), "testString");
+  }
+
+  // Test the listPreDefinedTemplates operation with and without retries enabled
+  @Test
+  public void testListPreDefinedTemplatesWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testListPreDefinedTemplatesWOptions();
+
+    eventNotificationsService.disableRetries();
+    testListPreDefinedTemplatesWOptions();
+  }
+
+  // Test the listPreDefinedTemplates operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListPreDefinedTemplatesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.listPreDefinedTemplates(null).execute();
+  }
+
+  // Test the listPreDefinedTemplates operation using the PreDefinedTemplatesPager.getNext() method
+  @Test
+  public void testListPreDefinedTemplatesWithPagerGetNext() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source\":\"source\",\"type\":\"type\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source\":\"source\",\"type\":\"type\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptions = new ListPreDefinedTemplatesOptions.Builder()
+      .instanceId("testString")
+      .source("testString")
+      .type("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    List<PredefinedTemplate> allResults = new ArrayList<>();
+    PreDefinedTemplatesPager pager = new PreDefinedTemplatesPager(eventNotificationsService, listPreDefinedTemplatesOptions);
+    while (pager.hasNext()) {
+      List<PredefinedTemplate> nextPage = pager.getNext();
+      assertNotNull(nextPage);
+      allResults.addAll(nextPage);
+    }
+    assertEquals(allResults.size(), 2);
+  }
+  
+  // Test the listPreDefinedTemplates operation using the PreDefinedTemplatesPager.getAll() method
+  @Test
+  public void testListPreDefinedTemplatesWithPagerGetAll() throws Throwable {
+    // Set up the two-page mock response.
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source\":\"source\",\"type\":\"type\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    String mockResponsePage2 = "{\"total_count\":2,\"templates\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"source\":\"source\",\"type\":\"type\",\"updated_at\":\"2019-01-01T12:00:00.000Z\"}],\"limit\":1}";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage1));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponsePage2));
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(400)
+      .setBody("{\"message\": \"No more results available!\"}"));
+
+    ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptions = new ListPreDefinedTemplatesOptions.Builder()
+      .instanceId("testString")
+      .source("testString")
+      .type("testString")
+      .limit(Long.valueOf("10"))
+      .search("testString")
+      .build();
+
+    PreDefinedTemplatesPager pager = new PreDefinedTemplatesPager(eventNotificationsService, listPreDefinedTemplatesOptions);
+    List<PredefinedTemplate> allResults = pager.getAll();
+    assertNotNull(allResults);
+    assertEquals(allResults.size(), 2);
+  }
+  
   // Test the getTemplate operation with a valid options model parameter
   @Test
   public void testGetTemplateWOptions() throws Throwable {
@@ -1449,6 +1587,58 @@ public class EventNotificationsTest {
   public void testDeleteTemplateNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.deleteTemplate(null).execute();
+  }
+
+  // Test the getPreDefinedTemplate operation with a valid options model parameter
+  @Test
+  public void testGetPreDefinedTemplateWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"source\": \"source\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"params\": {\"body\": \"body\"}}";
+    String getPreDefinedTemplatePath = "/v1/instances/testString/pre_defined_templates/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetPreDefinedTemplateOptions model
+    GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .build();
+
+    // Invoke getPreDefinedTemplate() with a valid options model and verify the result
+    Response<GetPredefinedTemplate> response = eventNotificationsService.getPreDefinedTemplate(getPreDefinedTemplateOptionsModel).execute();
+    assertNotNull(response);
+    GetPredefinedTemplate responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getPreDefinedTemplatePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getPreDefinedTemplate operation with and without retries enabled
+  @Test
+  public void testGetPreDefinedTemplateWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetPreDefinedTemplateWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetPreDefinedTemplateWOptions();
+  }
+
+  // Test the getPreDefinedTemplate operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetPreDefinedTemplateNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getPreDefinedTemplate(null).execute();
   }
 
   // Test the createDestination operation with a valid options model parameter

@@ -2579,6 +2579,40 @@ public class EventNotificationsExamples {
     }
 
     try {
+      // begin-list_predefined_templates
+      ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
+              .instanceId(instanceId)
+              .source("logs")
+              .type("slack.notification")
+              .build();
+
+      // Invoke getMetrics() with a valid options model and verify the result
+      Response<PredefinedTemplatesList> response = eventNotificationsService.listPreDefinedTemplates(listPreDefinedTemplatesOptionsModel).execute();
+      PredefinedTemplatesList responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-list_predefined_templates
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-get_predefined_templates
+      GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id("0cacb9a0-d43a-4042-920d-d4a3f7d4cbd5")
+              .build();
+
+      Response<GetPredefinedTemplate> response = eventNotificationsService.getPreDefinedTemplate(getPreDefinedTemplateOptionsModel).execute();
+      GetPredefinedTemplate responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-get_predefined_templates
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       // begin-delete_smtp_user
       DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
               .instanceId(instanceId)
