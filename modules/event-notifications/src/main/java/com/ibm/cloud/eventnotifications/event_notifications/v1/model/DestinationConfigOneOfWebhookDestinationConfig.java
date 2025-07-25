@@ -29,6 +29,10 @@ public class DestinationConfigOneOfWebhookDestinationConfig extends DestinationC
     String GET = "get";
     /** post. */
     String POST = "post";
+    /** put. */
+    String PUT = "put";
+    /** patch. */
+    String PATCH = "patch";
   }
 
 
