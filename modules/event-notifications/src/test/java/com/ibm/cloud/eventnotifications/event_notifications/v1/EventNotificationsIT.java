@@ -3984,6 +3984,52 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
+  public void test2JTestListPredefinedTemplates(){
+
+    try{
+      ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
+              .instanceId(instanceId)
+              .source("logs")
+              .type("slack.notification")
+              .build();
+
+      // Invoke getMetrics() with a valid options model and verify the result
+      Response<PredefinedTemplatesList> response = service.listPreDefinedTemplates(listPreDefinedTemplatesOptionsModel).execute();
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      PredefinedTemplatesList responseObj = response.getResult();
+      assertNotNull(responseObj);
+    }
+    catch(ServiceResponseException e){
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+
+  }
+
+  @Test
+  public void test2KTestGetPredefinedTemplate(){
+
+    try{
+      GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id("0cacb9a0-d43a-4042-920d-d4a3f7d4cbd5") //used from dev
+              .build();
+
+      Response<GetPredefinedTemplate> response = service.getPreDefinedTemplate(getPreDefinedTemplateOptionsModel).execute();
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      GetPredefinedTemplate responseObj = response.getResult();
+      assertNotNull(responseObj);
+    }
+    catch(ServiceResponseException e){
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+
+  }
+
+  @Test
   public void test2JDeleteSubscription() throws Exception {
     try {
 

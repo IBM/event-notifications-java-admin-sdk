@@ -137,6 +137,8 @@ SDK Methods to consume
   - [Get Template](#get-template)
   - [Update Template](#update-template)
   - [Delete Template](#delete-template)
+  - [List Predefined Templates](#list-predefined-templates)
+  - [Get Predefined Template](#get-predefined-template)
 - [Push Destination APIs](#push-destination-apis)
   - [Create Destination tag subscription](#create-destination-tag-subscription)
   - [List Destination tag subscription](#list-destination-tag-subscription)
@@ -620,6 +622,31 @@ ListTemplatesOptions listTemplatesOptions = new ListTemplatesOptions.Builder()
         .build();
 
 Response<TemplateList> response = eventNotificationsService.listTemplates(listTemplatesOptions).execute();
+```
+### List predefined Templates
+
+```java
+ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
+        .instanceId(<instanceId>)
+        .source(<source-type>)
+        .type(<destination-type>)
+        .limit(<limit>)
+        .offset(<offset>)
+        .search(<search>)
+        .build();
+
+// Invoke getMetrics() with a valid options model and verify the result
+Response<PredefinedTemplatesList> response = eventNotificationsService.listPreDefinedTemplates(listPreDefinedTemplatesOptionsModel).execute();
+```
+### Get predefined Template
+
+```java
+GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
+        .instanceId(instanceId)
+        .id(<template-id>)
+        .build();
+
+Response<GetPredefinedTemplate> response = eventNotificationsService.getPreDefinedTemplate(getPreDefinedTemplateOptionsModel).execute();
 ```
 
 ### Get Template
