@@ -124,6 +124,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String pagerdutyTemplateID = "";
   public static String eventStreamsTemplateBody = "";
   public static String eventStreamsTemplateID = "";
+  public static String codeEngineApplicationTemplateID = "";
+  public static String codeEngineJobTemplateID = "";
+  public static String codeEngineApplicationTemplateBody = "";
+  public static String codeEngineJobTemplateBody = "";
   public static String cosInstanceCRN = "";
   public static String cosIntegrationID = "";
   public static String codeEngineProjectCRN = "";
@@ -195,6 +199,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     schedulerSourceID = config.get("SCHEDULER_SOURCE_ID");
     pagerdutyTemplateBody = config.get("PAGERDUTY_TEMPLATE_BODY");
     eventStreamsTemplateBody = config.get("EVENT_STREAMS_TEMPLATE_BODY");
+    codeEngineApplicationTemplateBody = config.get("CODE_ENGINE_APP_TEMPLATE_BODY");
+    codeEngineJobTemplateBody = config.get("CODE_ENGINE_JOB_TEMPLATE_BODY");
     eventStreamsCRN = config.get("EVENT_STREAMS_CRN");
     eventStreamsEndPoint = config.get("EVENT_STREAMS_ENDPOINT");
     eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
@@ -1875,7 +1881,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       DestinationConfigOneOfCodeEngineDestinationConfig destinationConfigCEJobParamsModel = new DestinationConfigOneOfCodeEngineDestinationConfig.Builder()
               .type("job")
               .projectCrn(codeEngineProjectCRN)
-              .jobName("custom-job")
+              .jobName("job-test-harini")
               .build();
 
       DestinationConfig destinationCEJobConfigModel = new DestinationConfig.Builder()
@@ -2133,6 +2139,53 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(eventStreamsTemplateResult.getDescription(), description);
       assertEquals(eventStreamsTemplateResult.getName(), name);
       eventStreamsTemplateID= eventStreamsTemplateResult.getId();
+
+      TemplateConfigOneOfCodeEngineApplicationTemplateConfig ceAppTemplateConfig = new TemplateConfigOneOfCodeEngineApplicationTemplateConfig.Builder()
+              .body(codeEngineApplicationTemplateBody)
+              .build();
+
+      name = "code engine app template notification";
+      description = "code engine app template description";
+      CreateTemplateOptions ceAppOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("ibmceapp.notification")
+              .params(ceAppTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> ceAppTemplatenotificationResponse = service.createTemplate(ceAppOptions).execute();
+      assertNotNull(ceAppTemplatenotificationResponse);
+      assertEquals(ceAppTemplatenotificationResponse .getStatusCode(), 201);
+      TemplateResponse ceAppTemplateResult = ceAppTemplatenotificationResponse .getResult();
+
+      assertNotNull(ceAppTemplateResult);
+      assertEquals(ceAppTemplateResult.getDescription(), description);
+      assertEquals(ceAppTemplateResult.getName(), name);
+      codeEngineApplicationTemplateID = ceAppTemplateResult.getId();
+
+      TemplateConfigOneOfCodeEngineJobTemplateConfig ceJobTemplateConfig = new TemplateConfigOneOfCodeEngineJobTemplateConfig.Builder()
+              .body(codeEngineJobTemplateBody)
+              .build();
+
+      name = "code engine job template notification";
+      description = "code engine job template description";
+      CreateTemplateOptions ceJobOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("ibmcejob.notification")
+              .params(ceJobTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> ceJobTemplatenotificationResponse = service.createTemplate(ceJobOptions).execute();
+      assertNotNull(ceJobTemplatenotificationResponse);assertEquals(ceJobTemplatenotificationResponse.getStatusCode(), 201);
+      TemplateResponse ceJobTemplateResult = ceJobTemplatenotificationResponse .getResult();
+
+      assertNotNull(ceJobTemplateResult);
+      assertEquals(ceJobTemplateResult.getName(), name);
+      assertEquals(ceJobTemplateResult.getDescription(), description);
+      codeEngineJobTemplateID = ceJobTemplateResult.getId();
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2302,6 +2355,52 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(eventStreamsTemplateResult.getDescription(), description);
       assertEquals(eventStreamsTemplateResult.getName(), name);
       assertEquals(eventStreamsTemplateResult.getId(), eventStreamsTemplateID);
+
+      TemplateConfigOneOfCodeEngineApplicationTemplateConfig ceAppTemplateConfig = new TemplateConfigOneOfCodeEngineApplicationTemplateConfig.Builder()
+              .body(codeEngineApplicationTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateCeAppTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(codeEngineApplicationTemplateID)
+              .name(name)
+              .description(description)
+              .type("ibmceapp.notification")
+              .params(ceAppTemplateConfig)
+              .build();
+
+      Response<Template> ceAppTemplateResponse = service.replaceTemplate(updateCeAppTemplateOptions).execute();
+      assertNotNull(ceAppTemplateResponse);
+      assertEquals(ceAppTemplateResponse.getStatusCode(), 200);
+      Template ceAppTemplateResult = ceAppTemplateResponse.getResult();
+
+      assertNotNull(ceAppTemplateResult);
+      assertEquals(ceAppTemplateResult.getDescription(), description);
+      assertEquals(ceAppTemplateResult.getName(), name);
+      assertEquals(ceAppTemplateResult.getId(), codeEngineApplicationTemplateID);
+
+      TemplateConfigOneOfCodeEngineJobTemplateConfig ceJobTemplateConfig = new TemplateConfigOneOfCodeEngineJobTemplateConfig.Builder()
+              .body(codeEngineJobTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateCeJobTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(codeEngineJobTemplateID)
+              .name(name)
+              .description(description)
+              .type("ibmcejob.notification")
+              .params(ceJobTemplateConfig)
+              .build();
+
+      Response<Template> ceJobTemplateResponse = service.replaceTemplate(updateCeJobTemplateOptions).execute();
+      assertNotNull(ceJobTemplateResponse);
+      assertEquals(ceJobTemplateResponse.getStatusCode(), 200);
+      Template ceJobTemplateResult = ceJobTemplateResponse.getResult();
+
+      assertNotNull(ceJobTemplateResult);
+      assertEquals(ceJobTemplateResult.getDescription(), description);
+      assertEquals(ceJobTemplateResult.getName(), name);
+      assertEquals(ceJobTemplateResult.getId(), codeEngineJobTemplateID);
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2637,8 +2736,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId12 = fcmSubscriptionResult.getId();
 
-      SubscriptionCreateAttributesWebhookAttributes subscriptionCreateCEAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
-              .signingEnabled(true).build();
+      SubscriptionCreateAttributesCodeEngineAttributes subscriptionCreateCEAttributesModel = new SubscriptionCreateAttributesCodeEngineAttributes.Builder()
+              .templateIdNotification(codeEngineApplicationTemplateID).build();
+
       String ceName = "subscription_code_engine";
       String ceDescription = "Subscription for code engine";
 
@@ -2772,8 +2872,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId17 = customSMSSubscriptionResult.getId();
 
-      SubscriptionCreateAttributesWebhookAttributes subscriptionCreateCEJobAttributesModel = new SubscriptionCreateAttributesWebhookAttributes.Builder()
-              .signingEnabled(true).build();
+      SubscriptionCreateAttributesCodeEngineAttributes subscriptionCreateCEJobAttributesModel = new SubscriptionCreateAttributesCodeEngineAttributes.Builder()
+              .templateIdNotification(codeEngineJobTemplateID)
+              .build();
       ceName = "subscription_code_engine_job";
       ceDescription = "Subscription for code engine job";
 
@@ -3284,8 +3385,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(fcmSubscriptionResult.getDescription(), fcmDescription);
       assertEquals(fcmSubscriptionResult.getId(), subscriptionId12);
 
-      SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateCEAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
-              .signingEnabled(true)
+      SubscriptionUpdateAttributesCodeEngineAttributes subscriptionUpdateCEAppAttributesModel = new SubscriptionUpdateAttributesCodeEngineAttributes.Builder()
+              .templateIdNotification(codeEngineApplicationTemplateID)
               .build();
 
       String ceName = "CE_sub_updated";
@@ -3296,7 +3397,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .id(subscriptionId13)
               .name(ceName)
               .description(ceDescription)
-              .attributes(subscriptionUpdateCEAttributesModel)
+              .attributes(subscriptionUpdateCEAppAttributesModel)
               .build();
 
       // Invoke operation
@@ -3450,8 +3551,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(customSMSSubscriptionResult.getName(), customSMSName);
       assertEquals(customSMSSubscriptionResult.getId(), subscriptionId17);
 
-      SubscriptionUpdateAttributesWebhookAttributes subscriptionUpdateCEJobAttributesModel = new SubscriptionUpdateAttributesWebhookAttributes.Builder()
-              .signingEnabled(true)
+      SubscriptionUpdateAttributesCodeEngineAttributes subscriptionUpdateCEJobAttributesModel = new SubscriptionUpdateAttributesCodeEngineAttributes.Builder()
+              .templateIdNotification(codeEngineJobTemplateID)
               .build();
 
       ceName = "CE_job_sub_updated";
@@ -4318,6 +4419,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
      templates.add(webhookTemplateID);
      templates.add(pagerdutyTemplateID);
      templates.add(eventStreamsTemplateID);
+     templates.add(codeEngineApplicationTemplateID);
+     templates.add(codeEngineJobTemplateID);
 
       for (String template : templates) {
         DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()

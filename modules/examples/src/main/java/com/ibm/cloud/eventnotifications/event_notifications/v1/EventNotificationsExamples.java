@@ -121,6 +121,10 @@ public class EventNotificationsExamples {
   public static String eventStreamsCRN = "";
   public static String eventStreamsTopic = "";
   public static String eventStreamsEndPoint = "";
+  public static String codeEngineApplicationTemplateID = "";
+  public static String codeEngineJobTemplateID = "";
+  public static String codeEngineApplicationTemplateBody = "";
+  public static String codeEngineJobTemplateBody = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -177,6 +181,8 @@ public class EventNotificationsExamples {
     eventStreamsCRN = config.get("EVENT_STREAMS_CRN");
     eventStreamsEndPoint = config.get("EVENT_STREAMS_ENDPOINT");
     eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
+    codeEngineApplicationTemplateBody = config.get("CODE_ENGINE_APP_TEMPLATE_BODY");
+    codeEngineJobTemplateBody = config.get("CODE_ENGINE_JOB_TEMPLATE_BODY");
 
     try {
       System.out.println("createSources() result:");
@@ -1489,6 +1495,42 @@ public class EventNotificationsExamples {
       Response<TemplateResponse> eventStreamsTemplatenotificationResponse = eventNotificationsService.createTemplate(createEventStreamsTemplateNotificationOptions).execute();
       TemplateResponse eventStreamsTemplateResult = eventStreamsTemplatenotificationResponse .getResult();
       eventStreamsTemplateID = eventStreamsTemplateResult.getId();
+
+      TemplateConfigOneOfCodeEngineApplicationTemplateConfig ceAppTemplateConfig = new TemplateConfigOneOfCodeEngineApplicationTemplateConfig.Builder()
+              .body(codeEngineApplicationTemplateBody)
+              .build();
+
+      name = "code engine app template notification";
+      description = "code engine app template description";
+      CreateTemplateOptions ceAppOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("ibmceapp.notification")
+              .params(ceAppTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> ceAppTemplatenotificationResponse = eventNotificationsService.createTemplate(ceAppOptions).execute();
+      TemplateResponse ceAppTemplateResult = ceAppTemplatenotificationResponse .getResult();
+      codeEngineApplicationTemplateID = ceAppTemplateResult.getId();
+
+      TemplateConfigOneOfCodeEngineJobTemplateConfig ceJobTemplateConfig = new TemplateConfigOneOfCodeEngineJobTemplateConfig.Builder()
+              .body(codeEngineJobTemplateBody)
+              .build();
+
+      name = "code engine job template notification";
+      description = "code engine job template description";
+      CreateTemplateOptions ceJobOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("ibmcejob.notification")
+              .params(ceJobTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> ceJobTemplatenotificationResponse = eventNotificationsService.createTemplate(ceJobOptions).execute();
+      TemplateResponse ceJobTemplateResult = ceJobTemplatenotificationResponse .getResult();
+      codeEngineJobTemplateID = ceJobTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1927,6 +1969,40 @@ public class EventNotificationsExamples {
       Response<Template> eventStreamsTemplateResponse = eventNotificationsService.replaceTemplate(updateEventStreamsTemplateOptions).execute();
       Template eventStreamsTemplateResult = eventStreamsTemplateResponse.getResult();
       System.out.println(eventStreamsTemplateResult);
+
+      TemplateConfigOneOfCodeEngineApplicationTemplateConfig ceAppTemplateConfig = new TemplateConfigOneOfCodeEngineApplicationTemplateConfig.Builder()
+              .body(codeEngineApplicationTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateCeAppTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(codeEngineApplicationTemplateID)
+              .name(name)
+              .description(description)
+              .type("ibmceapp.notification")
+              .params(ceAppTemplateConfig)
+              .build();
+
+      Response<Template> ceAppTemplateResponse = eventNotificationsService.replaceTemplate(updateCeAppTemplateOptions).execute();
+      Template ceAppTemplateResult = ceAppTemplateResponse.getResult();
+      System.out.println(ceAppTemplateResult);
+
+      TemplateConfigOneOfCodeEngineJobTemplateConfig ceJobTemplateConfig = new TemplateConfigOneOfCodeEngineJobTemplateConfig.Builder()
+              .body(codeEngineJobTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateCeJobTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(codeEngineJobTemplateID)
+              .name(name)
+              .description(description)
+              .type("ibmcejob.notification")
+              .params(ceJobTemplateConfig)
+              .build();
+
+      Response<Template> ceJobTemplateResponse = eventNotificationsService.replaceTemplate(updateCeJobTemplateOptions).execute();
+      Template ceJobTemplateResult = ceJobTemplateResponse.getResult();
+      System.out.println(ceJobTemplateResult);
       // end-replace_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -2864,6 +2940,8 @@ public class EventNotificationsExamples {
       templates.add(slackTemplateID);
       templates.add(webhookTemplateID);
       templates.add(eventStreamsTemplateID);
+      templates.add(codeEngineApplicationTemplateID);
+      templates.add(codeEngineJobTemplateID);
 
       for (String template : templates) {
         // begin-delete_template

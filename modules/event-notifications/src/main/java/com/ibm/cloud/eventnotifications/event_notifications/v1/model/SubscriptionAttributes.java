@@ -32,6 +32,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SubscriptionAttributesSlackDirectMessageAttributesResponse
  * - SubscriptionAttributesServiceNowAttributesResponse
  * - SubscriptionAttributesEventStreamsAttributesResponse
+ * - SubscriptionAttributesCodeEngineAttributesResponse
  */
 public class SubscriptionAttributes extends DynamicModel<Object> {
 
