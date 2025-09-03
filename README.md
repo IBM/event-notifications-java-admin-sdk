@@ -611,6 +611,44 @@ Response<TemplateResponse> eventStreamsTemplateResponse = eventNotificationsServ
 
 For EventStreams template supported template type value: event_streams.notification
 
+#### Code Engine Application Template
+
+```java
+TemplateConfigOneOfCodeEngineApplicationTemplateConfig codeEngineApplicationTemplateConfig = new TemplateConfigOneOfCodeEngineApplicationTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+CreateTemplateOptions ceAppTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(codeEngineApplicationTemplateConfig)
+        .build();
+
+Response<TemplateResponse> ceAppTemplateResponse = eventNotificationsService.createTemplate(ceAppTemplateNotificationOptions).execute();
+```
+
+#### Code Engine Job Template
+
+```java
+TemplateConfigOneOfCodeEngineJobTemplateConfig codeEngineJobTemplateConfig = new TemplateConfigOneOfCodeEngineJobTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+CreateTemplateOptions ceJobTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(codeEngineJobTemplateConfig)
+        .build();
+
+Response<TemplateResponse> ceAppTemplateResponse = eventNotificationsService.createTemplate(ceJobTemplateNotificationOptions).execute();
+```
+
+For Code Engine template supported template type values: ibmenapp.notification and ibmenjob.notification
+
 ### List Templates
 
 ```java
@@ -767,6 +805,46 @@ Response<Template> eventStreamsTemplateResponse = service.replaceTemplate(update
 ```
 
 For EventStreams supported template type values: event_streams.notification
+
+#### Code Engine Application Template
+
+```java
+TemplateConfigOneOfCodeEngineApplicationTemplateConfig codeEngineApplicationTemplateConfig = new TemplateConfigOneOfCodeEngineApplicationTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+ReplaceTemplateOptions ceAppTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<codeEngineApplicationTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(codeEngineApplicationTemplateConfig)
+        .build();
+
+Response<Template> ceAppTemplateResponse = eventNotificationsService.replaceTemplate(ceAppTemplateNotificationOptions).execute();
+```
+
+#### Code Engine Job Template
+
+```java
+TemplateConfigOneOfCodeEngineJobTemplateConfig codeEngineJobTemplateConfig = new TemplateConfigOneOfCodeEngineJobTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+ReplaceTemplateOptions ceJobTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<codeEngineJobTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(codeEngineJobTemplateConfig)
+        .build();
+
+Response<Template> ceAppTemplateResponse = eventNotificationsService.replaceTemplate(ceJobTemplateNotificationOptions).execute();
+```
+
+For Code Engine template supported template type values: ibmenapp.notification and ibmenjob.notification
 
 ### Delete Template
 
@@ -1341,6 +1419,8 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_EVENT_STREAMS_CRN` - Event Streams instance CRN
 - `EVENT_NOTIFICATIONS_EVENT_STREAMS_TOPIC` - Event Streams instance Topic name
 - `EVENT_NOTIFICATIONS_EVENT_STREAMS_ENDPOINT` - Event streams end point
+- `EVENT_NOTIFICATIONS_CODE_ENGINE_APP_TEMPLATE_BODY` - base 64 encoded json body for Code Engine Application
+- `EVENT_NOTIFICATIONS_CODE_ENGINE_JOB_TEMPLATE_BODY` - base 64 encoded json body for Code Engine Job
 
 ## Questions
 

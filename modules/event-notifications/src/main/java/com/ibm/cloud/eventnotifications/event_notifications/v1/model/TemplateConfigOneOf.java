@@ -23,6 +23,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - TemplateConfigOneOfWebhookTemplateConfig
  * - TemplateConfigOneOfPagerdutyTemplateConfig
  * - TemplateConfigOneOfEventStreamsTemplateConfig
+ * - TemplateConfigOneOfCodeEngineApplicationTemplateConfig
+ * - TemplateConfigOneOfCodeEngineJobTemplateConfig
  */
 public class TemplateConfigOneOf extends GenericModel {
 
