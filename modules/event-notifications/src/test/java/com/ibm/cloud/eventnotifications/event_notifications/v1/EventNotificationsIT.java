@@ -2475,7 +2475,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId = subscriptionResult.getId();
 
-
       ArrayList<String> toNumber = new ArrayList<String>();
       toNumber.add("+12064563059");
       toNumber.add("+12267054625");
@@ -4053,7 +4052,37 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2ITestMetrics(){
+  public void test2ITestWebhookDestination() {
+    try {
+
+      TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId)
+              .build();
+
+      Response<TestDestinationResponse> response = service.testDestination(testDestinationOptionsModel).execute();
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 202);
+
+      String notificationId = response.getResult().getNotificationId();
+
+      GetNotificationsStatusOptions testWebhookDestinationOptionsModel = new GetNotificationsStatusOptions.Builder()
+              .instanceId(instanceId)
+              .id(notificationId)
+              .build();
+
+      Response<GetNotificationStatusResponse> statusResponse = service.getNotificationsStatus(testWebhookDestinationOptionsModel).execute();
+      assertNotNull(statusResponse);
+      assertEquals(statusResponse.getStatusCode(), 200);
+    }
+    catch(ServiceResponseException e){
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test
+  public void test2JTestMetrics(){
 
     try{
       Instant instant = Instant.now();
@@ -4085,7 +4114,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2JTestListPredefinedTemplates(){
+  public void test2KTestListPredefinedTemplates(){
 
     try{
       ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
@@ -4109,7 +4138,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2KTestGetPredefinedTemplate(){
+  public void test2LTestGetPredefinedTemplate(){
 
     try{
       GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
@@ -4131,7 +4160,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2JDeleteSubscription() throws Exception {
+  public void test2MDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -4186,7 +4215,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2KDeleteTopic() throws Exception {
+  public void test2NDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -4225,7 +4254,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2LDeleteDestination() throws Exception {
+  public void test2ODeleteDestination() throws Exception {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
@@ -4277,7 +4306,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2MDeleteSource() throws Exception {
+  public void test2PDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -4307,7 +4336,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2NCreateIntegration() throws Exception {
+  public void test2QCreateIntegration() throws Exception {
     try {
       IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -4335,7 +4364,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2OListIntegrations() throws Exception {
+  public void test2RListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -4362,7 +4391,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2PGetIntegration() throws Exception {
+  public void test2SGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -4382,7 +4411,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2QUpdateIntegration() throws Exception {
+  public void test2TUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -4410,7 +4439,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2RDeleteTemplate() throws Exception {
+  public void test2UDeleteTemplate() throws Exception {
     try {
      List<String> templates = new ArrayList<>();
      templates.add(templateInvitationID);
@@ -4440,7 +4469,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2SDeleteSMTPUser() throws Exception {
+  public void test2VDeleteSMTPUser() throws Exception {
     try {
       List<String> users = new ArrayList<>();
       users.add(smtpUserID);
@@ -4462,7 +4491,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2TDeleteSMTPConfiguration() throws Exception {
+  public void test2WDeleteSMTPConfiguration() throws Exception {
     try {
       List<String> smtpConfigIDs = new ArrayList<>();
       smtpConfigIDs.add(smtpConfigID);

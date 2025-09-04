@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TestDestinationResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TestDestinationResponseWebhookDestinationTestResponseConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,16 +23,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the TestDestinationResponse model.
+ * Unit test class for the TestDestinationResponseWebhookDestinationTestResponseConfig model.
  */
-public class TestDestinationResponseTest {
+public class TestDestinationResponseWebhookDestinationTestResponseConfigTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
-  // TODO: Add tests for models that are abstract
   @Test
-  public void testTestDestinationResponse() throws Throwable {
-    TestDestinationResponse testDestinationResponseModel = new TestDestinationResponse();
-    assertNotNull(testDestinationResponseModel);
+  public void testTestDestinationResponseWebhookDestinationTestResponseConfig() throws Throwable {
+    TestDestinationResponseWebhookDestinationTestResponseConfig testDestinationResponseWebhookDestinationTestResponseConfigModel = new TestDestinationResponseWebhookDestinationTestResponseConfig();
+    assertNull(testDestinationResponseWebhookDestinationTestResponseConfigModel.getStatus());
+    assertNull(testDestinationResponseWebhookDestinationTestResponseConfigModel.getNotificationId());
+    assertNull(testDestinationResponseWebhookDestinationTestResponseConfigModel.getDestinationType());
   }
 }
