@@ -45,6 +45,8 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinat
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetMetricsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetNotificationStatusResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetNotificationsStatusOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetPreDefinedTemplateOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetPredefinedTemplate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetSmtpAllowedIpsOptions;
@@ -607,41 +609,6 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * List all predefined templates.
-   *
-   * List all predefined templates.
-   *
-   * @param listPreDefinedTemplatesOptions the {@link ListPreDefinedTemplatesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link PredefinedTemplatesList}
-   */
-  public ServiceCall<PredefinedTemplatesList> listPreDefinedTemplates(ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(listPreDefinedTemplatesOptions,
-      "listPreDefinedTemplatesOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("instance_id", listPreDefinedTemplatesOptions.instanceId());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/pre_defined_templates", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listPreDefinedTemplates");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("source", String.valueOf(listPreDefinedTemplatesOptions.source()));
-    builder.query("type", String.valueOf(listPreDefinedTemplatesOptions.type()));
-    if (listPreDefinedTemplatesOptions.limit() != null) {
-      builder.query("limit", String.valueOf(listPreDefinedTemplatesOptions.limit()));
-    }
-    if (listPreDefinedTemplatesOptions.offset() != null) {
-      builder.query("offset", String.valueOf(listPreDefinedTemplatesOptions.offset()));
-    }
-    if (listPreDefinedTemplatesOptions.search() != null) {
-      builder.query("search", String.valueOf(listPreDefinedTemplatesOptions.search()));
-    }
-    ResponseConverter<PredefinedTemplatesList> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<PredefinedTemplatesList>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Get details of a Template.
    *
    * Get details of a Template.
@@ -725,6 +692,41 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List all predefined templates.
+   *
+   * List all predefined templates.
+   *
+   * @param listPreDefinedTemplatesOptions the {@link ListPreDefinedTemplatesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link PredefinedTemplatesList}
+   */
+  public ServiceCall<PredefinedTemplatesList> listPreDefinedTemplates(ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(listPreDefinedTemplatesOptions,
+      "listPreDefinedTemplatesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", listPreDefinedTemplatesOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/pre_defined_templates", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "listPreDefinedTemplates");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("source", String.valueOf(listPreDefinedTemplatesOptions.source()));
+    builder.query("type", String.valueOf(listPreDefinedTemplatesOptions.type()));
+    if (listPreDefinedTemplatesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(listPreDefinedTemplatesOptions.limit()));
+    }
+    if (listPreDefinedTemplatesOptions.offset() != null) {
+      builder.query("offset", String.valueOf(listPreDefinedTemplatesOptions.offset()));
+    }
+    if (listPreDefinedTemplatesOptions.search() != null) {
+      builder.query("search", String.valueOf(listPreDefinedTemplatesOptions.search()));
+    }
+    ResponseConverter<PredefinedTemplatesList> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<PredefinedTemplatesList>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1752,6 +1754,31 @@ public class EventNotifications extends BaseService {
     builder.query("type", String.valueOf(updateVerifySmtpOptions.type()));
     ResponseConverter<SMTPVerificationUpdateResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPVerificationUpdateResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get notification status.
+   *
+   * Get notification status.
+   *
+   * @param getNotificationsStatusOptions the {@link GetNotificationsStatusOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link GetNotificationStatusResponse}
+   */
+  public ServiceCall<GetNotificationStatusResponse> getNotificationsStatus(GetNotificationsStatusOptions getNotificationsStatusOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getNotificationsStatusOptions,
+      "getNotificationsStatusOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getNotificationsStatusOptions.instanceId());
+    pathParamsMap.put("id", getNotificationsStatusOptions.id());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/notifications/{id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getNotificationsStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<GetNotificationStatusResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<GetNotificationStatusResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

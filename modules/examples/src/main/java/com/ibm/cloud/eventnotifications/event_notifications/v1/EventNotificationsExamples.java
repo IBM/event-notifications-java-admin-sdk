@@ -2655,6 +2655,30 @@ public class EventNotificationsExamples {
     }
 
     try {
+      // begin-test_webhook_destination
+      TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId)
+              .build();
+
+      Response<TestDestinationResponse> response = eventNotificationsService.testDestination(testDestinationOptionsModel).execute();
+      String notificationId = response.getResult().getNotificationId();
+
+      GetNotificationsStatusOptions testWebhookDestinationOptionsModel = new GetNotificationsStatusOptions.Builder()
+              .instanceId(instanceId)
+              .id(notificationId)
+              .build();
+
+      Response<GetNotificationStatusResponse> statusResponse = eventNotificationsService.getNotificationsStatus(testWebhookDestinationOptionsModel).execute();
+      GetNotificationStatusResponse getNotificationsStatusResponse = statusResponse.getResult();
+      System.out.println(getNotificationsStatusResponse);
+      // end-test_webhook_destination
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       // begin-list_predefined_templates
       ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
               .instanceId(instanceId)

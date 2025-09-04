@@ -12,26 +12,73 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Destination test object.
+ * TestDestinationResponse.
+ *
+ * Classes which extend this class:
+ * - TestDestinationResponseWebhookDestinationTestResponseConfig
+ * - TestDestinationResponseDestinationTestResponseConfig
  */
 public class TestDestinationResponse extends GenericModel {
 
+  /**
+   * Test destination status.
+   */
+  public interface Status {
+    /** accepted. */
+    String ACCEPTED = "accepted";
+  }
+
+  /**
+   * Type of destination.
+   */
+  public interface DestinationType {
+    /** webhook. */
+    String WEBHOOK = "webhook";
+  }
+
   protected String status;
+  @SerializedName("notification_id")
+  protected String notificationId;
+  @SerializedName("destination_type")
+  protected String destinationType;
 
   protected TestDestinationResponse() { }
 
   /**
    * Gets the status.
    *
-   * test destiantion status.
+   * Test destination status.
    *
    * @return the status
    */
   public String getStatus() {
     return status;
+  }
+
+  /**
+   * Gets the notificationId.
+   *
+   * Test notification ID.
+   *
+   * @return the notificationId
+   */
+  public String getNotificationId() {
+    return notificationId;
+  }
+
+  /**
+   * Gets the destinationType.
+   *
+   * Type of destination.
+   *
+   * @return the destinationType
+   */
+  public String getDestinationType() {
+    return destinationType;
   }
 }
 
