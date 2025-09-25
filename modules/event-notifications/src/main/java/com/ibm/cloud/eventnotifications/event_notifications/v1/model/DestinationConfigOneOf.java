@@ -38,6 +38,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - DestinationConfigOneOfIBMCloudObjectStorageDestinationConfig
  * - DestinationConfigOneOfHuaweiDestinationConfig
  * - DestinationConfigOneOfEventStreamsDestinationConfig
+ * - DestinationConfigOneOfAppConfigurationDestinationConfig
  */
 public class DestinationConfigOneOf extends GenericModel {
 
@@ -131,6 +132,10 @@ public class DestinationConfigOneOf extends GenericModel {
   protected String endpoint;
   protected String crn;
   protected String topic;
+  @SerializedName("environment_id")
+  protected String environmentId;
+  @SerializedName("feature_id")
+  protected String featureId;
 
   protected DestinationConfigOneOf() { }
 
@@ -565,6 +570,28 @@ public class DestinationConfigOneOf extends GenericModel {
    */
   public String topic() {
     return topic;
+  }
+
+  /**
+   * Gets the environmentId.
+   *
+   * Environment ID of App Configuration.
+   *
+   * @return the environmentId
+   */
+  public String environmentId() {
+    return environmentId;
+  }
+
+  /**
+   * Gets the featureId.
+   *
+   * Feature ID of App Configuration.
+   *
+   * @return the featureId
+   */
+  public String featureId() {
+    return featureId;
   }
 }
 

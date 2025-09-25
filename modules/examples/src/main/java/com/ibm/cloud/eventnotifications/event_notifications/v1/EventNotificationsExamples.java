@@ -69,6 +69,7 @@ public class EventNotificationsExamples {
   public static String destinationId18 = "";
   public static String destinationId19 = "";
   public static String destinationId20 = "";
+  public static String destinationId22 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -81,6 +82,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId8 = "";
   public static String subscriptionId9 = "";
   public static String subscriptionId10 = "";
+  public static String subscriptionId22 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -125,6 +127,9 @@ public class EventNotificationsExamples {
   public static String codeEngineJobTemplateID = "";
   public static String codeEngineApplicationTemplateBody = "";
   public static String codeEngineJobTemplateBody = "";
+  public static String appConfigCRN  = "";
+  public static String appConfigTemplateBody = "";
+  public static String appConfigTemplateID = "";
 
   static String getConfigFilename() {
     return "./event_notifications_v1.env";
@@ -839,6 +844,36 @@ public class EventNotificationsExamples {
       Response<DestinationResponse> eventStreamsResponse = eventNotificationsService.createDestination(createEventStreamsDestinationOptions).execute();
       DestinationResponse eventStreamsDestinationResponseResult = eventStreamsResponse.getResult();
       destinationId20 = eventStreamsDestinationResponseResult.getId();
+
+      DestinationConfigOneOfAppConfigurationDestinationConfig appConfigDestinationConfig = new DestinationConfigOneOfAppConfigurationDestinationConfig.Builder()
+              .crn(appConfigCRN)
+              .type(DestinationConfigOneOfAppConfigurationDestinationConfig.Type.FEATURES)
+              .environmentId("dev")
+              .featureId("flag_test")
+              .build();
+
+      DestinationConfig destinationAppConfigConfigModel = new DestinationConfig.Builder()
+              .params(appConfigDestinationConfig)
+              .build();
+
+      String appConfigName = "App Config destination";
+      String appConfigTypeVal = CreateDestinationOptions.Type.APP_CONFIGURATION;
+      String appConfigDescription = "App Config Destination description";
+
+      CreateDestinationOptions createAppConfigDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(appConfigName)
+              .type(appConfigTypeVal)
+              .description(appConfigDescription)
+              .config(destinationAppConfigConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> appConfigResponse = eventNotificationsService.createDestination(createAppConfigDestinationOptions).execute();
+      // Validate response
+
+      DestinationResponse appConfigDestinationResponseResult = appConfigResponse.getResult();
+      destinationId22 = appConfigDestinationResponseResult.getId();
       // end-create_destination
 
     } catch (ServiceResponseException e) {
@@ -1383,6 +1418,32 @@ public class EventNotificationsExamples {
       Destination eventStreamsDestinationResponseResult = eventstreamsResponse.getResult();
       System.out.println(eventStreamsDestinationResponseResult);
 
+      DestinationConfigOneOfAppConfigurationDestinationConfig appConfigDestinationConfig = new DestinationConfigOneOfAppConfigurationDestinationConfig.Builder()
+              .crn(appConfigCRN)
+              .type(DestinationConfigOneOfAppConfigurationDestinationConfig.Type.FEATURES)
+              .environmentId("dev")
+              .featureId("flag_test")
+              .build();
+
+      DestinationConfig destinationAppConfigConfigModel = new DestinationConfig.Builder()
+              .params(appConfigDestinationConfig)
+              .build();
+
+      String appConfigName = "App Config destination";
+      String appConfigDescription = "App Config Destination description";
+
+      UpdateDestinationOptions updateAppConfigDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId22)
+              .name(appConfigName)
+              .description(appConfigDescription)
+              .config(destinationAppConfigConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> appConfigsResponse = eventNotificationsService.updateDestination(updateAppConfigDestinationOptions).execute();
+      Destination appConfigDestinationResponseResult = appConfigsResponse.getResult();
+      System.out.println(appConfigDestinationResponseResult);
       // end-update_destination
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1531,6 +1592,24 @@ public class EventNotificationsExamples {
       Response<TemplateResponse> ceJobTemplatenotificationResponse = eventNotificationsService.createTemplate(ceJobOptions).execute();
       TemplateResponse ceJobTemplateResult = ceJobTemplatenotificationResponse .getResult();
       codeEngineJobTemplateID = ceJobTemplateResult.getId();
+
+      TemplateConfigOneOfAppConfigurationTemplateConfig appConfigTemplateConfig = new TemplateConfigOneOfAppConfigurationTemplateConfig.Builder()
+              .body(appConfigTemplateBody)
+              .build();
+
+      name = "app config template";
+      description = "app config template description";
+      CreateTemplateOptions appConfigOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("app_configuration.notification")
+              .params(appConfigTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> appconfigTemplatenotificationResponse = eventNotificationsService.createTemplate(appConfigOptions).execute();
+      TemplateResponse appConfigTemplateResult = appconfigTemplatenotificationResponse .getResult();
+      appConfigTemplateID = appConfigTemplateResult.getId();
       // end-create_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -1791,6 +1870,23 @@ public class EventNotificationsExamples {
       Response<Subscription> eventStreamsResponse = eventNotificationsService.createSubscription(createEventStreamsSubscription).execute();
       Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
       subscriptionId10 = eventStreamsSubscriptionResult.getId();
+
+      SubscriptionCreateAttributesAppConfigurationAttributes appConfigCreateAttributes = new SubscriptionCreateAttributesAppConfigurationAttributes.Builder()
+              .featureFlagEnabled(true)
+              .build();
+
+      CreateSubscriptionOptions createAppConfigSubscriptionParams = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name("App Config Subscription")
+              .destinationId(destinationId22)
+              .topicId(topicId)
+              .description("Subscription for App Config")
+              .attributes(appConfigCreateAttributes)
+              .build();
+
+      Response<Subscription> appconfigResponse = eventNotificationsService.createSubscription(createAppConfigSubscriptionParams).execute();
+      Subscription appConfigSubscriptionResult = appconfigResponse.getResult();
+      subscriptionId22 = appConfigSubscriptionResult.getId();
       // end-create_subscription
 
     } catch (ServiceResponseException e) {
@@ -2003,6 +2099,23 @@ public class EventNotificationsExamples {
       Response<Template> ceJobTemplateResponse = eventNotificationsService.replaceTemplate(updateCeJobTemplateOptions).execute();
       Template ceJobTemplateResult = ceJobTemplateResponse.getResult();
       System.out.println(ceJobTemplateResult);
+
+      TemplateConfigOneOfAppConfigurationTemplateConfig appConfigTemplateConfig = new TemplateConfigOneOfAppConfigurationTemplateConfig.Builder()
+              .body(appConfigTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateAppConfigTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(appConfigTemplateID)
+              .name(name)
+              .description(description)
+              .type("app_configuration.notification")
+              .params(appConfigTemplateConfig)
+              .build();
+
+      Response<Template> appConfigTemplateResponse = eventNotificationsService.replaceTemplate(updateAppConfigTemplateOptions).execute();
+      Template appConfigTemplateResult = appConfigTemplateResponse.getResult();
+      System.out.println(appConfigTemplateResult);
       // end-replace_template
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -2323,8 +2436,26 @@ public class EventNotificationsExamples {
       // Invoke operation
       Response<Subscription> eventStreamsResponse = eventNotificationsService.updateSubscription(updateEventStreamsSubscriptionOptions).execute();
       Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
-     System.out.println(eventStreamsSubscriptionResult);
+      System.out.println(eventStreamsSubscriptionResult);
 
+      SubscriptionUpdateAttributesAppConfigurationAttributes appConfigUpdateAttributes = new SubscriptionUpdateAttributesAppConfigurationAttributes.Builder()
+              .templateIdNotification(appConfigTemplateID)
+              .build();
+
+      String appConfigName = "App Config subscription name update";
+      String appConfigDescription = "App Config subscription description update";
+
+      UpdateSubscriptionOptions updateAppConfigSubscriptionParams = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId22)
+              .name(appConfigName)
+              .description(appConfigDescription)
+              .attributes(appConfigUpdateAttributes)
+              .build();
+
+      Response<Subscription> appconfigResponse = eventNotificationsService.updateSubscription(updateAppConfigSubscriptionParams).execute();
+      Subscription appConfigSubscriptionResult = appconfigResponse.getResult();
+      System.out.println(appConfigSubscriptionResult);
       // end-update_subscription
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
@@ -2765,6 +2896,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId8);
       subscriptions.add(subscriptionId9);
       subscriptions.add(subscriptionId10);
+      subscriptions.add(subscriptionId22);
 
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
@@ -2826,6 +2958,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId18);
       destinations.add(destinationId19);
       destinations.add(destinationId20);
+      destinations.add(destinationId22);
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
                 .instanceId(instanceId)
@@ -2966,6 +3099,7 @@ public class EventNotificationsExamples {
       templates.add(eventStreamsTemplateID);
       templates.add(codeEngineApplicationTemplateID);
       templates.add(codeEngineJobTemplateID);
+      templates.add(appConfigTemplateID);
 
       for (String template : templates) {
         // begin-delete_template

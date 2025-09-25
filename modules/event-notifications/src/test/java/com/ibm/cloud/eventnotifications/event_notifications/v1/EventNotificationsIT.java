@@ -71,6 +71,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId18 = "";
   public static String destinationId19 = "";
   public static String destinationId21 = "";
+  public static String destinationId22 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -92,6 +93,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId19 = "";
   public static String subscriptionId20 = "";
   public static String subscriptionId21 = "";
+  public static String subscriptionId22 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -140,8 +142,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String eventStreamsCRN = "";
   public static String eventStreamsTopic = "";
   public static String eventStreamsEndPoint = "";
-
-
+  public static String appConfigCRN  = "";
+  public static String appConfigTemplateBody = "";
+  public static String appConfigTemplateID = "";
 
   /**
    * This method provides our config filename to the base class.
@@ -204,6 +207,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     eventStreamsCRN = config.get("EVENT_STREAMS_CRN");
     eventStreamsEndPoint = config.get("EVENT_STREAMS_ENDPOINT");
     eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
+    appConfigCRN = config.get("APP_CONFIG_CRN");
+    appConfigTemplateBody = config.get("APP_CONFIG_TEMPLATE_BODY");
 
     service.enableRetries(4, 30);
 
@@ -1264,6 +1269,44 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(eventStreamsDestinationResponseResult.getType(), eventStreamsTypeVal);
 
       destinationId21 = eventStreamsDestinationResponseResult.getId();
+
+      DestinationConfigOneOfAppConfigurationDestinationConfig appConfigDestinationConfig = new DestinationConfigOneOfAppConfigurationDestinationConfig.Builder()
+              .crn(appConfigCRN)
+              .type(DestinationConfigOneOfAppConfigurationDestinationConfig.Type.FEATURES)
+              .environmentId("dev")
+              .featureId("flag_test")
+              .build();
+
+      DestinationConfig destinationAppConfigConfigModel = new DestinationConfig.Builder()
+              .params(appConfigDestinationConfig)
+              .build();
+
+      String appConfigName = "App Config destination";
+      String appConfigTypeVal = CreateDestinationOptions.Type.APP_CONFIGURATION;
+      String appConfigDescription = "App Config Destination description";
+
+      CreateDestinationOptions createAppConfigDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(appConfigName)
+              .type(appConfigTypeVal)
+              .description(appConfigDescription)
+              .config(destinationAppConfigConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> appConfigResponse = service.createDestination(createAppConfigDestinationOptions).execute();
+      // Validate response
+      assertNotNull(appConfigResponse);
+      assertEquals(appConfigResponse.getStatusCode(), 201);
+
+      DestinationResponse appConfigDestinationResponseResult = appConfigResponse.getResult();
+
+      assertNotNull(appConfigDestinationResponseResult);
+      assertEquals(appConfigDestinationResponseResult.getDescription(), appConfigDescription);
+      assertEquals(appConfigDestinationResponseResult.getName(), appConfigName);
+      assertEquals(appConfigDestinationResponseResult.getType(), appConfigTypeVal);
+
+      destinationId22 = appConfigDestinationResponseResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -1979,6 +2022,40 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(eventStreamsDestinationResponseResult);
       assertEquals(eventStreamsDestinationResponseResult.getDescription(), eventStreamsDescription);
       assertEquals(eventStreamsDestinationResponseResult.getName(), eventStreamsName);
+
+      DestinationConfigOneOfAppConfigurationDestinationConfig appConfigDestinationConfig = new DestinationConfigOneOfAppConfigurationDestinationConfig.Builder()
+              .crn(appConfigCRN)
+              .type(DestinationConfigOneOfAppConfigurationDestinationConfig.Type.FEATURES)
+              .environmentId("dev")
+              .featureId("flag_test")
+              .build();
+
+      DestinationConfig destinationAppConfigConfigModel = new DestinationConfig.Builder()
+              .params(appConfigDestinationConfig)
+              .build();
+
+      String appConfigName = "App Config destination";
+      String appConfigDescription = "App Config Destination description";
+
+      UpdateDestinationOptions updateAppConfigDestinationOptions = new UpdateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId22)
+              .name(appConfigName)
+              .description(appConfigDescription)
+              .config(destinationAppConfigConfigModel)
+              .build();
+
+      // Invoke operation
+      Response<Destination> appConfigsResponse = service.updateDestination(updateAppConfigDestinationOptions).execute();
+      // Validate response
+      assertNotNull(appConfigsResponse);
+      assertEquals(appConfigsResponse.getStatusCode(), 200);
+
+      Destination appConfigDestinationResponseResult = appConfigsResponse.getResult();
+
+      assertNotNull(appConfigDestinationResponseResult);
+      assertEquals(appConfigDestinationResponseResult.getDescription(), appConfigDescription);
+      assertEquals(appConfigDestinationResponseResult.getName(), appConfigName);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -2186,6 +2263,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(ceJobTemplateResult.getName(), name);
       assertEquals(ceJobTemplateResult.getDescription(), description);
       codeEngineJobTemplateID = ceJobTemplateResult.getId();
+
+      TemplateConfigOneOfAppConfigurationTemplateConfig appConfigTemplateConfig = new TemplateConfigOneOfAppConfigurationTemplateConfig.Builder()
+              .body(appConfigTemplateBody)
+              .build();
+
+      name = "app config template";
+      description = "app config template description";
+      CreateTemplateOptions appConfigOptions = new CreateTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .name(name)
+              .description(description)
+              .type("app_configuration.notification")
+              .params(appConfigTemplateConfig)
+              .build();
+
+      Response<TemplateResponse> appconfigTemplatenotificationResponse = service.createTemplate(appConfigOptions).execute();
+      assertNotNull(appconfigTemplatenotificationResponse);assertEquals(appconfigTemplatenotificationResponse.getStatusCode(), 201);
+      TemplateResponse appConfigTemplateResult = appconfigTemplatenotificationResponse .getResult();
+
+      assertNotNull(appConfigTemplateResult);
+      assertEquals(appConfigTemplateResult.getName(), name);
+      assertEquals(appConfigTemplateResult.getDescription(), description);
+      appConfigTemplateID = appConfigTemplateResult.getId();
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2401,6 +2501,29 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(ceJobTemplateResult.getDescription(), description);
       assertEquals(ceJobTemplateResult.getName(), name);
       assertEquals(ceJobTemplateResult.getId(), codeEngineJobTemplateID);
+
+      TemplateConfigOneOfAppConfigurationTemplateConfig appConfigTemplateConfig = new TemplateConfigOneOfAppConfigurationTemplateConfig.Builder()
+              .body(appConfigTemplateBody)
+              .build();
+
+      ReplaceTemplateOptions updateAppConfigTemplateOptions = new ReplaceTemplateOptions.Builder()
+              .instanceId(instanceId)
+              .id(appConfigTemplateID)
+              .name(name)
+              .description(description)
+              .type("app_configuration.notification")
+              .params(appConfigTemplateConfig)
+              .build();
+
+      Response<Template> appConfigTemplateResponse = service.replaceTemplate(updateAppConfigTemplateOptions).execute();
+      assertNotNull(appConfigTemplateResponse);
+      assertEquals(appConfigTemplateResponse.getStatusCode(), 200);
+      Template appConfigTemplateResult = appConfigTemplateResponse.getResult();
+
+      assertNotNull(appConfigTemplateResult);
+      assertEquals(appConfigTemplateResult.getDescription(), description);
+      assertEquals(appConfigTemplateResult.getName(), name);
+      assertEquals(appConfigTemplateResult.getId(), appConfigTemplateID);
     } catch (ServiceResponseException e) {
       fail(String.format("Service returned status code %d: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2972,6 +3095,27 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Subscription eventStreamsSubscriptionResult = eventStreamsResponse.getResult();
       assertNotNull(eventStreamsSubscriptionResult);
       subscriptionId21 = eventStreamsSubscriptionResult.getId();
+
+      SubscriptionCreateAttributesAppConfigurationAttributes appConfigCreateAttributes = new SubscriptionCreateAttributesAppConfigurationAttributes.Builder()
+              .featureFlagEnabled(true)
+              .build();
+
+      CreateSubscriptionOptions createAppConfigSubscriptionParams = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name("App Config Subscription")
+              .destinationId(destinationId22)
+              .topicId(topicId)
+              .description("Subscription for App Config")
+              .attributes(appConfigCreateAttributes)
+              .build();
+
+      Response<Subscription> appconfigResponse = service.createSubscription(createAppConfigSubscriptionParams).execute();
+
+      assertNotNull(appconfigResponse);
+      assertEquals(appconfigResponse.getStatusCode(), 201);
+      Subscription appConfigSubscriptionResult = appconfigResponse.getResult();
+      assertNotNull(appConfigSubscriptionResult);
+      subscriptionId22 = appConfigSubscriptionResult.getId();
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -3659,6 +3803,30 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(eventStreamsSubscriptionResult.getName(), eventStreamsName);
       assertEquals(eventStreamsSubscriptionResult.getId(), subscriptionId21);
 
+      SubscriptionUpdateAttributesAppConfigurationAttributes appConfigUpdateAttributes = new SubscriptionUpdateAttributesAppConfigurationAttributes.Builder()
+              .templateIdNotification(appConfigTemplateID)
+              .build();
+
+      String appConfigName = "App Config subscription name update";
+      String appConfigDescription = "App Config subscription description update";
+
+      UpdateSubscriptionOptions updateAppConfigSubscriptionParams = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .id(subscriptionId22)
+              .name(appConfigName)
+              .description(appConfigDescription)
+              .attributes(appConfigUpdateAttributes)
+              .build();
+
+      Response<Subscription> appconfigResponse = service.updateSubscription(updateAppConfigSubscriptionParams).execute();
+
+      assertNotNull(appconfigResponse);
+      assertEquals(appconfigResponse.getStatusCode(), 200);
+      Subscription appConfigSubscriptionResult = appconfigResponse.getResult();
+      assertNotNull(appConfigSubscriptionResult);
+      assertEquals(appConfigSubscriptionResult.getDescription(), appConfigDescription);
+      assertEquals(appConfigSubscriptionResult.getName(), appConfigName);
+      assertEquals(appConfigSubscriptionResult.getId(), subscriptionId22);
       //
       // The following status codes aren't covered by tests.
       // Please provide integration tests for these too.
@@ -4032,6 +4200,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId6);
       destinations.add(destinationId10);
       destinations.add(destinationId14);
+      destinations.add(destinationId22);
 
       for (String destination :
               destinations) {
@@ -4184,6 +4353,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId19);
       subscriptions.add(subscriptionId20);
       subscriptions.add(subscriptionId21);
+      subscriptions.add(subscriptionId22);
 
       for (String subscription :
               subscriptions) {
@@ -4274,6 +4444,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId18);
       destinations.add(destinationId19);
       destinations.add(destinationId21);
+      destinations.add(destinationId22);
 
       for (String destination :
               destinations) {
@@ -4450,6 +4621,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
      templates.add(eventStreamsTemplateID);
      templates.add(codeEngineApplicationTemplateID);
      templates.add(codeEngineJobTemplateID);
+      templates.add(appConfigTemplateID);
 
       for (String template : templates) {
         DeleteTemplateOptions deleteTemplateOptions = new DeleteTemplateOptions.Builder()
