@@ -33,6 +33,7 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  * - SubscriptionAttributesServiceNowAttributesResponse
  * - SubscriptionAttributesEventStreamsAttributesResponse
  * - SubscriptionAttributesCodeEngineAttributesResponse
+ * - SubscriptionAttributesAppConfigurationAttributesResponse
  */
 public class SubscriptionAttributes extends DynamicModel<Object> {
 
@@ -66,6 +67,8 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
   protected String assignedTo;
   @SerializedName("assignment_group")
   protected String assignmentGroup;
+  @SerializedName("feature_flag_enabled")
+  protected Boolean featureFlagEnabled;
 
   protected SubscriptionAttributes() {
     super(new TypeToken<Object>() { });
@@ -234,5 +237,16 @@ public class SubscriptionAttributes extends DynamicModel<Object> {
    */
   public String getAssignmentGroup() {
     return this.assignmentGroup;
+  }
+
+  /**
+   * Gets the featureFlagEnabled.
+   *
+   * App Configuration enable feature flag attribute.
+   *
+   * @return the featureFlagEnabled
+   */
+  public Boolean isFeatureFlagEnabled() {
+    return this.featureFlagEnabled;
   }
 }

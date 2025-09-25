@@ -664,6 +664,26 @@ Response<TemplateResponse> ceAppTemplateResponse = eventNotificationsService.cre
 
 For Code Engine template supported template type values: ibmenapp.notification and ibmenjob.notification
 
+#### App Configuration Template
+
+```java
+TemplateConfigOneOfAppConfigurationTemplateConfig appConfigTemplateConfig = new TemplateConfigOneOfAppConfigurationTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+CreateTemplateOptions appConfigTemplateNotificationOptions = new CreateTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(appConfigTemplateConfig)
+        .build();
+
+Response<TemplateResponse> appConfigTemplateResponse = eventNotificationsService.createTemplate(appConfigTemplateNotificationOptions).execute();
+```
+
+For App Configuration template supported template type values: app_configuration.notification
+
 ### List Templates
 
 ```java
@@ -861,6 +881,27 @@ Response<Template> ceAppTemplateResponse = eventNotificationsService.replaceTemp
 
 For Code Engine template supported template type values: ibmenapp.notification and ibmenjob.notification
 
+#### App Configuration Template
+
+```java
+TemplateConfigOneOfAppConfigurationTemplateConfig appConfigTemplateConfig = new TemplateConfigOneOfAppConfigurationTemplateConfig.Builder()
+        .body("base 64 encoded json content")
+        .build();
+
+ReplaceTemplateOptions appConfigTemplateNotificationOptions = new ReplaceTemplateOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<codeEngineJobTemplateID>)
+        .name(<name>)
+        .description(<description>)
+        .type(<template-type>)
+        .params(appConfigTemplateConfig)
+        .build();
+
+Response<Template> appConfigTemplateResponse = eventNotificationsService.replaceTemplate(appConfigTemplateNotificationOptions).execute();
+```
+
+For App Configuration template supported template type values: app_configuration.notification
+
 ### Delete Template
 
 ```java
@@ -941,6 +982,40 @@ CreateSubscriptionOptions createSubscriptionOptions = new CreateSubscriptionOpti
 Response<Subscription> response = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
 Subscription subscription = response.getResult();
 System.out.println(subscription);
+```
+
+### ⚠️ Special Consideration for App Configuration Destination
+
+When creating or updating a subscription for an **App Configuration** destination, the `attributes` object has a specific rule:
+
+- You must include **either** `feature_flag_enabled` **or** `template_id_notification`
+- You **cannot** include both properties together
+
+This ensures that a subscription is created for the correct use case — either **feature flag evaluation** or **notification templating**, but not both at once.
+
+#### ✅ Valid Example (Feature Flag Evaluation)
+
+```java
+SubscriptionCreateAttributesAppConfigurationAttributes appConfigCreateAttributes = new SubscriptionCreateAttributesAppConfigurationAttributes.Builder()
+    .featureFlagEnabled(true)
+    .build();
+```
+
+#### ✅ Valid Example (template association)
+
+```java
+SubscriptionCreateAttributesAppConfigurationAttributes appConfigUpdateAttributes = new SubscriptionCreateAttributesAppConfigurationAttributes.Builder()
+    .templateIdNotification(appConfigTemplateID)
+    .build();
+```
+
+#### ❌ Invalid Example (Not Allowed)
+
+```java
+SubscriptionCreateAttributesAppConfigurationAttributes appConfigUpdateAttributes = new SubscriptionCreateAttributesAppConfigurationAttributes.Builder()
+    .featureFlagEnabled(true)
+    .templateIdNotification(appConfigTemplateID)
+    .build();
 ```
 
 ### List Subscriptions
@@ -1436,6 +1511,8 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_EVENT_STREAMS_ENDPOINT` - Event streams end point
 - `EVENT_NOTIFICATIONS_CODE_ENGINE_APP_TEMPLATE_BODY` - base 64 encoded json body for Code Engine Application
 - `EVENT_NOTIFICATIONS_CODE_ENGINE_JOB_TEMPLATE_BODY` - base 64 encoded json body for Code Engine Job
+- `EVENT_NOTIFICATIONS_APP_CONFIG_CRN` - CRN of App Configuration instance
+- `EVENT_NOTIFICATIONS_APP_CONFIG_TEMPLATE_BODY` -  base 64 encoded json body for App Configuration
 
 ## Questions
 

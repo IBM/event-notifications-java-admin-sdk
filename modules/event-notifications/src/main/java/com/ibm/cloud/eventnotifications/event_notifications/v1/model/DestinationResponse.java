@@ -58,6 +58,8 @@ public class DestinationResponse extends GenericModel {
     String SMS_CUSTOM = "sms_custom";
     /** event_streams. */
     String EVENT_STREAMS = "event_streams";
+    /** app_configuration. */
+    String APP_CONFIGURATION = "app_configuration";
   }
 
   protected String id;

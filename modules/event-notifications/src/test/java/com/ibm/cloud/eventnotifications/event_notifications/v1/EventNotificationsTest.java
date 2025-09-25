@@ -37,6 +37,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DeleteTopic
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOf;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfAppConfigurationDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfChromeDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCodeEngineDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCustomDomainEmailDestinationConfig;
@@ -138,6 +139,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesList
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourcesPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscription;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesAppConfigurationAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCodeEngineAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCustomEmailAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesCustomSMSAttributesResponse;
@@ -150,6 +152,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesSlackDirectMessageAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionAttributesWebhookAttributesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesAppConfigurationAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCodeEngineAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomEmailAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomSMSAttributes;
@@ -165,6 +168,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionListItem;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesAppConfigurationAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCodeEngineAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomSMSUpdateAttributes;
@@ -182,6 +186,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TagsSubscriptionPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Template;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOf;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfAppConfigurationTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfCodeEngineApplicationTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfCodeEngineJobTemplateConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TemplateConfigOneOfEmailTemplateConfig;

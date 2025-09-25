@@ -33,6 +33,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionCreateAttributesServiceNowAttributes
  * - SubscriptionCreateAttributesEventstreamsAttributes
  * - SubscriptionCreateAttributesCodeEngineAttributes
+ * - SubscriptionCreateAttributesAppConfigurationAttributes
  */
 public class SubscriptionCreateAttributes extends GenericModel {
 
@@ -60,6 +61,8 @@ public class SubscriptionCreateAttributes extends GenericModel {
   protected String assignedTo;
   @SerializedName("assignment_group")
   protected String assignmentGroup;
+  @SerializedName("feature_flag_enabled")
+  protected Boolean featureFlagEnabled;
 
   protected SubscriptionCreateAttributes() { }
 
@@ -204,6 +207,17 @@ public class SubscriptionCreateAttributes extends GenericModel {
    */
   public String assignmentGroup() {
     return assignmentGroup;
+  }
+
+  /**
+   * Gets the featureFlagEnabled.
+   *
+   * App Configuration enable feature flag attribute.
+   *
+   * @return the featureFlagEnabled
+   */
+  public Boolean featureFlagEnabled() {
+    return featureFlagEnabled;
   }
 }
 

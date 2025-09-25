@@ -25,6 +25,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - TemplateConfigOneOfEventStreamsTemplateConfig
  * - TemplateConfigOneOfCodeEngineApplicationTemplateConfig
  * - TemplateConfigOneOfCodeEngineJobTemplateConfig
+ * - TemplateConfigOneOfAppConfigurationTemplateConfig
  */
 public class TemplateConfigOneOf extends GenericModel {
 
