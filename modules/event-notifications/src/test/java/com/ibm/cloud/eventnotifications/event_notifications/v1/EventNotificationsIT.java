@@ -134,7 +134,9 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String cosIntegrationID = "";
   public static String codeEngineProjectCRN = "";
   public static String smtpConfigID = "";
+  public static String smtpUserToClone = "";
   public static String smtpUserID = "";
+  public static String smtpUserID2 = "";
   public static String notificationID = "";
   public static String slackDMToken = "";
   public static String slackChannelID = "";
@@ -209,6 +211,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
     appConfigCRN = config.get("APP_CONFIG_CRN");
     appConfigTemplateBody = config.get("APP_CONFIG_TEMPLATE_BODY");
+    smtpUserToClone = config.get("SMTP_USER_TO_CLONE");
+
 
     service.enableRetries(4, 30);
 
@@ -3953,8 +3957,36 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
     }
   }
+
   @Test
-  public void test1ZListSmtpConfigurations() throws Exception {
+  public void test1ZCloneSMTPUser() throws Exception {
+    try {
+      // begin-clone-smtp-user
+      String description = "description for SMTP user clone";
+      CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .usernameToClone(smtpUserToClone)
+              .build();
+
+      Response<SMTPUserResponse> response = service.createSmtpUser(createSmtpUserOptionsModel).execute();
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+      SMTPUserResponse responseObj = response.getResult();
+      assertEquals(responseObj.getDescription(), description);
+      assertEquals(responseObj.getSmtpConfigId(), smtpConfigID);
+      assertNotNull(responseObj.getId());
+      smtpUserID2 = responseObj.getId();
+      assertNotNull(responseObj.getUsername());
+      // end-clone-smtp-user
+    } catch (ServiceResponseException e) {
+      fail(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+  }
+
+  @Test
+  public void test2AListSmtpConfigurations() throws Exception {
     try {
       // begin-list-smtp-configurations
       boolean moreResults = true;
@@ -3986,7 +4018,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2AListSmtpUsers() throws Exception {
+  public void test2BListSmtpUsers() throws Exception {
     try {
       // begin-list-smtp-users
       boolean moreResults = true;
@@ -4019,7 +4051,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2BGetSmtpConfiguration() throws Exception {
+  public void test2CGetSmtpConfiguration() throws Exception {
     try {
       // begin-get-smtp-configuration
       GetSmtpConfigurationOptions getSmtpConfigurationOptionsModel = new GetSmtpConfigurationOptions.Builder()
@@ -4041,7 +4073,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2CGetSmtpAllowedIps() throws Exception {
+  public void test2DGetSmtpAllowedIps() throws Exception {
     try {
       // begin-get-smtp-allowed-ips
       GetSmtpAllowedIpsOptions getSmtpAllowedIpsOptionsModel = new GetSmtpAllowedIpsOptions.Builder()
@@ -4060,7 +4092,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2DGetSmtpUser() throws Exception {
+  public void test2FGetSmtpUser() throws Exception {
     try {
       // begin-get-smtp-user
       GetSmtpUserOptions getSmtpUserOptionsModel = new GetSmtpUserOptions.Builder()
@@ -4080,7 +4112,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2EUpdateSmtpConfiguration() throws Exception {
+  public void test2GUpdateSmtpConfiguration() throws Exception {
     try {
       // begin-update-smtp-configuration
       String name = "SMTP Configuration update";
@@ -4108,7 +4140,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2FUpdateSmtpUser() throws Exception {
+  public void test2HUpdateSmtpUser() throws Exception {
     try {
       // begin-update-smtp-user
       String description = "description for SMTP user update";
@@ -4133,7 +4165,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2GSendNotifications() throws Exception {
+  public void test2ISendNotifications() throws Exception {
     try {
       // begin-send_notifications
       String notificationDevices = "{\"platforms\":[\"push_ios\",\"push_android\",\"push_chrome\",\"push_firefox\", \"push_huawei\"]}";
@@ -4193,7 +4225,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2HTestDestination() {
+  public void test2JTestDestination() {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId4);
@@ -4221,7 +4253,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2ITestWebhookDestination() {
+  public void test2KTestWebhookDestination() {
     try {
 
       TestDestinationOptions testDestinationOptionsModel = new TestDestinationOptions.Builder()
@@ -4251,7 +4283,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2JTestMetrics(){
+  public void test2LTestMetrics(){
 
     try{
       Instant instant = Instant.now();
@@ -4283,7 +4315,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2KTestListPredefinedTemplates(){
+  public void test2MTestListPredefinedTemplates(){
 
     try{
       ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
@@ -4307,7 +4339,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2LTestGetPredefinedTemplate(){
+  public void test2NTestGetPredefinedTemplate(){
 
     try{
       GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
@@ -4329,7 +4361,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2MDeleteSubscription() throws Exception {
+  public void test2ODeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -4385,7 +4417,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2NDeleteTopic() throws Exception {
+  public void test2PDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -4424,7 +4456,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2ODeleteDestination() throws Exception {
+  public void test2QDeleteDestination() throws Exception {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
@@ -4477,7 +4509,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2PDeleteSource() throws Exception {
+  public void test2RDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -4507,7 +4539,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2QCreateIntegration() throws Exception {
+  public void test2SCreateIntegration() throws Exception {
     try {
       IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -4535,7 +4567,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2RListIntegrations() throws Exception {
+  public void test2TListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -4562,7 +4594,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2SGetIntegration() throws Exception {
+  public void test2UGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -4582,7 +4614,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2TUpdateIntegration() throws Exception {
+  public void test2VUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -4610,7 +4642,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2UDeleteTemplate() throws Exception {
+  public void test2WDeleteTemplate() throws Exception {
     try {
      List<String> templates = new ArrayList<>();
      templates.add(templateInvitationID);
@@ -4641,10 +4673,11 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2VDeleteSMTPUser() throws Exception {
+  public void test2XDeleteSMTPUser() throws Exception {
     try {
       List<String> users = new ArrayList<>();
       users.add(smtpUserID);
+      users.add(smtpUserID2);
 
       for (String user : users) {
         DeleteSmtpUserOptions deleteSmtpUserOptionsModel = new DeleteSmtpUserOptions.Builder()
@@ -4663,7 +4696,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2WDeleteSMTPConfiguration() throws Exception {
+  public void test2YDeleteSMTPConfiguration() throws Exception {
     try {
       List<String> smtpConfigIDs = new ArrayList<>();
       smtpConfigIDs.add(smtpConfigID);

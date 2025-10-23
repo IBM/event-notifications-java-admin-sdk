@@ -22,6 +22,7 @@ public class CreateSmtpUserOptions extends GenericModel {
   protected String instanceId;
   protected String id;
   protected String description;
+  protected String usernameToClone;
 
   /**
    * Builder.
@@ -30,6 +31,7 @@ public class CreateSmtpUserOptions extends GenericModel {
     private String instanceId;
     private String id;
     private String description;
+    private String usernameToClone;
 
     /**
      * Instantiates a new Builder from an existing CreateSmtpUserOptions instance.
@@ -40,6 +42,7 @@ public class CreateSmtpUserOptions extends GenericModel {
       this.instanceId = createSmtpUserOptions.instanceId;
       this.id = createSmtpUserOptions.id;
       this.description = createSmtpUserOptions.description;
+      this.usernameToClone = createSmtpUserOptions.usernameToClone;
     }
 
     /**
@@ -100,6 +103,17 @@ public class CreateSmtpUserOptions extends GenericModel {
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the usernameToClone.
+     *
+     * @param usernameToClone the usernameToClone
+     * @return the CreateSmtpUserOptions builder
+     */
+    public Builder usernameToClone(String usernameToClone) {
+      this.usernameToClone = usernameToClone;
+      return this;
+    }
   }
 
   protected CreateSmtpUserOptions() { }
@@ -112,6 +126,7 @@ public class CreateSmtpUserOptions extends GenericModel {
     instanceId = builder.instanceId;
     id = builder.id;
     description = builder.description;
+    usernameToClone = builder.usernameToClone;
   }
 
   /**
@@ -154,6 +169,17 @@ public class CreateSmtpUserOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the usernameToClone.
+   *
+   * provide name of the user to clone.
+   *
+   * @return the usernameToClone
+   */
+  public String usernameToClone() {
+    return usernameToClone;
   }
 }
 

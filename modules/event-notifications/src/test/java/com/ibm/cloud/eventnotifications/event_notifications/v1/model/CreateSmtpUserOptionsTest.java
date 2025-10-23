@@ -35,10 +35,12 @@ public class CreateSmtpUserOptionsTest {
       .instanceId("testString")
       .id("testString")
       .description("testString")
+      .usernameToClone("testString")
       .build();
     assertEquals(createSmtpUserOptionsModel.instanceId(), "testString");
     assertEquals(createSmtpUserOptionsModel.id(), "testString");
     assertEquals(createSmtpUserOptionsModel.description(), "testString");
+    assertEquals(createSmtpUserOptionsModel.usernameToClone(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
