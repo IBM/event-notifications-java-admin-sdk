@@ -3334,6 +3334,7 @@ public class EventNotificationsTest {
       .instanceId("testString")
       .id("testString")
       .description("testString")
+      .usernameToClone("testString")
       .build();
 
     // Invoke createSmtpUser() with a valid options model and verify the result
@@ -3349,9 +3350,10 @@ public class EventNotificationsTest {
     // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createSmtpUserPath);
-    // Verify that there is no query string
+    // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
+    assertNotNull(query);
+    assertEquals(query.get("username_to_clone"), "testString");
   }
 
   // Test the createSmtpUser operation with and without retries enabled

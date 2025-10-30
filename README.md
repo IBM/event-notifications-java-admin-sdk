@@ -157,6 +157,7 @@ SDK Methods to consume
 - [SMTP Configurations](#SMTPConfigurations)
   - [Create SMTP Configuration](#create-smtp-configuration)
   - [Create SMTP User](#create-smtp-user)
+  - [Clone SMTP User](#clone-smtp-user)
   - [Get SMTP Configuration](#get-smtp-configuration)
   - [Get SMTP User](#get-smtp-user)
   - [Get SMTP Allowed Ips](#get-smtp-allowed-ips)
@@ -1193,6 +1194,21 @@ SMTPUserResponse responseObj = response.getResult();
 
 ```
 
+### Clone SMTP User
+
+```java
+
+CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
+        .usernameToClone(<smtpUserToClone>)
+        .build();
+
+Response<SMTPUserResponse> response = eventNotificationsService.createSmtpUser(createSmtpUserOptionsModel).execute();
+SMTPUserResponse responseObj = response.getResult();
+
+```
+
 ### Get SMTP Configuration
 
 ```java
@@ -1513,6 +1529,7 @@ Find `event_notifications.env.hide` in the repo and rename it to `event_notifica
 - `EVENT_NOTIFICATIONS_CODE_ENGINE_JOB_TEMPLATE_BODY` - base 64 encoded json body for Code Engine Job
 - `EVENT_NOTIFICATIONS_APP_CONFIG_CRN` - CRN of App Configuration instance
 - `EVENT_NOTIFICATIONS_APP_CONFIG_TEMPLATE_BODY` -  base 64 encoded json body for App Configuration
+- `EVENT_NOTIFICATIONS_SMTP_USER_TO_CLONE` - SMTP username to be cloned
 
 ## Questions
 

@@ -1500,6 +1500,9 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (createSmtpUserOptions.usernameToClone() != null) {
+      builder.query("username_to_clone", String.valueOf(createSmtpUserOptions.usernameToClone()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (createSmtpUserOptions.description() != null) {
       contentJson.addProperty("description", createSmtpUserOptions.description());

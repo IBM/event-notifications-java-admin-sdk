@@ -110,6 +110,8 @@ public class EventNotificationsExamples {
   public static String cosInstanceCRN = "";
   public static String codeEngineProjectCRN = "";
   public static String smtpConfigID = "";
+  public static String smtpUserToClone = "";
+  public static String smtpUserID2 = "";
   public static String smtpUserID = "";
   public static String notificationID = "";
   public static String slackDMToken = "";
@@ -188,6 +190,7 @@ public class EventNotificationsExamples {
     eventStreamsTopic = config.get("EVENT_STREAMS_TOPIC");
     codeEngineApplicationTemplateBody = config.get("CODE_ENGINE_APP_TEMPLATE_BODY");
     codeEngineJobTemplateBody = config.get("CODE_ENGINE_JOB_TEMPLATE_BODY");
+    smtpUserToClone = config.get("SMTP_USER_TO_CLONE");
 
     try {
       System.out.println("createSources() result:");
@@ -2622,6 +2625,23 @@ public class EventNotificationsExamples {
     }
 
     try {
+      // begin-clone-smtp-user
+      CreateSmtpUserOptions createSmtpUserOptionsModel = new CreateSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .usernameToClone(smtpUserToClone)
+              .build();
+
+      Response<SMTPUserResponse> response = eventNotificationsService.createSmtpUser(createSmtpUserOptionsModel).execute();
+      SMTPUserResponse responseObj = response.getResult();
+      smtpUserID2 = responseObj.getId();
+      // end-clone-smtp-user
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
       boolean moreResults = true;
       int limit = 1;
       int offset = 0;
@@ -2854,6 +2874,15 @@ public class EventNotificationsExamples {
       Response<Void> response = eventNotificationsService.deleteSmtpUser(deleteSmtpUserOptionsModel).execute();
       System.out.println(response);
       // end-delete_smtp_user
+
+      DeleteSmtpUserOptions deleteSmtpUserOptionsModelClone = new DeleteSmtpUserOptions.Builder()
+              .instanceId(instanceId)
+              .id(smtpConfigID)
+              .userId(smtpUserID2)
+              .build();
+
+      Response<Void> responseClone = eventNotificationsService.deleteSmtpUser(deleteSmtpUserOptionsModelClone).execute();
+      System.out.println(responseClone);
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

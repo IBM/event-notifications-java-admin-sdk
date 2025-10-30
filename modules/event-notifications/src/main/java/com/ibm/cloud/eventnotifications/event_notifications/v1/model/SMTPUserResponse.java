@@ -92,7 +92,7 @@ public class SMTPUserResponse extends GenericModel {
   /**
    * Gets the password.
    *
-   * password.
+   * Password for SMTP user; Cloned SMTP user response do not include a password.
    *
    * @return the password
    */
