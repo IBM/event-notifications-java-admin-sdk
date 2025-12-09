@@ -19,6 +19,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.event_notifications.common.SdkCommon;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BounceMetrics;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateIntegrationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.CreateSmtpConfigurationOptions;
@@ -41,6 +42,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCountriesResponse;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetBounceMetricsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
@@ -197,6 +199,9 @@ public class EventNotifications extends BaseService {
     if (getMetricsOptions.destinationId() != null) {
       builder.query("destination_id", String.valueOf(getMetricsOptions.destinationId()));
     }
+    if (getMetricsOptions.subscriptionId() != null) {
+      builder.query("subscription_id", String.valueOf(getMetricsOptions.subscriptionId()));
+    }
     if (getMetricsOptions.sourceId() != null) {
       builder.query("source_id", String.valueOf(getMetricsOptions.sourceId()));
     }
@@ -211,6 +216,57 @@ public class EventNotifications extends BaseService {
     }
     ResponseConverter<Metrics> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Metrics>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get bounce metrics.
+   *
+   * Get bounce metrics.
+   *
+   * @param getBounceMetricsOptions the {@link GetBounceMetricsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BounceMetrics}
+   */
+  public ServiceCall<BounceMetrics> getBounceMetrics(GetBounceMetricsOptions getBounceMetricsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getBounceMetricsOptions,
+      "getBounceMetricsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", getBounceMetricsOptions.instanceId());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/metrics/bounce", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "getBounceMetrics");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("destination_type", String.valueOf(getBounceMetricsOptions.destinationType()));
+    builder.query("gte", String.valueOf(getBounceMetricsOptions.gte()));
+    builder.query("lte", String.valueOf(getBounceMetricsOptions.lte()));
+    if (getBounceMetricsOptions.destinationId() != null) {
+      builder.query("destination_id", String.valueOf(getBounceMetricsOptions.destinationId()));
+    }
+    if (getBounceMetricsOptions.subscriptionId() != null) {
+      builder.query("subscription_id", String.valueOf(getBounceMetricsOptions.subscriptionId()));
+    }
+    if (getBounceMetricsOptions.sourceId() != null) {
+      builder.query("source_id", String.valueOf(getBounceMetricsOptions.sourceId()));
+    }
+    if (getBounceMetricsOptions.emailTo() != null) {
+      builder.query("email_to", String.valueOf(getBounceMetricsOptions.emailTo()));
+    }
+    if (getBounceMetricsOptions.notificationId() != null) {
+      builder.query("notification_id", String.valueOf(getBounceMetricsOptions.notificationId()));
+    }
+    if (getBounceMetricsOptions.subject() != null) {
+      builder.query("subject", String.valueOf(getBounceMetricsOptions.subject()));
+    }
+    if (getBounceMetricsOptions.limit() != null) {
+      builder.query("limit", String.valueOf(getBounceMetricsOptions.limit()));
+    }
+    if (getBounceMetricsOptions.offset() != null) {
+      builder.query("offset", String.valueOf(getBounceMetricsOptions.offset()));
+    }
+    ResponseConverter<BounceMetrics> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<BounceMetrics>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

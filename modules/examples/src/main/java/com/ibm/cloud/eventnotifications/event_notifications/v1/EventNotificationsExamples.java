@@ -2549,7 +2549,9 @@ public class EventNotificationsExamples {
                 .gte("2024-08-01T17:18:43Z")
                 .lte("2024-08-02T11:55:22Z")
                 .destinationId(destinationId16)
+                .subscriptionId(subscriptionId6)
                 .emailTo("mobileb@us.ibm.com")
+                .sourceId(sourceId)
                 .notificationId(notificationID)
                 .subject("Metric Test")
                 .build();
@@ -2560,6 +2562,32 @@ public class EventNotificationsExamples {
       Metrics responseObj = response.getResult();
       System.out.println(responseObj);
       // end-metrics
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-bounce-metrics
+      GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
+              .instanceId(instanceId)
+              .destinationType("smtp_custom")
+              .gte("2025-12-08T17:18:43Z")
+              .lte("2025-12-09T11:55:22Z")
+              .destinationId(destinationId16)
+              .subscriptionId(subscriptionId6)
+              .emailTo("mobileb@us.ibm.com")
+              .notificationId(notificationID)
+              .sourceId(sourceId)
+              .subject("Bounce Metrics")
+              .build();
+
+      // Invoke getMetrics() with a valid options model and verify the result
+      Response<BounceMetrics> response = eventNotificationsService.getBounceMetrics(getBounceMetricsOptionsModel).execute();
+
+      BounceMetrics responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-bounce-metrics
     } catch (ServiceResponseException e) {
       logger.error(String.format("Service returned status code %s: %s%nError details: %s",
               e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);

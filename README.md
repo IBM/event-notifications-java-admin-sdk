@@ -170,6 +170,7 @@ SDK Methods to consume
   - [Verify SMTP](#verify-smtp)
 - [Metrics](#Metrics)
   - [Get Metrics](#get-metrics)
+  - [Get Bounce Metrics](#get-bounce-metrics)
 - [Send Notifications](#send-notifications)
 
 ## Source
@@ -1354,7 +1355,9 @@ GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
         .gte(<gte-timestamp>)
         .lte(<lte-timestamp>)
         .destinationId(<destination-id>)
+        .subscriptionId(<subscription-id>)
         .emailTo(<email-to>)
+        .sourceId(<source-id>)
         .notificationId(<notification-id>)
         .subject(<subject>)
         .build();
@@ -1362,6 +1365,26 @@ GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
         // Invoke getMetrics() with a valid options model and verify the result
 Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOptionsModel).execute();
 Metrics responseObj = response.getResult();
+```
+
+### Get Bounce Metrics
+
+```java
+GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
+        .instanceId(instanceId)
+        .destinationType("smtp_custom")
+        .gte(<gte-timestamp>)
+        .lte(<lte-timestamp>)
+        .destinationId(<destination-id>)
+        .subscriptionId(<subscription-id>)
+        .emailTo(<email-to>)
+        .sourceId(<source-id>)
+        .notificationId(<notification-id>)
+        .subject(<subject>)
+        .build();
+
+Response<BounceMetrics> response = eventNotificationsService.getBounceMetrics(getBounceMetricsOptionsModel).execute();
+BounceMetrics responseObj = response.getResult();
 ```
 
 ### Send Notifications

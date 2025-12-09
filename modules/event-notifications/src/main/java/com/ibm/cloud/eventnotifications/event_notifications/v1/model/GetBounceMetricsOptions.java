@@ -15,9 +15,9 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The getMetrics options.
+ * The getBounceMetrics options.
  */
-public class GetMetricsOptions extends GenericModel {
+public class GetBounceMetricsOptions extends GenericModel {
 
   /**
    * Destination type. Allowed values are [smtp_custom].
@@ -37,6 +37,8 @@ public class GetMetricsOptions extends GenericModel {
   protected String emailTo;
   protected String notificationId;
   protected String subject;
+  protected Long limit;
+  protected Long offset;
 
   /**
    * Builder.
@@ -52,23 +54,27 @@ public class GetMetricsOptions extends GenericModel {
     private String emailTo;
     private String notificationId;
     private String subject;
+    private Long limit;
+    private Long offset;
 
     /**
-     * Instantiates a new Builder from an existing GetMetricsOptions instance.
+     * Instantiates a new Builder from an existing GetBounceMetricsOptions instance.
      *
-     * @param getMetricsOptions the instance to initialize the Builder with
+     * @param getBounceMetricsOptions the instance to initialize the Builder with
      */
-    private Builder(GetMetricsOptions getMetricsOptions) {
-      this.instanceId = getMetricsOptions.instanceId;
-      this.destinationType = getMetricsOptions.destinationType;
-      this.gte = getMetricsOptions.gte;
-      this.lte = getMetricsOptions.lte;
-      this.destinationId = getMetricsOptions.destinationId;
-      this.subscriptionId = getMetricsOptions.subscriptionId;
-      this.sourceId = getMetricsOptions.sourceId;
-      this.emailTo = getMetricsOptions.emailTo;
-      this.notificationId = getMetricsOptions.notificationId;
-      this.subject = getMetricsOptions.subject;
+    private Builder(GetBounceMetricsOptions getBounceMetricsOptions) {
+      this.instanceId = getBounceMetricsOptions.instanceId;
+      this.destinationType = getBounceMetricsOptions.destinationType;
+      this.gte = getBounceMetricsOptions.gte;
+      this.lte = getBounceMetricsOptions.lte;
+      this.destinationId = getBounceMetricsOptions.destinationId;
+      this.subscriptionId = getBounceMetricsOptions.subscriptionId;
+      this.sourceId = getBounceMetricsOptions.sourceId;
+      this.emailTo = getBounceMetricsOptions.emailTo;
+      this.notificationId = getBounceMetricsOptions.notificationId;
+      this.subject = getBounceMetricsOptions.subject;
+      this.limit = getBounceMetricsOptions.limit;
+      this.offset = getBounceMetricsOptions.offset;
     }
 
     /**
@@ -93,19 +99,19 @@ public class GetMetricsOptions extends GenericModel {
     }
 
     /**
-     * Builds a GetMetricsOptions.
+     * Builds a GetBounceMetricsOptions.
      *
-     * @return the new GetMetricsOptions instance
+     * @return the new GetBounceMetricsOptions instance
      */
-    public GetMetricsOptions build() {
-      return new GetMetricsOptions(this);
+    public GetBounceMetricsOptions build() {
+      return new GetBounceMetricsOptions(this);
     }
 
     /**
      * Set the instanceId.
      *
      * @param instanceId the instanceId
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder instanceId(String instanceId) {
       this.instanceId = instanceId;
@@ -116,7 +122,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the destinationType.
      *
      * @param destinationType the destinationType
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder destinationType(String destinationType) {
       this.destinationType = destinationType;
@@ -127,7 +133,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the gte.
      *
      * @param gte the gte
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder gte(String gte) {
       this.gte = gte;
@@ -138,7 +144,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the lte.
      *
      * @param lte the lte
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder lte(String lte) {
       this.lte = lte;
@@ -149,7 +155,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the destinationId.
      *
      * @param destinationId the destinationId
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder destinationId(String destinationId) {
       this.destinationId = destinationId;
@@ -160,7 +166,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the subscriptionId.
      *
      * @param subscriptionId the subscriptionId
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder subscriptionId(String subscriptionId) {
       this.subscriptionId = subscriptionId;
@@ -171,7 +177,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the sourceId.
      *
      * @param sourceId the sourceId
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder sourceId(String sourceId) {
       this.sourceId = sourceId;
@@ -182,7 +188,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the emailTo.
      *
      * @param emailTo the emailTo
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder emailTo(String emailTo) {
       this.emailTo = emailTo;
@@ -193,7 +199,7 @@ public class GetMetricsOptions extends GenericModel {
      * Set the notificationId.
      *
      * @param notificationId the notificationId
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder notificationId(String notificationId) {
       this.notificationId = notificationId;
@@ -204,17 +210,39 @@ public class GetMetricsOptions extends GenericModel {
      * Set the subject.
      *
      * @param subject the subject
-     * @return the GetMetricsOptions builder
+     * @return the GetBounceMetricsOptions builder
      */
     public Builder subject(String subject) {
       this.subject = subject;
       return this;
     }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the GetBounceMetricsOptions builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Set the offset.
+     *
+     * @param offset the offset
+     * @return the GetBounceMetricsOptions builder
+     */
+    public Builder offset(long offset) {
+      this.offset = offset;
+      return this;
+    }
   }
 
-  protected GetMetricsOptions() { }
+  protected GetBounceMetricsOptions() { }
 
-  protected GetMetricsOptions(Builder builder) {
+  protected GetBounceMetricsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.destinationType,
@@ -233,12 +261,14 @@ public class GetMetricsOptions extends GenericModel {
     emailTo = builder.emailTo;
     notificationId = builder.notificationId;
     subject = builder.subject;
+    limit = builder.limit;
+    offset = builder.offset;
   }
 
   /**
    * New builder.
    *
-   * @return a GetMetricsOptions builder
+   * @return a GetBounceMetricsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -352,6 +382,28 @@ public class GetMetricsOptions extends GenericModel {
    */
   public String subject() {
     return subject;
+  }
+
+  /**
+   * Gets the limit.
+   *
+   * Page limit for paginated results.
+   *
+   * @return the limit
+   */
+  public Long limit() {
+    return limit;
+  }
+
+  /**
+   * Gets the offset.
+   *
+   * offset for paginated results.
+   *
+   * @return the offset
+   */
+  public Long offset() {
+    return offset;
   }
 }
 
