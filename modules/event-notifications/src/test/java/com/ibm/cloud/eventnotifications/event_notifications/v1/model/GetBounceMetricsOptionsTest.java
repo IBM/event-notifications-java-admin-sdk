@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetMetricsOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetBounceMetricsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,15 +23,15 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the GetMetricsOptions model.
+ * Unit test class for the GetBounceMetricsOptions model.
  */
-public class GetMetricsOptionsTest {
+public class GetBounceMetricsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testGetMetricsOptions() throws Throwable {
-    GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+  public void testGetBounceMetricsOptions() throws Throwable {
+    GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
       .instanceId("testString")
       .destinationType("smtp_custom")
       .gte("testString")
@@ -42,22 +42,26 @@ public class GetMetricsOptionsTest {
       .emailTo("testString")
       .notificationId("testString")
       .subject("testString")
+      .limit(Long.valueOf("1"))
+      .offset(Long.valueOf("0"))
       .build();
-    assertEquals(getMetricsOptionsModel.instanceId(), "testString");
-    assertEquals(getMetricsOptionsModel.destinationType(), "smtp_custom");
-    assertEquals(getMetricsOptionsModel.gte(), "testString");
-    assertEquals(getMetricsOptionsModel.lte(), "testString");
-    assertEquals(getMetricsOptionsModel.destinationId(), "testString");
-    assertEquals(getMetricsOptionsModel.subscriptionId(), "testString");
-    assertEquals(getMetricsOptionsModel.sourceId(), "testString");
-    assertEquals(getMetricsOptionsModel.emailTo(), "testString");
-    assertEquals(getMetricsOptionsModel.notificationId(), "testString");
-    assertEquals(getMetricsOptionsModel.subject(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.instanceId(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.destinationType(), "smtp_custom");
+    assertEquals(getBounceMetricsOptionsModel.gte(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.lte(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.destinationId(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.subscriptionId(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.sourceId(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.emailTo(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.notificationId(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.subject(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.limit(), Long.valueOf("1"));
+    assertEquals(getBounceMetricsOptionsModel.offset(), Long.valueOf("0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetMetricsOptionsError() throws Throwable {
-    new GetMetricsOptions.Builder().build();
+  public void testGetBounceMetricsOptionsError() throws Throwable {
+    new GetBounceMetricsOptions.Builder().build();
   }
 
 }

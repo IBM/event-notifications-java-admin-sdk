@@ -13,6 +13,8 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1;
 
 import com.ibm.cloud.eventnotifications.event_notifications.v1.EventNotifications;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BounceMetricItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.BounceMetrics;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Buckets;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ChannelCreateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ChannelUpdateAttributes;
@@ -64,6 +66,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttrib
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCountriesResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EventScheduleFilterAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetBounceMetricsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetEnabledCountriesOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.GetIntegrationOptions;
@@ -273,6 +276,7 @@ public class EventNotificationsTest {
       .gte("testString")
       .lte("testString")
       .destinationId("testString")
+      .subscriptionId("testString")
       .sourceId("testString")
       .emailTo("testString")
       .notificationId("testString")
@@ -299,6 +303,7 @@ public class EventNotificationsTest {
     assertEquals(query.get("gte"), "testString");
     assertEquals(query.get("lte"), "testString");
     assertEquals(query.get("destination_id"), "testString");
+    assertEquals(query.get("subscription_id"), "testString");
     assertEquals(query.get("source_id"), "testString");
     assertEquals(query.get("email_to"), "testString");
     assertEquals(query.get("notification_id"), "testString");
@@ -320,6 +325,79 @@ public class EventNotificationsTest {
   public void testGetMetricsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.getMetrics(null).execute();
+  }
+
+  // Test the getBounceMetrics operation with a valid options model parameter
+  @Test
+  public void testGetBounceMetricsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"metrics\": [{\"email_address\": \"emailAddress\", \"subject\": \"subject\", \"error_message\": \"errorMessage\", \"ip_address\": \"ipAddress\", \"subscription_id\": \"subscriptionId\", \"timestamp\": \"2019-01-01T12:00:00.000Z\"}], \"total_count\": 0}";
+    String getBounceMetricsPath = "/v1/instances/testString/metrics/bounce";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetBounceMetricsOptions model
+    GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
+      .instanceId("testString")
+      .destinationType("smtp_custom")
+      .gte("testString")
+      .lte("testString")
+      .destinationId("testString")
+      .subscriptionId("testString")
+      .sourceId("testString")
+      .emailTo("testString")
+      .notificationId("testString")
+      .subject("testString")
+      .limit(Long.valueOf("1"))
+      .offset(Long.valueOf("0"))
+      .build();
+
+    // Invoke getBounceMetrics() with a valid options model and verify the result
+    Response<BounceMetrics> response = eventNotificationsService.getBounceMetrics(getBounceMetricsOptionsModel).execute();
+    assertNotNull(response);
+    BounceMetrics responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getBounceMetricsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("destination_type"), "smtp_custom");
+    assertEquals(query.get("gte"), "testString");
+    assertEquals(query.get("lte"), "testString");
+    assertEquals(query.get("destination_id"), "testString");
+    assertEquals(query.get("subscription_id"), "testString");
+    assertEquals(query.get("source_id"), "testString");
+    assertEquals(query.get("email_to"), "testString");
+    assertEquals(query.get("notification_id"), "testString");
+    assertEquals(query.get("subject"), "testString");
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
+  }
+
+  // Test the getBounceMetrics operation with and without retries enabled
+  @Test
+  public void testGetBounceMetricsWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testGetBounceMetricsWOptions();
+
+    eventNotificationsService.disableRetries();
+    testGetBounceMetricsWOptions();
+  }
+
+  // Test the getBounceMetrics operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetBounceMetricsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.getBounceMetrics(null).execute();
   }
 
   // Test the sendNotifications operation with a valid options model parameter
