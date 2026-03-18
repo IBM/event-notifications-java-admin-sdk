@@ -1123,6 +1123,8 @@ Response<IntegrationList> response = eventNotificationsService.listIntegrations(
 
 ### Update Integration
 
+> **⚠️ DEPRECATION WARNING**: The `hs-crypto` integration type is deprecated and will be removed in a future release. Please migrate to alternative encryption solutions.
+
 For kms/hs-crypto-
 
 ```java

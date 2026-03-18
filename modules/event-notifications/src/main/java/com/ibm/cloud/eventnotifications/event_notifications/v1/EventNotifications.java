@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -1817,9 +1817,9 @@ public class EventNotifications extends BaseService {
   }
 
   /**
-   * Get notification status.
+   * Get status of webhook test notification.
    *
-   * Get notification status.
+   * Status of webhook test notification.
    *
    * @param getNotificationsStatusOptions the {@link GetNotificationsStatusOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link GetNotificationStatusResponse}
