@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,8 @@ public class BounceMetrics extends GenericModel {
   protected List<BounceMetricItem> metrics;
   @SerializedName("total_count")
   protected Long totalCount;
+  protected Long offset;
+  protected Long limit;
 
   protected BounceMetrics() { }
 
@@ -48,6 +50,28 @@ public class BounceMetrics extends GenericModel {
    */
   public Long getTotalCount() {
     return totalCount;
+  }
+
+  /**
+   * Gets the offset.
+   *
+   * Current offset.
+   *
+   * @return the offset
+   */
+  public Long getOffset() {
+    return offset;
+  }
+
+  /**
+   * Gets the limit.
+   *
+   * limit to show bounce metrics.
+   *
+   * @return the limit
+   */
+  public Long getLimit() {
+    return limit;
   }
 }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -331,7 +331,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetBounceMetricsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"metrics\": [{\"email_address\": \"emailAddress\", \"subject\": \"subject\", \"error_message\": \"errorMessage\", \"ip_address\": \"ipAddress\", \"subscription_id\": \"subscriptionId\", \"timestamp\": \"2019-01-01T12:00:00.000Z\"}], \"total_count\": 0}";
+    String mockResponseBody = "{\"metrics\": [{\"email_address\": \"emailAddress\", \"subject\": \"subject\", \"error_message\": \"errorMessage\", \"ip_address\": \"ipAddress\", \"subscription_id\": \"subscriptionId\", \"timestamp\": \"2019-01-01T12:00:00.000Z\"}], \"total_count\": 0, \"offset\": 6, \"limit\": 5}";
     String getBounceMetricsPath = "/v1/instances/testString/metrics/bounce";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
