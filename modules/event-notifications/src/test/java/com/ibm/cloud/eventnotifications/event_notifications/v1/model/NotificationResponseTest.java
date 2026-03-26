@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttachment;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -33,5 +34,6 @@ public class NotificationResponseTest {
   public void testNotificationResponse() throws Throwable {
     NotificationResponse notificationResponseModel = new NotificationResponse();
     assertNull(notificationResponseModel.getNotificationId());
+    assertNull(notificationResponseModel.getEmailAttachments());
   }
 }

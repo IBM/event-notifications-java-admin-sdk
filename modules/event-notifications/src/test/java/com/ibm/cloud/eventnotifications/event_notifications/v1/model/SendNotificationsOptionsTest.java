@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttachment;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SendNotificationsOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
@@ -33,6 +34,17 @@ public class SendNotificationsOptionsTest {
 
   @Test
   public void testSendNotificationsOptions() throws Throwable {
+    EmailAttachment emailAttachmentModel = new EmailAttachment.Builder()
+      .content("testString")
+      .filename("testString")
+      .contentType("testString")
+      .disposition("attachment")
+      .build();
+    assertEquals(emailAttachmentModel.content(), "testString");
+    assertEquals(emailAttachmentModel.filename(), "testString");
+    assertEquals(emailAttachmentModel.contentType(), "testString");
+    assertEquals(emailAttachmentModel.disposition(), "attachment");
+
     NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
       .specversion("1.0")
       .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
@@ -65,6 +77,7 @@ public class SendNotificationsOptionsTest {
       .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
       .ibmenhuaweibody("testString")
       .ibmensafaribody("testString")
+      .emailAttachments(java.util.Arrays.asList(emailAttachmentModel))
       .add("foo", "testString")
       .build();
     assertEquals(notificationCreateModel.getSpecversion(), "1.0");
@@ -98,6 +111,7 @@ public class SendNotificationsOptionsTest {
     assertEquals(notificationCreateModel.getIbmenfirefoxheaders(), "{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}");
     assertEquals(notificationCreateModel.getIbmenhuaweibody(), "testString");
     assertEquals(notificationCreateModel.getIbmensafaribody(), "testString");
+    assertEquals(notificationCreateModel.getEmailAttachments(), java.util.Arrays.asList(emailAttachmentModel));
     assertEquals(notificationCreateModel.get("foo"), "testString");
 
     SendNotificationsOptions sendNotificationsOptionsModel = new SendNotificationsOptions.Builder()

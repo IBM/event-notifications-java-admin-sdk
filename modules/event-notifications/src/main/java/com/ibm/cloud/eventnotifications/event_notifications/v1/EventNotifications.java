@@ -101,6 +101,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Topic;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicList;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.TopicResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSandboxDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
@@ -323,6 +324,9 @@ public class EventNotifications extends BaseService {
     if (createSourcesOptions.enabled() != null) {
       contentJson.addProperty("enabled", createSourcesOptions.enabled());
     }
+    if (createSourcesOptions.storeNotifications() != null) {
+      contentJson.addProperty("store_notifications", createSourcesOptions.storeNotifications());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<SourceResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SourceResponse>() { }.getType());
@@ -439,6 +443,9 @@ public class EventNotifications extends BaseService {
     }
     if (updateSourceOptions.enabled() != null) {
       contentJson.addProperty("enabled", updateSourceOptions.enabled());
+    }
+    if (updateSourceOptions.storeNotifications() != null) {
+      contentJson.addProperty("store_notifications", updateSourceOptions.storeNotifications());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Source> responseConverter =
@@ -1075,6 +1082,34 @@ public class EventNotifications extends BaseService {
     builder.header("Accept", "application/json");
     ResponseConverter<TestDestinationResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<TestDestinationResponse>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Upgrade sandbox destination to production.
+   *
+   * Upgrade sandbox destination to production with custom domain.
+   *
+   * @param updateSandboxDestinationOptions the {@link UpdateSandboxDestinationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DestinationResponse}
+   */
+  public ServiceCall<DestinationResponse> updateSandboxDestination(UpdateSandboxDestinationOptions updateSandboxDestinationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(updateSandboxDestinationOptions,
+      "updateSandboxDestinationOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("instance_id", updateSandboxDestinationOptions.instanceId());
+    pathParamsMap.put("id", updateSandboxDestinationOptions.id());
+    RequestBuilder builder = RequestBuilder.patch(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/instances/{instance_id}/destinations/{id}/upgrade", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("event_notifications", "v1", "updateSandboxDestination");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("domain", updateSandboxDestinationOptions.domain());
+    builder.bodyJson(contentJson);
+    ResponseConverter<DestinationResponse> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DestinationResponse>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

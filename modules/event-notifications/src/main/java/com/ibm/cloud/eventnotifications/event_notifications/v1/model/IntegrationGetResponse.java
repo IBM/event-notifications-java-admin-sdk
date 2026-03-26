@@ -46,7 +46,7 @@ public class IntegrationGetResponse extends GenericModel {
   /**
    * Gets the type.
    *
-   * Integration type. Allowed values are kms and hs-crypto (deprecated) and collect_failed_events.
+   * Integration type. Allowed values are kms, hs-crypto (deprecated) and collect_failed_events.
    *
    * @return the type
    */

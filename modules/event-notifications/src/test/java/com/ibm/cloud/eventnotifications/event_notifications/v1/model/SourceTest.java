@@ -36,6 +36,7 @@ public class SourceTest {
     assertNull(sourceModel.getName());
     assertNull(sourceModel.getDescription());
     assertNull(sourceModel.isEnabled());
+    assertNull(sourceModel.isStoreNotifications());
     assertNull(sourceModel.getType());
     assertNull(sourceModel.getUpdatedAt());
     assertNull(sourceModel.getTopicCount());

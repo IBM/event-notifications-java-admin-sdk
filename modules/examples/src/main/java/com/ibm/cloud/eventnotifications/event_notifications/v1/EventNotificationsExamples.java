@@ -200,6 +200,7 @@ public class EventNotificationsExamples {
               .name("Event Notification Create Source Acme")
               .description("This source is used for Acme Bank")
               .enabled(false)
+              .storeNotifications(false)
               .build();
 
       Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
@@ -259,6 +260,7 @@ public class EventNotificationsExamples {
               .name("Event Notification update Source Acme")
               .description("This source is used for updated Acme Bank")
               .enabled(true)
+              .storeNotifications(false)
               .build();
 
       Response<Source> response = eventNotificationsService.updateSource(updateSourceOptions).execute();
@@ -2499,6 +2501,39 @@ public class EventNotificationsExamples {
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
       String markDown = "**Event Summary** \n\n**Toolchain ID:** `4414af34-a5c7-47d3-8f05-add4af6d78a6`  \n**Content Type:** `application/json`\n\n---\n\n *Pipeline Run Details*\n\n- **Namespace:** `PR`\n- **Trigger Name:** `manual`\n- **Triggered By:** `nitish.kulkarni3@ibm.com`\n- **Build Number:** `343`\n- **Pipeline Link:** [View Pipeline Run](https://cloud.ibm.com/devops/pipelines/tekton/e9cd5aa3-a3f2-4776-8acc-26a35922386e/runs/f29ac6f5-bd2f-4a26-abb8-4249be8dbab7?env_id=ibm:yp:us-south)";
 
+      // Create email attachments with multiple types
+      List<EmailAttachment> emailAttachments = new ArrayList<>();
+      
+      // Add a text file attachment (content should be Base64 encoded)
+      String textContentBase64 = "VGhpcyBpcyBhIHNhbXBsZSB0ZXh0IGF0dGFjaG1lbnQgZm9yIHRlc3RpbmcgZW1haWwgbm90aWZpY2F0aW9ucy4=";
+      EmailAttachment textAttachment = new EmailAttachment.Builder()
+              .content(textContentBase64)
+              .filename("sample.txt")
+              .contentType("text/plain")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(textAttachment);
+      
+      // Add a JSON file attachment (content should be Base64 encoded)
+      String jsonContentBase64 = "eyJ0eXBlIjoidGVzdCIsIm1lc3NhZ2UiOiJTYW1wbGUgSlNPTiBhdHRhY2htZW50IiwidGltZXN0YW1wIjoiMjAyNi0wMy0yNFQxNTo0ODoyOS40NTJaIn0=";
+      EmailAttachment jsonAttachment = new EmailAttachment.Builder()
+              .content(jsonContentBase64)
+              .filename("data.json")
+              .contentType("application/json")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(jsonAttachment);
+      
+      // Add a CSV file attachment (content should be Base64 encoded)
+      String csvContentBase64 = "TmFtZSxFbWFpbCxTdGF0dXMKSm9obiBEb2Usam9obkBleGFtcGxlLmNvbSxBY3RpdmUKSmFuZSBTbWl0aCxqYW5lQGV4YW1wbGUuY29tLEFjdGl2ZQ==";
+      EmailAttachment csvAttachment = new EmailAttachment.Builder()
+              .content(csvContentBase64)
+              .filename("report.csv")
+              .contentType("text/csv")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(csvAttachment);
+
       NotificationCreate body = new NotificationCreate.Builder()
               .id(instanceId)
               .ibmenseverity("MEDIUM")
@@ -2522,6 +2557,7 @@ public class EventNotificationsExamples {
               .ibmensafaribody(safariJsonString)
               .ibmendefaultshort("Match Info")
               .ibmendefaultlong("Portugal lead the group with a 2-0 win")
+              .emailAttachments(emailAttachments)
               .specversion("1.0")
               .build();
 

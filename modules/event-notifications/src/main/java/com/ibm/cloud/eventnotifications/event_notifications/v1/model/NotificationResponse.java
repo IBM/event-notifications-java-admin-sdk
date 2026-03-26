@@ -12,6 +12,8 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -22,6 +24,8 @@ public class NotificationResponse extends GenericModel {
 
   @SerializedName("notification_id")
   protected String notificationId;
+  @SerializedName("email_attachments")
+  protected List<EmailAttachment> emailAttachments;
 
   protected NotificationResponse() { }
 
@@ -34,6 +38,17 @@ public class NotificationResponse extends GenericModel {
    */
   public String getNotificationId() {
     return notificationId;
+  }
+
+  /**
+   * Gets the emailAttachments.
+   *
+   * Email attachments that were sent with the notification.
+   *
+   * @return the emailAttachments
+   */
+  public List<EmailAttachment> getEmailAttachments() {
+    return emailAttachments;
   }
 }
 

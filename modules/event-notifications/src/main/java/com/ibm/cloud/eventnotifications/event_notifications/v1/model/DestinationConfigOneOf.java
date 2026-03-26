@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  *
  * Classes which extend this class:
  * - DestinationConfigOneOfCustomDomainEmailDestinationConfig
+ * - DestinationConfigOneOfCustomEmailSandboxDestinationConfig
  * - DestinationConfigOneOfWebhookDestinationConfig
  * - DestinationConfigOneOfCodeEngineDestinationConfig
  * - DestinationConfigOneOfFCMDestinationConfig
