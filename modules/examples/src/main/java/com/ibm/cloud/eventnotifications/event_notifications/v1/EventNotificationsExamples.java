@@ -70,6 +70,7 @@ public class EventNotificationsExamples {
   public static String destinationId19 = "";
   public static String destinationId20 = "";
   public static String destinationId22 = "";
+  public static String destinationId23 = "";
   public static String safariCertificatePath = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
@@ -83,6 +84,7 @@ public class EventNotificationsExamples {
   public static String subscriptionId9 = "";
   public static String subscriptionId10 = "";
   public static String subscriptionId22 = "";
+  public static String subscriptionId23 = "";
   public static Map<String, String> config = null;
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
@@ -200,6 +202,7 @@ public class EventNotificationsExamples {
               .name("Event Notification Create Source Acme")
               .description("This source is used for Acme Bank")
               .enabled(false)
+              .storeNotifications(false)
               .build();
 
       Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
@@ -259,6 +262,7 @@ public class EventNotificationsExamples {
               .name("Event Notification update Source Acme")
               .description("This source is used for updated Acme Bank")
               .enabled(true)
+              .storeNotifications(false)
               .build();
 
       Response<Source> response = eventNotificationsService.updateSource(updateSourceOptions).execute();
@@ -751,6 +755,23 @@ public class EventNotificationsExamples {
       DestinationResponse destinationCustomResponseResult = customResponse.getResult();
       System.out.println(destinationCustomResponseResult);
       destinationId16 = destinationCustomResponseResult.getId();
+
+      // Create Custom Email Sandbox Destination
+      String sandboxName = "Custom Email Sandbox";
+      String sandboxTypeVal = "smtp_custom_sandbox";
+      String sandboxDescription = "Custom Email Sandbox Destination for testing";
+
+      CreateDestinationOptions createSandboxEmailDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(sandboxName)
+              .type(sandboxTypeVal)
+              .description(sandboxDescription)
+              .build();
+
+      Response<DestinationResponse> sandboxResponse = eventNotificationsService.createDestination(createSandboxEmailDestinationOptions).execute();
+      DestinationResponse destinationSandboxResponseResult = sandboxResponse.getResult();
+      System.out.println(destinationSandboxResponseResult);
+      destinationId23 = destinationSandboxResponseResult.getId();
 
       String customSMSName = "Custom SMS";
       String customSMSTypeVal = "sms_custom";
@@ -1331,6 +1352,17 @@ public class EventNotificationsExamples {
       VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
       System.out.println(dkimResponseObj);
 
+      // Update Custom Email Sandbox Destination
+      UpdateEmailSandboxDestinationOptions updateEmailSandboxDestinationOptions = new UpdateEmailSandboxDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId23)
+              .domain("mailx.event-notifications.test.cloud.ibm.com")
+              .build();
+
+      Response<DestinationResponse> sandboxResponse = eventNotificationsService.updateEmailSandboxDestination(updateEmailSandboxDestinationOptions).execute();
+      DestinationResponse sandboxDestination = sandboxResponse.getResult();
+      System.out.println(sandboxDestination);
+
       String customSMSName = "Custom SMS update";
       String customSMSDescription = "Custom SMS Destination update";
 
@@ -1808,6 +1840,33 @@ public class EventNotificationsExamples {
       Response<Subscription> customSMSResponse = eventNotificationsService.createSubscription(createCustomSMSSubscriptionOptions).execute();
       Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
       subscriptionId7 = customSMSSubscriptionResult.getId();
+
+      // Create subscription for Custom Email Sandbox Destination
+      ArrayList<String> sandboxToMail = new ArrayList<String>();
+      sandboxToMail.add("entestmonitor@gmail.com");
+
+      SubscriptionCreateAttributesCustomEmailSandboxAttributes subscriptionCreateSandboxEmailAttributesModel = new SubscriptionCreateAttributesCustomEmailSandboxAttributes.Builder()
+              .invited(sandboxToMail)
+              .addNotificationPayload(true)
+              .replyToMail("entestmonitor@gmail.com")
+              .replyToName("Sandbox Test")
+              .build();
+
+      String sandboxName = "subscription_Custom_Email_Sandbox";
+      String sandboxDescription = "Subscription for Custom Email Sandbox";
+
+      CreateSubscriptionOptions createSandboxSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(sandboxName)
+              .destinationId(destinationId23)
+              .topicId(topicId)
+              .attributes(subscriptionCreateSandboxEmailAttributesModel)
+              .description(sandboxDescription)
+              .build();
+
+      Response<Subscription> sandboxResponse = eventNotificationsService.createSubscription(createSandboxSubscriptionOptions).execute();
+      Subscription sandboxSubscriptionResult = sandboxResponse.getResult();
+      subscriptionId23 = sandboxSubscriptionResult.getId();
 
       String slackDMName = "subscription_slack DM";
       String slackDMDescription = "Subscription for slack DM";
@@ -2374,6 +2433,49 @@ public class EventNotificationsExamples {
       Subscription customSMSSubscriptionResult = customSMSResponse.getResult();
       System.out.println(customSMSSubscriptionResult);
 
+      // Update Custom Email Sandbox Subscription
+      ArrayList<String> toSandboxRemove = new ArrayList<String>();
+      toSandboxRemove.add("entestmonitor@gmail.com");
+
+      ArrayList<String> toSandboxInvite = new ArrayList<String>();
+      toSandboxInvite.add("entestmonitor@outlook.com");
+
+      UpdateAttributesSubscribed sandboxSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toSandboxRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed sandboxUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toSandboxRemove)
+              .build();
+
+      UpdateAttributesInvited sandboxInvited = new UpdateAttributesInvited.Builder()
+              .add(toSandboxInvite)
+              .build();
+
+      SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes subscriptionUpdateSandboxEmailAttributesModel = new SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes.Builder()
+              .addNotificationPayload(true)
+              .invited(sandboxInvited)
+              .replyToMail("entestmonitor@outlook.com")
+              .replyToName("Sandbox Notifications")
+              .subscribed(sandboxSubscribed)
+              .unsubscribed(sandboxUnSubscribed)
+              .build();
+
+      String sandboxEmailName = "Custom email sandbox subscription updated";
+      String sandboxEmailDescription = "subscription_update for Custom email sandbox";
+
+      UpdateSubscriptionOptions sandboxEmailUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(sandboxEmailName)
+              .id(subscriptionId23)
+              .attributes(subscriptionUpdateSandboxEmailAttributesModel)
+              .description(sandboxEmailDescription)
+              .build();
+
+      Response<Subscription> sandboxEmailResponse = eventNotificationsService.updateSubscription(sandboxEmailUpdateSubscriptionOptions).execute();
+      Subscription sandboxEmailSubscriptionResult = sandboxEmailResponse.getResult();
+      System.out.println(sandboxEmailSubscriptionResult);
+
       String slackDMName = "subscription_slack DM";
       String slackDMDescription = "Subscription for slack DM";
 
@@ -2499,6 +2601,39 @@ public class EventNotificationsExamples {
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
       String markDown = "**Event Summary** \n\n**Toolchain ID:** `4414af34-a5c7-47d3-8f05-add4af6d78a6`  \n**Content Type:** `application/json`\n\n---\n\n *Pipeline Run Details*\n\n- **Namespace:** `PR`\n- **Trigger Name:** `manual`\n- **Triggered By:** `nitish.kulkarni3@ibm.com`\n- **Build Number:** `343`\n- **Pipeline Link:** [View Pipeline Run](https://cloud.ibm.com/devops/pipelines/tekton/e9cd5aa3-a3f2-4776-8acc-26a35922386e/runs/f29ac6f5-bd2f-4a26-abb8-4249be8dbab7?env_id=ibm:yp:us-south)";
 
+      // Create email attachments with multiple types
+      List<EmailAttachment> emailAttachments = new ArrayList<>();
+
+      // Add a text file attachment (content should be Base64 encoded)
+      String textContentBase64 = "VGhpcyBpcyBhIHNhbXBsZSB0ZXh0IGF0dGFjaG1lbnQgZm9yIHRlc3RpbmcgZW1haWwgbm90aWZpY2F0aW9ucy4=";
+      EmailAttachment textAttachment = new EmailAttachment.Builder()
+              .content(textContentBase64)
+              .filename("sample.txt")
+              .contentType("text/plain")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(textAttachment);
+
+      // Add a JSON file attachment (content should be Base64 encoded)
+      String jsonContentBase64 = "eyJ0eXBlIjoidGVzdCIsIm1lc3NhZ2UiOiJTYW1wbGUgSlNPTiBhdHRhY2htZW50IiwidGltZXN0YW1wIjoiMjAyNi0wMy0yNFQxNTo0ODoyOS40NTJaIn0=";
+      EmailAttachment jsonAttachment = new EmailAttachment.Builder()
+              .content(jsonContentBase64)
+              .filename("data.json")
+              .contentType("application/json")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(jsonAttachment);
+
+      // Add a CSV file attachment (content should be Base64 encoded)
+      String csvContentBase64 = "TmFtZSxFbWFpbCxTdGF0dXMKSm9obiBEb2Usam9obkBleGFtcGxlLmNvbSxBY3RpdmUKSmFuZSBTbWl0aCxqYW5lQGV4YW1wbGUuY29tLEFjdGl2ZQ==";
+      EmailAttachment csvAttachment = new EmailAttachment.Builder()
+              .content(csvContentBase64)
+              .filename("report.csv")
+              .contentType("text/csv")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(csvAttachment);
+
       NotificationCreate body = new NotificationCreate.Builder()
               .id(instanceId)
               .ibmenseverity("MEDIUM")
@@ -2522,6 +2657,7 @@ public class EventNotificationsExamples {
               .ibmensafaribody(safariJsonString)
               .ibmendefaultshort("Match Info")
               .ibmendefaultlong("Portugal lead the group with a 2-0 win")
+              .attachments(emailAttachments)
               .specversion("1.0")
               .build();
 
@@ -2954,7 +3090,7 @@ public class EventNotificationsExamples {
       subscriptions.add(subscriptionId9);
       subscriptions.add(subscriptionId10);
       subscriptions.add(subscriptionId22);
-
+      subscriptions.add(subscriptionId23);
       for (String subscription : subscriptions) {
         deleteSubscriptionOptions = new DeleteSubscriptionOptions.Builder()
                 .instanceId(instanceId)
@@ -3016,6 +3152,7 @@ public class EventNotificationsExamples {
       destinations.add(destinationId19);
       destinations.add(destinationId20);
       destinations.add(destinationId22);
+      destinations.add(destinationId23);
       for (String destination : destinations) {
         deleteDestinationOptions = new DeleteDestinationOptions.Builder()
                 .instanceId(instanceId)

@@ -43,6 +43,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfChromeDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCodeEngineDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCustomDomainEmailDestinationConfig;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfCustomEmailSandboxDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfEventStreamsDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFCMDestinationConfig;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationConfigOneOfFirefoxDestinationConfig;
@@ -62,6 +63,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Destination
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationTagsSubscriptionResponse;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.DestinationsPager;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ENAuthAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttachment;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseInvitedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttributesResponseSubscribedUnsubscribedItems;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EnabledCountriesResponse;
@@ -158,6 +160,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesAppConfigurationAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCodeEngineAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomEmailAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomEmailSandboxAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesCustomSMSAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEmailAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionCreateAttributesEventstreamsAttributes;
@@ -173,6 +176,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.Subscriptio
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesAppConfigurationAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCodeEngineAttributes;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomEmailUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesCustomSMSUpdateAttributes;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SubscriptionUpdateAttributesEmailUpdateAttributes;
@@ -213,6 +217,7 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttri
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesSubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateAttributesUnsubscribed;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateDestinationOptions;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateEmailSandboxDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpConfigurationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSmtpUserOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateSourceOptions;
@@ -404,12 +409,20 @@ public class EventNotificationsTest {
   @Test
   public void testSendNotificationsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"notification_id\": \"notificationId\"}";
+    String mockResponseBody = "{\"notification_id\": \"notificationId\", \"attachments\": [{\"content\": \"content\", \"filename\": \"filename\", \"content_type\": \"contentType\", \"disposition\": \"attachment\"}]}";
     String sendNotificationsPath = "/v1/instances/testString/notifications";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(202)
       .setBody(mockResponseBody));
+
+    // Construct an instance of the EmailAttachment model
+    EmailAttachment emailAttachmentModel = new EmailAttachment.Builder()
+      .content("testString")
+      .filename("testString")
+      .contentType("testString")
+      .disposition("attachment")
+      .build();
 
     // Construct an instance of the NotificationCreate model
     NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
@@ -444,6 +457,7 @@ public class EventNotificationsTest {
       .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
       .ibmenhuaweibody("testString")
       .ibmensafaribody("testString")
+      .attachments(java.util.Arrays.asList(emailAttachmentModel))
       .add("foo", "testString")
       .build();
 
@@ -492,7 +506,7 @@ public class EventNotificationsTest {
   @Test
   public void testCreateSourcesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"store_notifications\": true, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
     String createSourcesPath = "/v1/instances/testString/sources";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -505,6 +519,7 @@ public class EventNotificationsTest {
       .name("testString")
       .description("testString")
       .enabled(true)
+      .storeNotifications(false)
       .build();
 
     // Invoke createSources() with a valid options model and verify the result
@@ -546,7 +561,7 @@ public class EventNotificationsTest {
   @Test
   public void testListSourcesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"enabled\": false, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 0}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
+    String mockResponseBody = "{\"total_count\": 0, \"offset\": 6, \"limit\": 5, \"sources\": [{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"type\", \"enabled\": false, \"store_notifications\": true, \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 0}], \"first\": {\"href\": \"href\"}, \"previous\": {\"href\": \"href\"}, \"next\": {\"href\": \"href\"}}";
     String listSourcesPath = "/v1/instances/testString/sources";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -603,8 +618,8 @@ public class EventNotificationsTest {
   @Test
   public void testListSourcesWithPagerGetNext() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"store_notifications\":true,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"store_notifications\":true,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -638,8 +653,8 @@ public class EventNotificationsTest {
   @Test
   public void testListSourcesWithPagerGetAll() throws Throwable {
     // Set up the two-page mock response.
-    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
-    String mockResponsePage2 = "{\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage1 = "{\"next\":{\"href\":\"https://myhost.com/somePath?offset=1\"},\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"store_notifications\":true,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
+    String mockResponsePage2 = "{\"sources\":[{\"id\":\"id\",\"name\":\"name\",\"description\":\"description\",\"type\":\"type\",\"enabled\":false,\"store_notifications\":true,\"updated_at\":\"2019-01-01T12:00:00.000Z\",\"topic_count\":0}],\"total_count\":2,\"limit\":1}";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
       .setResponseCode(200)
@@ -669,7 +684,7 @@ public class EventNotificationsTest {
   @Test
   public void testGetSourceWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"store_notifications\": true, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
     String getSourcePath = "/v1/instances/testString/sources/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -772,7 +787,7 @@ public class EventNotificationsTest {
   @Test
   public void testUpdateSourceWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"enabled\": false, \"store_notifications\": true, \"type\": \"type\", \"updated_at\": \"2019-01-01T12:00:00.000Z\", \"topic_count\": 10, \"topic_names\": [\"topicNames\"]}";
     String updateSourcePath = "/v1/instances/testString/sources/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -786,6 +801,7 @@ public class EventNotificationsTest {
       .name("testString")
       .description("testString")
       .enabled(true)
+      .storeNotifications(false)
       .build();
 
     // Invoke updateSource() with a valid options model and verify the result
@@ -2254,6 +2270,59 @@ public class EventNotificationsTest {
   public void testTestDestinationNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     eventNotificationsService.testDestination(null).execute();
+  }
+
+  // Test the updateEmailSandboxDestination operation with a valid options model parameter
+  @Test
+  public void testUpdateEmailSandboxDestinationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"description\": \"description\", \"type\": \"webhook\", \"collect_failed_events\": false, \"config\": {\"params\": {\"domain\": \"domain\", \"dkim\": {\"public_key\": \"publicKey\", \"selector\": \"selector\", \"verification\": \"verification\"}, \"spf\": {\"txt_name\": \"txtName\", \"txt_value\": \"txtValue\", \"verification\": \"verification\"}}}, \"created_at\": \"2019-01-01T12:00:00.000Z\"}";
+    String updateEmailSandboxDestinationPath = "/v1/instances/testString/destinations/testString/upgrade";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the UpdateEmailSandboxDestinationOptions model
+    UpdateEmailSandboxDestinationOptions updateEmailSandboxDestinationOptionsModel = new UpdateEmailSandboxDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .domain("testString")
+      .build();
+
+    // Invoke updateEmailSandboxDestination() with a valid options model and verify the result
+    Response<DestinationResponse> response = eventNotificationsService.updateEmailSandboxDestination(updateEmailSandboxDestinationOptionsModel).execute();
+    assertNotNull(response);
+    DestinationResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateEmailSandboxDestinationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the updateEmailSandboxDestination operation with and without retries enabled
+  @Test
+  public void testUpdateEmailSandboxDestinationWRetries() throws Throwable {
+    eventNotificationsService.enableRetries(4, 30);
+    testUpdateEmailSandboxDestinationWOptions();
+
+    eventNotificationsService.disableRetries();
+    testUpdateEmailSandboxDestinationWOptions();
+  }
+
+  // Test the updateEmailSandboxDestination operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateEmailSandboxDestinationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    eventNotificationsService.updateEmailSandboxDestination(null).execute();
   }
 
   // Test the updateVerifyDestination operation with a valid options model parameter

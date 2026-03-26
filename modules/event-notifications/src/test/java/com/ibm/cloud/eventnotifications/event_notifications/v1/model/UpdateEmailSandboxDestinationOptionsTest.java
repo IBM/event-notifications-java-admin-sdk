@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.SourceListItem;
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.UpdateEmailSandboxDestinationOptions;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,22 +23,27 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the SourceListItem model.
+ * Unit test class for the UpdateEmailSandboxDestinationOptions model.
  */
-public class SourceListItemTest {
+public class UpdateEmailSandboxDestinationOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testSourceListItem() throws Throwable {
-    SourceListItem sourceListItemModel = new SourceListItem();
-    assertNull(sourceListItemModel.getId());
-    assertNull(sourceListItemModel.getName());
-    assertNull(sourceListItemModel.getDescription());
-    assertNull(sourceListItemModel.getType());
-    assertNull(sourceListItemModel.isEnabled());
-    assertNull(sourceListItemModel.isStoreNotifications());
-    assertNull(sourceListItemModel.getUpdatedAt());
-    assertNull(sourceListItemModel.getTopicCount());
+  public void testUpdateEmailSandboxDestinationOptions() throws Throwable {
+    UpdateEmailSandboxDestinationOptions updateEmailSandboxDestinationOptionsModel = new UpdateEmailSandboxDestinationOptions.Builder()
+      .instanceId("testString")
+      .id("testString")
+      .domain("testString")
+      .build();
+    assertEquals(updateEmailSandboxDestinationOptionsModel.instanceId(), "testString");
+    assertEquals(updateEmailSandboxDestinationOptionsModel.id(), "testString");
+    assertEquals(updateEmailSandboxDestinationOptionsModel.domain(), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateEmailSandboxDestinationOptionsError() throws Throwable {
+    new UpdateEmailSandboxDestinationOptions.Builder().build();
+  }
+
 }

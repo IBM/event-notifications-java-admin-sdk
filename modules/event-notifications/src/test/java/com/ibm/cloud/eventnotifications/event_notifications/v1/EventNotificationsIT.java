@@ -72,6 +72,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String destinationId19 = "";
   public static String destinationId21 = "";
   public static String destinationId22 = "";
+  public static String destinationId23 = "";
   public static String subscriptionId = "";
   public static String subscriptionId1 = "";
   public static String subscriptionId2 = "";
@@ -94,6 +95,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   public static String subscriptionId20 = "";
   public static String subscriptionId21 = "";
   public static String subscriptionId22 = "";
+  public static String subscriptionId23 = "";
   public static String fcmServerKey = "";
   public static String fcmSenderId = "";
   public static String integrationId = "";
@@ -227,6 +229,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .name("Event Notification Create Source Acme")
               .description("This source is used for Acme Bank")
               .enabled(true)
+              .storeNotifications(true)
               .build();
 
       // Invoke operation
@@ -238,6 +241,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       SourceResponse sourceResponseResult = response.getResult();
 
       assertNotNull(sourceResponseResult);
+      assertEquals(sourceResponseResult.isStoreNotifications(), Boolean.valueOf(true));
 
       sourceId = sourceResponseResult.getId();
 
@@ -346,6 +350,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .name("Event Notification update Source Acme")
               .description("This source is used for updated Acme Bank")
               .enabled(true)
+              .storeNotifications(false)
               .build();
 
       // Invoke operation
@@ -357,6 +362,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Source sourceResult = response.getResult();
 
       assertNotNull(sourceResult);
+      assertEquals(sourceResult.isStoreNotifications(), Boolean.valueOf(false));
 
       //
       // The following status codes aren't covered by tests.
@@ -1145,6 +1151,34 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       destinationId16 = destinationCustomResponseResult.getId();
 
+      // Create Custom Email Sandbox Destination
+      // Note: Sandbox destinations don't require config params initially
+      String sandboxName = "Custom Email Sandbox";
+      String sandboxTypeVal = "smtp_custom_sandbox";
+      String sandboxDescription = "Custom Email Sandbox Destination for testing";
+
+      CreateDestinationOptions createSandboxEmailDestinationOptions = new CreateDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .name(sandboxName)
+              .type(sandboxTypeVal)
+              .description(sandboxDescription)
+              .build();
+
+      // Invoke operation
+      Response<DestinationResponse> sandboxResponse = service.createDestination(createSandboxEmailDestinationOptions).execute();
+      // Validate response
+      assertNotNull(sandboxResponse);
+      assertEquals(sandboxResponse.getStatusCode(), 201);
+
+      DestinationResponse destinationSandboxResponseResult = sandboxResponse.getResult();
+
+      assertNotNull(destinationSandboxResponseResult);
+      assertEquals(destinationSandboxResponseResult.getDescription(), sandboxDescription);
+      assertEquals(destinationSandboxResponseResult.getName(), sandboxName);
+      assertEquals(destinationSandboxResponseResult.getType(), sandboxTypeVal);
+
+      destinationId23 = destinationSandboxResponseResult.getId();
+
       String customSMSName = "Custom SMS";
       String customSMSTypeVal = "sms_custom";
       String customSMSDescription = "Custom SMS Destination";
@@ -1900,6 +1934,17 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       Response<VerificationResponse> dkimVerificationResponse = service.updateVerifyDestination(updateDkimVerifyDestinationOptionsModel).execute();
       VerificationResponse dkimResponseObj = dkimVerificationResponse.getResult();
       assertNotNull(dkimResponseObj);
+
+      // Update Custom Email Sandbox Destination
+      UpdateEmailSandboxDestinationOptions updateEmailSandboxDestinationOptions = new UpdateEmailSandboxDestinationOptions.Builder()
+              .instanceId(instanceId)
+              .id(destinationId23)
+              .domain("mailx.event-notifications.test.cloud.ibm.com")
+              .build();
+
+      Response<DestinationResponse> sandboxUpdateResponse = service.updateEmailSandboxDestination(updateEmailSandboxDestinationOptions).execute();
+      assertNotNull(sandboxUpdateResponse);
+      assertEquals(sandboxUpdateResponse.getStatusCode(), 200);
 
       String customSMSName = "Custom SMS update";
       String customSMSDescription = "Custom SMS Destination update";
@@ -2968,6 +3013,40 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       subscriptionId16 = customSubscriptionResult.getId();
 
+      // Create subscription for Custom Email Sandbox Destination
+      ArrayList<String> sandboxToMail = new ArrayList<String>();
+      sandboxToMail.add("entestmonitor@gmail.com");
+      SubscriptionCreateAttributesCustomEmailSandboxAttributes subscriptionCreateSandboxEmailAttributesModel = new SubscriptionCreateAttributesCustomEmailSandboxAttributes.Builder()
+              .invited(sandboxToMail)
+              .addNotificationPayload(true)
+              .replyToMail("entestmonitor@gmail.com")
+              .replyToName("Sandbox Test")
+              .templateIdInvitation(templateInvitationID)
+              .templateIdNotification(templateNotificationID)
+              .build();
+
+      String sandboxName = "subscription_Custom_Email_Sandbox";
+      String sandboxDescription = "Subscription for Custom Email Sandbox";
+      CreateSubscriptionOptions createSandboxSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(sandboxName)
+              .destinationId(destinationId23)
+              .topicId(topicId)
+              .attributes(subscriptionCreateSandboxEmailAttributesModel)
+              .description(sandboxDescription)
+              .build();
+
+      Response<Subscription> sandboxResponse = service.createSubscription(createSandboxSubscriptionOptions).execute();
+
+      assertNotNull(sandboxResponse);
+      assertEquals(sandboxResponse.getStatusCode(), 201);
+      Subscription sandboxSubscriptionResult = sandboxResponse.getResult();
+      assertNotNull(sandboxSubscriptionResult);
+      assertEquals(sandboxSubscriptionResult.getDescription(), sandboxDescription);
+      assertEquals(sandboxSubscriptionResult.getName(), sandboxName);
+
+      subscriptionId23 = sandboxSubscriptionResult.getId();
+
       ArrayList<String> customToNumber = new ArrayList<String>();
       customToNumber.add("+911234567890");
       customToNumber.add("+122670546254");
@@ -3653,6 +3732,56 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(customEmailSubscriptionResult.getDescription(), customEmailDescription);
       assertEquals(customEmailSubscriptionResult.getName(), customEmailName);
 
+      // Update Custom Email Sandbox Subscription
+      ArrayList<String> toSandboxRemove = new ArrayList<String>();
+      toSandboxRemove.add("entestmonitor@gmail.com");
+
+      ArrayList<String> toSandboxInvite = new ArrayList<String>();
+      toSandboxInvite.add("entestmonitor@outlook.com");
+
+      UpdateAttributesSubscribed sandboxSubscribed = new UpdateAttributesSubscribed.Builder()
+              .remove(toSandboxRemove)
+              .build();
+
+      UpdateAttributesUnsubscribed sandboxUnSubscribed = new UpdateAttributesUnsubscribed.Builder()
+              .remove(toSandboxRemove)
+              .build();
+
+      UpdateAttributesInvited sandboxInvited = new UpdateAttributesInvited.Builder()
+              .add(toSandboxInvite)
+              .build();
+
+      SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes subscriptionUpdateSandboxEmailAttributesModel = new SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes.Builder()
+              .addNotificationPayload(true)
+              .invited(sandboxInvited)
+              .replyToMail("entestmonitor@outlook.com")
+              .replyToName("Sandbox Notifications")
+              .templateIdInvitation(templateInvitationID)
+              .templateIdNotification(templateNotificationID)
+              .subscribed(sandboxSubscribed)
+              .unsubscribed(sandboxUnSubscribed)
+              .build();
+
+      String sandboxEmailName = "Custom email sandbox subscription updated";
+      String sandboxEmailDescription = "subscription_update for Custom email sandbox";
+
+      UpdateSubscriptionOptions sandboxEmailUpdateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+              .instanceId(instanceId)
+              .name(sandboxEmailName)
+              .id(subscriptionId23)
+              .attributes(subscriptionUpdateSandboxEmailAttributesModel)
+              .description(sandboxEmailDescription)
+              .build();
+
+      Response<Subscription> sandboxEmailResponse = service.updateSubscription(sandboxEmailUpdateSubscriptionOptions).execute();
+      // Validate response
+      assertNotNull(sandboxEmailResponse);
+      assertEquals(sandboxEmailResponse.getStatusCode(), 200);
+      Subscription sandboxEmailSubscriptionResult = sandboxEmailResponse.getResult();
+      assertNotNull(sandboxEmailSubscriptionResult);
+      assertEquals(sandboxEmailSubscriptionResult.getDescription(), sandboxEmailDescription);
+      assertEquals(sandboxEmailSubscriptionResult.getName(), sandboxEmailName);
+
       ArrayList<String> toCustomPhRemove = new ArrayList<String>();
       toCustomPhRemove.add("+12064512559");
 
@@ -4181,6 +4310,39 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
       String markDown = "**Event Summary** \n\n**Toolchain ID:** `4414af34-a5c7-47d3-8f05-add4af6d78a6`  \n**Content Type:** `application/json`\n\n---\n\n *Pipeline Run Details*\n\n- **Namespace:** `PR`\n- **Trigger Name:** `manual`\n- **Triggered By:** `nitish.kulkarni3@ibm.com`\n- **Build Number:** `343`\n- **Pipeline Link:** [View Pipeline Run](https://cloud.ibm.com/devops/pipelines/tekton/e9cd5aa3-a3f2-4776-8acc-26a35922386e/runs/f29ac6f5-bd2f-4a26-abb8-4249be8dbab7?env_id=ibm:yp:us-south)";
 
+      // Create email attachments with multiple types
+      List<EmailAttachment> emailAttachments = new ArrayList<>();
+      
+      // Add a text file attachment
+      String textContentBase64 = "dGhpcyBpcyBhIHZlcnkgc2ltcGxlIHRleHQgZmlsZSBtZWFudCBmb3IgdGVzaW5nIHB1cnBvc2U=";
+      EmailAttachment textAttachment = new EmailAttachment.Builder()
+              .content(textContentBase64)
+              .filename("sample.txt")
+              .contentType("text/plain")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(textAttachment);
+      
+      // Add a JSON file attachment
+      String jsonContentBase64 = "eyJ0eXBlIjoidGVzdCIsIm1lc3NhZ2UiOiJTYW1wbGUgSlNPTiBhdHRhY2htZW50IiwidGltZXN0YW1wIjoiMjAyNi0wMy0yNFQxNTo0ODoyOS40NTJaIn0=";
+      EmailAttachment jsonAttachment = new EmailAttachment.Builder()
+              .content(jsonContentBase64)
+              .filename("data.json")
+              .contentType("application/json")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(jsonAttachment);
+      
+      // Add a CSV file attachment
+      String csvContentBase64 = "TmFtZSxFbWFpbCxTdGF0dXMKSm9obiBEb2Usam9obkBleGFtcGxlLmNvbSxBY3RpdmUKSmFuZSBTbWl0aCxqYW5lQGV4YW1wbGUuY29tLEFjdGl2ZQ==";
+      EmailAttachment csvAttachment = new EmailAttachment.Builder()
+              .content(csvContentBase64)
+              .filename("report.csv")
+              .contentType("text/csv")
+              .disposition(EmailAttachment.Disposition.ATTACHMENT)
+              .build();
+      emailAttachments.add(csvAttachment);
+
       NotificationCreate body = new NotificationCreate.Builder()
               .id(instanceId)
               .ibmenseverity("MEDIUM")
@@ -4205,6 +4367,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .ibmensafaribody(safariJsonString)
               .ibmendefaultshort("Match Info")
               .ibmendefaultlong("Portugal lead the group with a 2-0 win")
+              .attachments(emailAttachments)
               .specversion("1.0")
               .build();
 
@@ -4420,6 +4583,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       subscriptions.add(subscriptionId20);
       subscriptions.add(subscriptionId21);
       subscriptions.add(subscriptionId22);
+      subscriptions.add(subscriptionId23);
 
       for (String subscription :
               subscriptions) {
@@ -4511,6 +4675,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       destinations.add(destinationId19);
       destinations.add(destinationId21);
       destinations.add(destinationId22);
+      destinations.add(destinationId23);
 
       for (String destination :
               destinations) {

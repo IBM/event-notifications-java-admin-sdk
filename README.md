@@ -1,7 +1,7 @@
 [![Build Status](https://app.travis-ci.com/IBM/event-notifications-java-admin-sdk.svg?branch=main)](https://travis-ci.com/IBM/event-notifications-java-admin-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# Java server SDK for IBM Cloud Event Notifications service Version 0.23.0
+# Java server SDK for IBM Cloud Event Notifications service Version 0.24.0
 
 Java client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
@@ -27,7 +27,7 @@ The IBM Cloud Event Notifications Service Java SDK allows developers to programm
 
 | Service Name                                                                     | Artifact Coordinates                     |
 | -------------------------------------------------------------------------------- |------------------------------------------|
-| [Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.23.0 |
+| [Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.24.0 |
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ The IBM Cloud Event Notifications Service Java SDK allows developers to programm
 
 ## Installation
 
-The current version of this SDK is: 0.23.0
+The current version of this SDK is: 0.24.0
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -57,14 +57,14 @@ To use the Event Notifications Java SDK, define a dependency that contains the a
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>event-notifications</artifactId>
-    <version>0.23.0</version>
+    <version>0.24.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```gradle
-compile 'com.ibm.cloud:event-notifications:0.23.0'
+compile 'com.ibm.cloud:event-notifications:0.24.0'
 ```
 
 ## Using the SDK
@@ -183,6 +183,7 @@ CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
               .name(<source-name>)
               .description(<source-description>)
               .enabled(true)
+              .storeNotifications(true)
               .build();
 
 Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
@@ -225,6 +226,7 @@ UpdateSourceOptions updateSourceOptions = new UpdateSourceOptions.Builder()
         .name(<source-name>)
         .description(<source-description>)
         .enabled(true)
+        .storeNotifications(false)
         .build();
 
 Response<Source> response = eventNotificationsService.updateSource(updateSourceOptions).execute();
@@ -385,6 +387,27 @@ DestinationResponse destinationResponse = response.getResult();
 System.out.println(destinationResponse);
 ```
 
+#### Create Custom Email Sandbox Destination
+
+Custom Email Sandbox destinations allow you to test email notifications in a controlled environment before moving to production.
+
+```java
+
+CreateDestinationOptions createDestinationOptions = new CreateDestinationOptions.Builder()
+        .instanceId(<instanceId>)
+        .name(<destination-name>)
+        .type("smtp_custom_sandbox")
+        .description(<description>)
+        .build();
+
+Response<DestinationResponse> response = eventNotificationsService.createDestination(createDestinationOptions).execute();
+DestinationResponse destinationResponse = response.getResult();
+```
+
+**Parameters:**
+- **type** - Must be set to `"smtp_custom_sandbox"` for Custom Email Sandbox destinations
+- **domain** - Not required during creation; can be set later using the Update Sandbox Destination API
+
 Among the supported destinations, if you need to create Push Notification destinations, you have the additional option of choosing a destination of production type or pre-production type.
 Set `pre_prod` boolean parameter to _true_ to configure destination as pre-production destination else set the value as _false_.
 Supported destinations are Android, iOS, Chrome, Firefox and Safari.
@@ -514,6 +537,28 @@ Response<VerificationResponse> verificationResponse = service.updateVerifyDestin
 VerificationResponse responseObj = verificationResponse.getResult();
 
 ```
+
+### Update Custom Email Sandbox Destination
+
+Update the domain for a Custom Email Sandbox destination. This allows you to configure the email domain used for sandbox testing.
+
+```java
+UpdateEmailSandboxDestinationOptions updateEmailSandboxDestinationOptions = new UpdateEmailSandboxDestinationOptions.Builder()
+        .instanceId(<instanceId>)
+        .id(<destinationId>)
+        .domain(<email-domain>)
+        .build();
+
+Response<DestinationResponse> response = eventNotificationsService.updateEmailSandboxDestination(updateEmailSandboxDestinationOptions).execute();
+DestinationResponse destination = response.getResult();
+```
+
+**Parameters:**
+- **instanceId** (_string_) - Unique identifier for IBM Cloud Event Notifications instance.
+- **id** (_string_) - Unique identifier for the Custom Email Sandbox Destination.
+- **domain** (_string_) - Email domain to be used for the sandbox destination (e.g., "example.com").
+
+**Note:** Custom Email Sandbox destinations are used for testing email notifications in a controlled environment before moving to production with a verified custom domain.
 
 ## Templates
 
@@ -986,6 +1031,45 @@ Subscription subscription = response.getResult();
 System.out.println(subscription);
 ```
 
+#### Create Subscription for Custom Email Sandbox Destination
+
+When creating a subscription for a **Custom Email Sandbox** (`smtp_custom_sandbox`) destination, you need to specify email-specific attributes including reply-to information and optional template IDs.
+
+```java
+// Create email attributes with invited recipients
+List<String> invitedEmails = new ArrayList<>();
+invitedEmails.add("user1@example.com");
+invitedEmails.add("user2@example.com");
+
+SubscriptionCreateAttributesCustomEmailSandboxAttributes emailAttributes = new SubscriptionCreateAttributesCustomEmailSandboxAttributes.Builder()
+    .invited(invitedEmails)
+    .addNotificationPayload(true)
+    .replyToMail("support@example.com")
+    .replyToName("Support Team")
+    .build();
+
+CreateSubscriptionOptions createSubscriptionOptions = new CreateSubscriptionOptions.Builder()
+    .instanceId(<instanceId>)
+    .name("Email Sandbox Subscription")
+    .destinationId(<customEmailSandboxDestinationId>)
+    .topicId(<topicId>)
+    .attributes(emailAttributes)
+    .description("Subscription for custom email sandbox destination")
+    .build();
+
+Response<Subscription> response = eventNotificationsService.createSubscription(createSubscriptionOptions).execute();
+Subscription subscription = response.getResult();
+System.out.println(subscription);
+```
+
+**Email Sandbox Attributes Parameters:**
+- **invited** (required) - List of email addresses to receive notifications
+- **addNotificationPayload** (required) - Whether to include the notification payload in the email body
+- **replyToMail** (required) - Email address where replies should be directed (can be the same as the sending address)
+- **replyToName** (required) - Display name for the reply-to address
+- **templateIdNotification** (optional) - Template ID for notification emails
+- **templateIdInvitation** (optional) - Template ID for invitation emails
+
 ### ⚠️ Special Consideration for App Configuration Destination
 
 When creating or updating a subscription for an **App Configuration** destination, the `attributes` object has a specific rule:
@@ -1066,6 +1150,49 @@ Response<Subscription> response = eventNotificationsService.updateSubscription(u
 Subscription subscription = response.getResult();
 System.out.println(subscription);
 ```
+
+#### Update Subscription for Custom Email Sandbox Destination
+
+When updating a subscription for a **Custom Email Sandbox** destination, you can modify email-specific attributes such as recipients and reply-to settings.
+
+```java
+// Update invited recipients (optional)
+UpdateAttributesInvited invitedUpdate = new UpdateAttributesInvited.Builder()
+    .add(Arrays.asList("newuser@example.com"))
+    .build();
+
+// Update email sandbox attributes
+SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes emailUpdateAttributes = new SubscriptionUpdateAttributesCustomEmailSandboxUpdateAttributes.Builder()
+    .invited(invitedUpdate)
+    .addNotificationPayload(true)
+    .replyToMail("newsupport@example.com")
+    .replyToName("New Support Team")
+    .build();
+
+UpdateSubscriptionOptions updateSubscriptionOptions = new UpdateSubscriptionOptions.Builder()
+    .instanceId(<instanceId>)
+    .id(<subscriptionId>)
+    .name("Updated Email Sandbox Subscription")
+    .description("Updated subscription for custom email sandbox")
+    .attributes(emailUpdateAttributes)
+    .build();
+
+Response<Subscription> response = eventNotificationsService.updateSubscription(updateSubscriptionOptions).execute();
+Subscription subscription = response.getResult();
+System.out.println(subscription);
+```
+
+**Custom Email Sandbox Update Attributes Parameters:**
+- **invited** (optional) - Update the list of email recipients (add/remove emails)
+- **addNotificationPayload** (required) - Whether to include the notification payload in the email body
+- **replyToMail** (required) - Email address where replies should be directed (can be the same as the sending address)
+- **replyToName** (required) - Display name for the reply-to address
+- **subscribed** (optional) - Manage subscribed email addresses
+- **unsubscribed** (optional) - Manage unsubscribed email addresses
+- **templateIdNotification** (optional) - Template ID for notification emails
+- **templateIdInvitation** (optional) - Template ID for invitation emails
+
+**Note:** The `replyToMail` can be set to the same email address as your sending address if you want replies to go back to the sender.
 
 ### Delete Subscription
 
@@ -1417,6 +1544,18 @@ BounceMetrics responseObj = response.getResult();
         String htmlBody = "\"Hi  ,<br/>Certificate expiring in 90 days.<br/><br/>Please login to <a href=\"https: //cloud.ibm.com/security-compliance/dashboard\">Security and Complaince dashboard</a> to find more information<br/>\"";
         String markDown = "**Event Summary** \n\n**Toolchain ID:** `4414af34-a5c7-47d3-8f05-add4af6d78a6`  \n**Content Type:** `application/json`\n\n---\n\n *Pipeline Run Details*\n\n- **Namespace:** `PR`\n- **Trigger Name:** `manual`\n- **Triggered By:** `nitish.kulkarni3@ibm.com`\n- **Build Number:** `343`\n- **Pipeline Link:** [View Pipeline Run](https://cloud.ibm.com/devops/pipelines/tekton/e9cd5aa3-a3f2-4776-8acc-26a35922386e/runs/f29ac6f5-bd2f-4a26-abb8-4249be8dbab7?env_id=ibm:yp:us-south)";
 
+        // Create email attachments (content should be Base64 encoded)
+        List<EmailAttachment> emailAttachments = new ArrayList<>();
+        
+        String textContentBase64 = "VGhpcyBpcyBhIHNhbXBsZSB0ZXh0IGF0dGFjaG1lbnQ=";
+        EmailAttachment textAttachment = new EmailAttachment.Builder()
+                .content(textContentBase64)
+                .filename("sample.txt")
+                .contentType("text/plain")
+                .disposition(EmailAttachment.Disposition.ATTACHMENT)
+                .build();
+        emailAttachments.add(textAttachment);
+
         NotificationCreate body = new NotificationCreate.Builder()
               .id(InstanceID)
               .ibmenseverity("<notification-severity>")
@@ -1440,6 +1579,7 @@ BounceMetrics responseObj = response.getResult();
               .ibmensafaribody(safariJsonString)
               .ibmendefaultshort("<short-Info>")
               .ibmendefaultlong("<long-Info>")
+              .attachments(emailAttachments)
               .specversion("1.0")
               .build();
 
@@ -1493,6 +1633,11 @@ BounceMetrics responseObj = response.getResult();
   - **specversion\*** (_string_) - Spec version of the Event Notifications. Default value is `1.0`.
   - **ibmenhtmlbody** (_string_) - The html body of notification for email.
   - **ibmenmailto** (_Array of string_) - Array of email ids to which the notification to be sent.
+  - **attachments** (_Array of EmailAttachment_) - Array of email attachments to be sent with the notification. Each attachment should contain:
+    - **content** (_string_) - Base64 encoded file content.
+    - **filename** (_string_) - Name of the attachment file.
+    - **contentType** (_string_) - MIME type of the attachment (e.g., text/plain, application/json, text/csv, application/pdf).
+    - **disposition** (_string_) - Content disposition, typically "attachment".
   - **ibmensmsto** (_Array of string_) - Array of SMS numbers to which the notification to be sent.
   - **ibmensmstext** (_string_) - SMS text to be sent.
   - **ibmenslackto** (_Array of string_) - Array of Slack channel/member ids to which the notification to be sent.
@@ -1591,3 +1736,4 @@ See [CONTRIBUTING](CONTRIBUTING.md).
 
 The IBM Cloud Event Notifications Service Java SDK is released under the Apache 2.0 license.
 The license's full text can be found in [LICENSE](LICENSE).
+
