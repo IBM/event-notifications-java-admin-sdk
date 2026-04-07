@@ -37,12 +37,14 @@ public class UpdateSourceOptionsTest {
       .name("testString")
       .description("testString")
       .enabled(true)
+      .storeNotifications(false)
       .build();
     assertEquals(updateSourceOptionsModel.instanceId(), "testString");
     assertEquals(updateSourceOptionsModel.id(), "testString");
     assertEquals(updateSourceOptionsModel.name(), "testString");
     assertEquals(updateSourceOptionsModel.description(), "testString");
     assertEquals(updateSourceOptionsModel.enabled(), Boolean.valueOf(true));
+    assertEquals(updateSourceOptionsModel.storeNotifications(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

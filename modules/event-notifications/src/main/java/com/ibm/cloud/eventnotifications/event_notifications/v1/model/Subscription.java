@@ -57,6 +57,8 @@ public class Subscription extends DynamicModel<Object> {
     String PUSH_HUAWEI = "push_huawei";
     /** smtp_custom. */
     String SMTP_CUSTOM = "smtp_custom";
+    /** smtp_custom_sandbox. */
+    String SMTP_CUSTOM_SANDBOX = "smtp_custom_sandbox";
     /** sms_custom. */
     String SMS_CUSTOM = "sms_custom";
     /** event_streams. */

@@ -26,6 +26,8 @@ public class SourceResponse extends GenericModel {
   protected String name;
   protected String description;
   protected Boolean enabled;
+  @SerializedName("store_notifications")
+  protected Boolean storeNotifications;
   @SerializedName("created_at")
   protected Date createdAt;
 
@@ -73,6 +75,17 @@ public class SourceResponse extends GenericModel {
    */
   public Boolean isEnabled() {
     return enabled;
+  }
+
+  /**
+   * Gets the storeNotifications.
+   *
+   * view the payload of incoming events for troubleshooting.
+   *
+   * @return the storeNotifications
+   */
+  public Boolean isStoreNotifications() {
+    return storeNotifications;
   }
 
   /**

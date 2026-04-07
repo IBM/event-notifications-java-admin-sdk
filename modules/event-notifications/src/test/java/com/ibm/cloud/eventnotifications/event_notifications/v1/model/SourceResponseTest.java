@@ -36,6 +36,7 @@ public class SourceResponseTest {
     assertNull(sourceResponseModel.getName());
     assertNull(sourceResponseModel.getDescription());
     assertNull(sourceResponseModel.isEnabled());
+    assertNull(sourceResponseModel.isStoreNotifications());
     assertNull(sourceResponseModel.getCreatedAt());
   }
 }

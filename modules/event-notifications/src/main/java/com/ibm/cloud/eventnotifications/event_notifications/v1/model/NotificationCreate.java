@@ -12,8 +12,10 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -87,6 +89,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   protected String ibmenhuaweibody;
   @SerializedName("ibmensafaribody")
   protected String ibmensafaribody;
+  @SerializedName("attachments")
+  protected List<EmailAttachment> attachments;
 
   public NotificationCreate() {
     super(new TypeToken<Object>() { });
@@ -127,6 +131,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     private String ibmenfirefoxheaders;
     private String ibmenhuaweibody;
     private String ibmensafaribody;
+    private List<EmailAttachment> attachments;
     private Map<String, Object> dynamicProperties;
 
     /**
@@ -166,6 +171,7 @@ public class NotificationCreate extends DynamicModel<Object> {
       this.ibmenfirefoxheaders = notificationCreate.ibmenfirefoxheaders;
       this.ibmenhuaweibody = notificationCreate.ibmenhuaweibody;
       this.ibmensafaribody = notificationCreate.ibmensafaribody;
+      this.attachments = notificationCreate.attachments;
       this.dynamicProperties = notificationCreate.getProperties();
     }
 
@@ -203,6 +209,22 @@ public class NotificationCreate extends DynamicModel<Object> {
      */
     public NotificationCreate build() {
       return new NotificationCreate(this);
+    }
+
+    /**
+     * Adds an attachments to attachments.
+     *
+     * @param attachments the new attachments
+     * @return the NotificationCreate builder
+     */
+    public Builder addAttachments(EmailAttachment attachments) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(attachments,
+        "attachments cannot be null");
+      if (this.attachments == null) {
+        this.attachments = new ArrayList<EmailAttachment>();
+      }
+      this.attachments.add(attachments);
+      return this;
     }
 
     /**
@@ -547,6 +569,18 @@ public class NotificationCreate extends DynamicModel<Object> {
     }
 
     /**
+     * Set the attachments.
+     * Existing attachments will be replaced.
+     *
+     * @param attachments the attachments
+     * @return the NotificationCreate builder
+     */
+    public Builder attachments(List<EmailAttachment> attachments) {
+      this.attachments = attachments;
+      return this;
+    }
+
+    /**
      * Add an arbitrary property.
      *
      * @param name the name of the property to add
@@ -610,6 +644,7 @@ public class NotificationCreate extends DynamicModel<Object> {
     ibmenfirefoxheaders = builder.ibmenfirefoxheaders;
     ibmenhuaweibody = builder.ibmenhuaweibody;
     ibmensafaribody = builder.ibmensafaribody;
+    attachments = builder.attachments;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -1241,5 +1276,25 @@ public class NotificationCreate extends DynamicModel<Object> {
    */
   public void setIbmensafaribody(final String ibmensafaribody) {
     this.ibmensafaribody = ibmensafaribody;
+  }
+
+  /**
+   * Gets the attachments.
+   *
+   * Email attachments to be sent with the notification.
+   *
+   * @return the attachments
+   */
+  public List<EmailAttachment> getAttachments() {
+    return this.attachments;
+  }
+
+  /**
+   * Sets the attachments.
+   *
+   * @param attachments the new attachments
+   */
+  public void setAttachments(final List<EmailAttachment> attachments) {
+    this.attachments = attachments;
   }
 }

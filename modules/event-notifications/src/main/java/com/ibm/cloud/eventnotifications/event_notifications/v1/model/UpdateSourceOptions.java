@@ -24,6 +24,7 @@ public class UpdateSourceOptions extends GenericModel {
   protected String name;
   protected String description;
   protected Boolean enabled;
+  protected Boolean storeNotifications;
 
   /**
    * Builder.
@@ -34,6 +35,7 @@ public class UpdateSourceOptions extends GenericModel {
     private String name;
     private String description;
     private Boolean enabled;
+    private Boolean storeNotifications;
 
     /**
      * Instantiates a new Builder from an existing UpdateSourceOptions instance.
@@ -46,6 +48,7 @@ public class UpdateSourceOptions extends GenericModel {
       this.name = updateSourceOptions.name;
       this.description = updateSourceOptions.description;
       this.enabled = updateSourceOptions.enabled;
+      this.storeNotifications = updateSourceOptions.storeNotifications;
     }
 
     /**
@@ -128,6 +131,17 @@ public class UpdateSourceOptions extends GenericModel {
       this.enabled = enabled;
       return this;
     }
+
+    /**
+     * Set the storeNotifications.
+     *
+     * @param storeNotifications the storeNotifications
+     * @return the UpdateSourceOptions builder
+     */
+    public Builder storeNotifications(Boolean storeNotifications) {
+      this.storeNotifications = storeNotifications;
+      return this;
+    }
   }
 
   protected UpdateSourceOptions() { }
@@ -142,6 +156,7 @@ public class UpdateSourceOptions extends GenericModel {
     name = builder.name;
     description = builder.description;
     enabled = builder.enabled;
+    storeNotifications = builder.storeNotifications;
   }
 
   /**
@@ -206,6 +221,17 @@ public class UpdateSourceOptions extends GenericModel {
    */
   public Boolean enabled() {
     return enabled;
+  }
+
+  /**
+   * Gets the storeNotifications.
+   *
+   * enable to view the payload of incoming events for troubleshooting.
+   *
+   * @return the storeNotifications
+   */
+  public Boolean storeNotifications() {
+    return storeNotifications;
   }
 }
 

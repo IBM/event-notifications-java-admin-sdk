@@ -25,6 +25,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  * - SubscriptionCreateAttributesEmailAttributes
  * - SubscriptionCreateAttributesCustomSMSAttributes
  * - SubscriptionCreateAttributesCustomEmailAttributes
+ * - SubscriptionCreateAttributesCustomEmailSandboxAttributes
  * - SubscriptionCreateAttributesWebhookAttributes
  * - SubscriptionCreateAttributesFCMAttributes
  * - SubscriptionCreateAttributesSlackAttributes

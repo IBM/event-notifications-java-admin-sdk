@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import com.ibm.cloud.eventnotifications.event_notifications.v1.model.EmailAttachment;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.NotificationCreate;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -32,6 +33,17 @@ public class NotificationCreateTest {
 
   @Test
   public void testNotificationCreate() throws Throwable {
+    EmailAttachment emailAttachmentModel = new EmailAttachment.Builder()
+      .content("VGhpcyBpcyBhIHRlc3QgZG9jdW1lbnQK")
+      .filename("test.txt")
+      .contentType("text/plain")
+      .disposition("attachment")
+      .build();
+    assertEquals(emailAttachmentModel.content(), "VGhpcyBpcyBhIHRlc3QgZG9jdW1lbnQK");
+    assertEquals(emailAttachmentModel.filename(), "test.txt");
+    assertEquals(emailAttachmentModel.contentType(), "text/plain");
+    assertEquals(emailAttachmentModel.disposition(), "attachment");
+
     NotificationCreate notificationCreateModel = new NotificationCreate.Builder()
       .specversion("1.0")
       .time(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
@@ -64,6 +76,7 @@ public class NotificationCreateTest {
       .ibmenfirefoxheaders("{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}")
       .ibmenhuaweibody("testString")
       .ibmensafaribody("testString")
+      .attachments(java.util.Arrays.asList(emailAttachmentModel))
       .add("foo", "testString")
       .build();
     assertEquals(notificationCreateModel.getSpecversion(), "1.0");
@@ -97,6 +110,7 @@ public class NotificationCreateTest {
     assertEquals(notificationCreateModel.getIbmenfirefoxheaders(), "{\"TTL\":3600,\"Topic\":\"test\",\"Urgency\":\"high\"}");
     assertEquals(notificationCreateModel.getIbmenhuaweibody(), "testString");
     assertEquals(notificationCreateModel.getIbmensafaribody(), "testString");
+    assertEquals(notificationCreateModel.getAttachments(), java.util.Arrays.asList(emailAttachmentModel));
     assertEquals(notificationCreateModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(notificationCreateModel);

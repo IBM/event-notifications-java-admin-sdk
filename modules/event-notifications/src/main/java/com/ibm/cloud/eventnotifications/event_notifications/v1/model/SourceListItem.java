@@ -27,6 +27,8 @@ public class SourceListItem extends GenericModel {
   protected String description;
   protected String type;
   protected Boolean enabled;
+  @SerializedName("store_notifications")
+  protected Boolean storeNotifications;
   @SerializedName("updated_at")
   protected Date updatedAt;
   @SerializedName("topic_count")
@@ -87,6 +89,17 @@ public class SourceListItem extends GenericModel {
    */
   public Boolean isEnabled() {
     return enabled;
+  }
+
+  /**
+   * Gets the storeNotifications.
+   *
+   * view the payload of incoming events for troubleshooting.
+   *
+   * @return the storeNotifications
+   */
+  public Boolean isStoreNotifications() {
+    return storeNotifications;
   }
 
   /**
