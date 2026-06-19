@@ -1,7 +1,7 @@
 [![Build Status](https://app.travis-ci.com/IBM/event-notifications-java-admin-sdk.svg?branch=main)](https://travis-ci.com/IBM/event-notifications-java-admin-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# Java server SDK for IBM Cloud Event Notifications service Version 0.24.0
+# Java server SDK for IBM Cloud Event Notifications service Version 0.24.1
 
 Java client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
@@ -27,7 +27,7 @@ The IBM Cloud Event Notifications Service Java SDK allows developers to programm
 
 | Service Name                                                                     | Artifact Coordinates                     |
 | -------------------------------------------------------------------------------- |------------------------------------------|
-| [Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.24.0 |
+| [Event Notifications Service](https://cloud.ibm.com/apidocs/event-notifications) | com.ibm.cloud:event-notifications:0.24.1 |
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ The IBM Cloud Event Notifications Service Java SDK allows developers to programm
 
 ## Installation
 
-The current version of this SDK is: 0.24.0
+The current version of this SDK is: 0.24.1
 
 Each service's artifact coordinates are listed in the table above.
 
@@ -57,14 +57,14 @@ To use the Event Notifications Java SDK, define a dependency that contains the a
 <dependency>
     <groupId>com.ibm.cloud</groupId>
     <artifactId>event-notifications</artifactId>
-    <version>0.24.0</version>
+    <version>0.24.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```gradle
-compile 'com.ibm.cloud:event-notifications:0.24.0'
+compile 'com.ibm.cloud:event-notifications:0.24.1'
 ```
 
 ## Using the SDK
@@ -169,8 +169,10 @@ SDK Methods to consume
   - [Delete SMTP Configuration](#delete-smtp-user)
   - [Verify SMTP](#verify-smtp)
 - [Metrics](#Metrics)
-  - [Get Metrics](#get-metrics)
-  - [Get Bounce Metrics](#get-bounce-metrics)
+  - [Get Metrics With Destination Type](#get-metrics)
+  - [Get Metrics With SMTP Config ID](#get-metrics)
+  - [Get Bounce Metrics With Destination Type](#get-bounce-metrics)
+  - [Get Bounce Metrics With SMTP Config ID](#get-bounce-metrics)
 - [Send Notifications](#send-notifications)
 
 ## Source
@@ -1452,8 +1454,8 @@ System.out.println(response);
 
 ```java
 DeleteSmtpConfigurationOptions deleteSmtpConfigurationOptionsModel = new DeleteSmtpConfigurationOptions.Builder()
-        .instanceId(instanceId)
-        .id(smtpConfigID)
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
         .build();
 
 Response<Void> response = eventNotificationsService.deleteSmtpConfiguration(deleteSmtpConfigurationOptionsModel).execute();
@@ -1464,8 +1466,8 @@ System.out.println(response);
 
 ```java
 UpdateVerifySmtpOptions updateVerifySmtpOptions = new UpdateVerifySmtpOptions.Builder()
-        .instanceId(instanceId)
-        .id(smtpConfigID)
+        .instanceId(<instanceId>)
+        .id(<smtpConfigID>)
         .type("dkim,spf,en_authorization")
         .build();
 
@@ -1475,11 +1477,11 @@ SMTPVerificationUpdateResponse updateVerifySmtpResponse = response.getResult();
 
 ## Metrics
 
-### Get Metrics
+### Get Metrics With Destination Type
 
 ```java
 GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
-        .instanceId(instanceId)
+        .instanceId(<instanceId>)
         .destinationType("smtp_custom")
         .gte(<gte-timestamp>)
         .lte(<lte-timestamp>)
@@ -1496,15 +1498,54 @@ Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOpti
 Metrics responseObj = response.getResult();
 ```
 
-### Get Bounce Metrics
+### Get Metrics With SMTP Config ID
+
+```java
+GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+        .instanceId(<instanceId>)
+        .smtpConfigId(<smtpConfigID>)
+        .gte(<gte-timestamp>)
+        .lte(<lte-timestamp>)
+        .subscriptionId(<subscription-id>)
+        .emailTo(<email-to>)
+        .sourceId(<source-id>)
+        .notificationId(<notification-id>)
+        .subject(<subject>)
+        .build();
+
+        // Invoke getMetrics() with a valid options model and verify the result
+Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOptionsModel).execute();
+Metrics responseObj = response.getResult();
+```
+
+### Get Bounce Metrics With Destination Type
 
 ```java
 GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
-        .instanceId(instanceId)
+        .instanceId(<instanceId>)
         .destinationType("smtp_custom")
         .gte(<gte-timestamp>)
         .lte(<lte-timestamp>)
         .destinationId(<destination-id>)
+        .subscriptionId(<subscription-id>)
+        .emailTo(<email-to>)
+        .sourceId(<source-id>)
+        .notificationId(<notification-id>)
+        .subject(<subject>)
+        .build();
+
+Response<BounceMetrics> response = eventNotificationsService.getBounceMetrics(getBounceMetricsOptionsModel).execute();
+BounceMetrics responseObj = response.getResult();
+```
+
+### Get Bounce Metrics With SMTP Config ID
+
+```java
+GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
+        .instanceId(<instanceId>)
+        .smtpConfigId(<smtpConfigID>)
+        .gte(<gte-timestamp>)
+        .lte(<lte-timestamp>)
         .subscriptionId(<subscription-id>)
         .emailTo(<email-to>)
         .sourceId(<source-id>)

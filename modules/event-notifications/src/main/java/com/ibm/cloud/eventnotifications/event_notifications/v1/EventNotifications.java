@@ -194,9 +194,14 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("destination_type", String.valueOf(getMetricsOptions.destinationType()));
     builder.query("gte", String.valueOf(getMetricsOptions.gte()));
     builder.query("lte", String.valueOf(getMetricsOptions.lte()));
+    if (getMetricsOptions.smtpConfigId() != null) {
+      builder.query("smtp_config_id", String.valueOf(getMetricsOptions.smtpConfigId()));
+    }
+    if (getMetricsOptions.destinationType() != null) {
+      builder.query("destination_type", String.valueOf(getMetricsOptions.destinationType()));
+    }
     if (getMetricsOptions.destinationId() != null) {
       builder.query("destination_id", String.valueOf(getMetricsOptions.destinationId()));
     }
@@ -239,9 +244,14 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("destination_type", String.valueOf(getBounceMetricsOptions.destinationType()));
     builder.query("gte", String.valueOf(getBounceMetricsOptions.gte()));
     builder.query("lte", String.valueOf(getBounceMetricsOptions.lte()));
+    if (getBounceMetricsOptions.smtpConfigId() != null) {
+      builder.query("smtp_config_id", String.valueOf(getBounceMetricsOptions.smtpConfigId()));
+    }
+    if (getBounceMetricsOptions.destinationType() != null) {
+      builder.query("destination_type", String.valueOf(getBounceMetricsOptions.destinationType()));
+    }
     if (getBounceMetricsOptions.destinationId() != null) {
       builder.query("destination_id", String.valueOf(getBounceMetricsOptions.destinationId()));
     }
