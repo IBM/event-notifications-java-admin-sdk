@@ -2681,9 +2681,34 @@ public class EventNotificationsExamples {
       // begin-metrics
       GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
                 .instanceId(instanceId)
+                .gte("2026-06-01T17:18:43Z")
+                .lte("2026-06-02T11:55:22Z")
+                .smtpConfigId(smtpConfigID)
+                .subscriptionId(subscriptionId6)
+                .emailTo("mobileb@us.ibm.com")
+                .sourceId(sourceId)
+                .notificationId(notificationID)
+                .subject("Metric Test")
+                .build();
+
+        // Invoke getMetrics() with a valid options model and verify the result
+      Response<Metrics> response = eventNotificationsService.getMetrics(getMetricsOptionsModel).execute();
+
+      Metrics responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-metrics
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+
+    try {
+      // begin-metrics
+      GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+                .instanceId(instanceId)
                 .destinationType("smtp_custom")
-                .gte("2024-08-01T17:18:43Z")
-                .lte("2024-08-02T11:55:22Z")
+                .gte("2026-06-01T17:18:43Z")
+                .lte("2026-06-02T11:55:22Z")
                 .destinationId(destinationId16)
                 .subscriptionId(subscriptionId6)
                 .emailTo("mobileb@us.ibm.com")
@@ -2708,9 +2733,33 @@ public class EventNotificationsExamples {
       GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
               .instanceId(instanceId)
               .destinationType("smtp_custom")
-              .gte("2025-12-08T17:18:43Z")
-              .lte("2025-12-09T11:55:22Z")
+              .gte("2026-06-08T17:18:43Z")
+              .lte("2026-06-09T11:55:22Z")
               .destinationId(destinationId16)
+              .subscriptionId(subscriptionId6)
+              .emailTo("mobileb@us.ibm.com")
+              .notificationId(notificationID)
+              .sourceId(sourceId)
+              .subject("Bounce Metrics")
+              .build();
+
+      // Invoke getMetrics() with a valid options model and verify the result
+      Response<BounceMetrics> response = eventNotificationsService.getBounceMetrics(getBounceMetricsOptionsModel).execute();
+
+      BounceMetrics responseObj = response.getResult();
+      System.out.println(responseObj);
+      // end-bounce-metrics
+    } catch (ServiceResponseException e) {
+      logger.error(String.format("Service returned status code %s: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()), e);
+    }
+    try {
+      // begin-bounce-metrics
+      GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
+              .instanceId(instanceId)
+              .gte("2026-06-08T17:18:43Z")
+              .lte("2026-06-09T11:55:22Z")
+              .smtpConfigId(smtpConfigID)
               .subscriptionId(subscriptionId6)
               .emailTo("mobileb@us.ibm.com")
               .notificationId(notificationID)

@@ -20,7 +20,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class GetMetricsOptions extends GenericModel {
 
   /**
-   * Destination type. Allowed values are [smtp_custom].
+   * Destination type for which metrics are requested. Supported value: smtp_custom. Required when querying metrics for
+   * custom email destinations.
    */
   public interface DestinationType {
     /** smtp_custom. */
@@ -28,9 +29,10 @@ public class GetMetricsOptions extends GenericModel {
   }
 
   protected String instanceId;
-  protected String destinationType;
   protected String gte;
   protected String lte;
+  protected String smtpConfigId;
+  protected String destinationType;
   protected String destinationId;
   protected String subscriptionId;
   protected String sourceId;
@@ -43,9 +45,10 @@ public class GetMetricsOptions extends GenericModel {
    */
   public static class Builder {
     private String instanceId;
-    private String destinationType;
     private String gte;
     private String lte;
+    private String smtpConfigId;
+    private String destinationType;
     private String destinationId;
     private String subscriptionId;
     private String sourceId;
@@ -60,9 +63,10 @@ public class GetMetricsOptions extends GenericModel {
      */
     private Builder(GetMetricsOptions getMetricsOptions) {
       this.instanceId = getMetricsOptions.instanceId;
-      this.destinationType = getMetricsOptions.destinationType;
       this.gte = getMetricsOptions.gte;
       this.lte = getMetricsOptions.lte;
+      this.smtpConfigId = getMetricsOptions.smtpConfigId;
+      this.destinationType = getMetricsOptions.destinationType;
       this.destinationId = getMetricsOptions.destinationId;
       this.subscriptionId = getMetricsOptions.subscriptionId;
       this.sourceId = getMetricsOptions.sourceId;
@@ -81,13 +85,11 @@ public class GetMetricsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param instanceId the instanceId
-     * @param destinationType the destinationType
      * @param gte the gte
      * @param lte the lte
      */
-    public Builder(String instanceId, String destinationType, String gte, String lte) {
+    public Builder(String instanceId, String gte, String lte) {
       this.instanceId = instanceId;
-      this.destinationType = destinationType;
       this.gte = gte;
       this.lte = lte;
     }
@@ -113,17 +115,6 @@ public class GetMetricsOptions extends GenericModel {
     }
 
     /**
-     * Set the destinationType.
-     *
-     * @param destinationType the destinationType
-     * @return the GetMetricsOptions builder
-     */
-    public Builder destinationType(String destinationType) {
-      this.destinationType = destinationType;
-      return this;
-    }
-
-    /**
      * Set the gte.
      *
      * @param gte the gte
@@ -142,6 +133,28 @@ public class GetMetricsOptions extends GenericModel {
      */
     public Builder lte(String lte) {
       this.lte = lte;
+      return this;
+    }
+
+    /**
+     * Set the smtpConfigId.
+     *
+     * @param smtpConfigId the smtpConfigId
+     * @return the GetMetricsOptions builder
+     */
+    public Builder smtpConfigId(String smtpConfigId) {
+      this.smtpConfigId = smtpConfigId;
+      return this;
+    }
+
+    /**
+     * Set the destinationType.
+     *
+     * @param destinationType the destinationType
+     * @return the GetMetricsOptions builder
+     */
+    public Builder destinationType(String destinationType) {
+      this.destinationType = destinationType;
       return this;
     }
 
@@ -217,16 +230,15 @@ public class GetMetricsOptions extends GenericModel {
   protected GetMetricsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.destinationType,
-      "destinationType cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.gte,
       "gte cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.lte,
       "lte cannot be null");
     instanceId = builder.instanceId;
-    destinationType = builder.destinationType;
     gte = builder.gte;
     lte = builder.lte;
+    smtpConfigId = builder.smtpConfigId;
+    destinationType = builder.destinationType;
     destinationId = builder.destinationId;
     subscriptionId = builder.subscriptionId;
     sourceId = builder.sourceId;
@@ -256,17 +268,6 @@ public class GetMetricsOptions extends GenericModel {
   }
 
   /**
-   * Gets the destinationType.
-   *
-   * Destination type. Allowed values are [smtp_custom].
-   *
-   * @return the destinationType
-   */
-  public String destinationType() {
-    return destinationType;
-  }
-
-  /**
    * Gets the gte.
    *
    * GTE (greater than equal), start timestamp in UTC.
@@ -286,6 +287,29 @@ public class GetMetricsOptions extends GenericModel {
    */
   public String lte() {
     return lte;
+  }
+
+  /**
+   * Gets the smtpConfigId.
+   *
+   * SMTP configuration ID. Required when querying metrics for SMTP interface destinations.
+   *
+   * @return the smtpConfigId
+   */
+  public String smtpConfigId() {
+    return smtpConfigId;
+  }
+
+  /**
+   * Gets the destinationType.
+   *
+   * Destination type for which metrics are requested. Supported value: smtp_custom. Required when querying metrics for
+   * custom email destinations.
+   *
+   * @return the destinationType
+   */
+  public String destinationType() {
+    return destinationType;
   }
 
   /**

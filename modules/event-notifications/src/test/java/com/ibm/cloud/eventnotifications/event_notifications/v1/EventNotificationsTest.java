@@ -277,9 +277,10 @@ public class EventNotificationsTest {
     // Construct an instance of the GetMetricsOptions model
     GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
       .instanceId("testString")
-      .destinationType("smtp_custom")
       .gte("testString")
       .lte("testString")
+      .smtpConfigId("testString")
+      .destinationType("smtp_custom")
       .destinationId("testString")
       .subscriptionId("testString")
       .sourceId("testString")
@@ -304,9 +305,10 @@ public class EventNotificationsTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("destination_type"), "smtp_custom");
     assertEquals(query.get("gte"), "testString");
     assertEquals(query.get("lte"), "testString");
+    assertEquals(query.get("smtp_config_id"), "testString");
+    assertEquals(query.get("destination_type"), "smtp_custom");
     assertEquals(query.get("destination_id"), "testString");
     assertEquals(query.get("subscription_id"), "testString");
     assertEquals(query.get("source_id"), "testString");
@@ -346,9 +348,10 @@ public class EventNotificationsTest {
     // Construct an instance of the GetBounceMetricsOptions model
     GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
       .instanceId("testString")
-      .destinationType("smtp_custom")
       .gte("testString")
       .lte("testString")
+      .smtpConfigId("testString")
+      .destinationType("smtp_custom")
       .destinationId("testString")
       .subscriptionId("testString")
       .sourceId("testString")
@@ -375,9 +378,10 @@ public class EventNotificationsTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("destination_type"), "smtp_custom");
     assertEquals(query.get("gte"), "testString");
     assertEquals(query.get("lte"), "testString");
+    assertEquals(query.get("smtp_config_id"), "testString");
+    assertEquals(query.get("destination_type"), "smtp_custom");
     assertEquals(query.get("destination_id"), "testString");
     assertEquals(query.get("subscription_id"), "testString");
     assertEquals(query.get("source_id"), "testString");

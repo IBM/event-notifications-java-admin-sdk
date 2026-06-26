@@ -33,9 +33,10 @@ public class GetMetricsOptionsTest {
   public void testGetMetricsOptions() throws Throwable {
     GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
       .instanceId("testString")
-      .destinationType("smtp_custom")
       .gte("testString")
       .lte("testString")
+      .smtpConfigId("testString")
+      .destinationType("smtp_custom")
       .destinationId("testString")
       .subscriptionId("testString")
       .sourceId("testString")
@@ -44,9 +45,10 @@ public class GetMetricsOptionsTest {
       .subject("testString")
       .build();
     assertEquals(getMetricsOptionsModel.instanceId(), "testString");
-    assertEquals(getMetricsOptionsModel.destinationType(), "smtp_custom");
     assertEquals(getMetricsOptionsModel.gte(), "testString");
     assertEquals(getMetricsOptionsModel.lte(), "testString");
+    assertEquals(getMetricsOptionsModel.smtpConfigId(), "testString");
+    assertEquals(getMetricsOptionsModel.destinationType(), "smtp_custom");
     assertEquals(getMetricsOptionsModel.destinationId(), "testString");
     assertEquals(getMetricsOptionsModel.subscriptionId(), "testString");
     assertEquals(getMetricsOptionsModel.sourceId(), "testString");

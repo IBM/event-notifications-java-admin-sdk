@@ -4446,10 +4446,10 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2LTestMetrics(){
+  public void test2LTestMetricsWithDestinationType(){
 
     try{
-      Instant instant = Instant.now();
+      Instant instant = Instant.now().minus(Duration.ofMinutes(5));
       String d1 = instant.toString();
 
       GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
@@ -4462,7 +4462,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       .emailTo("mobileb@us.ibm.com")
       .sourceId(sourceId)
       .notificationId(notificationID)
-      .subject("Metric Test")
+      .subject("Metric Test With destination type")
       .build();
 
     // Invoke getMetrics() with a valid options model and verify the result
@@ -4479,10 +4479,42 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
   }
 
-  @Test
-  public void test2MTestBounceMetrics(){
+@Test
+  public void test2MTestMetricsWithSmtpConfigID(){
     try{
       Instant instant = Instant.now();
+      String d1 = instant.toString();
+
+      GetMetricsOptions getMetricsOptionsModel = new GetMetricsOptions.Builder()
+              .instanceId(instanceId)
+              .smtpConfigId(smtpConfigID)
+              .gte(instant.minus(Duration.ofDays(1)).toString())
+              .lte(d1)
+              .subscriptionId(subscriptionId16)
+              .emailTo("mobileb@us.ibm.com")
+              .sourceId(sourceId)
+              .notificationId(notificationID)
+              .subject("Metric Test with smtp config id")
+              .build();
+
+      // Invoke getMetrics() with a valid options model and verify the result
+      Response<Metrics> response = service.getMetrics(getMetricsOptionsModel).execute();
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      Metrics responseObj = response.getResult();
+      assertNotNull(responseObj);
+    }
+    catch(ServiceResponseException e){
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+
+  }
+
+  @Test
+  public void test2NTestBounceMetricsWithDestinationType(){
+    try{
+      Instant instant = Instant.now().minus(Duration.ofMinutes(5));
       String d1 = instant.toString();
 
       GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
@@ -4495,7 +4527,38 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .emailTo("mobileb@us.ibm.com")
               .notificationId(notificationID)
               .sourceId(sourceId)
-              .subject("Bounce Metrics")
+              .subject("Bounce Metrics with destination type")
+              .build();
+
+      // Invoke getBounceMetrics() with a valid options model and verify the result
+      Response<BounceMetrics> response = service.getBounceMetrics(getBounceMetricsOptionsModel).execute();
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+      BounceMetrics responseObj = response.getResult();
+      assertNotNull(responseObj);
+    }
+    catch(ServiceResponseException e){
+      fail(String.format("Service returned status code %d: %s%nError details: %s",
+              e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+@Test
+  public void test2OTestBounceMetricsWithSMTPConfigID(){
+    try{
+      Instant instant = Instant.now();
+      String d1 = instant.toString();
+
+      GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
+              .instanceId(instanceId)
+              .smtpConfigId(smtpConfigID)
+              .gte(instant.minus(Duration.ofDays(1)).toString())
+              .lte(d1)
+              .subscriptionId(subscriptionId16)
+              .emailTo("mobileb@us.ibm.com")
+              .notificationId(notificationID)
+              .sourceId(sourceId)
+              .subject("Bounce Metrics with smtp config id")
               .build();
 
       // Invoke getBounceMetrics() with a valid options model and verify the result
@@ -4512,7 +4575,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2NTestListPredefinedTemplates(){
+  public void test2PTestListPredefinedTemplates(){
 
     try{
       ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
@@ -4536,7 +4599,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2OTestGetPredefinedTemplate(){
+  public void test2QTestGetPredefinedTemplate(){
 
     try{
       GetPreDefinedTemplateOptions getPreDefinedTemplateOptionsModel = new GetPreDefinedTemplateOptions.Builder()
@@ -4558,7 +4621,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2PDeleteSubscription() throws Exception {
+  public void test2RDeleteSubscription() throws Exception {
     try {
 
       List<String> subscriptions = new ArrayList<>();
@@ -4615,7 +4678,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2QDeleteTopic() throws Exception {
+  public void test2SDeleteTopic() throws Exception {
     try {
 
       List<String> topics = new ArrayList<>();
@@ -4654,7 +4717,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2RDeleteDestination() throws Exception {
+  public void test2TDeleteDestination() throws Exception {
     try {
       List<String> destinations = new ArrayList<>();
       destinations.add(destinationId);
@@ -4708,7 +4771,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2SDeleteSource() throws Exception {
+  public void test2UDeleteSource() throws Exception {
     try {
       DeleteSourceOptions deleteSourceOptions = new DeleteSourceOptions.Builder()
               .instanceId(instanceId)
@@ -4738,7 +4801,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2TCreateIntegration() throws Exception {
+  public void test2VCreateIntegration() throws Exception {
     try {
       IntegrationCreateMetadata metadata = new IntegrationCreateMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -4766,7 +4829,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2UListIntegrations() throws Exception {
+  public void test2WListIntegrations() throws Exception {
     try {
       int limit = 1;
       int offset = 0;
@@ -4793,7 +4856,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2VGetIntegration() throws Exception {
+  public void test2XGetIntegration() throws Exception {
     try {
       GetIntegrationOptions integrationsOptions = new GetIntegrationOptions.Builder()
               .instanceId(instanceId)
@@ -4813,7 +4876,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2WUpdateIntegration() throws Exception {
+  public void test2YUpdateIntegration() throws Exception {
     try {
       IntegrationMetadata metadata = new IntegrationMetadata.Builder()
               .endpoint(cosEndPoint)
@@ -4841,7 +4904,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
   }
 
   @Test
-  public void test2XDeleteTemplate() throws Exception {
+  public void test2ZDeleteTemplate() throws Exception {
     try {
      List<String> templates = new ArrayList<>();
      templates.add(templateInvitationID);
@@ -4872,7 +4935,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2YDeleteSMTPUser() throws Exception {
+  public void test3ADeleteSMTPUser() throws Exception {
     try {
       List<String> users = new ArrayList<>();
       users.add(smtpUserID);
@@ -4895,7 +4958,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     }
   }
   @Test
-  public void test2ZDeleteSMTPConfiguration() throws Exception {
+  public void test3BDeleteSMTPConfiguration() throws Exception {
     try {
       List<String> smtpConfigIDs = new ArrayList<>();
       smtpConfigIDs.add(smtpConfigID);

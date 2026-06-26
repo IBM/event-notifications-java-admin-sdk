@@ -33,9 +33,10 @@ public class GetBounceMetricsOptionsTest {
   public void testGetBounceMetricsOptions() throws Throwable {
     GetBounceMetricsOptions getBounceMetricsOptionsModel = new GetBounceMetricsOptions.Builder()
       .instanceId("testString")
-      .destinationType("smtp_custom")
       .gte("testString")
       .lte("testString")
+      .smtpConfigId("testString")
+      .destinationType("smtp_custom")
       .destinationId("testString")
       .subscriptionId("testString")
       .sourceId("testString")
@@ -46,9 +47,10 @@ public class GetBounceMetricsOptionsTest {
       .offset(Long.valueOf("0"))
       .build();
     assertEquals(getBounceMetricsOptionsModel.instanceId(), "testString");
-    assertEquals(getBounceMetricsOptionsModel.destinationType(), "smtp_custom");
     assertEquals(getBounceMetricsOptionsModel.gte(), "testString");
     assertEquals(getBounceMetricsOptionsModel.lte(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.smtpConfigId(), "testString");
+    assertEquals(getBounceMetricsOptionsModel.destinationType(), "smtp_custom");
     assertEquals(getBounceMetricsOptionsModel.destinationId(), "testString");
     assertEquals(getBounceMetricsOptionsModel.subscriptionId(), "testString");
     assertEquals(getBounceMetricsOptionsModel.sourceId(), "testString");
