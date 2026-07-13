@@ -40,6 +40,7 @@ public class SMTPCreateResponseTest {
     assertNull(smtpCreateResponseModel.getName());
     assertNull(smtpCreateResponseModel.getDescription());
     assertNull(smtpCreateResponseModel.getDomain());
+    assertNull(smtpCreateResponseModel.getAdminEmails());
     assertNull(smtpCreateResponseModel.getConfig());
     assertNull(smtpCreateResponseModel.getCreatedAt());
   }

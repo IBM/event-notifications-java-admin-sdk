@@ -230,6 +230,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
               .description("This source is used for Acme Bank")
               .enabled(true)
               .storeNotifications(true)
+              .source("crn:v1:bluemix:public:is::a/a3335c51-9ee3-4a28-b1f7-69065709ba67:::")
               .build();
 
       // Invoke operation
@@ -4011,12 +4012,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       String name = "SMTP Configuration";
       String description = "description for SMTP Configuration";
       String domain = "mailx.event-notifications.test.cloud.ibm.com";
+      String adminEmail = "admin1@example.com";
 
       CreateSmtpConfigurationOptions createSMTPConfigurationOptions = new CreateSmtpConfigurationOptions.Builder()
               .instanceId(instanceId)
               .domain(domain)
               .name(name)
               .description(description)
+              .addAdminEmails("admin1@example.com")
               .build();
 
       // Invoke operation
@@ -4029,6 +4032,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertEquals(smtpCreateResponse.getName(), name);
       assertEquals(smtpCreateResponse.getDescription(), description);
       assertEquals(smtpCreateResponse.getDomain(), domain);
+      assertEquals(smtpCreateResponse.getAdminEmails(), Arrays.asList(adminEmail));
       smtpConfigID = smtpCreateResponse.getId();
       // end-create-smtp-configuration
     } catch (ServiceResponseException e) {
@@ -4246,12 +4250,14 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       // begin-update-smtp-configuration
       String name = "SMTP Configuration update";
       String description = "description for SMTP Configuration update";
+      String adminEmail ="admin1@example.com";
 
       UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateSmtpConfigurationOptions.Builder()
               .instanceId(instanceId)
               .id(smtpConfigID)
               .name(name)
               .description(description)
+              .addAdminEmails("admin1@example.com")
               .build();
 
       Response<SMTPConfiguration> response = service.updateSmtpConfiguration(updateSmtpConfigurationOptionsModel).execute();
@@ -4260,6 +4266,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       assertNotNull(responseObj);
       assertEquals(responseObj.getName(), name);
       assertEquals(responseObj.getDescription(), description);
+      assertEquals(responseObj.getAdminEmails(), Arrays.asList(adminEmail));
+
 
       // end-update-smtp-configuration
     } catch (ServiceResponseException e) {

@@ -12,6 +12,9 @@
  */
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -23,6 +26,7 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
   protected String id;
   protected String name;
   protected String description;
+  protected List<String> adminEmails;
 
   /**
    * Builder.
@@ -32,6 +36,7 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
     private String id;
     private String name;
     private String description;
+    private List<String> adminEmails;
 
     /**
      * Instantiates a new Builder from an existing UpdateSmtpConfigurationOptions instance.
@@ -43,6 +48,7 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
       this.id = updateSmtpConfigurationOptions.id;
       this.name = updateSmtpConfigurationOptions.name;
       this.description = updateSmtpConfigurationOptions.description;
+      this.adminEmails = updateSmtpConfigurationOptions.adminEmails;
     }
 
     /**
@@ -69,6 +75,22 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
      */
     public UpdateSmtpConfigurationOptions build() {
       return new UpdateSmtpConfigurationOptions(this);
+    }
+
+    /**
+     * Adds an adminEmails to adminEmails.
+     *
+     * @param adminEmails the new adminEmails
+     * @return the UpdateSmtpConfigurationOptions builder
+     */
+    public Builder addAdminEmails(String adminEmails) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(adminEmails,
+        "adminEmails cannot be null");
+      if (this.adminEmails == null) {
+        this.adminEmails = new ArrayList<String>();
+      }
+      this.adminEmails.add(adminEmails);
+      return this;
     }
 
     /**
@@ -114,6 +136,18 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the adminEmails.
+     * Existing adminEmails will be replaced.
+     *
+     * @param adminEmails the adminEmails
+     * @return the UpdateSmtpConfigurationOptions builder
+     */
+    public Builder adminEmails(List<String> adminEmails) {
+      this.adminEmails = adminEmails;
+      return this;
+    }
   }
 
   protected UpdateSmtpConfigurationOptions() { }
@@ -127,6 +161,7 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
     id = builder.id;
     name = builder.name;
     description = builder.description;
+    adminEmails = builder.adminEmails;
   }
 
   /**
@@ -180,6 +215,17 @@ public class UpdateSmtpConfigurationOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the adminEmails.
+   *
+   * Admin email addresses.
+   *
+   * @return the adminEmails
+   */
+  public List<String> adminEmails() {
+    return adminEmails;
   }
 }
 

@@ -1,7 +1,7 @@
 [![Build Status](https://app.travis-ci.com/IBM/event-notifications-java-admin-sdk.svg?branch=main)](https://travis-ci.com/IBM/event-notifications-java-admin-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-# Java server SDK for IBM Cloud Event Notifications service Version 0.24.1
+# Java server SDK for IBM Cloud Event Notifications service Version 0.24.2
 
 Java client library to interact with various [IBM Cloud Event Notifications Service](https://cloud.ibm.com/apidocs?category=event-notifications).
 
@@ -186,6 +186,7 @@ CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
               .description(<source-description>)
               .enabled(true)
               .storeNotifications(true)
+              .source(<source>)
               .build();
 
 Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
@@ -1304,6 +1305,7 @@ CreateSmtpConfigurationOptions createSMTPConfigurationOptions = new CreateSmtpCo
         .domain(<smtpDomain>)
         .name(<smtpName>)
         .description(<smtpDescription>)
+        .adminEmails(<adminEmails>)
         .build();
 
 Response<SMTPCreateResponse> response = eventNotificationsService.createSmtpConfiguration(createSMTPConfigurationOptions).execute();
@@ -1417,6 +1419,7 @@ UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateS
         .id(<smtpConfigID>)
         .name(<smtpName>)
         .description(<smtpDescription>)
+        .adminEmails(<adminEmails>)
         .build();
 
 Response<SMTPConfiguration> response = eventNotificationsService.updateSmtpConfiguration(updateSmtpConfigurationOptionsModel).execute();
