@@ -36,11 +36,13 @@ public class UpdateSmtpConfigurationOptionsTest {
       .id("testString")
       .name("testString")
       .description("testString")
+      .adminEmails(java.util.Arrays.asList("user@host.org"))
       .build();
     assertEquals(updateSmtpConfigurationOptionsModel.instanceId(), "testString");
     assertEquals(updateSmtpConfigurationOptionsModel.id(), "testString");
     assertEquals(updateSmtpConfigurationOptionsModel.name(), "testString");
     assertEquals(updateSmtpConfigurationOptionsModel.description(), "testString");
+    assertEquals(updateSmtpConfigurationOptionsModel.adminEmails(), java.util.Arrays.asList("user@host.org"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

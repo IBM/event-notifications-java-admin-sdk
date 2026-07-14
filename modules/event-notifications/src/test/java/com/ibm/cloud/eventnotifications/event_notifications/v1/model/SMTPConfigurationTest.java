@@ -40,6 +40,7 @@ public class SMTPConfigurationTest {
     assertNull(smtpConfigurationModel.getName());
     assertNull(smtpConfigurationModel.getDescription());
     assertNull(smtpConfigurationModel.getDomain());
+    assertNull(smtpConfigurationModel.getAdminEmails());
     assertNull(smtpConfigurationModel.getConfig());
     assertNull(smtpConfigurationModel.getUpdatedAt());
   }

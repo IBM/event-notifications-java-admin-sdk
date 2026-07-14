@@ -13,6 +13,7 @@
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -26,6 +27,8 @@ public class SMTPCreateResponse extends GenericModel {
   protected String name;
   protected String description;
   protected String domain;
+  @SerializedName("admin_emails")
+  protected List<String> adminEmails;
   protected SMTPConfig config;
   @SerializedName("created_at")
   protected Date createdAt;
@@ -74,6 +77,17 @@ public class SMTPCreateResponse extends GenericModel {
    */
   public String getDomain() {
     return domain;
+  }
+
+  /**
+   * Gets the adminEmails.
+   *
+   * Admin email addresses.
+   *
+   * @return the adminEmails
+   */
+  public List<String> getAdminEmails() {
+    return adminEmails;
   }
 
   /**

@@ -337,6 +337,9 @@ public class EventNotifications extends BaseService {
     if (createSourcesOptions.storeNotifications() != null) {
       contentJson.addProperty("store_notifications", createSourcesOptions.storeNotifications());
     }
+    if (createSourcesOptions.source() != null) {
+      contentJson.addProperty("source", createSourcesOptions.source());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<SourceResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SourceResponse>() { }.getType());
@@ -1542,6 +1545,9 @@ public class EventNotifications extends BaseService {
     if (createSmtpConfigurationOptions.description() != null) {
       contentJson.addProperty("description", createSmtpConfigurationOptions.description());
     }
+    if (createSmtpConfigurationOptions.adminEmails() != null) {
+      contentJson.add("admin_emails", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(createSmtpConfigurationOptions.adminEmails()));
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<SMTPCreateResponse> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SMTPCreateResponse>() { }.getType());
@@ -1699,6 +1705,9 @@ public class EventNotifications extends BaseService {
     }
     if (updateSmtpConfigurationOptions.description() != null) {
       contentJson.addProperty("description", updateSmtpConfigurationOptions.description());
+    }
+    if (updateSmtpConfigurationOptions.adminEmails() != null) {
+      contentJson.add("admin_emails", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(updateSmtpConfigurationOptions.adminEmails()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<SMTPConfiguration> responseConverter =

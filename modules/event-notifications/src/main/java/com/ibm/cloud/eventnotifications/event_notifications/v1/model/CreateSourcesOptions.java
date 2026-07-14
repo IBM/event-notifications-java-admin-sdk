@@ -24,6 +24,7 @@ public class CreateSourcesOptions extends GenericModel {
   protected String description;
   protected Boolean enabled;
   protected Boolean storeNotifications;
+  protected String source;
 
   /**
    * Builder.
@@ -34,6 +35,7 @@ public class CreateSourcesOptions extends GenericModel {
     private String description;
     private Boolean enabled;
     private Boolean storeNotifications;
+    private String source;
 
     /**
      * Instantiates a new Builder from an existing CreateSourcesOptions instance.
@@ -46,6 +48,7 @@ public class CreateSourcesOptions extends GenericModel {
       this.description = createSourcesOptions.description;
       this.enabled = createSourcesOptions.enabled;
       this.storeNotifications = createSourcesOptions.storeNotifications;
+      this.source = createSourcesOptions.source;
     }
 
     /**
@@ -130,6 +133,17 @@ public class CreateSourcesOptions extends GenericModel {
       this.storeNotifications = storeNotifications;
       return this;
     }
+
+    /**
+     * Set the source.
+     *
+     * @param source the source
+     * @return the CreateSourcesOptions builder
+     */
+    public Builder source(String source) {
+      this.source = source;
+      return this;
+    }
   }
 
   protected CreateSourcesOptions() { }
@@ -146,6 +160,7 @@ public class CreateSourcesOptions extends GenericModel {
     description = builder.description;
     enabled = builder.enabled;
     storeNotifications = builder.storeNotifications;
+    source = builder.source;
   }
 
   /**
@@ -210,6 +225,17 @@ public class CreateSourcesOptions extends GenericModel {
    */
   public Boolean storeNotifications() {
     return storeNotifications;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * The source CRN. This field is applicable only for VPC sources.
+   *
+   * @return the source
+   */
+  public String source() {
+    return source;
   }
 }
 

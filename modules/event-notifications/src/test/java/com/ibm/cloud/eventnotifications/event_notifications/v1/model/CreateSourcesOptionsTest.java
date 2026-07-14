@@ -37,12 +37,14 @@ public class CreateSourcesOptionsTest {
       .description("testString")
       .enabled(true)
       .storeNotifications(false)
+      .source("testString")
       .build();
     assertEquals(createSourcesOptionsModel.instanceId(), "testString");
     assertEquals(createSourcesOptionsModel.name(), "testString");
     assertEquals(createSourcesOptionsModel.description(), "testString");
     assertEquals(createSourcesOptionsModel.enabled(), Boolean.valueOf(true));
     assertEquals(createSourcesOptionsModel.storeNotifications(), Boolean.valueOf(false));
+    assertEquals(createSourcesOptionsModel.source(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -16,8 +16,7 @@ package com.ibm.cloud.eventnotifications.event_notifications.v1;
 import com.ibm.cloud.eventnotifications.event_notifications.v1.model.*;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
-import com.ibm.cloud.sdk.core.util.CredentialUtils;
-import java.io.File;
+import com.ibm.cloud.sdk.core.util.CredentialUtils;import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -203,6 +202,7 @@ public class EventNotificationsExamples {
               .description("This source is used for Acme Bank")
               .enabled(false)
               .storeNotifications(false)
+              .source("test-source")
               .build();
 
       Response<SourceResponse> response = eventNotificationsService.createSources(createSourcesOptions).execute();
@@ -2783,12 +2783,14 @@ public class EventNotificationsExamples {
       String name = "SMTP Configuration";
       String description = "description for SMTP Configuration";
       String domain = "mailx.event-notifications.test.cloud.ibm.com";
+      String adminEmail = "admin1@example.com";
 
       CreateSmtpConfigurationOptions createSMTPConfigurationOptions = new CreateSmtpConfigurationOptions.Builder()
               .instanceId(instanceId)
               .domain(domain)
               .name(name)
               .description(description)
+              .addAdminEmails(adminEmail)
               .build();
 
       Response<SMTPCreateResponse> response = eventNotificationsService.createSmtpConfiguration(createSMTPConfigurationOptions).execute();
@@ -2965,12 +2967,14 @@ public class EventNotificationsExamples {
       // begin-update_smtp_configuration
       String name = "SMTP Configuration update";
       String description = "description for SMTP Configuration update";
+      String adminEmail= "admin1@example.com";
 
       UpdateSmtpConfigurationOptions updateSmtpConfigurationOptionsModel = new UpdateSmtpConfigurationOptions.Builder()
               .instanceId(instanceId)
               .id(smtpConfigID)
               .name(name)
               .description(description)
+              .addAdminEmails(adminEmail)
               .build();
 
       Response<SMTPConfiguration> response = eventNotificationsService.updateSmtpConfiguration(updateSmtpConfigurationOptionsModel).execute();
