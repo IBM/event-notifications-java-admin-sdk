@@ -61,13 +61,9 @@ public class ListPreDefinedTemplatesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param instanceId the instanceId
-     * @param source the source
-     * @param type the type
      */
-    public Builder(String instanceId, String source, String type) {
+    public Builder(String instanceId) {
       this.instanceId = instanceId;
-      this.source = source;
-      this.type = type;
     }
 
     /**
@@ -151,10 +147,6 @@ public class ListPreDefinedTemplatesOptions extends GenericModel {
   protected ListPreDefinedTemplatesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.instanceId,
       "instanceId cannot be empty");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.source,
-      "source cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.type,
-      "type cannot be null");
     instanceId = builder.instanceId;
     source = builder.source;
     type = builder.type;

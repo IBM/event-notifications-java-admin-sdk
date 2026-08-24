@@ -13,14 +13,16 @@
 
 package com.ibm.cloud.eventnotifications.event_notifications.v1.model;
 
-import com.ibm.cloud.eventnotifications.event_notifications.v1.model.ListPreDefinedTemplatesOptions;
-import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
-import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
+
+import com.ibm.cloud.eventnotifications.event_notifications.v1.utils.TestUtilities;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 
 /**
  * Unit test class for the ListPreDefinedTemplatesOptions model.
@@ -33,15 +35,13 @@ public class ListPreDefinedTemplatesOptionsTest {
   public void testListPreDefinedTemplatesOptions() throws Throwable {
     ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
       .instanceId("testString")
-      .source("testString")
-      .type("testString")
       .limit(Long.valueOf("1"))
       .offset(Long.valueOf("0"))
       .search("testString")
       .build();
     assertEquals(listPreDefinedTemplatesOptionsModel.instanceId(), "testString");
-    assertEquals(listPreDefinedTemplatesOptionsModel.source(), "testString");
-    assertEquals(listPreDefinedTemplatesOptionsModel.type(), "testString");
+    assertNull(listPreDefinedTemplatesOptionsModel.source());
+    assertNull(listPreDefinedTemplatesOptionsModel.type());
     assertEquals(listPreDefinedTemplatesOptionsModel.limit(), Long.valueOf("1"));
     assertEquals(listPreDefinedTemplatesOptionsModel.offset(), Long.valueOf("0"));
     assertEquals(listPreDefinedTemplatesOptionsModel.search(), "testString");

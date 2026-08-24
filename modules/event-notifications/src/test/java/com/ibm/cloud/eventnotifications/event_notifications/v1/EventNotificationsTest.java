@@ -244,7 +244,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
-
 /**
  * Unit test class for the EventNotifications service.
  */
@@ -521,8 +520,8 @@ public class EventNotificationsTest {
     CreateSourcesOptions createSourcesOptionsModel = new CreateSourcesOptions.Builder()
       .instanceId("testString")
       .name("testString")
-      .description("testString")
       .enabled(true)
+      .description("testString")
       .storeNotifications(false)
       .build();
 
@@ -1608,8 +1607,6 @@ public class EventNotificationsTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("source"), "testString");
-    assertEquals(query.get("type"), "testString");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("0"));
     assertEquals(query.get("search"), "testString");
