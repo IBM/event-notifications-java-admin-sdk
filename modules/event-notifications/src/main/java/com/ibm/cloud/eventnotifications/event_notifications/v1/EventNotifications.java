@@ -330,9 +330,9 @@ public class EventNotifications extends BaseService {
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createSourcesOptions.name());
-    contentJson.addProperty("description", createSourcesOptions.description());
-    if (createSourcesOptions.enabled() != null) {
-      contentJson.addProperty("enabled", createSourcesOptions.enabled());
+    contentJson.addProperty("enabled", createSourcesOptions.enabled());
+    if (createSourcesOptions.description() != null) {
+      contentJson.addProperty("description", createSourcesOptions.description());
     }
     if (createSourcesOptions.storeNotifications() != null) {
       contentJson.addProperty("store_notifications", createSourcesOptions.storeNotifications());
@@ -787,8 +787,12 @@ public class EventNotifications extends BaseService {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("source", String.valueOf(listPreDefinedTemplatesOptions.source()));
-    builder.query("type", String.valueOf(listPreDefinedTemplatesOptions.type()));
+    if (listPreDefinedTemplatesOptions.source() != null) {
+      builder.query("source", String.valueOf(listPreDefinedTemplatesOptions.source()));
+    }
+    if (listPreDefinedTemplatesOptions.type() != null) {
+      builder.query("type", String.valueOf(listPreDefinedTemplatesOptions.type()));
+    }
     if (listPreDefinedTemplatesOptions.limit() != null) {
       builder.query("limit", String.valueOf(listPreDefinedTemplatesOptions.limit()));
     }
