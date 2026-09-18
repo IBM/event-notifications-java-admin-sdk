@@ -34,14 +34,14 @@ public class CreateSourcesOptionsTest {
     CreateSourcesOptions createSourcesOptionsModel = new CreateSourcesOptions.Builder()
       .instanceId("testString")
       .name("testString")
-      .description("testString")
       .enabled(true)
+      .description("testString")
       .storeNotifications(false)
       .build();
     assertEquals(createSourcesOptionsModel.instanceId(), "testString");
     assertEquals(createSourcesOptionsModel.name(), "testString");
-    assertEquals(createSourcesOptionsModel.description(), "testString");
     assertEquals(createSourcesOptionsModel.enabled(), Boolean.valueOf(true));
+    assertEquals(createSourcesOptionsModel.description(), "testString");
     assertEquals(createSourcesOptionsModel.storeNotifications(), Boolean.valueOf(false));
   }
 

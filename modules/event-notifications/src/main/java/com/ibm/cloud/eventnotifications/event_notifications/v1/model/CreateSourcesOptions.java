@@ -21,8 +21,8 @@ public class CreateSourcesOptions extends GenericModel {
 
   protected String instanceId;
   protected String name;
-  protected String description;
   protected Boolean enabled;
+  protected String description;
   protected Boolean storeNotifications;
 
   /**
@@ -31,8 +31,8 @@ public class CreateSourcesOptions extends GenericModel {
   public static class Builder {
     private String instanceId;
     private String name;
-    private String description;
     private Boolean enabled;
+    private String description;
     private Boolean storeNotifications;
 
     /**
@@ -43,8 +43,8 @@ public class CreateSourcesOptions extends GenericModel {
     private Builder(CreateSourcesOptions createSourcesOptions) {
       this.instanceId = createSourcesOptions.instanceId;
       this.name = createSourcesOptions.name;
-      this.description = createSourcesOptions.description;
       this.enabled = createSourcesOptions.enabled;
+      this.description = createSourcesOptions.description;
       this.storeNotifications = createSourcesOptions.storeNotifications;
     }
 
@@ -59,12 +59,12 @@ public class CreateSourcesOptions extends GenericModel {
      *
      * @param instanceId the instanceId
      * @param name the name
-     * @param description the description
+     * @param enabled the enabled
      */
-    public Builder(String instanceId, String name, String description) {
+    public Builder(String instanceId, String name, Boolean enabled) {
       this.instanceId = instanceId;
       this.name = name;
-      this.description = description;
+      this.enabled = enabled;
     }
 
     /**
@@ -99,17 +99,6 @@ public class CreateSourcesOptions extends GenericModel {
     }
 
     /**
-     * Set the description.
-     *
-     * @param description the description
-     * @return the CreateSourcesOptions builder
-     */
-    public Builder description(String description) {
-      this.description = description;
-      return this;
-    }
-
-    /**
      * Set the enabled.
      *
      * @param enabled the enabled
@@ -117,6 +106,17 @@ public class CreateSourcesOptions extends GenericModel {
      */
     public Builder enabled(Boolean enabled) {
       this.enabled = enabled;
+      return this;
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the CreateSourcesOptions builder
+     */
+    public Builder description(String description) {
+      this.description = description;
       return this;
     }
 
@@ -139,12 +139,12 @@ public class CreateSourcesOptions extends GenericModel {
       "instanceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
       "name cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.description,
-      "description cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.enabled,
+      "enabled cannot be null");
     instanceId = builder.instanceId;
     name = builder.name;
-    description = builder.description;
     enabled = builder.enabled;
+    description = builder.description;
     storeNotifications = builder.storeNotifications;
   }
 
@@ -180,17 +180,6 @@ public class CreateSourcesOptions extends GenericModel {
   }
 
   /**
-   * Gets the description.
-   *
-   * Description of the source.
-   *
-   * @return the description
-   */
-  public String description() {
-    return description;
-  }
-
-  /**
    * Gets the enabled.
    *
    * Whether the source is enabled or not.
@@ -199,6 +188,17 @@ public class CreateSourcesOptions extends GenericModel {
    */
   public Boolean enabled() {
     return enabled;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * Description of the source.
+   *
+   * @return the description
+   */
+  public String description() {
+    return description;
   }
 
   /**

@@ -750,8 +750,6 @@ Response<TemplateList> response = eventNotificationsService.listTemplates(listTe
 ```java
 ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
         .instanceId(<instanceId>)
-        .source(<source-type>)
-        .type(<destination-type>)
         .limit(<limit>)
         .offset(<offset>)
         .search(<search>)

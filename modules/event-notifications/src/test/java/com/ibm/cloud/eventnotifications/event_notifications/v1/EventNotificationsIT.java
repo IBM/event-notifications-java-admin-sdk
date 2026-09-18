@@ -227,8 +227,8 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
       CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
               .instanceId(instanceId)
               .name("Event Notification Create Source Acme")
-              .description("This source is used for Acme Bank")
               .enabled(true)
+              .description("This source is used for Acme Bank")
               .storeNotifications(true)
               .build();
 
@@ -4426,7 +4426,7 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
 
       Response<TestDestinationResponse> response = service.testDestination(testDestinationOptionsModel).execute();
       assertNotNull(response);
-      assertEquals(response.getStatusCode(), 202);
+      assertEquals(response.getStatusCode(), 200);
 
       String notificationId = response.getResult().getNotificationId();
 
@@ -4580,8 +4580,6 @@ public class EventNotificationsIT extends SdkIntegrationTestBase {
     try{
       ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
               .instanceId(instanceId)
-              .source("logs")
-              .type("slack.notification")
               .build();
 
       // Invoke getMetrics() with a valid options model and verify the result

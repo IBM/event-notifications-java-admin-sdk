@@ -860,7 +860,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmentemplates.
    *
-   * The template id Array of string.
+   * A stringified JSON array containing one or more valid template ids.
    *
    * @return the ibmentemplates
    */
@@ -880,7 +880,8 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenmailto.
    *
-   * The email id string.
+   * A stringified JSON array containing one or more valid email addresses.A maximum of 50 email addresses can be
+   * specified in a single API call.
    *
    * @return the ibmenmailto
    */
@@ -900,7 +901,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmenslackto.
    *
-   * The slack channel id/member id stringified array.
+   * A stringified JSON array containing one or more valid slack channel id/member id.
    *
    * @return the ibmenslackto
    */
@@ -940,7 +941,7 @@ public class NotificationCreate extends DynamicModel<Object> {
   /**
    * Gets the ibmensmsto.
    *
-   * The SMS number string.
+   * A stringified JSON array containing one or more valid SMS numbers.
    *
    * @return the ibmensmsto
    */

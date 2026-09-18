@@ -17,14 +17,17 @@ import com.ibm.cloud.eventnotifications.event_notifications.v1.model.*;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 //
 // This file provides an example of how to use the Event Notifications service.
@@ -200,8 +203,8 @@ public class EventNotificationsExamples {
       CreateSourcesOptions createSourcesOptions = new CreateSourcesOptions.Builder()
               .instanceId(instanceId)
               .name("Event Notification Create Source Acme")
-              .description("This source is used for Acme Bank")
               .enabled(false)
+              .description("This source is used for Acme Bank")
               .storeNotifications(false)
               .build();
 
@@ -3046,8 +3049,6 @@ public class EventNotificationsExamples {
       // begin-list_predefined_templates
       ListPreDefinedTemplatesOptions listPreDefinedTemplatesOptionsModel = new ListPreDefinedTemplatesOptions.Builder()
               .instanceId(instanceId)
-              .source("logs")
-              .type("slack.notification")
               .build();
 
       // Invoke getMetrics() with a valid options model and verify the result
